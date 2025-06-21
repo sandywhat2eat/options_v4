@@ -1689,3 +1689,52 @@ Portfolio Analysis Complete: 2/5 successful
 2025-06-21 20:01:09,884 - OptionsV4 - INFO - 
 Portfolio Analysis Complete: 2/5 successful
 2025-06-21 20:01:09,887 - OptionsV4 - INFO - Results saved to: /Users/jaykrish/Documents/digitalocean/cronjobs/options_v4/results/options_v4_analysis_20250621_200109.json
+2025-06-21 21:35:04,621 - OptionsV4 - INFO - Options V4 Analyzer initialized successfully
+2025-06-21 21:35:04,621 - OptionsV4 - INFO - Starting portfolio analysis...
+2025-06-21 21:35:05,277 - OptionsV4 - INFO - Analyzing 5 symbols: ['DIXON', 'MARICO', 'SUNPHARMA', 'CESC', 'GRANULES']
+2025-06-21 21:35:05,277 - OptionsV4 - INFO - 
+==================================================
+2025-06-21 21:35:05,277 - OptionsV4 - INFO - Analyzing DIXON
+2025-06-21 21:35:05,277 - OptionsV4 - INFO - ==================================================
+2025-06-21 21:35:05,481 - OptionsV4 - INFO - Found 80 liquid options for DIXON at spot $14047.00
+2025-06-21 21:35:06,843 - OptionsV4 - INFO - Market Direction: Bearish Weak (Confidence: 54.5%)
+2025-06-21 21:35:06,843 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 31.4%)
+2025-06-21 21:35:06,843 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Put', 'Bear Put Spread', 'Bear Call Spread', 'Cash-Secured Put']
+2025-06-21 21:35:06,846 - OptionsV4 - INFO - Generated 3 strategies, 2 passed filters
+2025-06-21 21:35:06,846 - OptionsV4 - INFO - ✅ DIXON analysis completed successfully
+2025-06-21 21:35:06,846 - OptionsV4 - INFO - 
+==================================================
+2025-06-21 21:35:06,846 - OptionsV4 - INFO - Analyzing MARICO
+2025-06-21 21:35:06,846 - OptionsV4 - INFO - ==================================================
+2025-06-21 21:35:07,082 - OptionsV4 - INFO - Found 18 liquid options for MARICO at spot $693.30
+2025-06-21 21:35:07,401 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 41.5%)
+2025-06-21 21:35:07,401 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 19.9%)
+2025-06-21 21:35:07,401 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-21 21:35:07,405 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-21 21:35:07,405 - OptionsV4 - INFO - ✅ MARICO analysis completed successfully
+2025-06-21 21:35:07,405 - OptionsV4 - INFO - 
+==================================================
+2025-06-21 21:35:07,405 - OptionsV4 - INFO - Analyzing SUNPHARMA
+2025-06-21 21:35:07,405 - OptionsV4 - INFO - ==================================================
+2025-06-21 21:35:07,637 - OptionsV4 - INFO - Found 72 liquid options for SUNPHARMA at spot $1665.10
+2025-06-21 21:35:08,059 - OptionsV4 - INFO - Market Direction: Neutral  (Confidence: 42.3%)
+2025-06-21 21:35:08,059 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 18.6%)
+2025-06-21 21:35:08,059 - OptionsV4 - INFO - Constructing 3 strategies: ['Iron Condor', 'Iron Butterfly', 'Butterfly Spread']
+2025-06-21 21:35:08,064 - OptionsV4 - WARNING - ⚠️ SUNPHARMA analysis failed: No strategies passed probability filtering
+2025-06-21 21:35:08,064 - OptionsV4 - INFO - 
+==================================================
+2025-06-21 21:35:08,064 - OptionsV4 - INFO - Analyzing CESC
+2025-06-21 21:35:08,064 - OptionsV4 - INFO - ==================================================
+2025-06-21 21:35:08,271 - OptionsV4 - INFO - Found 8 liquid options for CESC at spot $163.39
+2025-06-21 21:35:08,678 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 42.3%)
+2025-06-21 21:35:08,679 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 29.7%)
+2025-06-21 21:35:08,679 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-21 21:35:08,681 - OptionsV4 - WARNING - ⚠️ CESC analysis failed: No strategies passed probability filtering
+2025-06-21 21:35:08,681 - OptionsV4 - INFO - 
+==================================================
+2025-06-21 21:35:08,681 - OptionsV4 - INFO - Analyzing GRANULES
+2025-06-21 21:35:08,681 - OptionsV4 - INFO - ==================================================
+2025-06-21 21:35:08,805 - OptionsV4 - WARNING - ⚠️ GRANULES analysis failed: No liquid options data
+2025-06-21 21:35:08,805 - OptionsV4 - INFO - 
+Portfolio Analysis Complete: 2/5 successful
+2025-06-21 21:35:08,808 - OptionsV4 - INFO - Results saved to: /Users/jaykrish/Documents/digitalocean/cronjobs/options_v4/results/options_v4_analysis_20250621_213508.json

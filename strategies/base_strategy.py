@@ -13,10 +13,11 @@ logger = logging.getLogger(__name__)
 class BaseStrategy(ABC):
     """Abstract base class for all options strategies"""
     
-    def __init__(self, symbol: str, spot_price: float, options_df: pd.DataFrame):
+    def __init__(self, symbol: str, spot_price: float, options_df: pd.DataFrame, lot_size: int = 1):
         self.symbol = symbol
         self.spot_price = spot_price
         self.options_df = options_df
+        self.lot_size = lot_size  # Number of contracts per lot
         self.legs = []
         self.strategy_data = {}
     

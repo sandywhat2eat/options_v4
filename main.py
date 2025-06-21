@@ -286,7 +286,11 @@ class OptionsAnalyzer:
                 try:
                     if strategy_name in self.strategy_classes:
                         strategy_class = self.strategy_classes[strategy_name]
-                        strategy_instance = strategy_class(symbol, spot_price, options_df)
+                        
+                        # Get lot size for this symbol
+                        lot_size = self.data_manager.get_lot_size(symbol)
+                        
+                        strategy_instance = strategy_class(symbol, spot_price, options_df, lot_size)
                         
                         # Construct strategy with appropriate parameters
                         result = self._construct_single_strategy(strategy_instance, strategy_name, market_analysis)

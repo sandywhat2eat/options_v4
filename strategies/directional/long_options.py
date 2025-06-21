@@ -59,17 +59,28 @@ class LongCall(BaseStrategy):
             risk_metrics = self.get_risk_metrics()
             greeks = self.get_greeks_summary()
             
+            # Apply lot size multiplier for real position sizing
+            premium_per_contract = call_data.get('last_price', 0)
+            total_cost = premium_per_contract * self.lot_size
+            total_max_loss = total_cost
+            
             return {
                 'success': True,
                 'strategy_name': self.get_strategy_name(),
                 'legs': self.legs,
                 'max_profit': float('inf'),  # Unlimited upside
-                'max_loss': call_data.get('last_price', 0),
-                'breakeven': strike + call_data.get('last_price', 0),
+                'max_loss': total_max_loss,  # Total cost with lot size
+                'breakeven': strike + premium_per_contract,  # Breakeven per share
                 'delta_exposure': greeks['delta'],
                 'theta_decay': greeks['theta'],
                 'iv_exposure': greeks['vega'],
-                'optimal_outcome': f"Stock moves above {strike + call_data.get('last_price', 0):.2f}"
+                'optimal_outcome': f"Stock moves above {strike + premium_per_contract:.2f}",
+                'position_details': {
+                    'lot_size': self.lot_size,
+                    'premium_per_contract': premium_per_contract,
+                    'total_cost': total_cost,
+                    'total_contracts': self.lot_size
+                }
             }
             
         except Exception as e:
@@ -137,19 +148,30 @@ class LongPut(BaseStrategy):
             
             # Calculate metrics
             greeks = self.get_greeks_summary()
-            premium = put_data.get('last_price', 0)
+            premium_per_contract = put_data.get('last_price', 0)
+            
+            # Apply lot size multiplier for real position sizing
+            total_cost = premium_per_contract * self.lot_size
+            max_profit_per_contract = strike - premium_per_contract
+            total_max_profit = max_profit_per_contract * self.lot_size
             
             return {
                 'success': True,
                 'strategy_name': self.get_strategy_name(),
                 'legs': self.legs,
-                'max_profit': strike - premium,  # Strike minus premium paid
-                'max_loss': premium,
-                'breakeven': strike - premium,
+                'max_profit': total_max_profit,  # Total profit with lot size
+                'max_loss': total_cost,  # Total cost with lot size
+                'breakeven': strike - premium_per_contract,  # Breakeven per share
                 'delta_exposure': greeks['delta'],
                 'theta_decay': greeks['theta'],
                 'iv_exposure': greeks['vega'],
-                'optimal_outcome': f"Stock moves below {strike - premium:.2f}"
+                'optimal_outcome': f"Stock moves below {strike - premium_per_contract:.2f}",
+                'position_details': {
+                    'lot_size': self.lot_size,
+                    'premium_per_contract': premium_per_contract,
+                    'total_cost': total_cost,
+                    'total_contracts': self.lot_size
+                }
             }
             
         except Exception as e:

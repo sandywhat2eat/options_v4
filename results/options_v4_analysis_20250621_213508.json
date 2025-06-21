@@ -1,0 +1,1222 @@
+{
+  "success": true,
+  "analysis_timestamp": "2025-06-21T21:35:08.805862",
+  "portfolio_summary": {
+    "total_symbols_analyzed": 5,
+    "successful_analyses": 2,
+    "success_rate": 0.4,
+    "market_sentiment_distribution": {
+      "bullish": 1,
+      "bearish": 1,
+      "neutral": 0
+    },
+    "total_strategies_recommended": 3,
+    "strategy_distribution": {
+      "Long Put": 1,
+      "Cash-Secured Put": 1,
+      "Long Call": 1
+    },
+    "most_recommended_strategies": [
+      [
+        "Long Put",
+        1
+      ],
+      [
+        "Cash-Secured Put",
+        1
+      ],
+      [
+        "Long Call",
+        1
+      ]
+    ]
+  },
+  "symbol_results": {
+    "DIXON": {
+      "success": true,
+      "symbol": "DIXON",
+      "spot_price": 14047.0,
+      "market_analysis": {
+        "direction": "Bearish",
+        "sub_category": "Weak",
+        "confidence": 0.5450217406052762,
+        "final_score": -0.1450217406052762,
+        "components": {
+          "technical_score": -0.4541046277665996,
+          "options_score": 0.13891909129929872,
+          "price_action_score": -0.04800628581356363
+        },
+        "timeframe": {
+          "timeframe": "mid",
+          "duration": "10-30 days",
+          "confidence": 0.436017392484221,
+          "description": "Moderate confidence or elevated volatility suggests medium-term view",
+          "factors": {
+            "market_confidence": 0.5450217406052762,
+            "volatility_width": 0.061117144501884525,
+            "iv_environment": "ELEVATED"
+          }
+        },
+        "strength": 0.1450217406052762,
+        "details": {
+          "technical": {
+            "trend": "Downtrend",
+            "ema_alignment": "Insufficient Data",
+            "rsi": 38.6317907444668,
+            "macd_signal": "Bearish",
+            "volume_ratio": 1.6305220559690445,
+            "volume_trend": "Increasing",
+            "bb_width": 0.061117144501884525,
+            "atr": 338.64285714285717,
+            "price_position": "Near Support",
+            "pattern": "Downtrend Pattern"
+          },
+          "options": {
+            "volume_pcr": 0.6669057814301256,
+            "oi_pcr": 0.48632215036707516,
+            "pcr_interpretation": "Bullish",
+            "atm_call_volume": 5818400.0,
+            "atm_put_volume": 5415070.0,
+            "atm_bias": "Bullish",
+            "iv_skew": -10.771697293863594,
+            "iv_skew_type": "call_skew",
+            "oi_max_pain": 14500.0,
+            "oi_support": 14000.0,
+            "oi_resistance": 15000.0,
+            "flow_intensity": "HIGH",
+            "unusual_activity": [
+              13750.0,
+              13750.0,
+              14000.0,
+              14000.0,
+              14250.0
+            ],
+            "smart_money_direction": "Neutral",
+            "iv_environment": "ELEVATED"
+          },
+          "price_action": {
+            "spot_vs_max_pain": -3.1241379310344826,
+            "price_position": "Below Max Pain",
+            "expected_move_1sd": 140.47,
+            "expected_move_2sd": 280.94,
+            "upper_expected": 14187.47,
+            "lower_expected": 13906.53,
+            "market_breadth": "Bullish - Call activity at higher strikes",
+            "options_momentum": "Bullish",
+            "key_levels": {
+              "resistance": [
+                16000.0,
+                16000.0,
+                15000.0
+              ],
+              "support": [
+                14000.0,
+                14000.0,
+                13000.0
+              ]
+            }
+          }
+        },
+        "iv_analysis": {
+          "atm_iv": 31.438799999999997,
+          "iv_skew": {
+            "skew_type": "normal",
+            "skew_strength": 2.4073809523809544,
+            "put_iv": 35.96578571428571,
+            "call_iv": 38.37316666666666,
+            "risk_reversal": 2.4073809523809544,
+            "butterfly": 5.730676190476192,
+            "market_sentiment": "Balanced",
+            "skew_steepness": "Moderate"
+          },
+          "term_structure": {
+            "structure": "Single expiry only",
+            "front_month_iv": 31.438799999999997,
+            "calendar_spread_opportunity": "Unknown",
+            "volatility_expectation": "Stable"
+          },
+          "iv_environment": "NORMAL",
+          "percentile_analysis": {
+            "percentile": 52,
+            "method": "sector_adjusted_estimation",
+            "lookback_days": 0,
+            "iv_range": [
+              20,
+              45
+            ],
+            "current_rank": "Normal",
+            "confidence": "Low - No historical data"
+          },
+          "iv_relativity": {
+            "sector_relative": "Normal",
+            "percentile_in_sector": 52.877599999999994,
+            "market_relative": "In-line with market",
+            "iv_vs_market_pct": 12.281428571428561,
+            "sector_normal_range": [
+              25,
+              40
+            ],
+            "interpretation": "Fair value - focus on directional strategies"
+          },
+          "mean_reversion": {
+            "reversion_potential": "Low - IV near mean",
+            "direction": "Neutral",
+            "confidence": 0.3,
+            "expected_iv": 31.438799999999997,
+            "time_horizon": "10-30 days",
+            "strategy_implication": "Directional strategies preferred"
+          },
+          "call_put_iv_diff": 3.540647222222219,
+          "analysis_quality": "CURRENT_ONLY - Point-in-time analysis",
+          "recommendations": {
+            "preferred_strategies": [
+              "Bull/Bear Spreads",
+              "Iron Condor",
+              "Calendar Spreads"
+            ],
+            "avoid_strategies": [],
+            "reasoning": "Normal IV - Directional or neutral strategies",
+            "ranked_strategies": [
+              "Bull/Bear Spreads",
+              "Iron Condor",
+              "Calendar Spreads"
+            ]
+          }
+        },
+        "price_levels": {
+          "short_term": {
+            "support": 15000.0,
+            "resistance": 15000.0,
+            "strength": "strong/strong",
+            "timeframe": "1-5 days"
+          },
+          "mid_term": {
+            "support": 15000.0,
+            "resistance": 15000.0,
+            "strength": "strong/strong",
+            "timeframe": "10-30 days"
+          },
+          "expected_moves": {
+            "straddle_price": 728.704290179948,
+            "one_sd_move": 617.5460086270746,
+            "one_sd_pct": 4.396283965452229,
+            "two_sd_move": 1235.0920172541491,
+            "two_sd_pct": 8.792567930904458,
+            "daily_move": 233.41045170968397,
+            "daily_pct": 1.6616391522010676,
+            "upper_expected": 14664.546008627074,
+            "lower_expected": 13429.453991372926,
+            "upper_2sd": 15282.092017254148,
+            "lower_2sd": 12811.907982745852,
+            "method": "iv_based"
+          },
+          "max_pain": {
+            "max_pain": 14500.0,
+            "spot_vs_max_pain": -3.1241379310344826,
+            "bias": "Bearish - Spot below max pain",
+            "pin_risk": "Low",
+            "convergence_expected": "False"
+          },
+          "value_area": {
+            "poc": 14000.0,
+            "vah": 15000.0,
+            "val": 13000.0,
+            "va_type": "Wide",
+            "va_width_pct": 14.237915569160675,
+            "spot_in_va": true
+          },
+          "price_targets": {
+            "bullish": {
+              "expected_1sd": 14664.546008627074,
+              "expected_2sd": 15282.092017254148,
+              "resistance_1": 15000.0,
+              "resistance_2": 15000.0
+            },
+            "bearish": {
+              "expected_1sd": 13429.453991372926,
+              "expected_2sd": 12811.907982745852,
+              "support_1": 15000.0,
+              "support_2": 15000.0
+            },
+            "consensus": {
+              "bullish_target": 14986.659506470305,
+              "bearish_target": 13120.68098705939
+            }
+          },
+          "key_levels": [
+            {
+              "level": 13000.0,
+              "type": "support",
+              "source": "VAL",
+              "strength": "moderate"
+            },
+            {
+              "level": 14000.0,
+              "type": "support",
+              "source": "Volume",
+              "strength": "moderate"
+            },
+            {
+              "level": 14500.0,
+              "type": "support",
+              "source": "MaxPain",
+              "strength": "moderate"
+            },
+            {
+              "level": 14500.0,
+              "type": "resistance",
+              "source": "MaxPain",
+              "strength": "moderate"
+            },
+            {
+              "level": 15000.0,
+              "type": "resistance",
+              "source": "OI",
+              "strength": "strong"
+            },
+            {
+              "level": 15000.0,
+              "type": "resistance",
+              "source": "VAH",
+              "strength": "moderate"
+            }
+          ],
+          "spot_position": {
+            "description": "At/Near Support",
+            "bias": "Bullish",
+            "key_observations": [
+              "Testing support level",
+              "Near support at 14000.0 (Volume)"
+            ]
+          }
+        }
+      },
+      "price_levels": {
+        "short_term": {
+          "support": 15000.0,
+          "resistance": 15000.0,
+          "strength": "strong/strong",
+          "timeframe": "1-5 days"
+        },
+        "mid_term": {
+          "support": 15000.0,
+          "resistance": 15000.0,
+          "strength": "strong/strong",
+          "timeframe": "10-30 days"
+        },
+        "expected_moves": {
+          "straddle_price": 728.704290179948,
+          "one_sd_move": 617.5460086270746,
+          "one_sd_pct": 4.396283965452229,
+          "two_sd_move": 1235.0920172541491,
+          "two_sd_pct": 8.792567930904458,
+          "daily_move": 233.41045170968397,
+          "daily_pct": 1.6616391522010676,
+          "upper_expected": 14664.546008627074,
+          "lower_expected": 13429.453991372926,
+          "upper_2sd": 15282.092017254148,
+          "lower_2sd": 12811.907982745852,
+          "method": "iv_based"
+        },
+        "max_pain": {
+          "max_pain": 14500.0,
+          "spot_vs_max_pain": -3.1241379310344826,
+          "bias": "Bearish - Spot below max pain",
+          "pin_risk": "Low",
+          "convergence_expected": "False"
+        },
+        "value_area": {
+          "poc": 14000.0,
+          "vah": 15000.0,
+          "val": 13000.0,
+          "va_type": "Wide",
+          "va_width_pct": 14.237915569160675,
+          "spot_in_va": true
+        },
+        "price_targets": {
+          "bullish": {
+            "expected_1sd": 14664.546008627074,
+            "expected_2sd": 15282.092017254148,
+            "resistance_1": 15000.0,
+            "resistance_2": 15000.0
+          },
+          "bearish": {
+            "expected_1sd": 13429.453991372926,
+            "expected_2sd": 12811.907982745852,
+            "support_1": 15000.0,
+            "support_2": 15000.0
+          },
+          "consensus": {
+            "bullish_target": 14986.659506470305,
+            "bearish_target": 13120.68098705939
+          }
+        },
+        "key_levels": [
+          {
+            "level": 13000.0,
+            "type": "support",
+            "source": "VAL",
+            "strength": "moderate"
+          },
+          {
+            "level": 14000.0,
+            "type": "support",
+            "source": "Volume",
+            "strength": "moderate"
+          },
+          {
+            "level": 14500.0,
+            "type": "support",
+            "source": "MaxPain",
+            "strength": "moderate"
+          },
+          {
+            "level": 14500.0,
+            "type": "resistance",
+            "source": "MaxPain",
+            "strength": "moderate"
+          },
+          {
+            "level": 15000.0,
+            "type": "resistance",
+            "source": "OI",
+            "strength": "strong"
+          },
+          {
+            "level": 15000.0,
+            "type": "resistance",
+            "source": "VAH",
+            "strength": "moderate"
+          }
+        ],
+        "spot_position": {
+          "description": "At/Near Support",
+          "bias": "Bullish",
+          "key_observations": [
+            "Testing support level",
+            "Near support at 14000.0 (Volume)"
+          ]
+        }
+      },
+      "total_strategies_generated": 3,
+      "strategies_after_filtering": 2,
+      "top_strategies": [
+        {
+          "rank": 1,
+          "name": "Long Put",
+          "total_score": 0.7701638392484221,
+          "probability_profit": 0.661606,
+          "max_profit": 700400.0,
+          "max_loss": 24600.0,
+          "legs": [
+            {
+              "option_type": "PUT",
+              "position": "LONG",
+              "strike": 14500.0,
+              "premium": 492.0,
+              "delta": -0.77836,
+              "rationale": "Bearish directional play"
+            }
+          ],
+          "optimal_outcome": "Stock moves below 14008.00",
+          "component_scores": {
+            "probability": 0.661606,
+            "risk_reward": 1.0,
+            "direction": 0.7180086962421105,
+            "iv_fit": 0.7,
+            "liquidity": 0.8
+          },
+          "exit_conditions": {
+            "profit_targets": {
+              "primary": {
+                "target": 350200.0,
+                "target_pct": 50.0,
+                "action": "Close 50%",
+                "reasoning": "Capture gains before time decay accelerates"
+              },
+              "scaling": {
+                "level_1": {
+                  "profit": 175100.0,
+                  "action": "Close 25%"
+                },
+                "level_2": {
+                  "profit": 350200.0,
+                  "action": "Close 50%"
+                },
+                "level_3": {
+                  "profit": 525300.0,
+                  "action": "Close 75%"
+                }
+              },
+              "trailing": {
+                "activate_at": 350200.0,
+                "trail_by": 70040.0
+              }
+            },
+            "stop_losses": {
+              "primary": {
+                "loss_amount": 12300.0,
+                "loss_pct": 50.0,
+                "action": "Close entire position",
+                "type": "Percentage-based stop"
+              },
+              "technical": {
+                "breakeven_breach": "Monitor if price exceeds breakeven",
+                "support_resistance": "Exit if key levels broken",
+                "trend_reversal": "Exit on confirmed reversal"
+              },
+              "time_stop": {
+                "trigger": "Loss > 6150.0 with < 7 DTE",
+                "action": "Close to avoid gamma risk"
+              }
+            },
+            "time_exits": {
+              "primary_dte": 7,
+              "theta_decay_threshold": {
+                "dte": 7,
+                "action": "Close if not profitable",
+                "reasoning": "Theta decay accelerates"
+              },
+              "time_decay_levels": {
+                "25%_time_passed": "Evaluate position performance",
+                "50%_time_passed": "Consider closing if at profit",
+                "75%_time_passed": "Exit unless strong conviction"
+              }
+            },
+            "greek_triggers": {},
+            "adjustment_triggers": {
+              "defensive": {},
+              "offensive": {
+                "momentum": {
+                  "trigger": "Strong directional momentum",
+                  "actions": [
+                    "Add to position on pullback",
+                    "Roll to higher/lower strike",
+                    "Convert to spread to lock profits"
+                  ]
+                }
+              },
+              "rolling": {},
+              "morphing": {
+                "general": {
+                  "long_to_spread": "Convert long option to spread to reduce cost",
+                  "spread_to_condor": "Add opposite spread to create condor",
+                  "straddle_to_butterfly": "Add wings to straddle for protection"
+                }
+              },
+              "direction_change": {
+                "trigger": "Market direction reversed",
+                "action": "Close directional strategies, adjust neutral strategies"
+              }
+            },
+            "monitoring": {
+              "frequency": "Daily with alerts",
+              "critical_times": [
+                "Major market moves"
+              ],
+              "monitor_metrics": {
+                "price": "Spot price vs strikes/breakevens",
+                "pnl": "Current P&L vs targets",
+                "greeks": "Delta, Gamma, Theta changes",
+                "iv": "Implied volatility changes",
+                "liquidity": "Bid-ask spreads",
+                "news": "Company/market news"
+              },
+              "alerts": {
+                "price_alerts": [
+                  "Within 2% of breakeven",
+                  "At short strike",
+                  "Major support/resistance"
+                ],
+                "pnl_alerts": [
+                  "At 50% of profit target",
+                  "At 50% of stop loss",
+                  "Unusual P&L swings"
+                ],
+                "greek_alerts": [
+                  "Delta exceeds threshold",
+                  "Gamma doubles",
+                  "Vega risk increases"
+                ]
+              }
+            },
+            "specific_conditions": {}
+          }
+        },
+        {
+          "rank": 2,
+          "name": "Cash-Secured Put",
+          "total_score": 0.46743424759157126,
+          "probability_profit": 0.597101,
+          "max_profit": 400.6,
+          "max_loss": 13099.4,
+          "legs": [
+            {
+              "option_type": "PUT",
+              "strike": 13500.0,
+              "position": "SHORT",
+              "quantity": 1,
+              "premium": 400.6,
+              "delta": -0.32367,
+              "theta": -6.35458,
+              "gamma": 0.0002,
+              "vega": 16.94165,
+              "iv": 37.519
+            }
+          ],
+          "optimal_outcome": "Stock stays above 13500.0 at expiry",
+          "component_scores": {
+            "probability": 0.597101,
+            "risk_reward": 0.010193851117862906,
+            "direction": 0.5545021740605276,
+            "iv_fit": 0.7,
+            "liquidity": 0.8
+          },
+          "exit_conditions": {
+            "profit_targets": {
+              "primary": {
+                "target": 200.3,
+                "target_pct": 50.0,
+                "action": "Close entire position",
+                "reasoning": "Consistent income more important than max profit"
+              },
+              "scaling": {
+                "level_1": {
+                  "profit": 100.15,
+                  "action": "Close 25%"
+                },
+                "level_2": {
+                  "profit": 200.3,
+                  "action": "Close 50%"
+                },
+                "level_3": {
+                  "profit": 300.45000000000005,
+                  "action": "Close 75%"
+                }
+              },
+              "trailing": {
+                "activate_at": 200.3,
+                "trail_by": 40.06
+              }
+            },
+            "stop_losses": {
+              "primary": {
+                "loss_amount": 26198.8,
+                "loss_pct": 200.0,
+                "action": "Close entire position",
+                "type": "Percentage-based stop"
+              },
+              "technical": {
+                "breakeven_breach": "Monitor if price exceeds breakeven",
+                "support_resistance": "Exit if key levels broken",
+                "trend_reversal": "Exit on confirmed reversal"
+              },
+              "time_stop": {
+                "trigger": "Loss > 13099.4 with < 21 DTE",
+                "action": "Close to avoid gamma risk"
+              }
+            },
+            "time_exits": {
+              "primary_dte": 21,
+              "theta_decay_threshold": {
+                "dte": 21,
+                "action": "Close if not profitable",
+                "reasoning": "Theta decay accelerates"
+              },
+              "assignment_prevention": {
+                "dte": 7,
+                "condition": "If short option ITM",
+                "action": "Roll or close"
+              },
+              "time_decay_levels": {
+                "25%_time_passed": "Evaluate position performance",
+                "50%_time_passed": "Consider closing if at profit",
+                "75%_time_passed": "Exit unless strong conviction"
+              }
+            },
+            "greek_triggers": {},
+            "adjustment_triggers": {
+              "defensive": {},
+              "offensive": {},
+              "rolling": {
+                "assignment_prevention": {
+                  "trigger": "Short option ITM near expiry",
+                  "actions": [
+                    "Roll out to next expiry",
+                    "Roll out and down/up",
+                    "Accept assignment if desired"
+                  ]
+                }
+              },
+              "morphing": {
+                "general": {
+                  "long_to_spread": "Convert long option to spread to reduce cost",
+                  "spread_to_condor": "Add opposite spread to create condor",
+                  "straddle_to_butterfly": "Add wings to straddle for protection"
+                }
+              },
+              "direction_change": {
+                "trigger": "Market direction reversed",
+                "action": "Close directional strategies, adjust neutral strategies"
+              }
+            },
+            "monitoring": {
+              "frequency": "Daily",
+              "critical_times": [
+                "Market open",
+                "Market close"
+              ],
+              "monitor_metrics": {
+                "price": "Spot price vs strikes/breakevens",
+                "pnl": "Current P&L vs targets",
+                "greeks": "Delta, Gamma, Theta changes",
+                "iv": "Implied volatility changes",
+                "liquidity": "Bid-ask spreads",
+                "news": "Company/market news"
+              },
+              "alerts": {
+                "price_alerts": [
+                  "Within 2% of breakeven",
+                  "At short strike",
+                  "Major support/resistance"
+                ],
+                "pnl_alerts": [
+                  "At 50% of profit target",
+                  "At 50% of stop loss",
+                  "Unusual P&L swings"
+                ],
+                "greek_alerts": [
+                  "Delta exceeds threshold",
+                  "Gamma doubles",
+                  "Vega risk increases"
+                ]
+              }
+            },
+            "specific_conditions": {}
+          }
+        }
+      ]
+    },
+    "MARICO": {
+      "success": true,
+      "symbol": "MARICO",
+      "spot_price": 693.3,
+      "market_analysis": {
+        "direction": "Bullish",
+        "sub_category": "Weak",
+        "confidence": 0.414904550967769,
+        "final_score": 0.214904550967769,
+        "components": {
+          "technical_score": 0.09722578633093863,
+          "options_score": 0.4718597075614939,
+          "price_action_score": 0.04345335515548281
+        },
+        "timeframe": {
+          "timeframe": "long",
+          "duration": "30+ days",
+          "confidence": 0.3319236407742152,
+          "description": "Low confidence or normal conditions suggest longer-term perspective",
+          "factors": {
+            "market_confidence": 0.414904550967769,
+            "volatility_width": 0.30131046496367814,
+            "iv_environment": "NORMAL"
+          }
+        },
+        "strength": 0.214904550967769,
+        "details": {
+          "technical": {
+            "trend": "Uptrend",
+            "ema_alignment": "Insufficient Data",
+            "rsi": 35.74192877697955,
+            "macd_signal": "Bearish",
+            "volume_ratio": 1.3492748835256951,
+            "volume_trend": "Decreasing",
+            "bb_width": 0.30131046496367814,
+            "atr": 10.271427699497767,
+            "price_position": "Near Resistance",
+            "pattern": "Consolidation"
+          },
+          "options": {
+            "volume_pcr": 0.550761338113165,
+            "oi_pcr": 0.753434874861681,
+            "pcr_interpretation": "Bullish",
+            "atm_call_volume": 6933600.0,
+            "atm_put_volume": 3882480.0,
+            "atm_bias": "Bullish",
+            "iv_skew": -98.03588281257927,
+            "iv_skew_type": "call_skew",
+            "oi_max_pain": 700.0,
+            "oi_support": 700.0,
+            "oi_resistance": 700.0,
+            "flow_intensity": "HIGH",
+            "unusual_activity": [
+              690.0,
+              690.0,
+              700.0,
+              680.0,
+              700.0
+            ],
+            "smart_money_direction": "Bullish",
+            "iv_environment": "NORMAL"
+          },
+          "price_action": {
+            "spot_vs_max_pain": -0.9571428571428637,
+            "price_position": "At Max Pain",
+            "expected_move_1sd": 6.933,
+            "expected_move_2sd": 13.866,
+            "upper_expected": 700.233,
+            "lower_expected": 686.367,
+            "market_breadth": "Neutral",
+            "options_momentum": "Bullish",
+            "key_levels": {
+              "resistance": [
+                710.0,
+                710.0,
+                700.0
+              ],
+              "support": [
+                700.0,
+                700.0,
+                690.0
+              ]
+            }
+          }
+        },
+        "iv_analysis": {
+          "atm_iv": 19.8964,
+          "iv_skew": {
+            "skew_type": "put_skew",
+            "skew_strength": 3.569916666666664,
+            "put_iv": 21.845416666666665,
+            "call_iv": 18.2755,
+            "risk_reversal": -3.569916666666664,
+            "butterfly": 0.1640583333333332,
+            "market_sentiment": "Fearful - Downside protection demand",
+            "skew_steepness": "Moderate"
+          },
+          "term_structure": {
+            "structure": "Single expiry only",
+            "front_month_iv": 19.8964,
+            "calendar_spread_opportunity": "Unknown",
+            "volatility_expectation": "Stable"
+          },
+          "iv_environment": "SUBDUED",
+          "percentile_analysis": {
+            "percentile": 24,
+            "method": "sector_adjusted_estimation",
+            "lookback_days": 0,
+            "iv_range": [
+              20,
+              45
+            ],
+            "current_rank": "Low",
+            "confidence": "Low - No historical data"
+          },
+          "iv_relativity": {
+            "sector_relative": "Very Low",
+            "percentile_in_sector": 10,
+            "market_relative": "Discount to market",
+            "iv_vs_market_pct": -28.941428571428574,
+            "sector_normal_range": [
+              25,
+              40
+            ],
+            "interpretation": "Attractive for volatility buying"
+          },
+          "mean_reversion": {
+            "reversion_potential": "Moderate - Some upward pressure",
+            "direction": "Up",
+            "confidence": 0.5,
+            "expected_iv": 21.488112,
+            "time_horizon": "10-30 days",
+            "strategy_implication": "Buy volatility - Long Straddle, Calendar Spread"
+          },
+          "call_put_iv_diff": -3.569916666666664,
+          "analysis_quality": "CURRENT_ONLY - Point-in-time analysis",
+          "recommendations": {
+            "preferred_strategies": [
+              "Bull/Bear Spreads",
+              "Iron Condor",
+              "Calendar Spreads"
+            ],
+            "avoid_strategies": [],
+            "reasoning": "Normal IV - Directional or neutral strategies",
+            "ranked_strategies": [
+              "Bull/Bear Spreads",
+              "Iron Condor",
+              "Calendar Spreads"
+            ]
+          }
+        },
+        "price_levels": {
+          "short_term": {
+            "support": 700.0,
+            "resistance": 690.0,
+            "strength": "strong/strong",
+            "timeframe": "1-5 days"
+          },
+          "mid_term": {
+            "support": 700.0,
+            "resistance": 690.0,
+            "strength": "strong/strong",
+            "timeframe": "10-30 days"
+          },
+          "expected_moves": {
+            "straddle_price": 23.278377483345253,
+            "one_sd_move": 19.727438545207843,
+            "one_sd_pct": 2.845440436349033,
+            "two_sd_move": 39.454877090415685,
+            "two_sd_pct": 5.690880872698066,
+            "daily_move": 7.456270913561399,
+            "daily_pct": 1.0754753950038078,
+            "upper_expected": 713.0274385452078,
+            "lower_expected": 673.5725614547921,
+            "upper_2sd": 732.7548770904157,
+            "lower_2sd": 653.8451229095842,
+            "method": "iv_based"
+          },
+          "max_pain": {
+            "max_pain": 700.0,
+            "spot_vs_max_pain": -0.9571428571428637,
+            "bias": "Neutral - Spot near max pain",
+            "pin_risk": "Low",
+            "convergence_expected": "False"
+          },
+          "value_area": {
+            "poc": 690.0,
+            "vah": 710.0,
+            "val": 690.0,
+            "va_type": "Narrow",
+            "va_width_pct": 2.8847540747151306,
+            "spot_in_va": true
+          },
+          "price_targets": {
+            "bullish": {
+              "expected_1sd": 713.0274385452078,
+              "expected_2sd": 732.7548770904157,
+              "resistance_1": 690.0,
+              "resistance_2": 690.0
+            },
+            "bearish": {
+              "expected_1sd": 673.5725614547921,
+              "expected_2sd": 653.8451229095842,
+              "support_1": 700.0,
+              "support_2": 700.0
+            },
+            "consensus": {
+              "bullish_target": 722.8911578178117,
+              "bearish_target": 663.7088421821882
+            }
+          },
+          "key_levels": [
+            {
+              "level": 690.0,
+              "type": "support",
+              "source": "VAL",
+              "strength": "moderate"
+            },
+            {
+              "level": 690.0,
+              "type": "resistance",
+              "source": "OI",
+              "strength": "strong"
+            },
+            {
+              "level": 700.0,
+              "type": "support",
+              "source": "OI",
+              "strength": "strong"
+            },
+            {
+              "level": 700.0,
+              "type": "support",
+              "source": "Volume",
+              "strength": "moderate"
+            },
+            {
+              "level": 700.0,
+              "type": "resistance",
+              "source": "MaxPain",
+              "strength": "moderate"
+            },
+            {
+              "level": 710.0,
+              "type": "resistance",
+              "source": "VAH",
+              "strength": "moderate"
+            }
+          ],
+          "spot_position": {
+            "description": "At/Near Support",
+            "bias": "Bullish",
+            "key_observations": [
+              "Testing support level",
+              "Near support at 690.0 (VAL)",
+              "Near resistance at 690.0 (OI)",
+              "Near support at 700.0 (OI)",
+              "Near support at 700.0 (Volume)",
+              "Near resistance at 700.0 (MaxPain)"
+            ]
+          }
+        }
+      },
+      "price_levels": {
+        "short_term": {
+          "support": 700.0,
+          "resistance": 690.0,
+          "strength": "strong/strong",
+          "timeframe": "1-5 days"
+        },
+        "mid_term": {
+          "support": 700.0,
+          "resistance": 690.0,
+          "strength": "strong/strong",
+          "timeframe": "10-30 days"
+        },
+        "expected_moves": {
+          "straddle_price": 23.278377483345253,
+          "one_sd_move": 19.727438545207843,
+          "one_sd_pct": 2.845440436349033,
+          "two_sd_move": 39.454877090415685,
+          "two_sd_pct": 5.690880872698066,
+          "daily_move": 7.456270913561399,
+          "daily_pct": 1.0754753950038078,
+          "upper_expected": 713.0274385452078,
+          "lower_expected": 673.5725614547921,
+          "upper_2sd": 732.7548770904157,
+          "lower_2sd": 653.8451229095842,
+          "method": "iv_based"
+        },
+        "max_pain": {
+          "max_pain": 700.0,
+          "spot_vs_max_pain": -0.9571428571428637,
+          "bias": "Neutral - Spot near max pain",
+          "pin_risk": "Low",
+          "convergence_expected": "False"
+        },
+        "value_area": {
+          "poc": 690.0,
+          "vah": 710.0,
+          "val": 690.0,
+          "va_type": "Narrow",
+          "va_width_pct": 2.8847540747151306,
+          "spot_in_va": true
+        },
+        "price_targets": {
+          "bullish": {
+            "expected_1sd": 713.0274385452078,
+            "expected_2sd": 732.7548770904157,
+            "resistance_1": 690.0,
+            "resistance_2": 690.0
+          },
+          "bearish": {
+            "expected_1sd": 673.5725614547921,
+            "expected_2sd": 653.8451229095842,
+            "support_1": 700.0,
+            "support_2": 700.0
+          },
+          "consensus": {
+            "bullish_target": 722.8911578178117,
+            "bearish_target": 663.7088421821882
+          }
+        },
+        "key_levels": [
+          {
+            "level": 690.0,
+            "type": "support",
+            "source": "VAL",
+            "strength": "moderate"
+          },
+          {
+            "level": 690.0,
+            "type": "resistance",
+            "source": "OI",
+            "strength": "strong"
+          },
+          {
+            "level": 700.0,
+            "type": "support",
+            "source": "OI",
+            "strength": "strong"
+          },
+          {
+            "level": 700.0,
+            "type": "support",
+            "source": "Volume",
+            "strength": "moderate"
+          },
+          {
+            "level": 700.0,
+            "type": "resistance",
+            "source": "MaxPain",
+            "strength": "moderate"
+          },
+          {
+            "level": 710.0,
+            "type": "resistance",
+            "source": "VAH",
+            "strength": "moderate"
+          }
+        ],
+        "spot_position": {
+          "description": "At/Near Support",
+          "bias": "Bullish",
+          "key_observations": [
+            "Testing support level",
+            "Near support at 690.0 (VAL)",
+            "Near resistance at 690.0 (OI)",
+            "Near support at 700.0 (OI)",
+            "Near support at 700.0 (Volume)",
+            "Near resistance at 700.0 (MaxPain)"
+          ]
+        }
+      },
+      "total_strategies_generated": 1,
+      "strategies_after_filtering": 1,
+      "top_strategies": [
+        {
+          "rank": 1,
+          "name": "Long Call",
+          "total_score": 0.6796674640774215,
+          "probability_profit": 0.43278599999999995,
+          "max_profit": Infinity,
+          "max_loss": 8940.0,
+          "legs": [
+            {
+              "option_type": "CALL",
+              "position": "LONG",
+              "strike": 690.0,
+              "premium": 7.45,
+              "delta": 0.50916,
+              "rationale": "Bullish directional play"
+            }
+          ],
+          "optimal_outcome": "Stock moves above 697.45",
+          "component_scores": {
+            "probability": 0.43278599999999995,
+            "risk_reward": 1.0,
+            "direction": 0.6659618203871076,
+            "iv_fit": 0.7,
+            "liquidity": 0.8
+          },
+          "exit_conditions": {
+            "profit_targets": {
+              "primary": {
+                "target": "50-100% of debit paid",
+                "action": "Close position",
+                "reasoning": "Capture significant gains"
+              },
+              "scaling": {
+                "level_1": "50% profit - close half position",
+                "level_2": "100% profit - close 75% position",
+                "level_3": "Trail stop on remainder"
+              }
+            },
+            "stop_losses": {
+              "primary": {
+                "loss_amount": 4470.0,
+                "loss_pct": 50.0,
+                "action": "Close entire position",
+                "type": "Percentage-based stop"
+              },
+              "technical": {
+                "breakeven_breach": "Monitor if price exceeds breakeven",
+                "support_resistance": "Exit if key levels broken",
+                "trend_reversal": "Exit on confirmed reversal"
+              },
+              "time_stop": {
+                "trigger": "Loss > 2235.0 with < 7 DTE",
+                "action": "Close to avoid gamma risk"
+              }
+            },
+            "time_exits": {
+              "primary_dte": 7,
+              "theta_decay_threshold": {
+                "dte": 7,
+                "action": "Close if not profitable",
+                "reasoning": "Theta decay accelerates"
+              },
+              "time_decay_levels": {
+                "25%_time_passed": "Evaluate position performance",
+                "50%_time_passed": "Consider closing if at profit",
+                "75%_time_passed": "Exit unless strong conviction"
+              }
+            },
+            "greek_triggers": {},
+            "adjustment_triggers": {
+              "defensive": {},
+              "offensive": {
+                "momentum": {
+                  "trigger": "Strong directional momentum",
+                  "actions": [
+                    "Add to position on pullback",
+                    "Roll to higher/lower strike",
+                    "Convert to spread to lock profits"
+                  ]
+                }
+              },
+              "rolling": {},
+              "morphing": {
+                "general": {
+                  "long_to_spread": "Convert long option to spread to reduce cost",
+                  "spread_to_condor": "Add opposite spread to create condor",
+                  "straddle_to_butterfly": "Add wings to straddle for protection"
+                }
+              },
+              "direction_change": {
+                "trigger": "Market direction reversed",
+                "action": "Close directional strategies, adjust neutral strategies"
+              }
+            },
+            "monitoring": {
+              "frequency": "Daily with alerts",
+              "critical_times": [
+                "Major market moves"
+              ],
+              "monitor_metrics": {
+                "price": "Spot price vs strikes/breakevens",
+                "pnl": "Current P&L vs targets",
+                "greeks": "Delta, Gamma, Theta changes",
+                "iv": "Implied volatility changes",
+                "liquidity": "Bid-ask spreads",
+                "news": "Company/market news"
+              },
+              "alerts": {
+                "price_alerts": [
+                  "Within 2% of breakeven",
+                  "At short strike",
+                  "Major support/resistance"
+                ],
+                "pnl_alerts": [
+                  "At 50% of profit target",
+                  "At 50% of stop loss",
+                  "Unusual P&L swings"
+                ],
+                "greek_alerts": [
+                  "Delta exceeds threshold",
+                  "Gamma doubles",
+                  "Vega risk increases"
+                ]
+              }
+            },
+            "specific_conditions": {}
+          }
+        }
+      ]
+    },
+    "SUNPHARMA": {
+      "success": false,
+      "reason": "No strategies passed probability filtering"
+    },
+    "CESC": {
+      "success": false,
+      "reason": "No strategies passed probability filtering"
+    },
+    "GRANULES": {
+      "success": false,
+      "reason": "No liquid options data"
+    }
+  },
+  "total_symbols": 5,
+  "successful_analyses": 2
+}

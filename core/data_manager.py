@@ -9,6 +9,8 @@ import logging
 from datetime import datetime
 from typing import Dict, Optional, List
 
+from .lot_size_manager import LotSizeManager
+
 logger = logging.getLogger(__name__)
 
 class DataManager:
@@ -19,6 +21,7 @@ class DataManager:
             os.getenv('NEXT_PUBLIC_SUPABASE_URL'),
             os.getenv('NEXT_PUBLIC_SUPABASE_ANON_KEY')
         )
+        self.lot_manager = LotSizeManager()
         
     def get_portfolio_symbols(self) -> List[str]:
         """Fetch FNO-enabled stocks from stock_data table"""
@@ -157,3 +160,27 @@ class DataManager:
         except Exception as e:
             logger.error(f"Error finding strikes by delta for {symbol}: {e}")
             return []
+    
+    def get_lot_size(self, symbol: str) -> int:
+        """
+        Get lot size for symbol using LotSizeManager
+        
+        Args:
+            symbol: Clean symbol name (e.g., 'DIXON')
+            
+        Returns:
+            Lot size for the symbol
+        """
+        return self.lot_manager.get_current_lot_size(symbol)
+    
+    def get_position_multiplier(self, symbol: str) -> int:
+        """
+        Alias for get_lot_size for clarity in position calculations
+        
+        Args:
+            symbol: Clean symbol name
+            
+        Returns:
+            Position multiplier (lot size)
+        """
+        return self.get_lot_size(symbol)
