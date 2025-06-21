@@ -349,3 +349,47 @@ class BaseStrategy(ABC):
         except Exception as e:
             logger.error(f"Error getting available strikes: {e}")
             return []
+    
+    def _calculate_probability_itm(self, strike: float, spot_price: float, market_analysis: Dict, option_type: str) -> float:
+        """
+        Calculate probability of option finishing in-the-money using delta approximation
+        
+        Args:
+            strike: Option strike price
+            spot_price: Current underlying price  
+            market_analysis: Market analysis data containing option info
+            option_type: 'CALL' or 'PUT'
+        
+        Returns:
+            Probability (0.0 to 1.0) of finishing ITM
+        """
+        try:
+            # Try to get delta from option data
+            option_data = self._get_option_data(strike, option_type)
+            if option_data is not None and 'delta' in option_data:
+                delta = abs(option_data['delta'])
+                return min(1.0, max(0.0, delta))
+            
+            # Fallback: Use moneyness-based approximation
+            if option_type.upper() == 'CALL':
+                if strike <= spot_price:
+                    # ITM call - high probability
+                    moneyness = spot_price / strike
+                    return min(0.95, 0.5 + (moneyness - 1) * 2)
+                else:
+                    # OTM call - lower probability based on distance
+                    moneyness = strike / spot_price
+                    return max(0.05, 0.5 - (moneyness - 1) * 1.5)
+            else:  # PUT
+                if strike >= spot_price:
+                    # ITM put - high probability  
+                    moneyness = strike / spot_price
+                    return min(0.95, 0.5 + (moneyness - 1) * 2)
+                else:
+                    # OTM put - lower probability based on distance
+                    moneyness = spot_price / strike
+                    return max(0.05, 0.5 - (moneyness - 1) * 1.5)
+                    
+        except Exception as e:
+            logger.error(f"Error calculating probability ITM: {e}")
+            return 0.5  # Default 50% if calculation fails
