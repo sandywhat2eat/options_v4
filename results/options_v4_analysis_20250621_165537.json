@@ -1,0 +1,457 @@
+{
+  "success": true,
+  "analysis_timestamp": "2025-06-21T16:55:37.011582",
+  "portfolio_summary": {
+    "total_symbols_analyzed": 11,
+    "successful_analyses": 4,
+    "success_rate": 0.36363636363636365,
+    "market_sentiment_distribution": {
+      "bullish": 4,
+      "bearish": 0,
+      "neutral": 0
+    },
+    "total_strategies_recommended": 6,
+    "strategy_distribution": {
+      "Long Call": 3,
+      "Bear Call Spread": 2,
+      "Iron Condor": 1
+    },
+    "most_recommended_strategies": [
+      [
+        "Long Call",
+        3
+      ],
+      [
+        "Bear Call Spread",
+        2
+      ],
+      [
+        "Iron Condor",
+        1
+      ]
+    ]
+  },
+  "symbol_results": {
+    "TATASTEEL": {
+      "success": false,
+      "reason": "No strategies could be constructed"
+    },
+    "BERGEPAINT": {
+      "success": false,
+      "reason": "No liquid options data"
+    },
+    "PIIND": {
+      "success": false,
+      "reason": "No strategies could be constructed"
+    },
+    "ASHOKLEY": {
+      "success": true,
+      "symbol": "ASHOKLEY",
+      "spot_price": 235.15,
+      "market_analysis": {
+        "direction": "Bullish",
+        "sub_category": "Weak",
+        "confidence": 0.18405636576984324,
+        "final_score": 0.18405636576984324,
+        "components": {
+          "technical_score": 0.1,
+          "options_score": 0.2687324736281236,
+          "price_action_score": 0.2
+        },
+        "timeframe": {
+          "timeframe": "long",
+          "duration": "30+ days",
+          "confidence": 0.1472450926158746
+        },
+        "strength": 0.18405636576984324,
+        "iv_analysis": {
+          "atm_iv": 21.855900000000002,
+          "iv_skew": {
+            "skew_type": "put_skew",
+            "skew_strength": 2.5503999999999962,
+            "put_iv": 24.318399999999997,
+            "call_iv": 21.768
+          },
+          "iv_environment": "MODERATE",
+          "estimated_percentile": 30,
+          "call_put_iv_diff": -1.7368153846153902,
+          "analysis_quality": "CURRENT_ONLY",
+          "recommendations": {
+            "preferred_strategies": [
+              "Bull/Bear Spreads",
+              "Iron Condor",
+              "Calendar Spreads"
+            ],
+            "avoid_strategies": [],
+            "reasoning": "Normal IV - Directional or neutral strategies"
+          }
+        }
+      },
+      "total_strategies_generated": 1,
+      "strategies_after_filtering": 1,
+      "top_strategies": [
+        {
+          "rank": 1,
+          "name": "Long Call",
+          "total_score": 0.6644126092615875,
+          "probability_profit": 0.44196599999999997,
+          "max_profit": Infinity,
+          "max_loss": 2.3,
+          "legs": [
+            {
+              "option_type": "CALL",
+              "position": "LONG",
+              "strike": 235.0,
+              "premium": 2.3,
+              "delta": 0.51996,
+              "rationale": "Bullish directional play"
+            }
+          ],
+          "optimal_outcome": "Stock moves above 237.30",
+          "component_scores": {
+            "probability": 0.44196599999999997,
+            "risk_reward": 1.0,
+            "direction": 0.5736225463079373,
+            "iv_fit": 0.7,
+            "liquidity": 0.8
+          }
+        }
+      ]
+    },
+    "KALYANKJIL": {
+      "success": false,
+      "reason": "No strategies passed probability filtering"
+    },
+    "ABB": {
+      "success": true,
+      "symbol": "ABB",
+      "spot_price": 5968.5,
+      "market_analysis": {
+        "direction": "Bullish",
+        "sub_category": "Weak",
+        "confidence": 0.141082120495032,
+        "final_score": 0.141082120495032,
+        "components": {
+          "technical_score": 0.1,
+          "options_score": 0.4316632014143772,
+          "price_action_score": -0.2
+        },
+        "timeframe": {
+          "timeframe": "long",
+          "duration": "30+ days",
+          "confidence": 0.1128656963960256
+        },
+        "strength": 0.141082120495032,
+        "iv_analysis": {
+          "atm_iv": 25.4987,
+          "iv_skew": {
+            "skew_type": "normal",
+            "skew_strength": 1.6128999999999962,
+            "put_iv": 27.8815,
+            "call_iv": 26.268600000000003
+          },
+          "iv_environment": "NORMAL",
+          "estimated_percentile": 45,
+          "call_put_iv_diff": -10.134845238095242,
+          "analysis_quality": "CURRENT_ONLY",
+          "recommendations": {
+            "preferred_strategies": [
+              "Bull/Bear Spreads",
+              "Iron Condor",
+              "Calendar Spreads"
+            ],
+            "avoid_strategies": [],
+            "reasoning": "Normal IV - Directional or neutral strategies"
+          }
+        }
+      },
+      "total_strategies_generated": 3,
+      "strategies_after_filtering": 2,
+      "top_strategies": [
+        {
+          "rank": 1,
+          "name": "Bear Call Spread",
+          "total_score": 0.5126342985965504,
+          "probability_profit": 0.7743,
+          "max_profit": 17.35,
+          "max_loss": 182.65,
+          "legs": [
+            {
+              "option_type": "CALL",
+              "position": "SHORT",
+              "strike": 6100.0,
+              "premium": 25.45,
+              "delta": 0.2257,
+              "rationale": "Short the lower strike to collect premium"
+            },
+            {
+              "option_type": "CALL",
+              "position": "LONG",
+              "strike": 6300.0,
+              "premium": 8.1,
+              "delta": 0.07783,
+              "rationale": "Long the higher strike for risk management"
+            }
+          ],
+          "optimal_outcome": "Stock closes below 6100.0 at expiry",
+          "component_scores": {
+            "probability": 0.7743,
+            "risk_reward": 0.031663472944611734,
+            "direction": 0.4435671518019872,
+            "iv_fit": 0.7,
+            "liquidity": 0.8
+          }
+        },
+        {
+          "rank": 2,
+          "name": "Iron Condor",
+          "total_score": 0.4671527369201529,
+          "probability_profit": 0.7803395399999999,
+          "max_profit": -182.05,
+          "max_loss": 282.05,
+          "legs": [
+            {
+              "option_type": "PUT",
+              "position": "SHORT",
+              "strike": 5900.0,
+              "premium": 58.15,
+              "delta": -0.40312,
+              "rationale": "Short put for premium collection"
+            },
+            {
+              "option_type": "PUT",
+              "position": "LONG",
+              "strike": 5800.0,
+              "premium": 130.65,
+              "delta": -0.32981,
+              "rationale": "Long put for downside protection"
+            },
+            {
+              "option_type": "CALL",
+              "position": "SHORT",
+              "strike": 6100.0,
+              "premium": 25.45,
+              "delta": 0.2257,
+              "rationale": "Short call for premium collection"
+            },
+            {
+              "option_type": "CALL",
+              "position": "LONG",
+              "strike": 6200.0,
+              "premium": 135.0,
+              "delta": 0.39089,
+              "rationale": "Long call for upside protection"
+            }
+          ],
+          "optimal_outcome": "Stock stays between 6082.05 and 5917.95",
+          "component_scores": {
+            "probability": 0.7803395399999999,
+            "risk_reward": -0.21515097795899074,
+            "direction": 0.5141082120495032,
+            "iv_fit": 0.7,
+            "liquidity": 0.8
+          }
+        }
+      ]
+    },
+    "ULTRACEMCO": {
+      "success": true,
+      "symbol": "ULTRACEMCO",
+      "spot_price": 11458.0,
+      "market_analysis": {
+        "direction": "Bullish",
+        "sub_category": "Weak",
+        "confidence": 0.1022432528535362,
+        "final_score": 0.1022432528535362,
+        "components": {
+          "technical_score": -0.1,
+          "options_score": 0.5492664367243892,
+          "price_action_score": -0.2
+        },
+        "timeframe": {
+          "timeframe": "long",
+          "duration": "30+ days",
+          "confidence": 0.08179460228282898
+        },
+        "strength": 0.1022432528535362,
+        "iv_analysis": {
+          "atm_iv": 16.02271428571429,
+          "iv_skew": {
+            "skew_type": "normal",
+            "skew_strength": 0.0
+          },
+          "iv_environment": "LOW",
+          "estimated_percentile": 15,
+          "call_put_iv_diff": 1.3389999999999986,
+          "analysis_quality": "CURRENT_ONLY",
+          "recommendations": {
+            "preferred_strategies": [
+              "Long Straddle",
+              "Long Strangle",
+              "Long Call",
+              "Long Put"
+            ],
+            "avoid_strategies": [
+              "Short Straddle",
+              "Iron Condor",
+              "Short Strangle"
+            ],
+            "reasoning": "Low IV - Buy volatility"
+          }
+        }
+      },
+      "total_strategies_generated": 1,
+      "strategies_after_filtering": 1,
+      "top_strategies": [
+        {
+          "rank": 1,
+          "name": "Long Call",
+          "total_score": 0.6795375602282829,
+          "probability_profit": 0.418166,
+          "max_profit": Infinity,
+          "max_loss": 73.0,
+          "legs": [
+            {
+              "option_type": "CALL",
+              "position": "LONG",
+              "strike": 11500.0,
+              "premium": 73.0,
+              "delta": 0.49196,
+              "rationale": "Bullish directional play"
+            }
+          ],
+          "optimal_outcome": "Stock moves above 11573.00",
+          "component_scores": {
+            "probability": 0.418166,
+            "risk_reward": 1.0,
+            "direction": 0.5408973011414144,
+            "iv_fit": 0.9,
+            "liquidity": 0.8
+          }
+        }
+      ]
+    },
+    "BOSCHLTD": {
+      "success": false,
+      "reason": "No liquid options data"
+    },
+    "TATACHEM": {
+      "success": false,
+      "reason": "No strategies could be constructed"
+    },
+    "BHARATFORG": {
+      "success": true,
+      "symbol": "BHARATFORG",
+      "spot_price": 1278.3,
+      "market_analysis": {
+        "direction": "Bullish",
+        "sub_category": "Weak",
+        "confidence": 0.1704532242744179,
+        "final_score": 0.1704532242744179,
+        "components": {
+          "technical_score": 0.1,
+          "options_score": 0.5155806407840511,
+          "price_action_score": -0.2
+        },
+        "timeframe": {
+          "timeframe": "long",
+          "duration": "30+ days",
+          "confidence": 0.1363625794195343
+        },
+        "strength": 0.1704532242744179,
+        "iv_analysis": {
+          "atm_iv": 25.7243,
+          "iv_skew": {
+            "skew_type": "normal",
+            "skew_strength": 1.9425000000000026,
+            "put_iv": 27.661250000000003,
+            "call_iv": 25.71875
+          },
+          "iv_environment": "NORMAL",
+          "estimated_percentile": 45,
+          "call_put_iv_diff": -5.8200375000000015,
+          "analysis_quality": "CURRENT_ONLY",
+          "recommendations": {
+            "preferred_strategies": [
+              "Bull/Bear Spreads",
+              "Iron Condor",
+              "Calendar Spreads"
+            ],
+            "avoid_strategies": [],
+            "reasoning": "Normal IV - Directional or neutral strategies"
+          }
+        }
+      },
+      "total_strategies_generated": 2,
+      "strategies_after_filtering": 2,
+      "top_strategies": [
+        {
+          "rank": 1,
+          "name": "Long Call",
+          "total_score": 0.6519330829419534,
+          "probability_profit": 0.4094195,
+          "max_profit": Infinity,
+          "max_loss": 15.0,
+          "legs": [
+            {
+              "option_type": "CALL",
+              "position": "LONG",
+              "strike": 1280.0,
+              "premium": 15.0,
+              "delta": 0.48167,
+              "rationale": "Bullish directional play"
+            }
+          ],
+          "optimal_outcome": "Stock moves above 1295.00",
+          "component_scores": {
+            "probability": 0.4094195,
+            "risk_reward": 1.0,
+            "direction": 0.5681812897097671,
+            "iv_fit": 0.7,
+            "liquidity": 0.8
+          }
+        },
+        {
+          "rank": 2,
+          "name": "Bear Call Spread",
+          "total_score": 0.4735348946635056,
+          "probability_profit": 0.6936899999999999,
+          "max_profit": -0.75,
+          "max_loss": 100.75,
+          "legs": [
+            {
+              "option_type": "CALL",
+              "position": "SHORT",
+              "strike": 1300.0,
+              "premium": 8.2,
+              "delta": 0.30631,
+              "rationale": "Short the lower strike to collect premium"
+            },
+            {
+              "option_type": "CALL",
+              "position": "LONG",
+              "strike": 1400.0,
+              "premium": 8.95,
+              "delta": 0.16822,
+              "rationale": "Long the higher strike for risk management"
+            }
+          ],
+          "optimal_outcome": "Stock closes below 1300.0 at expiry",
+          "component_scores": {
+            "probability": 0.6936899999999999,
+            "risk_reward": -0.0024813895781637717,
+            "direction": 0.43181871029023283,
+            "iv_fit": 0.7,
+            "liquidity": 0.8
+          }
+        }
+      ]
+    },
+    "SUPREMEIND": {
+      "success": false,
+      "reason": "No strategies could be constructed"
+    }
+  },
+  "total_symbols": 11,
+  "successful_analyses": 4
+}

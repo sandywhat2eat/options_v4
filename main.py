@@ -1,0 +1,555 @@
+"""
+Main orchestrator for Options V4 trading system
+
+This replaces the monolithic 2728-line script with a clean, modular architecture.
+"""
+
+import os
+import sys
+import json
+from datetime import datetime
+from typing import Dict, List, Optional
+
+try:
+    import yaml
+    YAML_AVAILABLE = True
+except ImportError:
+    YAML_AVAILABLE = False
+
+try:
+    from dotenv import load_dotenv
+    DOTENV_AVAILABLE = True
+except ImportError:
+    DOTENV_AVAILABLE = False
+
+# Add current directory to path
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
+# Import our modules
+from core import DataManager, IVAnalyzer, ProbabilityEngine, RiskManager
+from core.exit_manager import ExitManager
+from analysis import MarketAnalyzer, StrategyRanker, PriceLevelsAnalyzer
+from strategies import (
+    # Directional
+    LongCall, LongPut, BullCallSpread, BearCallSpread, 
+    BullPutSpreadStrategy, BearPutSpreadStrategy,
+    # Neutral
+    IronCondor, ButterflySpread, IronButterfly,
+    # Volatility
+    LongStraddle, ShortStraddle, LongStrangle, ShortStrangle,
+    # Income
+    CashSecuredPut, CoveredCall,
+    # Advanced
+    CalendarSpread, DiagonalSpread, CallRatioSpread, PutRatioSpread,
+    JadeLizard, BrokenWingButterfly
+)
+from utils.logger import setup_logger, get_default_log_file
+
+# Load environment variables
+if DOTENV_AVAILABLE:
+    load_dotenv()
+
+class OptionsAnalyzer:
+    """
+    Main orchestrator for the Options V4 trading system
+    
+    Replaces the monolithic script with clean, modular architecture
+    """
+    
+    def __init__(self, config_path: str = None):
+        # Set up logging
+        self.logger = setup_logger(
+            'OptionsV4',
+            log_file=get_default_log_file('options_v4_main')
+        )
+        
+        # Load configuration
+        self.config = self._load_config(config_path)
+        
+        # Initialize core components
+        self.data_manager = DataManager()
+        self.iv_analyzer = IVAnalyzer()
+        self.price_levels_analyzer = PriceLevelsAnalyzer()
+        self.probability_engine = ProbabilityEngine()
+        self.risk_manager = RiskManager()
+        self.market_analyzer = MarketAnalyzer()
+        self.strategy_ranker = StrategyRanker()
+        self.exit_manager = ExitManager()
+        
+        # Strategy mapping
+        self.strategy_classes = {
+            'Long Call': LongCall,
+            'Long Put': LongPut,
+            'Bull Call Spread': BullCallSpread,
+            'Bear Call Spread': BearCallSpread,
+            'Bull Put Spread': BullPutSpreadStrategy,
+            'Bear Put Spread': BearPutSpreadStrategy,
+            'Iron Condor': IronCondor,
+            'Long Straddle': LongStraddle,
+            'Short Straddle': ShortStraddle,
+            'Long Strangle': LongStrangle,
+            'Short Strangle': ShortStrangle,
+            'Butterfly Spread': ButterflySpread,
+            'Iron Butterfly': IronButterfly,
+            'Calendar Spread': CalendarSpread,
+            'Diagonal Spread': DiagonalSpread,
+            'Call Ratio Spread': CallRatioSpread,
+            'Put Ratio Spread': PutRatioSpread,
+            'Jade Lizard': JadeLizard,
+            'Broken Wing Butterfly': BrokenWingButterfly,
+            'Cash-Secured Put': CashSecuredPut,
+            'Covered Call': CoveredCall
+        }
+        
+        self.logger.info("Options V4 Analyzer initialized successfully")
+    
+    def analyze_portfolio(self, risk_tolerance: str = 'moderate') -> Dict:
+        """
+        Analyze entire portfolio and generate strategy recommendations
+        
+        Args:
+            risk_tolerance: Risk tolerance level (conservative/moderate/aggressive)
+        
+        Returns:
+            Dictionary with portfolio analysis and recommendations
+        """
+        try:
+            self.logger.info("Starting portfolio analysis...")
+            
+            # Get portfolio symbols
+            symbols = self.data_manager.get_portfolio_symbols()
+            if not symbols:
+                self.logger.error("No symbols found in portfolio")
+                return {'success': False, 'reason': 'No portfolio symbols'}
+            
+            self.logger.info(f"Analyzing {len(symbols)} symbols: {symbols}")
+            
+            portfolio_results = {}
+            successful_analyses = 0
+            
+            for symbol in symbols:
+                self.logger.info(f"\n{'='*50}")
+                self.logger.info(f"Analyzing {symbol}")
+                self.logger.info(f"{'='*50}")
+                
+                try:
+                    symbol_result = self.analyze_symbol(symbol, risk_tolerance)
+                    portfolio_results[symbol] = symbol_result
+                    
+                    if symbol_result.get('success', False):
+                        successful_analyses += 1
+                        self.logger.info(f"✅ {symbol} analysis completed successfully")
+                    else:
+                        self.logger.warning(f"⚠️ {symbol} analysis failed: {symbol_result.get('reason', 'Unknown')}")
+                
+                except Exception as e:
+                    self.logger.error(f"❌ Error analyzing {symbol}: {e}")
+                    portfolio_results[symbol] = {
+                        'success': False,
+                        'reason': f'Analysis error: {str(e)}'
+                    }
+            
+            # Generate portfolio summary
+            portfolio_summary = self._generate_portfolio_summary(portfolio_results)
+            
+            self.logger.info(f"\nPortfolio Analysis Complete: {successful_analyses}/{len(symbols)} successful")
+            
+            return {
+                'success': True,
+                'analysis_timestamp': datetime.now().isoformat(),
+                'portfolio_summary': portfolio_summary,
+                'symbol_results': portfolio_results,
+                'total_symbols': len(symbols),
+                'successful_analyses': successful_analyses
+            }
+            
+        except Exception as e:
+            self.logger.error(f"Error in portfolio analysis: {e}")
+            return {'success': False, 'reason': str(e)}
+    
+    def analyze_symbol(self, symbol: str, risk_tolerance: str = 'moderate') -> Dict:
+        """
+        Analyze single symbol and generate strategy recommendations
+        
+        Args:
+            symbol: Stock symbol to analyze
+            risk_tolerance: Risk tolerance level
+        
+        Returns:
+            Dictionary with symbol analysis and top strategies
+        """
+        try:
+            # 1. Fetch market data
+            options_df = self.data_manager.get_liquid_options(symbol)
+            if options_df is None or options_df.empty:
+                return {'success': False, 'reason': 'No liquid options data'}
+            
+            spot_price = self.data_manager.get_spot_price(symbol)
+            if spot_price is None:
+                return {'success': False, 'reason': 'No spot price data'}
+            
+            self.logger.info(f"Found {len(options_df)} liquid options for {symbol} at spot ${spot_price:.2f}")
+            
+            # 2. Market Analysis
+            market_analysis = self.market_analyzer.analyze_market_direction(
+                symbol, options_df, spot_price
+            )
+            
+            # 3. IV Analysis
+            # Get sector info if available (would come from stock info in real implementation)
+            sector = self._get_symbol_sector(symbol)  # Placeholder for sector lookup
+            iv_analysis = self.iv_analyzer.analyze_current_iv(options_df, symbol, sector)
+            market_analysis['iv_analysis'] = iv_analysis
+            
+            # 3.5 Price Levels Analysis
+            price_levels = self.price_levels_analyzer.analyze_price_levels(
+                symbol, options_df, spot_price
+            )
+            market_analysis['price_levels'] = price_levels
+            
+            self.logger.info(f"Market Direction: {market_analysis['direction']} {market_analysis['sub_category']} "
+                           f"(Confidence: {market_analysis['confidence']:.1%})")
+            self.logger.info(f"IV Environment: {iv_analysis['iv_environment']} "
+                           f"(ATM IV: {iv_analysis['atm_iv']:.1f}%)")
+            
+            # 4. Strategy Construction
+            strategies = self._construct_strategies(symbol, options_df, spot_price, market_analysis)
+            
+            if not strategies:
+                return {'success': False, 'reason': 'No strategies could be constructed'}
+            
+            # 5. Strategy Ranking with Probability Filtering
+            ranked_strategies = self.strategy_ranker.rank_strategies(
+                strategies, market_analysis, risk_tolerance
+            )
+            
+            if not ranked_strategies:
+                return {'success': False, 'reason': 'No strategies passed probability filtering'}
+            
+            # 6. Select top strategies
+            top_strategies = ranked_strategies[:3]  # Top 3 strategies
+            
+            self.logger.info(f"Generated {len(strategies)} strategies, {len(ranked_strategies)} passed filters")
+            
+            # 7. Generate exit conditions for top strategies
+            top_strategies_with_exits = []
+            for i, (strategy_name, strategy_data) in enumerate(top_strategies):
+                # Generate exit conditions
+                exit_conditions = self.exit_manager.generate_exit_conditions(
+                    strategy_name, strategy_data, market_analysis
+                )
+                
+                strategy_result = {
+                    'rank': i + 1,
+                    'name': strategy_name,
+                    'total_score': strategy_data['total_score'],
+                    'probability_profit': strategy_data['probability_profit'],
+                    'max_profit': strategy_data.get('max_profit', 0),
+                    'max_loss': strategy_data.get('max_loss', 0),
+                    'legs': strategy_data.get('legs', []),
+                    'optimal_outcome': strategy_data.get('optimal_outcome', ''),
+                    'component_scores': strategy_data.get('component_scores', {}),
+                    'exit_conditions': exit_conditions
+                }
+                top_strategies_with_exits.append(strategy_result)
+            
+            return {
+                'success': True,
+                'symbol': symbol,
+                'spot_price': spot_price,
+                'market_analysis': market_analysis,
+                'price_levels': price_levels,
+                'total_strategies_generated': len(strategies),
+                'strategies_after_filtering': len(ranked_strategies),
+                'top_strategies': top_strategies_with_exits
+            }
+            
+        except Exception as e:
+            self.logger.error(f"Error analyzing symbol {symbol}: {e}")
+            return {'success': False, 'reason': str(e)}
+    
+    def _construct_strategies(self, symbol: str, options_df, spot_price: float, 
+                            market_analysis: Dict) -> Dict:
+        """Construct multiple strategies for evaluation"""
+        try:
+            strategies = {}
+            direction = market_analysis.get('direction', 'Neutral').lower()
+            confidence = market_analysis.get('confidence', 0.5)
+            iv_env = market_analysis.get('iv_analysis', {}).get('iv_environment', 'NORMAL')
+            
+            # Strategy selection based on market conditions
+            strategies_to_try = self._select_strategies_to_construct(direction, confidence, iv_env)
+            
+            self.logger.info(f"Constructing {len(strategies_to_try)} strategies: {strategies_to_try}")
+            
+            for strategy_name in strategies_to_try:
+                try:
+                    if strategy_name in self.strategy_classes:
+                        strategy_class = self.strategy_classes[strategy_name]
+                        strategy_instance = strategy_class(symbol, spot_price, options_df)
+                        
+                        # Construct strategy with appropriate parameters
+                        result = self._construct_single_strategy(strategy_instance, strategy_name, market_analysis)
+                        
+                        if result.get('success', False):
+                            strategies[strategy_name] = result
+                            self.logger.debug(f"✅ {strategy_name} constructed successfully")
+                        else:
+                            self.logger.debug(f"⚠️ {strategy_name} construction failed: {result.get('reason', 'Unknown')}")
+                
+                except Exception as e:
+                    self.logger.warning(f"Error constructing {strategy_name}: {e}")
+                    continue
+            
+            return strategies
+            
+        except Exception as e:
+            self.logger.error(f"Error in strategy construction: {e}")
+            return {}
+    
+    def _select_strategies_to_construct(self, direction: str, confidence: float, iv_env: str) -> List[str]:
+        """Select which strategies to construct based on market conditions"""
+        strategies_to_try = []
+        
+        # Start with simpler strategies that are more likely to work
+        base_strategies = []
+        
+        # Add directional strategies first (easier to construct)
+        if 'bullish' in direction:
+            base_strategies.extend(['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call'])
+            if confidence > 0.7:
+                base_strategies.extend(['Call Ratio Spread', 'Diagonal Spread'])
+        elif 'bearish' in direction:
+            base_strategies.extend(['Long Put', 'Bear Put Spread', 'Bear Call Spread', 'Cash-Secured Put'])
+            if confidence > 0.7:
+                base_strategies.extend(['Put Ratio Spread', 'Diagonal Spread'])
+        else:
+            # Neutral - try simpler strategies first
+            base_strategies.extend(['Iron Condor', 'Iron Butterfly', 'Butterfly Spread'])
+            if iv_env == 'HIGH':
+                base_strategies.extend(['Short Straddle', 'Short Strangle', 'Jade Lizard'])
+        
+        # Add volatility strategies based on IV environment
+        if iv_env == 'LOW':
+            base_strategies.extend(['Long Straddle', 'Long Strangle', 'Calendar Spread'])
+        elif iv_env == 'HIGH':
+            base_strategies.extend(['Short Straddle', 'Short Strangle', 'Iron Butterfly'])
+        
+        # Add advanced strategies for high confidence scenarios
+        if confidence > 0.8:
+            base_strategies.extend(['Broken Wing Butterfly', 'Jade Lizard'])
+        
+        # Remove duplicates while preserving order
+        seen = set()
+        unique_strategies = []
+        for strategy in base_strategies:
+            if strategy not in seen:
+                seen.add(strategy)
+                unique_strategies.append(strategy)
+        
+        return unique_strategies[:15]  # Limit to 15 strategies to avoid excessive computation
+    
+    def _construct_single_strategy(self, strategy_instance, strategy_name: str, 
+                                 market_analysis: Dict) -> Dict:
+        """Construct a single strategy with appropriate parameters"""
+        try:
+            # Strategy-specific parameter selection
+            if 'Iron Condor' in strategy_name:
+                wing_width = 'wide' if market_analysis.get('confidence', 0) < 0.6 else 'narrow'
+                return strategy_instance.construct_strategy(wing_width=wing_width)
+            
+            elif 'Spread' in strategy_name:
+                # Use default delta targets from config
+                return strategy_instance.construct_strategy()
+            
+            elif 'Long' in strategy_name:
+                # For long options, consider using slightly OTM for cost efficiency
+                target_delta = 0.4 if market_analysis.get('confidence', 0) > 0.7 else 0.5
+                return strategy_instance.construct_strategy(target_delta=target_delta)
+            
+            else:
+                # Default construction
+                return strategy_instance.construct_strategy()
+                
+        except Exception as e:
+            return {'success': False, 'reason': f'Construction error: {str(e)}'}
+    
+    def _generate_portfolio_summary(self, portfolio_results: Dict) -> Dict:
+        """Generate summary statistics for portfolio analysis"""
+        try:
+            total_symbols = len(portfolio_results)
+            successful_symbols = sum(1 for result in portfolio_results.values() 
+                                   if result.get('success', False))
+            
+            # Collect strategy statistics
+            all_strategies = []
+            direction_counts = {'bullish': 0, 'bearish': 0, 'neutral': 0}
+            
+            for symbol_result in portfolio_results.values():
+                if symbol_result.get('success', False):
+                    # Count market directions
+                    direction = symbol_result.get('market_analysis', {}).get('direction', 'Neutral').lower()
+                    if 'bullish' in direction:
+                        direction_counts['bullish'] += 1
+                    elif 'bearish' in direction:
+                        direction_counts['bearish'] += 1
+                    else:
+                        direction_counts['neutral'] += 1
+                    
+                    # Collect top strategies
+                    top_strategies = symbol_result.get('top_strategies', [])
+                    all_strategies.extend([s['name'] for s in top_strategies])
+            
+            # Strategy distribution
+            from collections import Counter
+            strategy_distribution = Counter(all_strategies)
+            
+            return {
+                'total_symbols_analyzed': total_symbols,
+                'successful_analyses': successful_symbols,
+                'success_rate': successful_symbols / total_symbols if total_symbols > 0 else 0,
+                'market_sentiment_distribution': direction_counts,
+                'total_strategies_recommended': len(all_strategies),
+                'strategy_distribution': dict(strategy_distribution),
+                'most_recommended_strategies': strategy_distribution.most_common(5)
+            }
+            
+        except Exception as e:
+            self.logger.error(f"Error generating portfolio summary: {e}")
+            return {}
+    
+    def _load_config(self, config_path: Optional[str] = None) -> Dict:
+        """Load configuration from YAML file"""
+        try:
+            if config_path is None:
+                config_path = os.path.join(
+                    os.path.dirname(__file__), 
+                    'config', 
+                    'strategy_config.yaml'
+                )
+            
+            if os.path.exists(config_path) and YAML_AVAILABLE:
+                with open(config_path, 'r') as f:
+                    return yaml.safe_load(f)
+            else:
+                if not YAML_AVAILABLE:
+                    self.logger.warning("YAML not available, using default config")
+                else:
+                    self.logger.warning(f"Config file not found: {config_path}, using defaults")
+                return self._get_default_config()
+                
+        except Exception as e:
+            self.logger.error(f"Error loading config: {e}")
+            return self._get_default_config()
+    
+    def _get_default_config(self) -> Dict:
+        """Return default configuration when YAML is not available"""
+        return {
+            'strategy_categories': {
+                'directional_bullish': ['Long Call', 'Bull Call Spread', 'Bull Put Spread'],
+                'directional_bearish': ['Long Put', 'Bear Call Spread', 'Bear Put Spread'],
+                'neutral_theta': ['Iron Condor', 'Iron Butterfly'],
+                'volatility_expansion': ['Long Straddle', 'Long Strangle']
+            },
+            'delta_targets': {
+                'spreads': {'short_delta': 0.30, 'long_delta': 0.15},
+                'iron_condor': {'put_short_delta': 0.25, 'call_short_delta': 0.25}
+            },
+            'liquidity_requirements': {
+                'minimum_oi': 100,
+                'minimum_volume': 50,
+                'max_spread_percentage': 0.05
+            }
+        }
+    
+    def _get_symbol_sector(self, symbol: str) -> str:
+        """
+        Get sector for a symbol. In production, this would query a database
+        or API. For now, using a simplified mapping.
+        """
+        # Simplified sector mapping for common Indian stocks
+        sector_map = {
+            'TCS': 'IT', 'INFY': 'IT', 'WIPRO': 'IT', 'TECHM': 'IT', 'LTI': 'IT',
+            'HDFC': 'Banking', 'ICICIBANK': 'Banking', 'SBIN': 'Banking', 'AXISBANK': 'Banking',
+            'SUNPHARMA': 'Pharma', 'DRREDDY': 'Pharma', 'CIPLA': 'Pharma', 'LUPIN': 'Pharma',
+            'TATAMOTORS': 'Auto', 'MARUTI': 'Auto', 'M&M': 'Auto', 'BAJAJ-AUTO': 'Auto',
+            'ITC': 'FMCG', 'HINDUNILVR': 'FMCG', 'NESTLEIND': 'FMCG', 'BRITANNIA': 'FMCG',
+            'TATASTEEL': 'Metals', 'JSWSTEEL': 'Metals', 'HINDALCO': 'Metals', 'VEDL': 'Metals',
+            'DLF': 'Realty', 'GODREJPROP': 'Realty', 'OBEROIRLTY': 'Realty',
+            'RELIANCE': 'Energy', 'ONGC': 'Energy', 'IOC': 'Energy', 'BPCL': 'Energy'
+        }
+        
+        # Check direct mapping
+        if symbol in sector_map:
+            return sector_map[symbol]
+        
+        # Check without exchange suffix
+        base_symbol = symbol.replace('.NS', '').replace('.BSE', '')
+        if base_symbol in sector_map:
+            return sector_map[base_symbol]
+        
+        # Default sector if not found
+        return 'default'
+    
+    def save_results(self, results: Dict, output_dir: str = None) -> str:
+        """Save analysis results to JSON file"""
+        try:
+            if output_dir is None:
+                output_dir = os.path.join(os.path.dirname(__file__), 'results')
+            
+            os.makedirs(output_dir, exist_ok=True)
+            
+            timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+            filename = f'options_v4_analysis_{timestamp}.json'
+            filepath = os.path.join(output_dir, filename)
+            
+            with open(filepath, 'w') as f:
+                json.dump(results, f, indent=2, default=str)
+            
+            self.logger.info(f"Results saved to: {filepath}")
+            return filepath
+            
+        except Exception as e:
+            self.logger.error(f"Error saving results: {e}")
+            return ""
+
+def main():
+    """Main entry point"""
+    print("🚀 Options V4 Trading System")
+    print("=" * 50)
+    
+    try:
+        # Initialize analyzer
+        analyzer = OptionsAnalyzer()
+        
+        # Run portfolio analysis
+        results = analyzer.analyze_portfolio(risk_tolerance='moderate')
+        
+        if results.get('success', False):
+            # Save results
+            output_file = analyzer.save_results(results)
+            
+            # Print summary
+            summary = results.get('portfolio_summary', {})
+            print(f"\n📊 Portfolio Analysis Summary:")
+            print(f"   • Symbols Analyzed: {summary.get('total_symbols_analyzed', 0)}")
+            print(f"   • Successful Analyses: {summary.get('successful_analyses', 0)}")
+            print(f"   • Success Rate: {summary.get('success_rate', 0):.1%}")
+            print(f"   • Total Strategies: {summary.get('total_strategies_recommended', 0)}")
+            print(f"   • Results saved to: {output_file}")
+            
+            # Show top strategies
+            strategy_dist = summary.get('most_recommended_strategies', [])
+            if strategy_dist:
+                print(f"\n🎯 Most Recommended Strategies:")
+                for strategy, count in strategy_dist:
+                    print(f"   • {strategy}: {count} times")
+        
+        else:
+            print(f"❌ Portfolio analysis failed: {results.get('reason', 'Unknown error')}")
+            
+    except Exception as e:
+        print(f"❌ System error: {e}")
+
+if __name__ == "__main__":
+    main()

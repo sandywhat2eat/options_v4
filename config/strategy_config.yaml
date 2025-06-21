@@ -1,0 +1,129 @@
+# Strategy Configuration for Options V4 System
+
+# Strategy Categories and Preferences
+strategy_categories:
+  directional_bullish:
+    - "Long Call"
+    - "Bull Call Spread"  
+    - "Bull Put Spread"
+    
+  directional_bearish:
+    - "Long Put"
+    - "Bear Call Spread"
+    - "Bear Put Spread"
+    
+  neutral_theta:
+    - "Iron Condor"
+    - "Iron Butterfly"
+    - "Short Straddle"
+    
+  volatility_expansion:
+    - "Long Straddle"
+    - "Long Strangle"
+    
+  low_volatility:
+    - "Short Put"
+    - "Covered Call"
+
+# Delta Targets for Strike Selection
+delta_targets:
+  spreads:
+    short_delta: 0.30
+    long_delta: 0.15
+    tolerance: 0.05
+    
+  iron_condor:
+    put_short_delta: 0.25
+    call_short_delta: 0.25
+    put_long_delta: 0.10
+    call_long_delta: 0.10
+    
+  long_options:
+    atm_delta: 0.50
+    otm_delta: 0.30
+    tolerance: 0.10
+
+# Strategy Selection Criteria
+selection_criteria:
+  confidence_thresholds:
+    high: 0.70
+    moderate: 0.50
+    low: 0.30
+    
+  iv_environment_mapping:
+    low_iv:
+      threshold: 25
+      preferred_strategies: ["Long Straddle", "Long Call", "Long Put"]
+      avoid_strategies: ["Iron Condor", "Short Straddle"]
+      
+    normal_iv:
+      threshold_range: [25, 45]
+      preferred_strategies: ["Bull Call Spread", "Bear Call Spread", "Iron Condor"]
+      
+    high_iv:
+      threshold: 45
+      preferred_strategies: ["Iron Condor", "Short Straddle", "Credit Spreads"]
+      avoid_strategies: ["Long Straddle", "Long Options"]
+
+# Risk Management Parameters
+risk_parameters:
+  position_sizing:
+    max_risk_per_trade: 0.02  # 2% of account
+    max_position_value: 10000
+    max_contracts: 10
+    
+  exit_rules:
+    profit_targets:
+      credit_spreads: 0.50    # 50% of max profit
+      debit_spreads: 0.75     # 75% of max profit
+      long_options: 1.00      # Let profits run
+      iron_condor: 0.40       # 40% of max profit
+      
+    stop_losses:
+      credit_spreads: 0.50    # 50% of max loss
+      debit_spreads: 0.30     # 30% of max loss
+      long_options: 0.30      # 30% of premium
+      iron_condor: 0.50       # 50% of max loss
+      
+    time_exits:
+      dte_threshold: 5        # Close at 5 DTE
+      theta_decay_pct: 0.50   # Close at 50% time decay
+
+# Liquidity Requirements
+liquidity_requirements:
+  minimum_oi: 100
+  minimum_volume: 50
+  max_spread_percentage: 0.05
+  min_liquidity_score: 0.40
+
+# Probability Thresholds
+probability_thresholds:
+  conservative: 0.65
+  moderate: 0.55
+  aggressive: 0.45
+  speculative: 0.30
+
+# Market Condition Mappings
+market_conditions:
+  trending_up:
+    confidence_min: 0.50
+    direction: "bullish"
+    preferred_strategies: ["Bull Call Spread", "Long Call", "Bull Put Spread"]
+    
+  trending_down:
+    confidence_min: 0.50
+    direction: "bearish" 
+    preferred_strategies: ["Bear Call Spread", "Long Put", "Bear Put Spread"]
+    
+  range_bound:
+    confidence_max: 0.40
+    direction: "neutral"
+    preferred_strategies: ["Iron Condor", "Short Straddle", "Iron Butterfly"]
+    
+  high_volatility:
+    iv_threshold: 60
+    preferred_strategies: ["Iron Condor", "Short Straddle"]
+    
+  low_volatility:
+    iv_threshold: 20
+    preferred_strategies: ["Long Straddle", "Long Strangle"]
