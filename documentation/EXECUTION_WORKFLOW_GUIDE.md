@@ -9,10 +9,13 @@ This guide explains the complete workflow from strategy analysis to order execut
 ### **Phase 1: Strategy Analysis & Database Storage**
 Run the main analysis system to generate and store strategies in the database.
 
-### **Phase 2: Strategy Selection & Marking**
-Review generated strategies and mark selected ones for execution.
+### **Phase 2: Industry Allocation Filtering**
+Apply industry weights and market conditions to filter strategies from 40+ to ~15.
 
-### **Phase 3: Order Execution & Monitoring**
+### **Phase 3: Strategy Review & Selection**
+Review filtered strategies and make any adjustments before execution.
+
+### **Phase 4: Order Execution & Monitoring**
 Execute marked strategies via Dhan API and monitor execution status.
 
 ---
@@ -27,14 +30,11 @@ python main.py --risk moderate
 
 # Or analyze specific symbol
 python main.py --symbol RELIANCE --risk moderate
-
-# Or run with industry allocation framework
-python test_industry_allocation_system.py
 ```
 
 **What this does:**
 - Analyzes 50 symbols from your database
-- Generates 22+ different strategy types per symbol
+- Generates 22+ different strategy types per symbol (typically 40+ total)
 - Stores all analysis results in Supabase database
 - Creates JSON output files in `results/` directory
 - Achieves ~68% success rate (34/50 symbols typically)
@@ -56,9 +56,44 @@ python test_industry_allocation_system.py
 
 ---
 
-### **Step 2: Review & Mark Strategies for Execution**
+### **Step 2: Apply Industry Allocation Filter**
 
-After analysis completes, review the generated strategies and mark your preferred ones for execution.
+Run the portfolio allocator to filter 40+ strategies down to ~15 based on industry weights and market conditions.
+
+```bash
+# Run portfolio allocation filter
+python portfolio_allocator.py
+```
+
+**What this does:**
+- Analyzes current market conditions (NIFTY + VIX + PCR)
+- Loads industry allocation weights from database tables
+- Filters strategies based on:
+  - Industry weight percentages
+  - Market condition preferences
+  - Position types (LONG/SHORT)
+- Marks ~15 priority strategies in database with execution priorities
+- Saves allocation details to `results/options_portfolio_allocation_*.json`
+
+**Expected Output:**
+```
+📊 FINAL PORTFOLIO ALLOCATION:
+   • Industries: 6
+   • Strategies: 15 (filtered from 43)
+   • Capital Allocated: ₹8,134,740
+   • Allocation %: 27.1%
+
+🔄 Do you want to update the database with allocation priorities? (y/n): y
+
+✅ Database updated successfully with allocation priorities!
+   Strategies Marked: 15
+```
+
+---
+
+### **Step 3: Review & Adjust Marked Strategies**
+
+After allocation filtering, review the marked strategies and make any adjustments.
 
 #### **2A: Review Generated Strategies**
 
@@ -124,9 +159,9 @@ Enter strategy numbers to mark (comma-separated): 1,3
 
 ---
 
-### **Step 3: Execute Marked Strategies**
+### **Step 4: Execute Marked Strategies**
 
-Once strategies are marked, execute them via the Dhan API integration.
+Once strategies are marked and reviewed, execute them via the Dhan API integration.
 
 #### **3A: Preview Execution Plan**
 

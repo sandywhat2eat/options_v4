@@ -1,20 +1,26 @@
 # Options V4 Trading System - Quick Start Reference
 
-## 🚀 Complete Workflow (3 Simple Steps)
+## 🚀 Complete Workflow (4 Simple Steps)
 
 ### **Step 1: Generate Strategies** 📊
 ```bash
 python main.py --risk moderate
 ```
-**What happens:** Analyzes 50 symbols, generates strategies, stores in database
+**What happens:** Analyzes 50 symbols, generates 40+ strategies, stores in database
 
-### **Step 2: Select Strategies** 🎯
+### **Step 2: Apply Industry Allocation** 🎯
 ```bash
-python mark_for_execution.py --interactive
+python portfolio_allocator.py
 ```
-**What happens:** Review strategies, mark preferred ones for execution
+**What happens:** Filters 40+ strategies down to ~15 based on industry weights & market conditions
 
-### **Step 3: Execute & Monitor** ⚡
+### **Step 3: Review & Adjust** 📋
+```bash
+python mark_for_execution.py --show
+```
+**What happens:** Review the 15 marked strategies, make any adjustments
+
+### **Step 4: Execute & Monitor** ⚡
 ```bash
 python options_v4_executor.py --execute --confirm
 python execution_status.py
@@ -28,7 +34,8 @@ python execution_status.py
 | Script | Purpose | Usage |
 |--------|---------|-------|
 | `main.py` | Generate strategies | `python main.py --risk moderate` |
-| `mark_for_execution.py` | Select strategies | `python mark_for_execution.py --interactive` |
+| `portfolio_allocator.py` | Apply industry allocation filter | `python portfolio_allocator.py` |
+| `mark_for_execution.py` | Review/adjust marked strategies | `python mark_for_execution.py --show` |
 | `options_v4_executor.py` | Execute orders | `python options_v4_executor.py --execute` |
 | `execution_status.py` | Monitor trades | `python execution_status.py` |
 
@@ -53,14 +60,20 @@ python execution_status.py
 
 ### **Analysis Output (Step 1):**
 - **Success Rate**: ~68% (34/50 symbols)
-- **Strategies Generated**: ~43 strategies across 6 industries
+- **Strategies Generated**: ~40-45 strategies total
 - **Processing Time**: ~18 minutes for 50 symbols
 - **Database Storage**: All strategies stored in 12+ tables
 
-### **Selection Output (Step 2):**
-- **Review Interface**: Table format with scores and probabilities
-- **Selection Options**: Mark by ID, symbol, or score threshold
-- **Filtering**: By probability, return, strategy type
+### **Allocation Output (Step 2):**
+- **Filtered Strategies**: ~15 strategies (from 40+)
+- **Industry Coverage**: 6-8 priority industries
+- **Capital Allocation**: ~₹8-10M allocated
+- **Priority Assignment**: Based on industry weights
+
+### **Selection Output (Step 3):**
+- **Review Interface**: Table format with scores and priorities
+- **Already Marked**: 15 strategies pre-marked by allocation
+- **Adjustment Options**: Unmark, change priority, add notes
 
 ### **Execution Output (Step 3):**
 - **Order Placement**: Direct Dhan API integration
@@ -105,9 +118,14 @@ DHAN_ACCESS_TOKEN=your_dhan_access_token
 python main.py --risk moderate
 ```
 
+### **Pre-Market (9:05 AM):**
+```bash
+python portfolio_allocator.py
+```
+
 ### **Pre-Market (9:10 AM):**
 ```bash
-python mark_for_execution.py --interactive
+python mark_for_execution.py --show
 ```
 
 ### **Market Open (9:15 AM):**

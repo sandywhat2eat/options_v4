@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Test the complete industry-first allocation system
-Demonstrates integration with existing database and market analysis
+Portfolio Allocator - Industry-based Options Strategy Selection
+Filters generated strategies based on industry allocation and marks them for execution
 """
 
 import os
@@ -522,10 +522,10 @@ def demonstrate_complete_workflow(integration_results):
 
 def main():
     """Main test function"""
-    print("INDUSTRY-FIRST OPTIONS ALLOCATION SYSTEM TEST")
+    print("OPTIONS PORTFOLIO ALLOCATOR")
     print("=" * 60)
-    print(f"Test started at: {datetime.now()}")
-    print(f"Sample size increased to 50 symbols for comprehensive testing")
+    print(f"Started at: {datetime.now()}")
+    print(f"Filtering strategies based on industry allocation...")
     
     # Setup environment
     if not setup_environment():
