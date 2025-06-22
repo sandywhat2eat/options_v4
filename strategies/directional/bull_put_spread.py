@@ -30,31 +30,41 @@ class BullPutSpreadStrategy(BaseStrategy):
     def get_iv_preference(self) -> str:
         return "high"  # Credit strategy benefits from high IV
     
-    def construct_strategy(self, **kwargs) -> Dict:
+    def construct_strategy(self, use_expected_moves: bool = True, **kwargs) -> Dict:
         """Construct Bull Put Spread"""
         try:
-            # Filter PUT options
-            puts_df = self.options_df[self.options_df['option_type'] == 'PUT'].copy()
-            
-            if len(puts_df) < 2:
-                return {
-                    'success': False,
-                    'reason': 'Insufficient PUT options for spread'
-                }
-            
-            # Find strikes for bull put spread
-            # Sell OTM put, buy further OTM put
-            otm_puts = puts_df[puts_df['strike'] < self.spot_price].sort_values('strike', ascending=False)
-            
-            if len(otm_puts) < 2:
-                return {
-                    'success': False,
-                    'reason': 'Insufficient OTM PUT strikes'
-                }
-            
-            # Select strikes
-            short_strike = otm_puts.iloc[0]['strike']  # Closer to ATM
-            long_strike = otm_puts.iloc[1]['strike']   # Further OTM
+            # Find optimal strikes using intelligent selection
+            if use_expected_moves and self.market_analysis and self.strike_selector:
+                logger.info("Using intelligent strike selection for Bull Put Spread")
+                short_strike, long_strike = self.strike_selector.select_spread_strikes(
+                    self.options_df, self.spot_price, self.market_analysis, 'Bull Put Spread'
+                )
+                logger.info(f"Selected PUT strikes: Short {short_strike}, Long {long_strike}")
+            else:
+                # Fallback to traditional method
+                logger.info("Using traditional strike selection")
+                # Filter PUT options
+                puts_df = self.options_df[self.options_df['option_type'] == 'PUT'].copy()
+                
+                if len(puts_df) < 2:
+                    return {
+                        'success': False,
+                        'reason': 'Insufficient PUT options for spread'
+                    }
+                
+                # Find strikes for bull put spread
+                # Sell OTM put, buy further OTM put
+                otm_puts = puts_df[puts_df['strike'] < self.spot_price].sort_values('strike', ascending=False)
+                
+                if len(otm_puts) < 2:
+                    return {
+                        'success': False,
+                        'reason': 'Insufficient OTM PUT strikes'
+                    }
+                
+                # Select strikes
+                short_strike = otm_puts.iloc[0]['strike']  # Closer to ATM
+                long_strike = otm_puts.iloc[1]['strike']   # Further OTM
             
             # Get option details
             short_put = self._get_option_data(short_strike, 'PUT')
@@ -117,13 +127,18 @@ class BullPutSpreadStrategy(BaseStrategy):
             net_gamma = short_put.get('gamma', 0) - long_put.get('gamma', 0)
             net_vega = short_put.get('vega', 0) - long_put.get('vega', 0)
             
+            # Apply lot size multiplier for real position sizing
+            total_max_profit = max_profit * self.lot_size
+            total_max_loss = max_loss * self.lot_size
+            total_net_premium = net_premium * self.lot_size
+            
             return {
                 'success': True,
                 'strategy_name': self.get_strategy_name(),
                 'legs': legs,
-                'net_premium': net_premium,
-                'max_profit': max_profit,
-                'max_loss': max_loss,
+                'net_premium': total_net_premium,
+                'max_profit': total_max_profit,
+                'max_loss': total_max_loss,
                 'breakeven': breakeven,
                 'net_greeks': {
                     'delta': net_delta,
@@ -132,8 +147,15 @@ class BullPutSpreadStrategy(BaseStrategy):
                     'vega': net_vega
                 },
                 'spread_width': strike_width,
-                'margin_required': max_loss,
-                'strategy_type': 'credit_spread'
+                'margin_required': total_max_loss,
+                'strategy_type': 'credit_spread',
+                'position_details': {
+                    'lot_size': self.lot_size,
+                    'net_premium_per_lot': net_premium,
+                    'max_profit_per_lot': max_profit,
+                    'max_loss_per_lot': max_loss,
+                    'total_contracts': self.lot_size * 2  # 2 legs
+                }
             }
             
         except Exception as e:

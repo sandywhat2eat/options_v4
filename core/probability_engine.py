@@ -18,10 +18,10 @@ class ProbabilityEngine:
     
     def __init__(self):
         self.minimum_probability_thresholds = {
-            'conservative': 0.50,  # 50% minimum PoP
-            'moderate': 0.40,      # 40% minimum PoP
-            'aggressive': 0.30,    # 30% minimum PoP
-            'speculative': 0.20    # 20% minimum PoP
+            'conservative': 0.45,  # 45% minimum PoP  
+            'moderate': 0.25,      # 25% minimum PoP (lowered for better strategy diversity)
+            'aggressive': 0.20,    # 20% minimum PoP
+            'speculative': 0.15    # 15% minimum PoP
         }
     
     def calculate_single_leg_probability(self, delta: float, option_type: str, 

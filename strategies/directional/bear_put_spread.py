@@ -129,13 +129,18 @@ class BearPutSpreadStrategy(BaseStrategy):
             net_gamma = long_put.get('gamma', 0) - short_put.get('gamma', 0)
             net_vega = long_put.get('vega', 0) - short_put.get('vega', 0)
             
+            # Apply lot size multiplier for real position sizing
+            total_max_profit = max_profit * self.lot_size
+            total_max_loss = max_loss * self.lot_size
+            total_net_premium = net_premium * self.lot_size
+            
             return {
                 'success': True,
                 'strategy_name': self.get_strategy_name(),
                 'legs': legs,
-                'net_premium': -net_premium,  # Negative for debit
-                'max_profit': max_profit,
-                'max_loss': max_loss,
+                'net_premium': -total_net_premium,  # Negative for debit
+                'max_profit': total_max_profit,
+                'max_loss': total_max_loss,
                 'breakeven': breakeven,
                 'net_greeks': {
                     'delta': net_delta,
@@ -144,8 +149,15 @@ class BearPutSpreadStrategy(BaseStrategy):
                     'vega': net_vega
                 },
                 'spread_width': strike_width,
-                'margin_required': net_premium,
-                'strategy_type': 'debit_spread'
+                'margin_required': total_net_premium,
+                'strategy_type': 'debit_spread',
+                'position_details': {
+                    'lot_size': self.lot_size,
+                    'net_premium_per_lot': net_premium,
+                    'max_profit_per_lot': max_profit,
+                    'max_loss_per_lot': max_loss,
+                    'total_contracts': self.lot_size * 2  # 2 legs
+                }
             }
             
         except Exception as e:

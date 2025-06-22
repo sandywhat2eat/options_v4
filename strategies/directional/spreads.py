@@ -25,12 +25,21 @@ class BullCallSpread(BaseStrategy):
     def get_iv_preference(self) -> str:
         return "neutral"
     
-    def construct_strategy(self, short_delta: float = 0.3, long_delta: float = 0.15) -> Dict:
+    def construct_strategy(self, use_expected_moves: bool = True) -> Dict:
         """Construct Bull Call Spread (Buy lower strike, Sell higher strike)"""
         try:
-            # Find optimal strikes
-            long_strike = self._find_strike_by_delta(long_delta, 'CALL')
-            short_strike = self._find_strike_by_delta(short_delta, 'CALL')
+            # Find optimal strikes using intelligent selection
+            if use_expected_moves and self.market_analysis and self.strike_selector:
+                logger.info("Using intelligent strike selection for Bull Call Spread")
+                short_strike, long_strike = self.strike_selector.select_spread_strikes(
+                    self.options_df, self.spot_price, self.market_analysis, 'Bull Call Spread'
+                )
+                logger.info(f"Selected CALL strikes: Long {long_strike}, Short {short_strike}")
+            else:
+                # Fallback to delta-based selection
+                logger.info("Using delta-based strike selection")
+                long_strike = self._find_strike_by_delta(0.15, 'CALL')
+                short_strike = self._find_strike_by_delta(0.3, 'CALL')
             
             if long_strike >= short_strike:
                 return {'success': False, 'reason': 'Invalid strike relationship'}
@@ -71,16 +80,28 @@ class BullCallSpread(BaseStrategy):
             
             greeks = self.get_greeks_summary()
             
+            # Apply lot size multiplier for real position sizing
+            total_max_profit = max_profit * self.lot_size
+            total_max_loss = net_debit * self.lot_size
+            total_cost = total_max_loss  # Net debit = cost
+            
             return {
                 'success': True,
                 'strategy_name': self.get_strategy_name(),
                 'legs': self.legs,
-                'max_profit': max_profit,
-                'max_loss': net_debit,
+                'max_profit': total_max_profit,
+                'max_loss': total_max_loss,
                 'breakeven': long_strike + net_debit,
                 'delta_exposure': greeks['delta'],
                 'theta_decay': greeks['theta'],
-                'optimal_outcome': f"Stock closes above {short_strike} at expiry"
+                'optimal_outcome': f"Stock closes above {short_strike} at expiry",
+                'position_details': {
+                    'lot_size': self.lot_size,
+                    'net_debit_per_lot': net_debit,
+                    'max_profit_per_lot': max_profit,
+                    'total_cost': total_cost,
+                    'total_contracts': self.lot_size * 2  # 2 legs
+                }
             }
             
         except Exception as e:
@@ -119,12 +140,21 @@ class BearCallSpread(BaseStrategy):
     def get_iv_preference(self) -> str:
         return "neutral"
     
-    def construct_strategy(self, short_delta: float = 0.3, long_delta: float = 0.15) -> Dict:
+    def construct_strategy(self, use_expected_moves: bool = True) -> Dict:
         """Construct Bear Call Spread (Sell lower strike, Buy higher strike)"""
         try:
-            # Find optimal strikes
-            short_strike = self._find_strike_by_delta(short_delta, 'CALL')
-            long_strike = self._find_strike_by_delta(long_delta, 'CALL')
+            # Find optimal strikes using intelligent selection
+            if use_expected_moves and self.market_analysis and self.strike_selector:
+                logger.info("Using intelligent strike selection for Bear Call Spread")
+                short_strike, long_strike = self.strike_selector.select_spread_strikes(
+                    self.options_df, self.spot_price, self.market_analysis, 'Bear Call Spread'
+                )
+                logger.info(f"Selected CALL strikes: Short {short_strike}, Long {long_strike}")
+            else:
+                # Fallback to delta-based selection
+                logger.info("Using delta-based strike selection")
+                short_strike = self._find_strike_by_delta(0.3, 'CALL')
+                long_strike = self._find_strike_by_delta(0.15, 'CALL')
             
             if short_strike >= long_strike:
                 return {'success': False, 'reason': 'Invalid strike relationship'}
@@ -165,16 +195,27 @@ class BearCallSpread(BaseStrategy):
             
             greeks = self.get_greeks_summary()
             
+            # Apply lot size multiplier for real position sizing
+            total_max_profit = net_credit * self.lot_size
+            total_max_loss = max_loss * self.lot_size
+            
             return {
                 'success': True,
                 'strategy_name': self.get_strategy_name(),
                 'legs': self.legs,
-                'max_profit': net_credit,
-                'max_loss': max_loss,
+                'max_profit': total_max_profit,
+                'max_loss': total_max_loss,
                 'breakeven': short_strike + net_credit,
                 'delta_exposure': greeks['delta'],
                 'theta_decay': greeks['theta'],
-                'optimal_outcome': f"Stock closes below {short_strike} at expiry"
+                'optimal_outcome': f"Stock closes below {short_strike} at expiry",
+                'position_details': {
+                    'lot_size': self.lot_size,
+                    'net_credit_per_lot': net_credit,
+                    'max_loss_per_lot': max_loss,
+                    'total_credit_received': total_max_profit,
+                    'total_contracts': self.lot_size * 2  # 2 legs
+                }
             }
             
         except Exception as e:
@@ -259,16 +300,27 @@ class BullPutSpread(BaseStrategy):
             
             greeks = self.get_greeks_summary()
             
+            # Apply lot size multiplier for real position sizing
+            total_max_profit = net_credit * self.lot_size
+            total_max_loss = max_loss * self.lot_size
+            
             return {
                 'success': True,
                 'strategy_name': self.get_strategy_name(),
                 'legs': self.legs,
-                'max_profit': net_credit,
-                'max_loss': max_loss,
+                'max_profit': total_max_profit,
+                'max_loss': total_max_loss,
                 'breakeven': short_strike - net_credit,
                 'delta_exposure': greeks['delta'],
                 'theta_decay': greeks['theta'],
-                'optimal_outcome': f"Stock closes above {short_strike} at expiry"
+                'optimal_outcome': f"Stock closes above {short_strike} at expiry",
+                'position_details': {
+                    'lot_size': self.lot_size,
+                    'net_credit_per_lot': net_credit,
+                    'max_loss_per_lot': max_loss,
+                    'total_credit_received': total_max_profit,
+                    'total_contracts': self.lot_size * 2  # 2 legs
+                }
             }
             
         except Exception as e:
@@ -308,12 +360,21 @@ class BearPutSpread(BaseStrategy):
     def get_iv_preference(self) -> str:
         return "neutral"
     
-    def construct_strategy(self, short_delta: float = -0.15, long_delta: float = -0.3) -> Dict:
+    def construct_strategy(self, use_expected_moves: bool = True, **kwargs) -> Dict:
         """Construct Bear Put Spread (Buy higher strike, Sell lower strike)"""
         try:
-            # Find optimal strikes (using absolute values for put deltas)
-            long_strike = self._find_strike_by_delta(abs(long_delta), 'PUT')
-            short_strike = self._find_strike_by_delta(abs(short_delta), 'PUT')
+            # Find optimal strikes using intelligent selection
+            if use_expected_moves and self.market_analysis and self.strike_selector:
+                logger.info("Using intelligent strike selection for Bear Put Spread")
+                short_strike, long_strike = self.strike_selector.select_spread_strikes(
+                    self.options_df, self.spot_price, self.market_analysis, 'Bear Put Spread'
+                )
+                logger.info(f"Selected PUT strikes: Long {long_strike}, Short {short_strike}")
+            else:
+                # Fallback to delta-based selection
+                logger.info("Using delta-based strike selection")
+                long_strike = self._find_strike_by_delta(0.3, 'PUT')
+                short_strike = self._find_strike_by_delta(0.15, 'PUT')
             
             if long_strike <= short_strike:
                 return {'success': False, 'reason': 'Invalid strike relationship'}
@@ -354,16 +415,27 @@ class BearPutSpread(BaseStrategy):
             
             greeks = self.get_greeks_summary()
             
+            # Apply lot size multiplier for real position sizing
+            total_max_profit = max_profit * self.lot_size
+            total_max_loss = net_debit * self.lot_size
+            
             return {
                 'success': True,
                 'strategy_name': self.get_strategy_name(),
                 'legs': self.legs,
-                'max_profit': max_profit,
-                'max_loss': net_debit,
+                'max_profit': total_max_profit,
+                'max_loss': total_max_loss,
                 'breakeven': long_strike - net_debit,
                 'delta_exposure': greeks['delta'],
                 'theta_decay': greeks['theta'],
-                'optimal_outcome': f"Stock closes below {short_strike} at expiry"
+                'optimal_outcome': f"Stock closes below {short_strike} at expiry",
+                'position_details': {
+                    'lot_size': self.lot_size,
+                    'net_debit_per_lot': net_debit,
+                    'max_profit_per_lot': max_profit,
+                    'total_cost': total_max_loss,
+                    'total_contracts': self.lot_size * 2  # 2 legs
+                }
             }
             
         except Exception as e:

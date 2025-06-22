@@ -44,6 +44,7 @@ from strategies import (
     JadeLizard, BrokenWingButterfly
 )
 from utils.logger import setup_logger, get_default_log_file
+from database import SupabaseIntegration
 
 # Load environment variables
 if DOTENV_AVAILABLE:
@@ -56,7 +57,7 @@ class OptionsAnalyzer:
     Replaces the monolithic script with clean, modular architecture
     """
     
-    def __init__(self, config_path: str = None):
+    def __init__(self, config_path: str = None, enable_database: bool = True):
         # Set up logging
         self.logger = setup_logger(
             'OptionsV4',
@@ -75,6 +76,17 @@ class OptionsAnalyzer:
         self.market_analyzer = MarketAnalyzer()
         self.strategy_ranker = StrategyRanker()
         self.exit_manager = ExitManager()
+        
+        # Initialize database integration if enabled
+        self.enable_database = enable_database
+        self.db_integration = None
+        if self.enable_database:
+            try:
+                self.db_integration = SupabaseIntegration(self.logger)
+                self.logger.info("Database integration enabled")
+            except Exception as e:
+                self.logger.warning(f"Database integration failed to initialize: {e}")
+                self.db_integration = None
         
         # Strategy mapping
         self.strategy_classes = {
@@ -206,6 +218,7 @@ class OptionsAnalyzer:
                 symbol, options_df, spot_price
             )
             market_analysis['price_levels'] = price_levels
+            market_analysis['spot_price'] = spot_price  # Add spot price for exit calculations
             
             self.logger.info(f"Market Direction: {market_analysis['direction']} {market_analysis['sub_category']} "
                            f"(Confidence: {market_analysis['confidence']:.1%})")
@@ -290,7 +303,8 @@ class OptionsAnalyzer:
                         # Get lot size for this symbol
                         lot_size = self.data_manager.get_lot_size(symbol)
                         
-                        strategy_instance = strategy_class(symbol, spot_price, options_df, lot_size)
+                        # Pass market analysis to strategy for intelligent strike selection
+                        strategy_instance = strategy_class(symbol, spot_price, options_df, lot_size, market_analysis)
                         
                         # Construct strategy with appropriate parameters
                         result = self._construct_single_strategy(strategy_instance, strategy_name, market_analysis)
@@ -511,6 +525,18 @@ class OptionsAnalyzer:
                 json.dump(results, f, indent=2, default=str)
             
             self.logger.info(f"Results saved to: {filepath}")
+            
+            # Store results in database if enabled
+            if self.enable_database and self.db_integration:
+                try:
+                    db_result = self.db_integration.store_analysis_results(results)
+                    if db_result['success']:
+                        self.logger.info(f"Stored {db_result['total_stored']} strategies in database")
+                    else:
+                        self.logger.warning(f"Database storage failed: {db_result.get('error', 'Unknown error')}")
+                except Exception as e:
+                    self.logger.error(f"Error storing to database: {e}")
+            
             return filepath
             
         except Exception as e:
@@ -522,12 +548,36 @@ def main():
     print("🚀 Options V4 Trading System")
     print("=" * 50)
     
+    # Check for command line arguments
+    import argparse
+    parser = argparse.ArgumentParser(description='Options V4 Trading System')
+    parser.add_argument('--no-database', action='store_true', help='Disable database storage')
+    parser.add_argument('--symbol', type=str, help='Analyze specific symbol instead of portfolio')
+    parser.add_argument('--risk', type=str, default='moderate', choices=['conservative', 'moderate', 'aggressive'],
+                        help='Risk tolerance level')
+    args = parser.parse_args()
+    
     try:
         # Initialize analyzer
-        analyzer = OptionsAnalyzer()
+        analyzer = OptionsAnalyzer(enable_database=not args.no_database)
         
-        # Run portfolio analysis
-        results = analyzer.analyze_portfolio(risk_tolerance='moderate')
+        # Run analysis based on arguments
+        if args.symbol:
+            # Single symbol analysis
+            print(f"\n🔍 Analyzing {args.symbol}...")
+            results = analyzer.analyze_symbol(args.symbol, risk_tolerance=args.risk)
+            # Wrap single symbol result for consistent handling
+            if results.get('success'):
+                results = {
+                    'success': True,
+                    'analysis_timestamp': datetime.now().isoformat(),
+                    'symbol_results': {args.symbol: results},
+                    'total_symbols': 1,
+                    'successful_analyses': 1
+                }
+        else:
+            # Portfolio analysis
+            results = analyzer.analyze_portfolio(risk_tolerance=args.risk)
         
         if results.get('success', False):
             # Save results
@@ -548,6 +598,12 @@ def main():
                 print(f"\n🎯 Most Recommended Strategies:")
                 for strategy, count in strategy_dist:
                     print(f"   • {strategy}: {count} times")
+            
+            # Show database storage status
+            if analyzer.enable_database and analyzer.db_integration:
+                print(f"\n💾 Database Storage: Enabled")
+            else:
+                print(f"\n💾 Database Storage: Disabled")
         
         else:
             print(f"❌ Portfolio analysis failed: {results.get('reason', 'Unknown error')}")

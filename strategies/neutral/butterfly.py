@@ -186,10 +186,17 @@ class ButterflySpread(BaseStrategy):
             total_theta = sum(leg.get('theta', 0) * leg['quantity'] for leg in legs)
             total_vega = sum(leg.get('vega', 0) * leg['quantity'] for leg in legs)
             
+            # Apply lot size multiplier for real position sizing
+            total_max_profit = max_profit * self.lot_size
+            total_max_loss = max_loss * self.lot_size
+            total_cost = total_max_loss  # Net debit = cost
+            
             return {
+                'success': True,
+                'strategy_name': self.get_strategy_name(),
                 'legs': legs,
-                'max_profit': max_profit,
-                'max_loss': max_loss,
+                'max_profit': total_max_profit,
+                'max_loss': total_max_loss,
                 'probability_profit': probability_profit,
                 'breakevens': {
                     'lower': lower_breakeven,
@@ -212,6 +219,15 @@ class ButterflySpread(BaseStrategy):
                 'risk_metrics': {
                     'risk_reward': risk_reward,
                     'max_risk_pct': (max_loss / spot_price) * 100
+                },
+                'optimal_outcome': f"Stock closes near {atm_strike} at expiry",
+                'position_details': {
+                    'lot_size': self.lot_size,
+                    'net_debit_per_lot': net_debit,
+                    'max_profit_per_lot': max_profit,
+                    'max_loss_per_lot': max_loss,
+                    'total_cost': total_cost,
+                    'total_contracts': self.lot_size * 4  # 4 legs total (1+2+1)
                 },
                 'optimal_conditions': {
                     'iv_environment': 'Normal to high',

@@ -163,6 +163,11 @@ class CalendarSpread(BaseStrategy):
             estimated_max_profit = net_debit * 0.25
             max_loss = net_debit
             
+            # Apply lot size multiplier for real position sizing
+            total_max_profit = estimated_max_profit * self.lot_size
+            total_max_loss = max_loss * self.lot_size
+            total_net_debit = net_debit * self.lot_size
+            
             # Breakevens are complex for calendars
             # Approximate based on strike and debit
             approx_upper_be = strike + (net_debit * 2)
@@ -194,10 +199,10 @@ class CalendarSpread(BaseStrategy):
             
             return {
                 'legs': legs,
-                'max_profit': estimated_max_profit,
-                'max_loss': max_loss,
+                'max_profit': total_max_profit,
+                'max_loss': total_max_loss,
                 'probability_profit': prob_in_range,
-                'net_debit': net_debit,
+                'net_debit': total_net_debit,
                 'expiries': {
                     'near': near_expiry,
                     'far': far_expiry,
@@ -223,6 +228,13 @@ class CalendarSpread(BaseStrategy):
                 'risk_metrics': {
                     'risk_reward': estimated_max_profit / max_loss,
                     'debit_as_pct': (net_debit / spot_price) * 100
+                },
+                'position_details': {
+                    'lot_size': self.lot_size,
+                    'max_profit_per_lot': estimated_max_profit,
+                    'max_loss_per_lot': max_loss,
+                    'net_debit_per_lot': net_debit,
+                    'total_contracts': self.lot_size * 2  # 2 legs
                 },
                 'optimal_conditions': {
                     'iv_environment': 'Low front month, higher back month',

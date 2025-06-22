@@ -117,15 +117,21 @@ class CashSecuredPut(BaseStrategy):
             # Assignment probability (roughly inverse of delta)
             assignment_prob = abs(put_data.get('delta', 0.3))
             
+            # Apply lot size multiplier for real position sizing
+            total_max_profit = max_profit * self.lot_size
+            total_max_loss = max_loss * self.lot_size
+            total_premium = premium * self.lot_size
+            total_cash_required = cash_required * self.lot_size
+            
             return {
                 'success': True,
                 'strategy_name': self.get_strategy_name(),
                 'legs': self.legs,
-                'net_premium': premium,
-                'max_profit': max_profit,
-                'max_loss': max_loss,
+                'net_premium': total_premium,
+                'max_profit': total_max_profit,
+                'max_loss': total_max_loss,
                 'breakeven': breakeven,
-                'cash_required': cash_required,
+                'cash_required': total_cash_required,
                 'return_on_cash_annualized': round(return_on_cash, 2),
                 'assignment_probability': round(assignment_prob, 3),
                 'net_greeks': {
@@ -136,7 +142,14 @@ class CashSecuredPut(BaseStrategy):
                 },
                 'strategy_type': 'income',
                 'optimal_outcome': f'Stock stays above {selected_strike} at expiry',
-                'risk_note': f'Obligated to buy 1 lot at {selected_strike} if assigned'
+                'risk_note': f'Obligated to buy {self.lot_size} shares at {selected_strike} if assigned',
+                'position_details': {
+                    'lot_size': self.lot_size,
+                    'premium_per_share': premium,
+                    'total_premium': total_premium,
+                    'cash_per_share': cash_required,
+                    'total_cash_required': total_cash_required
+                }
             }
             
         except Exception as e:

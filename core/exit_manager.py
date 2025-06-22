@@ -75,7 +75,7 @@ class ExitManager:
             # Calculate specific exit levels
             exit_conditions = {
                 'profit_targets': self._calculate_profit_targets(
-                    strategy_metrics, base_exits, category
+                    strategy_metrics, base_exits, category, market_analysis
                 ),
                 'stop_losses': self._calculate_stop_losses(
                     strategy_metrics, base_exits, category
@@ -135,10 +135,17 @@ class ExitManager:
         return 'neutral'  # Default
     
     def _calculate_profit_targets(self, metrics: Dict, base_exits: Dict,
-                                category: str) -> Dict:
-        """Calculate profit target levels"""
+                                category: str, market_analysis: Dict = None) -> Dict:
+        """Calculate profit target levels based on realistic expected moves"""
         try:
             max_profit = metrics.get('max_profit', 0)
+            
+            # Check if we should use realistic targets based on expected moves
+            if market_analysis and category in ['directional']:
+                realistic_profit = self._calculate_realistic_profit(metrics, market_analysis)
+                if realistic_profit and realistic_profit < max_profit:
+                    # Use realistic profit instead of theoretical max
+                    max_profit = realistic_profit
             
             if max_profit == float('inf'):
                 # For unlimited profit strategies
@@ -566,6 +573,64 @@ class ExitManager:
             'advanced': 'Complex strategies need active management'
         }
         return reasons.get(category, 'Risk management best practice')
+    
+    def _calculate_realistic_profit(self, metrics: Dict, market_analysis: Dict) -> float:
+        """Calculate realistic profit based on expected moves"""
+        try:
+            # Extract key data
+            legs = metrics.get('legs', [])
+            if not legs:
+                return None
+                
+            # Get expected moves
+            expected_moves = market_analysis.get('price_levels', {}).get('expected_moves', {})
+            one_sd_move = expected_moves.get('one_sd_move', 0)
+            two_sd_move = expected_moves.get('two_sd_move', 0)
+            spot_price = market_analysis.get('spot_price', 0)
+            
+            # For Long Put
+            if len(legs) == 1 and legs[0]['option_type'] == 'PUT' and legs[0]['position'] == 'LONG':
+                strike = legs[0]['strike']
+                premium = legs[0]['premium']
+                
+                # Calculate profit at 1SD and 2SD moves
+                target_1sd = spot_price - one_sd_move
+                target_2sd = spot_price - two_sd_move
+                
+                # Profit at 1SD move
+                if target_1sd < strike:
+                    profit_1sd = (strike - target_1sd - premium) * metrics.get('position_details', {}).get('lot_size', 1)
+                else:
+                    profit_1sd = 0
+                    
+                # Use 1SD profit as realistic target (achievable in timeframe)
+                return profit_1sd
+                
+            # For Long Call
+            elif len(legs) == 1 and legs[0]['option_type'] == 'CALL' and legs[0]['position'] == 'LONG':
+                strike = legs[0]['strike']
+                premium = legs[0]['premium']
+                
+                # Calculate profit at 1SD move
+                target_1sd = spot_price + one_sd_move
+                
+                if target_1sd > strike:
+                    profit_1sd = (target_1sd - strike - premium) * metrics.get('position_details', {}).get('lot_size', 1)
+                else:
+                    profit_1sd = 0
+                    
+                return profit_1sd
+                
+            # For spreads, use spread width as max realistic profit
+            elif len(legs) == 2:
+                # This is already realistic for spreads
+                return metrics.get('max_profit', 0)
+                
+            return None
+            
+        except Exception as e:
+            logger.error(f"Error calculating realistic profit: {e}")
+            return None
     
     def _default_exit_conditions(self) -> Dict:
         """Return default exit conditions"""

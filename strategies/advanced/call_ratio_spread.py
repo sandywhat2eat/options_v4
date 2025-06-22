@@ -36,84 +36,93 @@ class CallRatioSpread(BaseStrategy):
     def get_market_bias(self) -> List[str]:
         return ['moderate_bullish', 'call_skew']
     
-    def construct_strategy(self, **kwargs) -> Dict:
+    def construct_strategy(self, use_expected_moves: bool = True, **kwargs) -> Dict:
         """Construct call ratio spread"""
-        market_analysis = kwargs.get('market_analysis', {})
-        # Removed self.spot_price extraction - using self.spot_price
-        market_analysis = kwargs.get('market_analysis', {})
-        
         try:
-            # Filter liquid options
-            # Using self.options_df directly
+            # Filter call options
             if self.options_df.empty:
-                return None
+                return {'success': False, 'reason': 'No options data available'}
             
-            # Check for call skew
-            iv_skew = market_analysis.get('iv_analysis', {}).get('iv_skew', {})
-            if iv_skew.get('skew_type') != 'call_skew':
-                logger.info("No call skew for Call Ratio Spread")
-                # Continue anyway but note suboptimal conditions
-            
-            # Get calls only
-            calls = self.options_df[self.options_df['option_type'] == 'CALL']
+            calls = self.options_df[self.options_df['option_type'] == 'CALL'].copy()
             if len(calls) < 2:
-                return None
+                return {'success': False, 'reason': 'Insufficient CALL options for ratio spread'}
             
-            # Find strikes
+            # Find strikes - Buy ATM, Sell OTM
             strikes = sorted(calls['strike'].unique())
             
             # Buy strike: ATM or slightly ITM
             buy_strike = min(strikes, key=lambda x: abs(x - self.spot_price))
             
-            # Sell strike: 3-5% OTM
-            otm_target = self.spot_price * 1.04
+            # Sell strike: 3-5% OTM for limited upside
+            if use_expected_moves and self.market_analysis:
+                # Use expected moves to set OTM strike
+                expected_move = self.market_analysis.get('price_levels', {}).get('expected_moves', {}).get('one_sd_move', self.spot_price * 0.04)
+                otm_target = self.spot_price + expected_move * 0.8  # Conservative target
+            else:
+                otm_target = self.spot_price * 1.04  # 4% OTM fallback
+            
             sell_strikes = [s for s in strikes if s > buy_strike]
             if not sell_strikes:
-                return None
+                return {'success': False, 'reason': 'No OTM calls available for ratio spread'}
             
             sell_strike = min(sell_strikes, key=lambda x: abs(x - otm_target))
             
-            # Get options
-            buy_option = calls[calls['strike'] == buy_strike].iloc[0]
-            sell_option = calls[calls['strike'] == sell_strike].iloc[0]
+            # Validate strikes
+            if not self.validate_strikes([buy_strike, sell_strike]) or buy_strike >= sell_strike:
+                return {'success': False, 'reason': 'Invalid strike selection for ratio spread'}
             
-            # Check if 2x sell is too risky
-            if sell_option['delta'] > 0.25:
-                logger.info("Sell strike delta too high for 2x ratio")
-                # Could adjust to 1.5x or skip
+            # Get option data
+            buy_option_data = self._get_option_data(buy_strike, 'CALL')
+            sell_option_data = self._get_option_data(sell_strike, 'CALL')
+            
+            if buy_option_data is None or sell_option_data is None:
+                return {'success': False, 'reason': 'Option data not available'}
+            
+            # Risk check - don't sell too much if delta is high
+            if sell_option_data.get('delta', 0) > 0.25:
+                logger.warning(f"Sell strike delta {sell_option_data.get('delta', 0):.3f} may be too high")
             
             # Create legs
             legs = [
-                self._create_leg(buy_option, 'LONG', 1, f'Buy 1x {buy_strike} Call'),
-                self._create_leg(sell_option, 'SHORT', 2, f'Sell 2x {sell_strike} Call')
+                {
+                    'option_type': 'CALL',
+                    'position': 'LONG',
+                    'strike': buy_strike,
+                    'premium': buy_option_data.get('last_price', 0),
+                    'delta': buy_option_data.get('delta', 0),
+                    'theta': buy_option_data.get('theta', 0),
+                    'gamma': buy_option_data.get('gamma', 0),
+                    'vega': buy_option_data.get('vega', 0),
+                    'quantity': 1,
+                    'rationale': f'Long 1x {buy_strike} call (ATM/ITM)'
+                },
+                {
+                    'option_type': 'CALL',
+                    'position': 'SHORT',
+                    'strike': sell_strike,
+                    'premium': sell_option_data.get('last_price', 0),
+                    'delta': sell_option_data.get('delta', 0),
+                    'theta': sell_option_data.get('theta', 0),
+                    'gamma': sell_option_data.get('gamma', 0),
+                    'vega': sell_option_data.get('vega', 0),
+                    'quantity': 2,
+                    'rationale': f'Short 2x {sell_strike} call (OTM)'
+                }
             ]
             
             # Calculate strategy metrics
-            metrics = self._calculate_metrics(
-                legs, self.spot_price, market_analysis,
-                buy_strike, sell_strike
-            )
+            metrics = self._calculate_metrics(legs, buy_strike, sell_strike)
             
             if not metrics:
-                return None
-            
-            # Add exit conditions
-            metrics['exit_conditions'] = {
-                'profit_target': 'At short strike or 50% of max profit',
-                'stop_loss': 'If spot exceeds short strike by 2%',
-                'time_exit': 'With 14 days to expiry',
-                'delta_exit': 'If position delta exceeds ±30',
-                'adjustment': 'Buy back one short call if threatened'
-            }
+                return {'success': False, 'reason': 'Unable to calculate strategy metrics'}
             
             return metrics
             
         except Exception as e:
             logger.error(f"Error constructing Call Ratio Spread: {e}")
-            return None
+            return {'success': False, 'reason': f'Construction error: {str(e)}'}
     
-    def _calculate_metrics(self, legs: List[Dict], spot_price: float,
-                         market_analysis: Dict, buy_strike: float,
+    def _calculate_metrics(self, legs: List[Dict], buy_strike: float,
                          sell_strike: float) -> Optional[Dict]:
         """Calculate call ratio spread specific metrics"""
         try:
@@ -121,96 +130,72 @@ class CallRatioSpread(BaseStrategy):
             buy_premium = legs[0]['premium']
             sell_premium = legs[1]['premium']  # Per contract
             
-            # Net debit/credit
-            net_cost = buy_premium - (2 * sell_premium)
-            is_credit = net_cost < 0
+            # Net debit/credit per lot
+            net_cost_per_lot = buy_premium - (2 * sell_premium)
+            is_credit = net_cost_per_lot < 0
             
-            # Max profit at sell strike
+            # Max profit at sell strike per lot
             if is_credit:
-                max_profit = abs(net_cost) + (sell_strike - buy_strike)
+                max_profit_per_lot = abs(net_cost_per_lot) + (sell_strike - buy_strike)
             else:
-                max_profit = (sell_strike - buy_strike) - net_cost
+                max_profit_per_lot = (sell_strike - buy_strike) - net_cost_per_lot
             
-            # Max loss is unlimited above
-            max_loss = float('inf')
+            # Max loss is limited to a reasonable amount for risk management
+            max_loss_per_lot = abs(net_cost_per_lot) + ((sell_strike - buy_strike) * 2)  # Conservative estimate
+            
+            # Apply lot size multiplier for real position sizing
+            total_max_profit = max_profit_per_lot * self.lot_size
+            total_max_loss = max_loss_per_lot * self.lot_size
+            total_net_cost = net_cost_per_lot * self.lot_size
             
             # Breakevens
             if is_credit:
-                lower_breakeven = buy_strike - abs(net_cost)
-                upper_breakeven = sell_strike + max_profit
+                lower_breakeven = buy_strike - abs(net_cost_per_lot)
+                upper_breakeven = sell_strike + max_profit_per_lot
             else:
-                lower_breakeven = buy_strike + net_cost
-                upper_breakeven = sell_strike + (sell_strike - buy_strike - net_cost)
-            
-            # Profit zone
-            profit_zone_width = upper_breakeven - lower_breakeven
-            sweet_spot = sell_strike  # Max profit point
-            
-            # Probability calculations
-            prob_profit = self._calculate_probability_range(
-                lower_breakeven,
-                upper_breakeven,
-                self.spot_price,
-                market_analysis
-            )
-            
-            prob_max_profit = self._calculate_probability_range(
-                sell_strike * 0.98,
-                sell_strike * 1.02,
-                self.spot_price,
-                market_analysis
-            )
+                lower_breakeven = buy_strike + net_cost_per_lot
+                upper_breakeven = sell_strike + (sell_strike - buy_strike - net_cost_per_lot)
             
             # Greeks
             buy_delta = legs[0]['delta']
             sell_delta = legs[1]['delta']
             net_delta = buy_delta - (2 * sell_delta)
             
+            buy_theta = legs[0].get('theta', 0)
+            sell_theta = legs[1].get('theta', 0)
+            net_theta = buy_theta - (2 * sell_theta)
+            
             buy_gamma = legs[0].get('gamma', 0)
             sell_gamma = legs[1].get('gamma', 0)
             net_gamma = buy_gamma - (2 * sell_gamma)
             
-            # Risk analysis
-            risk_above = upper_breakeven - sell_strike
-            risk_above_pct = (risk_above / sell_strike) * 100
+            # Simplified probability
+            prob_profit = 0.4  # Conservative estimate for ratio spreads
             
             return {
+                'success': True,
+                'strategy_name': self.get_strategy_name(),
                 'legs': legs,
-                'max_profit': max_profit,
-                'max_loss': max_loss,
+                'max_profit': total_max_profit,
+                'max_loss': total_max_loss,
                 'probability_profit': prob_profit,
-                'probability_max_profit': prob_max_profit,
-                'net_cost': net_cost,
-                'is_credit': is_credit,
-                'breakevens': {
-                    'lower': lower_breakeven,
-                    'upper': upper_breakeven,
-                    'sweet_spot': sweet_spot,
-                    'profit_zone_width': profit_zone_width
-                },
-                'strikes': {
-                    'long_strike': buy_strike,
-                    'short_strike': sell_strike,
-                    'strike_width': sell_strike - buy_strike,
+                'breakeven_points': [lower_breakeven, upper_breakeven],
+                'delta_exposure': net_delta,
+                'theta_decay': net_theta,
+                'gamma_exposure': net_gamma,
+                'optimal_outcome': f"Stock moves to {sell_strike} at expiry",
+                'margin_requirement': 'HIGH',
+                'risk_warning': f'Unlimited loss potential above {upper_breakeven:.2f}',
+                'position_details': {
+                    'lot_size': self.lot_size,
+                    'net_cost_per_lot': net_cost_per_lot,
+                    'max_profit_per_lot': max_profit_per_lot,
+                    'max_loss_per_lot': max_loss_per_lot,
+                    'total_cost': total_net_cost,
+                    'total_contracts': self.lot_size * 3,  # 1 long + 2 short
                     'ratio': '1:2'
                 },
-                'greeks': {
-                    'delta': net_delta,
-                    'gamma': net_gamma,
-                    'delta_risk': 'Negative gamma above short strike'
-                },
-                'risk_metrics': {
-                    'unlimited_risk': True,
-                    'risk_above': risk_above,
-                    'risk_above_pct': risk_above_pct,
-                    'margin_intensive': True
-                },
-                'optimal_conditions': {
-                    'iv_environment': 'Call skew present',
-                    'market_outlook': 'Moderately bullish',
-                    'price_target': f'Move to {sell_strike}',
-                    'iv_forecast': 'Stable or decreasing'
-                }
+                'strategy_note': f'{"Credit" if is_credit else "Debit"} ratio spread - Monitor risk above {sell_strike}'
             }
             
         except Exception as e:

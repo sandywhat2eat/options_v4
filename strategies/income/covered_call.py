@@ -128,15 +128,21 @@ class CoveredCall(BaseStrategy):
             # Probability of being called away
             call_away_prob = call_data.get('delta', 0.3)
             
+            # Apply lot size multiplier for real position sizing
+            total_max_profit = max_profit * self.lot_size
+            total_max_loss = max_loss * self.lot_size
+            total_premium = premium * self.lot_size
+            total_stock_value = stock_value * self.lot_size
+            
             return {
                 'success': True,
                 'strategy_name': self.get_strategy_name(),
                 'legs': self.legs,
-                'net_premium': premium,
-                'max_profit': max_profit,
-                'max_loss': max_loss,
+                'net_premium': total_premium,
+                'max_profit': total_max_profit,
+                'max_loss': total_max_loss,
                 'breakeven': breakeven,
-                'stock_required': '1 lot',
+                'stock_required': f'{self.lot_size} shares',
                 'return_if_called_pct': round(return_if_called, 2),
                 'premium_return_annualized': round(premium_return, 2),
                 'call_away_probability': round(call_away_prob, 3),
@@ -148,7 +154,14 @@ class CoveredCall(BaseStrategy):
                 },
                 'strategy_type': 'income',
                 'optimal_outcome': f'Stock stays below {selected_strike} or gets called at profit',
-                'risk_note': f'Upside capped at {selected_strike}, full downside risk minus premium'
+                'risk_note': f'Upside capped at {selected_strike}, full downside risk minus premium',
+                'position_details': {
+                    'lot_size': self.lot_size,
+                    'premium_per_share': premium,
+                    'total_premium': total_premium,
+                    'stock_value_per_share': stock_value,
+                    'total_stock_value': total_stock_value
+                }
             }
             
         except Exception as e:

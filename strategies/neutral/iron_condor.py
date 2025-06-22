@@ -118,12 +118,16 @@ class IronCondor(BaseStrategy):
             lower_breakeven = put_short_strike - net_credit
             upper_breakeven = call_short_strike + net_credit
             
+            # Apply lot size multiplier for real position sizing
+            total_max_profit = net_credit * self.lot_size
+            total_max_loss = max_loss * self.lot_size
+            
             return {
                 'success': True,
                 'strategy_name': f"{self.get_strategy_name()} ({wing_width.title()} Wings)",
                 'legs': self.legs,
-                'max_profit': net_credit,
-                'max_loss': max_loss,
+                'max_profit': total_max_profit,
+                'max_loss': total_max_loss,
                 'breakeven_points': [lower_breakeven, upper_breakeven],
                 'profit_zone': (lower_breakeven, upper_breakeven),
                 'delta_exposure': greeks['delta'],
@@ -131,7 +135,14 @@ class IronCondor(BaseStrategy):
                 'optimal_outcome': f"Stock stays between {lower_breakeven:.2f} and {upper_breakeven:.2f}",
                 'wing_width': wing_width,
                 'put_spread_width': put_spread_width,
-                'call_spread_width': call_spread_width
+                'call_spread_width': call_spread_width,
+                'position_details': {
+                    'lot_size': self.lot_size,
+                    'net_credit_per_lot': net_credit,
+                    'max_loss_per_lot': max_loss,
+                    'total_credit_received': total_max_profit,
+                    'total_contracts': self.lot_size * 4  # 4 legs
+                }
             }
             
         except Exception as e:
@@ -213,16 +224,27 @@ class IronCondor(BaseStrategy):
             net_credit = self._calculate_net_credit()
             greeks = self.get_greeks_summary()
             
+            # Apply lot size multiplier
+            max_loss_per_lot = max(put_short_strike - put_long_strike, call_long_strike - call_short_strike) - net_credit
+            total_max_profit = net_credit * self.lot_size
+            total_max_loss = max_loss_per_lot * self.lot_size
+            
             return {
                 'success': True,
                 'strategy_name': f"{self.get_strategy_name()} (Simple)",
                 'legs': self.legs,
-                'max_profit': net_credit,
-                'max_loss': max(put_short_strike - put_long_strike, call_long_strike - call_short_strike) - net_credit,
+                'max_profit': total_max_profit,
+                'max_loss': total_max_loss,
                 'delta_exposure': greeks['delta'],
                 'theta_decay': greeks['theta'],
                 'optimal_outcome': f"Stock stays between {put_short_strike} and {call_short_strike}",
-                'strategy_note': 'Simple strike selection due to limited delta targeting'
+                'strategy_note': 'Simple strike selection due to limited delta targeting',
+                'position_details': {
+                    'lot_size': self.lot_size,
+                    'net_credit_per_lot': net_credit,
+                    'max_loss_per_lot': max_loss_per_lot,
+                    'total_contracts': self.lot_size * 4
+                }
             }
             
         except Exception as e:

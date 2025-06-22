@@ -13,13 +13,24 @@ logger = logging.getLogger(__name__)
 class BaseStrategy(ABC):
     """Abstract base class for all options strategies"""
     
-    def __init__(self, symbol: str, spot_price: float, options_df: pd.DataFrame, lot_size: int = 1):
+    def __init__(self, symbol: str, spot_price: float, options_df: pd.DataFrame, 
+                 lot_size: int = 1, market_analysis: Dict = None):
         self.symbol = symbol
         self.spot_price = spot_price
         self.options_df = options_df
         self.lot_size = lot_size  # Number of contracts per lot
+        self.market_analysis = market_analysis or {}
         self.legs = []
         self.strategy_data = {}
+        self.expected_moves = self._extract_expected_moves()
+        
+        # Initialize strike selector
+        try:
+            from core.strike_selector import IntelligentStrikeSelector
+            self.strike_selector = IntelligentStrikeSelector()
+        except ImportError:
+            # Fallback if strike selector not available
+            self.strike_selector = None
     
     @abstractmethod
     def construct_strategy(self, **kwargs) -> Dict:
@@ -350,6 +361,29 @@ class BaseStrategy(ABC):
         except Exception as e:
             logger.error(f"Error getting available strikes: {e}")
             return []
+    
+    def _extract_expected_moves(self) -> Dict:
+        """Extract expected moves from market analysis"""
+        try:
+            price_levels = self.market_analysis.get('price_levels', {})
+            expected_moves = price_levels.get('expected_moves', {})
+            
+            return {
+                'one_sd_move': expected_moves.get('one_sd_move', self.spot_price * 0.05),
+                'two_sd_move': expected_moves.get('two_sd_move', self.spot_price * 0.10),
+                'one_sd_pct': expected_moves.get('one_sd_pct', 5.0),
+                'two_sd_pct': expected_moves.get('two_sd_pct', 10.0),
+                'upper_expected': expected_moves.get('upper_expected', self.spot_price * 1.05),
+                'lower_expected': expected_moves.get('lower_expected', self.spot_price * 0.95),
+                'timeframe': self.market_analysis.get('timeframe', {}).get('duration', '10-30 days')
+            }
+        except Exception as e:
+            logger.error(f"Error extracting expected moves: {e}")
+            return {
+                'one_sd_move': self.spot_price * 0.05,
+                'two_sd_move': self.spot_price * 0.10,
+                'timeframe': '10-30 days'
+            }
     
     def _calculate_probability_itm(self, strike: float, spot_price: float, market_analysis: Dict, option_type: str) -> float:
         """

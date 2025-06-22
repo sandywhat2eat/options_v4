@@ -84,21 +84,31 @@ class LongStrangle(BaseStrategy):
             
             greeks = self.get_greeks_summary()
             
+            # Apply lot size multiplier for real position sizing
+            total_cost = total_premium * self.lot_size
+            total_move_required = total_premium * self.lot_size
+            
             return {
                 'success': True,
                 'strategy_name': self.get_strategy_name(),
                 'legs': self.legs,
                 'max_profit': float('inf'),  # Unlimited in both directions
-                'max_loss': total_premium,
+                'max_loss': total_cost,
                 'breakeven_points': [lower_breakeven, upper_breakeven],
                 'strike_width': strike_width,
-                'move_required': total_premium,
+                'move_required': total_premium,  # Per share breakeven
                 'move_required_pct': move_required_pct,
                 'delta_exposure': greeks['delta'],
                 'theta_decay': greeks['theta'],
                 'vega_exposure': greeks['vega'],
                 'optimal_outcome': f"Big move beyond {lower_breakeven:.2f} or {upper_breakeven:.2f}",
-                'strategy_note': 'Cheaper than straddle but requires larger move'
+                'strategy_note': 'Cheaper than straddle but requires larger move',
+                'position_details': {
+                    'lot_size': self.lot_size,
+                    'premium_per_lot': total_premium,
+                    'total_cost': total_cost,
+                    'total_contracts': self.lot_size * 2  # 2 legs (call + put)
+                }
             }
             
         except Exception as e:
@@ -203,11 +213,14 @@ class ShortStrangle(BaseStrategy):
             
             greeks = self.get_greeks_summary()
             
+            # Apply lot size multiplier for real position sizing
+            total_credit_received = total_credit * self.lot_size
+            
             return {
                 'success': True,
                 'strategy_name': self.get_strategy_name(),
                 'legs': self.legs,
-                'max_profit': total_credit,
+                'max_profit': total_credit_received,
                 'max_loss': float('inf'),  # Unlimited risk - requires margin
                 'breakeven_points': [lower_breakeven, upper_breakeven],
                 'profit_zone': (put_strike, call_strike),
@@ -219,7 +232,13 @@ class ShortStrangle(BaseStrategy):
                 'optimal_outcome': f"Stock stays between {put_strike:.2f} and {call_strike:.2f}",
                 'margin_requirement': 'HIGH',
                 'risk_warning': 'Unlimited loss potential - requires strict risk management',
-                'strategy_note': 'Higher probability than short straddle but lower premium'
+                'strategy_note': 'Higher probability than short straddle but lower premium',
+                'position_details': {
+                    'lot_size': self.lot_size,
+                    'credit_per_lot': total_credit,
+                    'total_credit_received': total_credit_received,
+                    'total_contracts': self.lot_size * 2  # 2 legs (call + put)
+                }
             }
             
         except Exception as e:
