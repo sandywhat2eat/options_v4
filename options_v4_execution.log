@@ -1,0 +1,36 @@
+2025-06-22 13:23:37,560 - INFO - Starting Options V4 Strategy Executor
+2025-06-22 13:23:37,604 - INFO - Supabase client initialized successfully
+2025-06-22 13:23:37,604 - INFO - DHAN client initialized successfully
+2025-06-22 13:23:37,999 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=%2A%2Cstrategy_details%28%2A%29%2Cstrategy_parameters%28%2A%29&marked_for_execution=eq.True&execution_status=eq.marked&order=execution_priority.desc "HTTP/2 200 OK"
+2025-06-22 13:23:38,001 - INFO - Found 1 strategies marked for execution
+2025-06-22 13:23:38,001 - INFO - Starting execution of 1 strategies
+2025-06-22 13:23:38,001 - INFO - 
+============================================================
+2025-06-22 13:23:38,001 - INFO - Executing: DIXON - Bear Put Spread
+2025-06-22 13:23:38,001 - INFO - Priority: 10
+2025-06-22 13:23:38,001 - INFO - Executing strategy 11: DIXON - Bear Put Spread
+2025-06-22 13:23:38,001 - INFO - Processing leg: BUY 14000.0 PE
+2025-06-22 13:23:38,090 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/api_scrip_master?select=SEM_SMST_SECURITY_ID%2CSEM_LOT_UNITS&SEM_TRADING_SYMBOL=like.%25DIXON%25&SEM_OPTION_TYPE=eq.PE&SEM_STRIKE_PRICE=eq.14000.0 "HTTP/2 400 Bad Request"
+2025-06-22 13:23:38,091 - ERROR - Error fetching security ID: {'message': 'column api_scrip_master.SEM_SMST_SECURITY_ID does not exist', 'code': '42703', 'hint': None, 'details': None}
+2025-06-22 13:23:38,092 - ERROR - Cannot find security ID for leg: {'id': 13, 'lots': 1, 'vega': 7.2454, 'delta': -0.446, 'gamma': 0.0009, 'theta': -12.8482, 'quantity': 50, 'rationale': '', 'instrument': 'PUT_OPTION', 'setup_type': 'BUY', 'entry_price': 157.15, 'expiry_date': None, 'option_type': 'PE', 'strategy_id': 11, 'strike_price': 14000.0, 'total_premium': None, 'days_to_expiry': None, 'entry_max_price': 165.01, 'entry_min_price': 149.29, 'implied_volatility': 25.11}
+2025-06-22 13:23:38,092 - INFO - Processing leg: SELL 13750.0 PE
+2025-06-22 13:23:38,163 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/api_scrip_master?select=SEM_SMST_SECURITY_ID%2CSEM_LOT_UNITS&SEM_TRADING_SYMBOL=like.%25DIXON%25&SEM_OPTION_TYPE=eq.PE&SEM_STRIKE_PRICE=eq.13750.0 "HTTP/2 400 Bad Request"
+2025-06-22 13:23:38,164 - ERROR - Error fetching security ID: {'message': 'column api_scrip_master.SEM_SMST_SECURITY_ID does not exist', 'code': '42703', 'hint': None, 'details': None}
+2025-06-22 13:23:38,165 - ERROR - Cannot find security ID for leg: {'id': 14, 'lots': 1, 'vega': 5.9455, 'delta': -0.26, 'gamma': 0.0007, 'theta': -11.7836, 'quantity': 50, 'rationale': '', 'instrument': 'PUT_OPTION', 'setup_type': 'SELL', 'entry_price': 78.65, 'expiry_date': None, 'option_type': 'PE', 'strategy_id': 11, 'strike_price': 13750.0, 'total_premium': None, 'days_to_expiry': None, 'entry_max_price': 82.58, 'entry_min_price': 74.72, 'implied_volatility': 26.83}
+2025-06-22 13:23:38,245 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=execution_notes&id=eq.11 "HTTP/2 200 OK"
+2025-06-22 13:23:38,331 - INFO - HTTP Request: PATCH https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?id=eq.11 "HTTP/2 200 OK"
+2025-06-22 13:23:38,332 - INFO - Updated strategy 11 status to failed
+2025-06-22 13:23:38,332 - INFO - 
+============================================================
+2025-06-22 13:23:38,332 - INFO - EXECUTION SUMMARY
+2025-06-22 13:23:38,332 - INFO - ============================================================
+2025-06-22 13:23:38,332 - INFO - Total strategies: 1
+2025-06-22 13:23:38,332 - INFO - Successful: 0
+2025-06-22 13:23:38,332 - INFO - Failed: 1
+2025-06-22 13:23:38,332 - INFO - Deferred (market closed): 0
+2025-06-22 13:23:38,332 - INFO - 
+Execution completed
+2025-06-22 13:23:38,332 - INFO - 
+DIXON - Bear Put Spread:
+2025-06-22 13:23:38,332 - INFO -   Leg 13: failed
+2025-06-22 13:23:38,333 - INFO -   Leg 14: failed

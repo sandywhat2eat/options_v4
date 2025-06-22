@@ -1,0 +1,1303 @@
+2025-06-22 07:33:35,220 - OptionsV4 - INFO - Supabase client initialized successfully
+2025-06-22 07:33:35,220 - OptionsV4 - INFO - Database integration enabled
+2025-06-22 07:33:35,220 - OptionsV4 - INFO - Options V4 Analyzer initialized successfully
+2025-06-22 07:33:35,745 - OptionsV4 - INFO - Found 80 liquid options for DIXON at spot $14047.00
+2025-06-22 07:33:36,211 - OptionsV4 - INFO - Market Direction: Bearish Weak (Confidence: 54.5%)
+2025-06-22 07:33:36,211 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 31.4%)
+2025-06-22 07:33:36,211 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Put', 'Bear Put Spread', 'Bear Call Spread', 'Cash-Secured Put']
+2025-06-22 07:33:36,214 - OptionsV4 - INFO - Generated 2 strategies, 2 passed filters
+2025-06-22 07:33:36,215 - OptionsV4 - INFO - Results saved to: /Users/jaykrish/Documents/digitalocean/cronjobs/options_v4/results/options_v4_analysis_20250622_073336.json
+2025-06-22 07:33:36,220 - OptionsV4 - ERROR - Error inserting strategy main: Object of type datetime is not JSON serializable
+2025-06-22 07:33:36,220 - OptionsV4 - ERROR - Error inserting strategy main: Object of type datetime is not JSON serializable
+2025-06-22 07:33:36,220 - OptionsV4 - INFO - Stored 0 strategies in database
+2025-06-22 07:34:05,026 - OptionsV4 - INFO - Supabase client initialized successfully
+2025-06-22 07:34:05,026 - OptionsV4 - INFO - Database integration enabled
+2025-06-22 07:34:05,026 - OptionsV4 - INFO - Options V4 Analyzer initialized successfully
+2025-06-22 07:34:05,261 - OptionsV4 - INFO - Found 80 liquid options for DIXON at spot $14047.00
+2025-06-22 07:34:05,692 - OptionsV4 - INFO - Market Direction: Bearish Weak (Confidence: 54.5%)
+2025-06-22 07:34:05,692 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 31.4%)
+2025-06-22 07:34:05,693 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Put', 'Bear Put Spread', 'Bear Call Spread', 'Cash-Secured Put']
+2025-06-22 07:34:05,695 - OptionsV4 - INFO - Generated 2 strategies, 2 passed filters
+2025-06-22 07:34:05,696 - OptionsV4 - INFO - Results saved to: /Users/jaykrish/Documents/digitalocean/cronjobs/options_v4/results/options_v4_analysis_20250622_073405.json
+2025-06-22 07:34:06,698 - OptionsV4 - INFO - Successfully stored strategy 11: Bear Put Spread for DIXON
+2025-06-22 07:34:07,515 - OptionsV4 - INFO - Successfully stored strategy 12: Cash-Secured Put for DIXON
+2025-06-22 07:34:07,515 - OptionsV4 - INFO - Stored 2 strategies in database
+2025-06-22 07:34:15,610 - OptionsV4 - INFO - Supabase client initialized successfully
+2025-06-22 07:34:15,610 - OptionsV4 - INFO - Database integration enabled
+2025-06-22 07:34:15,610 - OptionsV4 - INFO - Options V4 Analyzer initialized successfully
+2025-06-22 07:34:15,873 - OptionsV4 - INFO - Found 80 liquid options for DIXON at spot $14047.00
+2025-06-22 07:34:16,352 - OptionsV4 - INFO - Market Direction: Bearish Weak (Confidence: 54.5%)
+2025-06-22 07:34:16,352 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 31.4%)
+2025-06-22 07:34:16,352 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Put', 'Bear Put Spread', 'Bear Call Spread', 'Cash-Secured Put']
+2025-06-22 07:34:16,354 - OptionsV4 - INFO - Generated 2 strategies, 2 passed filters
+2025-06-22 07:34:16,355 - OptionsV4 - INFO - Results saved to: /Users/jaykrish/Documents/digitalocean/cronjobs/options_v4/results/options_v4_analysis_20250622_073416.json
+2025-06-22 07:34:17,337 - OptionsV4 - INFO - Successfully stored strategy 13: Bear Put Spread for DIXON
+2025-06-22 07:34:18,195 - OptionsV4 - INFO - Successfully stored strategy 14: Cash-Secured Put for DIXON
+2025-06-22 07:34:18,196 - OptionsV4 - INFO - Stored 2 strategies in database
+2025-06-22 07:36:59,702 - OptionsV4 - WARNING - YAML not available, using default config
+2025-06-22 07:36:59,711 - OptionsV4 - INFO - Supabase client initialized successfully
+2025-06-22 07:36:59,711 - OptionsV4 - INFO - Database integration enabled
+2025-06-22 07:36:59,711 - OptionsV4 - INFO - Options V4 Analyzer initialized successfully
+2025-06-22 07:36:59,711 - OptionsV4 - INFO - Starting portfolio analysis...
+2025-06-22 07:37:00,196 - OptionsV4 - INFO - Analyzing 5 symbols: ['DIXON', 'MARICO', 'SUNPHARMA', 'CESC', 'GRANULES']
+2025-06-22 07:37:00,196 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 07:37:00,196 - OptionsV4 - INFO - Analyzing DIXON
+2025-06-22 07:37:00,196 - OptionsV4 - INFO - ==================================================
+2025-06-22 07:37:00,363 - OptionsV4 - INFO - Found 80 liquid options for DIXON at spot $14047.00
+2025-06-22 07:37:00,801 - OptionsV4 - INFO - Market Direction: Bearish Weak (Confidence: 54.5%)
+2025-06-22 07:37:00,801 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 31.4%)
+2025-06-22 07:37:00,801 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Put', 'Bear Put Spread', 'Bear Call Spread', 'Cash-Secured Put']
+2025-06-22 07:37:00,804 - OptionsV4 - INFO - Generated 2 strategies, 2 passed filters
+2025-06-22 07:37:00,804 - OptionsV4 - INFO - ✅ DIXON analysis completed successfully
+2025-06-22 07:37:00,804 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 07:37:00,804 - OptionsV4 - INFO - Analyzing MARICO
+2025-06-22 07:37:00,804 - OptionsV4 - INFO - ==================================================
+2025-06-22 07:37:00,969 - OptionsV4 - INFO - Found 18 liquid options for MARICO at spot $693.30
+2025-06-22 07:37:01,125 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 41.5%)
+2025-06-22 07:37:01,125 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 19.9%)
+2025-06-22 07:37:01,125 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 07:37:01,127 - OptionsV4 - WARNING - ⚠️ MARICO analysis failed: No strategies could be constructed
+2025-06-22 07:37:01,127 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 07:37:01,127 - OptionsV4 - INFO - Analyzing SUNPHARMA
+2025-06-22 07:37:01,127 - OptionsV4 - INFO - ==================================================
+2025-06-22 07:37:01,300 - OptionsV4 - INFO - Found 72 liquid options for SUNPHARMA at spot $1665.10
+2025-06-22 07:37:01,507 - OptionsV4 - INFO - Market Direction: Neutral  (Confidence: 42.3%)
+2025-06-22 07:37:01,507 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 18.6%)
+2025-06-22 07:37:01,507 - OptionsV4 - INFO - Constructing 3 strategies: ['Iron Condor', 'Iron Butterfly', 'Butterfly Spread']
+2025-06-22 07:37:01,512 - OptionsV4 - WARNING - ⚠️ SUNPHARMA analysis failed: No strategies passed probability filtering
+2025-06-22 07:37:01,512 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 07:37:01,512 - OptionsV4 - INFO - Analyzing CESC
+2025-06-22 07:37:01,512 - OptionsV4 - INFO - ==================================================
+2025-06-22 07:37:01,687 - OptionsV4 - INFO - Found 8 liquid options for CESC at spot $163.39
+2025-06-22 07:37:01,833 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 42.3%)
+2025-06-22 07:37:01,833 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 29.7%)
+2025-06-22 07:37:01,833 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 07:37:01,834 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 07:37:01,834 - OptionsV4 - INFO - ✅ CESC analysis completed successfully
+2025-06-22 07:37:01,834 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 07:37:01,834 - OptionsV4 - INFO - Analyzing GRANULES
+2025-06-22 07:37:01,834 - OptionsV4 - INFO - ==================================================
+2025-06-22 07:37:01,921 - OptionsV4 - WARNING - ⚠️ GRANULES analysis failed: No liquid options data
+2025-06-22 07:37:01,921 - OptionsV4 - INFO - 
+Portfolio Analysis Complete: 2/5 successful
+2025-06-22 07:37:01,924 - OptionsV4 - INFO - Results saved to: /Users/jaykrish/Documents/digitalocean/cronjobs/options_v4/results/options_v4_analysis_20250622_073701.json
+2025-06-22 07:37:03,022 - OptionsV4 - INFO - Successfully stored strategy 15: Bear Put Spread for DIXON
+2025-06-22 07:37:03,753 - OptionsV4 - INFO - Successfully stored strategy 16: Cash-Secured Put for DIXON
+2025-06-22 07:37:04,483 - OptionsV4 - INFO - Successfully stored strategy 17: Covered Call for CESC
+2025-06-22 07:37:04,483 - OptionsV4 - INFO - Stored 3 strategies in database
+2025-06-22 07:51:40,086 - OptionsV4 - INFO - Supabase client initialized successfully
+2025-06-22 07:51:40,086 - OptionsV4 - INFO - Database integration enabled
+2025-06-22 07:51:40,086 - OptionsV4 - INFO - Options V4 Analyzer initialized successfully
+2025-06-22 07:51:40,708 - OptionsV4 - INFO - Found 80 liquid options for DIXON at spot $14047.00
+2025-06-22 07:51:41,583 - OptionsV4 - INFO - Market Direction: Bearish Weak (Confidence: 54.5%)
+2025-06-22 07:51:41,583 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 31.4%)
+2025-06-22 07:51:41,583 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Put', 'Bear Put Spread', 'Bear Call Spread', 'Cash-Secured Put']
+2025-06-22 07:51:41,586 - OptionsV4 - INFO - Generated 3 strategies, 3 passed filters
+2025-06-22 07:51:41,587 - OptionsV4 - INFO - Results saved to: /Users/jaykrish/Documents/digitalocean/cronjobs/options_v4/results/options_v4_analysis_20250622_075141.json
+2025-06-22 07:51:42,455 - OptionsV4 - INFO - Successfully stored strategy 18: Bear Put Spread for DIXON
+2025-06-22 07:51:43,292 - OptionsV4 - INFO - Successfully stored strategy 19: Bear Call Spread for DIXON
+2025-06-22 07:51:43,997 - OptionsV4 - INFO - Successfully stored strategy 20: Cash-Secured Put for DIXON
+2025-06-22 07:51:43,998 - OptionsV4 - INFO - Stored 3 strategies in database
+2025-06-22 08:47:46,162 - OptionsV4 - INFO - Supabase client initialized successfully
+2025-06-22 08:47:46,162 - OptionsV4 - INFO - Database integration enabled
+2025-06-22 08:47:46,162 - OptionsV4 - INFO - Options V4 Analyzer initialized successfully
+2025-06-22 08:47:46,806 - OptionsV4 - INFO - Found 80 liquid options for DIXON at spot $14047.00
+2025-06-22 08:47:47,730 - OptionsV4 - INFO - Market Direction: Bearish Weak (Confidence: 54.5%)
+2025-06-22 08:47:47,730 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 31.4%)
+2025-06-22 08:47:47,730 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Put', 'Bear Put Spread', 'Bear Call Spread', 'Cash-Secured Put']
+2025-06-22 08:47:47,734 - OptionsV4 - INFO - Generated 3 strategies, 3 passed filters
+2025-06-22 08:47:47,735 - OptionsV4 - INFO - Results saved to: /Users/jaykrish/Documents/digitalocean/cronjobs/options_v4/results/options_v4_analysis_20250622_084747.json
+2025-06-22 08:47:48,897 - OptionsV4 - INFO - Successfully stored strategy 21: Bear Put Spread for DIXON
+2025-06-22 08:47:49,669 - OptionsV4 - INFO - Successfully stored strategy 22: Bear Call Spread for DIXON
+2025-06-22 08:47:50,434 - OptionsV4 - INFO - Successfully stored strategy 23: Cash-Secured Put for DIXON
+2025-06-22 08:47:50,434 - OptionsV4 - INFO - Stored 3 strategies in database
+2025-06-22 08:47:58,307 - OptionsV4 - INFO - Supabase client initialized successfully
+2025-06-22 08:47:58,307 - OptionsV4 - INFO - Database integration enabled
+2025-06-22 08:47:58,307 - OptionsV4 - INFO - Options V4 Analyzer initialized successfully
+2025-06-22 08:47:58,307 - OptionsV4 - INFO - Starting portfolio analysis...
+2025-06-22 08:47:58,469 - OptionsV4 - INFO - Analyzing 5 symbols: ['DIXON', 'MARICO', 'SUNPHARMA', 'CESC', 'GRANULES']
+2025-06-22 08:47:58,470 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 08:47:58,470 - OptionsV4 - INFO - Analyzing DIXON
+2025-06-22 08:47:58,470 - OptionsV4 - INFO - ==================================================
+2025-06-22 08:47:58,631 - OptionsV4 - INFO - Found 80 liquid options for DIXON at spot $14047.00
+2025-06-22 08:47:59,582 - OptionsV4 - INFO - Market Direction: Bearish Weak (Confidence: 54.5%)
+2025-06-22 08:47:59,582 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 31.4%)
+2025-06-22 08:47:59,582 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Put', 'Bear Put Spread', 'Bear Call Spread', 'Cash-Secured Put']
+2025-06-22 08:47:59,586 - OptionsV4 - INFO - Generated 3 strategies, 3 passed filters
+2025-06-22 08:47:59,586 - OptionsV4 - INFO - ✅ DIXON analysis completed successfully
+2025-06-22 08:47:59,586 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 08:47:59,586 - OptionsV4 - INFO - Analyzing MARICO
+2025-06-22 08:47:59,586 - OptionsV4 - INFO - ==================================================
+2025-06-22 08:47:59,797 - OptionsV4 - INFO - Found 18 liquid options for MARICO at spot $693.30
+2025-06-22 08:48:00,231 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 41.5%)
+2025-06-22 08:48:00,231 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 19.9%)
+2025-06-22 08:48:00,231 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 08:48:00,236 - OptionsV4 - WARNING - ⚠️ MARICO analysis failed: No strategies passed probability filtering
+2025-06-22 08:48:00,236 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 08:48:00,236 - OptionsV4 - INFO - Analyzing SUNPHARMA
+2025-06-22 08:48:00,236 - OptionsV4 - INFO - ==================================================
+2025-06-22 08:48:00,467 - OptionsV4 - INFO - Found 72 liquid options for SUNPHARMA at spot $1665.10
+2025-06-22 08:48:00,820 - OptionsV4 - INFO - Market Direction: Neutral  (Confidence: 42.3%)
+2025-06-22 08:48:00,820 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 18.2%)
+2025-06-22 08:48:00,820 - OptionsV4 - INFO - Constructing 3 strategies: ['Iron Condor', 'Iron Butterfly', 'Butterfly Spread']
+2025-06-22 08:48:00,826 - OptionsV4 - INFO - Generated 2 strategies, 1 passed filters
+2025-06-22 08:48:00,826 - OptionsV4 - INFO - ✅ SUNPHARMA analysis completed successfully
+2025-06-22 08:48:00,826 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 08:48:00,826 - OptionsV4 - INFO - Analyzing CESC
+2025-06-22 08:48:00,826 - OptionsV4 - INFO - ==================================================
+2025-06-22 08:48:01,006 - OptionsV4 - INFO - Found 8 liquid options for CESC at spot $163.39
+2025-06-22 08:48:01,302 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 42.3%)
+2025-06-22 08:48:01,303 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 29.7%)
+2025-06-22 08:48:01,303 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 08:48:01,306 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 08:48:01,306 - OptionsV4 - INFO - ✅ CESC analysis completed successfully
+2025-06-22 08:48:01,306 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 08:48:01,306 - OptionsV4 - INFO - Analyzing GRANULES
+2025-06-22 08:48:01,306 - OptionsV4 - INFO - ==================================================
+2025-06-22 08:48:01,389 - OptionsV4 - WARNING - ⚠️ GRANULES analysis failed: No liquid options data
+2025-06-22 08:48:01,389 - OptionsV4 - INFO - 
+Portfolio Analysis Complete: 3/5 successful
+2025-06-22 08:48:01,392 - OptionsV4 - INFO - Results saved to: /Users/jaykrish/Documents/digitalocean/cronjobs/options_v4/results/options_v4_analysis_20250622_084801.json
+2025-06-22 08:48:02,262 - OptionsV4 - INFO - Successfully stored strategy 24: Bear Put Spread for DIXON
+2025-06-22 08:48:03,021 - OptionsV4 - INFO - Successfully stored strategy 25: Bear Call Spread for DIXON
+2025-06-22 08:48:03,790 - OptionsV4 - INFO - Successfully stored strategy 26: Cash-Secured Put for DIXON
+2025-06-22 08:48:04,527 - OptionsV4 - INFO - Successfully stored strategy 27: Butterfly Spread for SUNPHARMA
+2025-06-22 08:48:05,300 - OptionsV4 - INFO - Successfully stored strategy 28: Covered Call for CESC
+2025-06-22 08:48:05,300 - OptionsV4 - INFO - Stored 5 strategies in database
+2025-06-22 13:34:12,796 - OptionsV4 - INFO - Supabase client initialized successfully
+2025-06-22 13:34:12,796 - OptionsV4 - INFO - Database integration enabled
+2025-06-22 13:34:12,796 - OptionsV4 - INFO - Options V4 Analyzer initialized successfully
+2025-06-22 13:34:12,796 - OptionsV4 - INFO - Starting portfolio analysis...
+2025-06-22 13:34:13,367 - OptionsV4 - INFO - Analyzing 5 symbols: ['DIXON', 'MARICO', 'SUNPHARMA', 'CESC', 'GRANULES']
+2025-06-22 13:34:13,368 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:34:13,368 - OptionsV4 - INFO - Analyzing DIXON
+2025-06-22 13:34:13,368 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:34:13,589 - OptionsV4 - INFO - Found 80 liquid options for DIXON at spot $14047.00
+2025-06-22 13:34:14,085 - OptionsV4 - INFO - Market Direction: Bearish Weak (Confidence: 54.5%)
+2025-06-22 13:34:14,085 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 31.4%)
+2025-06-22 13:34:14,085 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Put', 'Bear Put Spread', 'Bear Call Spread', 'Cash-Secured Put']
+2025-06-22 13:34:14,089 - OptionsV4 - INFO - Generated 3 strategies, 3 passed filters
+2025-06-22 13:34:14,089 - OptionsV4 - INFO - ✅ DIXON analysis completed successfully
+2025-06-22 13:34:14,089 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:34:14,089 - OptionsV4 - INFO - Analyzing MARICO
+2025-06-22 13:34:14,089 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:34:14,279 - OptionsV4 - INFO - Found 18 liquid options for MARICO at spot $693.30
+2025-06-22 13:34:14,436 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 41.5%)
+2025-06-22 13:34:14,436 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 19.9%)
+2025-06-22 13:34:14,436 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:34:14,441 - OptionsV4 - WARNING - ⚠️ MARICO analysis failed: No strategies passed probability filtering
+2025-06-22 13:34:14,441 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:34:14,441 - OptionsV4 - INFO - Analyzing SUNPHARMA
+2025-06-22 13:34:14,441 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:34:14,648 - OptionsV4 - INFO - Found 72 liquid options for SUNPHARMA at spot $1665.10
+2025-06-22 13:34:14,835 - OptionsV4 - INFO - Market Direction: Neutral  (Confidence: 42.3%)
+2025-06-22 13:34:14,835 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 18.6%)
+2025-06-22 13:34:14,835 - OptionsV4 - INFO - Constructing 3 strategies: ['Iron Condor', 'Iron Butterfly', 'Butterfly Spread']
+2025-06-22 13:34:14,840 - OptionsV4 - INFO - Generated 2 strategies, 1 passed filters
+2025-06-22 13:34:14,840 - OptionsV4 - INFO - ✅ SUNPHARMA analysis completed successfully
+2025-06-22 13:34:14,840 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:34:14,840 - OptionsV4 - INFO - Analyzing CESC
+2025-06-22 13:34:14,840 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:34:15,018 - OptionsV4 - INFO - Found 8 liquid options for CESC at spot $163.39
+2025-06-22 13:34:15,157 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 42.3%)
+2025-06-22 13:34:15,157 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 29.7%)
+2025-06-22 13:34:15,157 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:34:15,160 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:34:15,160 - OptionsV4 - INFO - ✅ CESC analysis completed successfully
+2025-06-22 13:34:15,160 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:34:15,160 - OptionsV4 - INFO - Analyzing GRANULES
+2025-06-22 13:34:15,160 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:34:15,240 - OptionsV4 - WARNING - ⚠️ GRANULES analysis failed: No liquid options data
+2025-06-22 13:34:15,240 - OptionsV4 - INFO - 
+Portfolio Analysis Complete: 3/5 successful
+2025-06-22 13:34:15,243 - OptionsV4 - INFO - Results saved to: /Users/jaykrish/Documents/digitalocean/cronjobs/options_v4/results/options_v4_analysis_20250622_133415.json
+2025-06-22 13:34:16,568 - OptionsV4 - INFO - Successfully stored strategy 29: Bear Put Spread for DIXON
+2025-06-22 13:34:17,353 - OptionsV4 - INFO - Successfully stored strategy 30: Bear Call Spread for DIXON
+2025-06-22 13:34:18,152 - OptionsV4 - INFO - Successfully stored strategy 31: Cash-Secured Put for DIXON
+2025-06-22 13:34:18,916 - OptionsV4 - INFO - Successfully stored strategy 32: Butterfly Spread for SUNPHARMA
+2025-06-22 13:34:20,386 - OptionsV4 - INFO - Successfully stored strategy 33: Covered Call for CESC
+2025-06-22 13:34:20,387 - OptionsV4 - INFO - Stored 5 strategies in database
+2025-06-22 13:37:36,367 - OptionsV4 - INFO - Supabase client initialized successfully
+2025-06-22 13:37:36,367 - OptionsV4 - INFO - Database integration enabled
+2025-06-22 13:37:36,367 - OptionsV4 - INFO - Options V4 Analyzer initialized successfully
+2025-06-22 13:37:36,367 - OptionsV4 - INFO - Starting portfolio analysis...
+2025-06-22 13:37:36,729 - OptionsV4 - INFO - Analyzing 50 symbols: ['DIXON', 'MARICO', 'SUNPHARMA', 'CESC', 'GRANULES', 'BERGEPAINT', 'HDFCAMC', 'HINDZINC', 'NHPC', 'CROMPTON', 'GRASIM', 'APOLLOHOSP', 'HINDUNILVR', 'TITAGARH', 'IREDA', 'BHARATFORG', 'NMDC', 'PATANJALI', 'RECLTD', 'ADANIENSOL', 'TECHM', 'IRFC', 'NCC', 'OBEROIRLTY', 'PNBHOUSING', 'LAURUSLABS', 'SBICARD', 'CDSL', 'ADANIGREEN', 'TATAPOWER', 'TATATECH', 'HINDALCO', 'ASHOKLEY', 'KOTAKBANK', 'RBLBANK', 'ETERNAL', 'PIIND', 'NBCC', 'TATASTEEL', 'OIL', 'TORNTPHARM', 'VBL', 'ADANIENT', 'UPL', 'MANAPPURAM', 'TORNTPOWER', 'PERSISTENT', 'IGL', 'GUJGASLTD', 'MARUTI']
+2025-06-22 13:37:36,729 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:36,729 - OptionsV4 - INFO - Analyzing DIXON
+2025-06-22 13:37:36,729 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:36,912 - OptionsV4 - INFO - Found 80 liquid options for DIXON at spot $14047.00
+2025-06-22 13:37:37,805 - OptionsV4 - INFO - Market Direction: Bearish Weak (Confidence: 54.5%)
+2025-06-22 13:37:37,805 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 31.4%)
+2025-06-22 13:37:37,805 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Put', 'Bear Put Spread', 'Bear Call Spread', 'Cash-Secured Put']
+2025-06-22 13:37:37,809 - OptionsV4 - INFO - Generated 3 strategies, 3 passed filters
+2025-06-22 13:37:37,809 - OptionsV4 - INFO - ✅ DIXON analysis completed successfully
+2025-06-22 13:37:37,809 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:37,809 - OptionsV4 - INFO - Analyzing MARICO
+2025-06-22 13:37:37,809 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:37,968 - OptionsV4 - INFO - Found 18 liquid options for MARICO at spot $693.30
+2025-06-22 13:37:38,271 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 41.5%)
+2025-06-22 13:37:38,271 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 19.9%)
+2025-06-22 13:37:38,271 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:37:38,275 - OptionsV4 - WARNING - ⚠️ MARICO analysis failed: No strategies passed probability filtering
+2025-06-22 13:37:38,275 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:38,275 - OptionsV4 - INFO - Analyzing SUNPHARMA
+2025-06-22 13:37:38,275 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:38,435 - OptionsV4 - INFO - Found 72 liquid options for SUNPHARMA at spot $1665.10
+2025-06-22 13:37:38,772 - OptionsV4 - INFO - Market Direction: Neutral  (Confidence: 42.3%)
+2025-06-22 13:37:38,772 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 18.6%)
+2025-06-22 13:37:38,772 - OptionsV4 - INFO - Constructing 3 strategies: ['Iron Condor', 'Iron Butterfly', 'Butterfly Spread']
+2025-06-22 13:37:38,778 - OptionsV4 - INFO - Generated 2 strategies, 1 passed filters
+2025-06-22 13:37:38,778 - OptionsV4 - INFO - ✅ SUNPHARMA analysis completed successfully
+2025-06-22 13:37:38,778 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:38,778 - OptionsV4 - INFO - Analyzing CESC
+2025-06-22 13:37:38,778 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:38,935 - OptionsV4 - INFO - Found 8 liquid options for CESC at spot $163.39
+2025-06-22 13:37:39,222 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 42.3%)
+2025-06-22 13:37:39,222 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 29.7%)
+2025-06-22 13:37:39,222 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:37:39,225 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:37:39,225 - OptionsV4 - INFO - ✅ CESC analysis completed successfully
+2025-06-22 13:37:39,225 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:39,225 - OptionsV4 - INFO - Analyzing GRANULES
+2025-06-22 13:37:39,225 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:39,318 - OptionsV4 - WARNING - ⚠️ GRANULES analysis failed: No liquid options data
+2025-06-22 13:37:39,318 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:39,318 - OptionsV4 - INFO - Analyzing BERGEPAINT
+2025-06-22 13:37:39,318 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:39,387 - OptionsV4 - WARNING - ⚠️ BERGEPAINT analysis failed: No liquid options data
+2025-06-22 13:37:39,387 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:39,387 - OptionsV4 - INFO - Analyzing HDFCAMC
+2025-06-22 13:37:39,387 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:39,702 - OptionsV4 - INFO - Found 42 liquid options for HDFCAMC at spot $4958.60
+2025-06-22 13:37:40,263 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 47.0%)
+2025-06-22 13:37:40,263 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 22.2%)
+2025-06-22 13:37:40,263 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:37:40,266 - OptionsV4 - WARNING - ⚠️ HDFCAMC analysis failed: No strategies could be constructed
+2025-06-22 13:37:40,266 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:40,266 - OptionsV4 - INFO - Analyzing HINDZINC
+2025-06-22 13:37:40,266 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:40,423 - OptionsV4 - INFO - Found 72 liquid options for HINDZINC at spot $438.60
+2025-06-22 13:37:41,013 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 42.1%)
+2025-06-22 13:37:41,013 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 29.4%)
+2025-06-22 13:37:41,013 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:37:41,017 - OptionsV4 - INFO - Generated 2 strategies, 2 passed filters
+2025-06-22 13:37:41,018 - OptionsV4 - INFO - ✅ HINDZINC analysis completed successfully
+2025-06-22 13:37:41,018 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:41,018 - OptionsV4 - INFO - Analyzing NHPC
+2025-06-22 13:37:41,018 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:41,212 - OptionsV4 - INFO - Found 30 liquid options for NHPC at spot $82.31
+2025-06-22 13:37:41,798 - OptionsV4 - INFO - Market Direction: Neutral  (Confidence: 38.9%)
+2025-06-22 13:37:41,798 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 30.0%)
+2025-06-22 13:37:41,798 - OptionsV4 - INFO - Constructing 3 strategies: ['Iron Condor', 'Iron Butterfly', 'Butterfly Spread']
+2025-06-22 13:37:41,799 - OptionsV4 - WARNING - Error constructing Iron Butterfly: 'NoneType' object has no attribute 'get'
+2025-06-22 13:37:41,800 - OptionsV4 - WARNING - Error constructing Butterfly Spread: 'NoneType' object has no attribute 'get'
+2025-06-22 13:37:41,800 - OptionsV4 - WARNING - ⚠️ NHPC analysis failed: No strategies could be constructed
+2025-06-22 13:37:41,800 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:41,800 - OptionsV4 - INFO - Analyzing CROMPTON
+2025-06-22 13:37:41,800 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:41,984 - OptionsV4 - INFO - Found 16 liquid options for CROMPTON at spot $344.60
+2025-06-22 13:37:42,534 - OptionsV4 - INFO - Market Direction: Neutral  (Confidence: 19.4%)
+2025-06-22 13:37:42,534 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 26.5%)
+2025-06-22 13:37:42,534 - OptionsV4 - INFO - Constructing 3 strategies: ['Iron Condor', 'Iron Butterfly', 'Butterfly Spread']
+2025-06-22 13:37:42,535 - OptionsV4 - WARNING - Error constructing Iron Butterfly: 'NoneType' object has no attribute 'get'
+2025-06-22 13:37:42,536 - OptionsV4 - WARNING - Error constructing Butterfly Spread: 'NoneType' object has no attribute 'get'
+2025-06-22 13:37:42,536 - OptionsV4 - WARNING - ⚠️ CROMPTON analysis failed: No strategies could be constructed
+2025-06-22 13:37:42,536 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:42,536 - OptionsV4 - INFO - Analyzing GRASIM
+2025-06-22 13:37:42,536 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:42,753 - OptionsV4 - INFO - Found 18 liquid options for GRASIM at spot $2712.60
+2025-06-22 13:37:43,289 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 58.2%)
+2025-06-22 13:37:43,289 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 19.7%)
+2025-06-22 13:37:43,289 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:37:43,293 - OptionsV4 - WARNING - ⚠️ GRASIM analysis failed: No strategies could be constructed
+2025-06-22 13:37:43,293 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:43,293 - OptionsV4 - INFO - Analyzing APOLLOHOSP
+2025-06-22 13:37:43,293 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:43,488 - OptionsV4 - INFO - Found 36 liquid options for APOLLOHOSP at spot $7063.50
+2025-06-22 13:37:43,798 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 61.5%)
+2025-06-22 13:37:43,799 - OptionsV4 - INFO - IV Environment: LOW (ATM IV: 13.5%)
+2025-06-22 13:37:43,799 - OptionsV4 - INFO - Constructing 7 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call', 'Long Straddle', 'Long Strangle', 'Calendar Spread']
+2025-06-22 13:37:43,802 - OptionsV4 - WARNING - Error constructing Long Strangle: 'NoneType' object has no attribute 'get'
+2025-06-22 13:37:43,802 - OptionsV4 - WARNING - Error constructing Calendar Spread: 'NoneType' object has no attribute 'get'
+2025-06-22 13:37:43,802 - OptionsV4 - WARNING - ⚠️ APOLLOHOSP analysis failed: No strategies could be constructed
+2025-06-22 13:37:43,802 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:43,802 - OptionsV4 - INFO - Analyzing HINDUNILVR
+2025-06-22 13:37:43,802 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:43,988 - OptionsV4 - INFO - Found 84 liquid options for HINDUNILVR at spot $2306.20
+2025-06-22 13:37:44,680 - OptionsV4 - INFO - Market Direction: Neutral  (Confidence: 22.5%)
+2025-06-22 13:37:44,680 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 17.8%)
+2025-06-22 13:37:44,680 - OptionsV4 - INFO - Constructing 3 strategies: ['Iron Condor', 'Iron Butterfly', 'Butterfly Spread']
+2025-06-22 13:37:44,685 - OptionsV4 - INFO - Generated 2 strategies, 2 passed filters
+2025-06-22 13:37:44,685 - OptionsV4 - INFO - ✅ HINDUNILVR analysis completed successfully
+2025-06-22 13:37:44,685 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:44,685 - OptionsV4 - INFO - Analyzing TITAGARH
+2025-06-22 13:37:44,685 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:44,764 - OptionsV4 - WARNING - ⚠️ TITAGARH analysis failed: No liquid options data
+2025-06-22 13:37:44,764 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:44,764 - OptionsV4 - INFO - Analyzing IREDA
+2025-06-22 13:37:44,764 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:44,924 - OptionsV4 - INFO - Found 66 liquid options for IREDA at spot $165.07
+2025-06-22 13:37:45,544 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 49.4%)
+2025-06-22 13:37:45,545 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 32.6%)
+2025-06-22 13:37:45,545 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:37:45,548 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:37:45,548 - OptionsV4 - INFO - ✅ IREDA analysis completed successfully
+2025-06-22 13:37:45,548 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:45,548 - OptionsV4 - INFO - Analyzing BHARATFORG
+2025-06-22 13:37:45,548 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:45,693 - OptionsV4 - INFO - Found 26 liquid options for BHARATFORG at spot $1278.30
+2025-06-22 13:37:46,126 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 56.3%)
+2025-06-22 13:37:46,127 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 25.7%)
+2025-06-22 13:37:46,127 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:37:46,131 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:37:46,131 - OptionsV4 - INFO - ✅ BHARATFORG analysis completed successfully
+2025-06-22 13:37:46,131 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:46,131 - OptionsV4 - INFO - Analyzing NMDC
+2025-06-22 13:37:46,131 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:46,275 - OptionsV4 - INFO - Found 48 liquid options for NMDC at spot $67.94
+2025-06-22 13:37:46,834 - OptionsV4 - INFO - Market Direction: Bearish Weak (Confidence: 22.1%)
+2025-06-22 13:37:46,834 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 27.8%)
+2025-06-22 13:37:46,834 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Put', 'Bear Put Spread', 'Bear Call Spread', 'Cash-Secured Put']
+2025-06-22 13:37:46,837 - OptionsV4 - INFO - Generated 2 strategies, 2 passed filters
+2025-06-22 13:37:46,837 - OptionsV4 - INFO - ✅ NMDC analysis completed successfully
+2025-06-22 13:37:46,837 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:46,837 - OptionsV4 - INFO - Analyzing PATANJALI
+2025-06-22 13:37:46,837 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:46,975 - OptionsV4 - INFO - Found 8 liquid options for PATANJALI at spot $1649.60
+2025-06-22 13:37:47,563 - OptionsV4 - INFO - Market Direction: Bearish Weak (Confidence: 72.1%)
+2025-06-22 13:37:47,563 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 25.6%)
+2025-06-22 13:37:47,563 - OptionsV4 - INFO - Constructing 6 strategies: ['Long Put', 'Bear Put Spread', 'Bear Call Spread', 'Cash-Secured Put', 'Put Ratio Spread', 'Diagonal Spread']
+2025-06-22 13:37:47,566 - OptionsV4 - WARNING - Error constructing Put Ratio Spread: 'NoneType' object has no attribute 'get'
+2025-06-22 13:37:47,567 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:37:47,567 - OptionsV4 - INFO - ✅ PATANJALI analysis completed successfully
+2025-06-22 13:37:47,567 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:47,567 - OptionsV4 - INFO - Analyzing RECLTD
+2025-06-22 13:37:47,567 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:47,721 - OptionsV4 - INFO - Found 72 liquid options for RECLTD at spot $394.45
+2025-06-22 13:37:48,034 - OptionsV4 - INFO - Market Direction: Neutral  (Confidence: 48.0%)
+2025-06-22 13:37:48,034 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 28.3%)
+2025-06-22 13:37:48,034 - OptionsV4 - INFO - Constructing 3 strategies: ['Iron Condor', 'Iron Butterfly', 'Butterfly Spread']
+2025-06-22 13:37:48,039 - OptionsV4 - INFO - Generated 2 strategies, 1 passed filters
+2025-06-22 13:37:48,039 - OptionsV4 - INFO - ✅ RECLTD analysis completed successfully
+2025-06-22 13:37:48,039 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:48,039 - OptionsV4 - INFO - Analyzing ADANIENSOL
+2025-06-22 13:37:48,039 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:48,181 - OptionsV4 - INFO - Found 12 liquid options for ADANIENSOL at spot $828.10
+2025-06-22 13:37:48,707 - OptionsV4 - INFO - Market Direction: Neutral  (Confidence: 2.4%)
+2025-06-22 13:37:48,707 - OptionsV4 - INFO - IV Environment: ELEVATED (ATM IV: 36.9%)
+2025-06-22 13:37:48,707 - OptionsV4 - INFO - Constructing 3 strategies: ['Iron Condor', 'Iron Butterfly', 'Butterfly Spread']
+2025-06-22 13:37:48,708 - OptionsV4 - WARNING - Error constructing Iron Butterfly: 'NoneType' object has no attribute 'get'
+2025-06-22 13:37:48,709 - OptionsV4 - WARNING - Error constructing Butterfly Spread: 'NoneType' object has no attribute 'get'
+2025-06-22 13:37:48,709 - OptionsV4 - WARNING - ⚠️ ADANIENSOL analysis failed: No strategies could be constructed
+2025-06-22 13:37:48,709 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:48,709 - OptionsV4 - INFO - Analyzing TECHM
+2025-06-22 13:37:48,709 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:48,899 - OptionsV4 - INFO - Found 62 liquid options for TECHM at spot $1696.10
+2025-06-22 13:37:49,218 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 52.4%)
+2025-06-22 13:37:49,218 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 23.1%)
+2025-06-22 13:37:49,218 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:37:49,222 - OptionsV4 - INFO - Generated 2 strategies, 2 passed filters
+2025-06-22 13:37:49,222 - OptionsV4 - INFO - ✅ TECHM analysis completed successfully
+2025-06-22 13:37:49,222 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:49,222 - OptionsV4 - INFO - Analyzing IRFC
+2025-06-22 13:37:49,222 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:49,369 - OptionsV4 - INFO - Found 46 liquid options for IRFC at spot $134.20
+2025-06-22 13:37:50,070 - OptionsV4 - INFO - Market Direction: Neutral  (Confidence: 15.7%)
+2025-06-22 13:37:50,070 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 32.4%)
+2025-06-22 13:37:50,070 - OptionsV4 - INFO - Constructing 3 strategies: ['Iron Condor', 'Iron Butterfly', 'Butterfly Spread']
+2025-06-22 13:37:50,072 - OptionsV4 - WARNING - Error constructing Iron Butterfly: 'NoneType' object has no attribute 'get'
+2025-06-22 13:37:50,072 - OptionsV4 - WARNING - Error constructing Butterfly Spread: 'NoneType' object has no attribute 'get'
+2025-06-22 13:37:50,072 - OptionsV4 - WARNING - ⚠️ IRFC analysis failed: No strategies could be constructed
+2025-06-22 13:37:50,072 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:50,072 - OptionsV4 - INFO - Analyzing NCC
+2025-06-22 13:37:50,072 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:50,216 - OptionsV4 - INFO - Found 36 liquid options for NCC at spot $221.30
+2025-06-22 13:37:50,786 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 33.6%)
+2025-06-22 13:37:50,787 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 27.3%)
+2025-06-22 13:37:50,787 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:37:50,790 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:37:50,790 - OptionsV4 - INFO - ✅ NCC analysis completed successfully
+2025-06-22 13:37:50,790 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:50,790 - OptionsV4 - INFO - Analyzing OBEROIRLTY
+2025-06-22 13:37:50,790 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:50,966 - OptionsV4 - INFO - Found 15 liquid options for OBEROIRLTY at spot $1910.90
+2025-06-22 13:37:51,563 - OptionsV4 - INFO - Market Direction: Neutral  (Confidence: 49.7%)
+2025-06-22 13:37:51,563 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 26.7%)
+2025-06-22 13:37:51,563 - OptionsV4 - INFO - Constructing 3 strategies: ['Iron Condor', 'Iron Butterfly', 'Butterfly Spread']
+2025-06-22 13:37:51,567 - OptionsV4 - WARNING - Error constructing Iron Butterfly: 'NoneType' object has no attribute 'get'
+2025-06-22 13:37:51,567 - OptionsV4 - WARNING - Error constructing Butterfly Spread: 'NoneType' object has no attribute 'get'
+2025-06-22 13:37:51,567 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:37:51,567 - OptionsV4 - INFO - ✅ OBEROIRLTY analysis completed successfully
+2025-06-22 13:37:51,567 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:51,568 - OptionsV4 - INFO - Analyzing PNBHOUSING
+2025-06-22 13:37:51,568 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:51,639 - OptionsV4 - WARNING - ⚠️ PNBHOUSING analysis failed: No liquid options data
+2025-06-22 13:37:51,639 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:51,639 - OptionsV4 - INFO - Analyzing LAURUSLABS
+2025-06-22 13:37:51,639 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:51,823 - OptionsV4 - INFO - Found 28 liquid options for LAURUSLABS at spot $651.00
+2025-06-22 13:37:52,382 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 49.1%)
+2025-06-22 13:37:52,382 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 26.6%)
+2025-06-22 13:37:52,382 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:37:52,385 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:37:52,385 - OptionsV4 - INFO - ✅ LAURUSLABS analysis completed successfully
+2025-06-22 13:37:52,385 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:52,385 - OptionsV4 - INFO - Analyzing SBICARD
+2025-06-22 13:37:52,385 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:52,522 - OptionsV4 - INFO - Found 21 liquid options for SBICARD at spot $945.60
+2025-06-22 13:37:53,072 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 65.6%)
+2025-06-22 13:37:53,072 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 20.2%)
+2025-06-22 13:37:53,072 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:37:53,076 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:37:53,076 - OptionsV4 - INFO - ✅ SBICARD analysis completed successfully
+2025-06-22 13:37:53,076 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:53,076 - OptionsV4 - INFO - Analyzing CDSL
+2025-06-22 13:37:53,076 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:53,218 - OptionsV4 - INFO - Found 3 liquid options for CDSL at spot $1685.80
+2025-06-22 13:37:53,501 - OptionsV4 - INFO - Market Direction: Bearish Weak (Confidence: 23.3%)
+2025-06-22 13:37:53,501 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 34.0%)
+2025-06-22 13:37:53,501 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Put', 'Bear Put Spread', 'Bear Call Spread', 'Cash-Secured Put']
+2025-06-22 13:37:53,504 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:37:53,504 - OptionsV4 - INFO - ✅ CDSL analysis completed successfully
+2025-06-22 13:37:53,504 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:53,504 - OptionsV4 - INFO - Analyzing ADANIGREEN
+2025-06-22 13:37:53,504 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:53,646 - OptionsV4 - INFO - Found 17 liquid options for ADANIGREEN at spot $947.70
+2025-06-22 13:37:54,198 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 38.1%)
+2025-06-22 13:37:54,198 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 32.6%)
+2025-06-22 13:37:54,198 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:37:54,202 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:37:54,202 - OptionsV4 - INFO - ✅ ADANIGREEN analysis completed successfully
+2025-06-22 13:37:54,203 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:54,203 - OptionsV4 - INFO - Analyzing TATAPOWER
+2025-06-22 13:37:54,203 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:54,365 - OptionsV4 - INFO - Found 37 liquid options for TATAPOWER at spot $390.10
+2025-06-22 13:37:54,676 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 42.6%)
+2025-06-22 13:37:54,676 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 23.7%)
+2025-06-22 13:37:54,676 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:37:54,681 - OptionsV4 - INFO - Generated 2 strategies, 2 passed filters
+2025-06-22 13:37:54,681 - OptionsV4 - INFO - ✅ TATAPOWER analysis completed successfully
+2025-06-22 13:37:54,681 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:54,681 - OptionsV4 - INFO - Analyzing TATATECH
+2025-06-22 13:37:54,681 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:54,825 - OptionsV4 - INFO - Found 30 liquid options for TATATECH at spot $706.65
+2025-06-22 13:37:55,359 - OptionsV4 - INFO - Market Direction: Neutral  (Confidence: 36.7%)
+2025-06-22 13:37:55,360 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 29.4%)
+2025-06-22 13:37:55,360 - OptionsV4 - INFO - Constructing 3 strategies: ['Iron Condor', 'Iron Butterfly', 'Butterfly Spread']
+2025-06-22 13:37:55,365 - OptionsV4 - INFO - Generated 2 strategies, 2 passed filters
+2025-06-22 13:37:55,365 - OptionsV4 - INFO - ✅ TATATECH analysis completed successfully
+2025-06-22 13:37:55,365 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:55,365 - OptionsV4 - INFO - Analyzing HINDALCO
+2025-06-22 13:37:55,365 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:55,509 - OptionsV4 - INFO - Found 32 liquid options for HINDALCO at spot $649.15
+2025-06-22 13:37:56,087 - OptionsV4 - INFO - Market Direction: Bearish Weak (Confidence: 34.7%)
+2025-06-22 13:37:56,088 - OptionsV4 - INFO - IV Environment: LOW (ATM IV: 21.6%)
+2025-06-22 13:37:56,088 - OptionsV4 - INFO - Constructing 7 strategies: ['Long Put', 'Bear Put Spread', 'Bear Call Spread', 'Cash-Secured Put', 'Long Straddle', 'Long Strangle', 'Calendar Spread']
+2025-06-22 13:37:56,091 - OptionsV4 - WARNING - Error constructing Long Strangle: 'NoneType' object has no attribute 'get'
+2025-06-22 13:37:56,091 - OptionsV4 - WARNING - Error constructing Calendar Spread: 'NoneType' object has no attribute 'get'
+2025-06-22 13:37:56,091 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:37:56,091 - OptionsV4 - INFO - ✅ HINDALCO analysis completed successfully
+2025-06-22 13:37:56,091 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:56,091 - OptionsV4 - INFO - Analyzing ASHOKLEY
+2025-06-22 13:37:56,091 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:56,608 - OptionsV4 - INFO - Found 25 liquid options for ASHOKLEY at spot $235.15
+2025-06-22 13:37:56,931 - OptionsV4 - INFO - Market Direction: Neutral  (Confidence: 23.1%)
+2025-06-22 13:37:56,932 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 21.9%)
+2025-06-22 13:37:56,932 - OptionsV4 - INFO - Constructing 3 strategies: ['Iron Condor', 'Iron Butterfly', 'Butterfly Spread']
+2025-06-22 13:37:56,935 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:37:56,935 - OptionsV4 - INFO - ✅ ASHOKLEY analysis completed successfully
+2025-06-22 13:37:56,935 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:56,935 - OptionsV4 - INFO - Analyzing KOTAKBANK
+2025-06-22 13:37:56,935 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:57,069 - OptionsV4 - INFO - Found 40 liquid options for KOTAKBANK at spot $2169.80
+2025-06-22 13:37:57,392 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 49.0%)
+2025-06-22 13:37:57,392 - OptionsV4 - INFO - IV Environment: LOW (ATM IV: 16.9%)
+2025-06-22 13:37:57,392 - OptionsV4 - INFO - Constructing 7 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call', 'Long Straddle', 'Long Strangle', 'Calendar Spread']
+2025-06-22 13:37:57,397 - OptionsV4 - WARNING - Error constructing Calendar Spread: 'NoneType' object has no attribute 'get'
+2025-06-22 13:37:57,397 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:37:57,397 - OptionsV4 - INFO - ✅ KOTAKBANK analysis completed successfully
+2025-06-22 13:37:57,397 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:57,397 - OptionsV4 - INFO - Analyzing RBLBANK
+2025-06-22 13:37:57,397 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:57,461 - OptionsV4 - WARNING - ⚠️ RBLBANK analysis failed: No liquid options data
+2025-06-22 13:37:57,461 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:57,461 - OptionsV4 - INFO - Analyzing ETERNAL
+2025-06-22 13:37:57,461 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:57,611 - OptionsV4 - INFO - Found 39 liquid options for ETERNAL at spot $253.33
+2025-06-22 13:37:57,903 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 52.5%)
+2025-06-22 13:37:57,903 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 30.6%)
+2025-06-22 13:37:57,903 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:37:57,907 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:37:57,907 - OptionsV4 - INFO - ✅ ETERNAL analysis completed successfully
+2025-06-22 13:37:57,907 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:57,907 - OptionsV4 - INFO - Analyzing PIIND
+2025-06-22 13:37:57,907 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:58,034 - OptionsV4 - INFO - Found 2 liquid options for PIIND at spot $4121.50
+2025-06-22 13:37:58,320 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 60.6%)
+2025-06-22 13:37:58,321 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 21.8%)
+2025-06-22 13:37:58,321 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:37:58,325 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:37:58,325 - OptionsV4 - INFO - ✅ PIIND analysis completed successfully
+2025-06-22 13:37:58,325 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:58,325 - OptionsV4 - INFO - Analyzing NBCC
+2025-06-22 13:37:58,325 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:58,471 - OptionsV4 - INFO - Found 17 liquid options for NBCC at spot $117.08
+2025-06-22 13:37:58,886 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 48.7%)
+2025-06-22 13:37:58,886 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 34.1%)
+2025-06-22 13:37:58,886 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:37:58,890 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:37:58,890 - OptionsV4 - INFO - ✅ NBCC analysis completed successfully
+2025-06-22 13:37:58,890 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:58,890 - OptionsV4 - INFO - Analyzing TATASTEEL
+2025-06-22 13:37:58,890 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:59,028 - OptionsV4 - INFO - Found 32 liquid options for TATASTEEL at spot $151.97
+2025-06-22 13:37:59,327 - OptionsV4 - INFO - Market Direction: Neutral  (Confidence: 23.1%)
+2025-06-22 13:37:59,327 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 23.1%)
+2025-06-22 13:37:59,327 - OptionsV4 - INFO - Constructing 3 strategies: ['Iron Condor', 'Iron Butterfly', 'Butterfly Spread']
+2025-06-22 13:37:59,331 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:37:59,331 - OptionsV4 - INFO - ✅ TATASTEEL analysis completed successfully
+2025-06-22 13:37:59,331 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:37:59,331 - OptionsV4 - INFO - Analyzing OIL
+2025-06-22 13:37:59,331 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:37:59,465 - OptionsV4 - INFO - Found 27 liquid options for OIL at spot $464.90
+2025-06-22 13:38:00,120 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 51.7%)
+2025-06-22 13:38:00,120 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 33.1%)
+2025-06-22 13:38:00,120 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:38:00,124 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:38:00,124 - OptionsV4 - INFO - ✅ OIL analysis completed successfully
+2025-06-22 13:38:00,124 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:38:00,124 - OptionsV4 - INFO - Analyzing TORNTPHARM
+2025-06-22 13:38:00,124 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:38:00,201 - OptionsV4 - WARNING - ⚠️ TORNTPHARM analysis failed: No liquid options data
+2025-06-22 13:38:00,201 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:38:00,201 - OptionsV4 - INFO - Analyzing VBL
+2025-06-22 13:38:00,201 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:38:00,357 - OptionsV4 - INFO - Found 22 liquid options for VBL at spot $459.60
+2025-06-22 13:38:00,915 - OptionsV4 - INFO - Market Direction: Bearish Weak (Confidence: 55.4%)
+2025-06-22 13:38:00,915 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 26.8%)
+2025-06-22 13:38:00,915 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Put', 'Bear Put Spread', 'Bear Call Spread', 'Cash-Secured Put']
+2025-06-22 13:38:00,918 - OptionsV4 - INFO - Generated 2 strategies, 2 passed filters
+2025-06-22 13:38:00,918 - OptionsV4 - INFO - ✅ VBL analysis completed successfully
+2025-06-22 13:38:00,918 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:38:00,918 - OptionsV4 - INFO - Analyzing ADANIENT
+2025-06-22 13:38:00,918 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:38:01,062 - OptionsV4 - INFO - Found 27 liquid options for ADANIENT at spot $2448.40
+2025-06-22 13:38:01,384 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 50.5%)
+2025-06-22 13:38:01,384 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 26.4%)
+2025-06-22 13:38:01,384 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:38:01,387 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:38:01,387 - OptionsV4 - INFO - ✅ ADANIENT analysis completed successfully
+2025-06-22 13:38:01,388 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:38:01,388 - OptionsV4 - INFO - Analyzing UPL
+2025-06-22 13:38:01,388 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:38:01,512 - OptionsV4 - INFO - Found 19 liquid options for UPL at spot $633.50
+2025-06-22 13:38:01,793 - OptionsV4 - INFO - Market Direction: Neutral  (Confidence: 43.1%)
+2025-06-22 13:38:01,793 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 18.9%)
+2025-06-22 13:38:01,793 - OptionsV4 - INFO - Constructing 3 strategies: ['Iron Condor', 'Iron Butterfly', 'Butterfly Spread']
+2025-06-22 13:38:01,797 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:38:01,797 - OptionsV4 - INFO - ✅ UPL analysis completed successfully
+2025-06-22 13:38:01,797 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:38:01,797 - OptionsV4 - INFO - Analyzing MANAPPURAM
+2025-06-22 13:38:01,797 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:38:02,172 - OptionsV4 - INFO - Found 1 liquid options for MANAPPURAM at spot $271.45
+2025-06-22 13:38:02,887 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 48.3%)
+2025-06-22 13:38:02,887 - OptionsV4 - INFO - IV Environment: EXTREME (ATM IV: nan%)
+2025-06-22 13:38:02,887 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:38:02,892 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:38:02,892 - OptionsV4 - INFO - ✅ MANAPPURAM analysis completed successfully
+2025-06-22 13:38:02,892 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:38:02,892 - OptionsV4 - INFO - Analyzing TORNTPOWER
+2025-06-22 13:38:02,892 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:38:03,230 - OptionsV4 - INFO - Found 4 liquid options for TORNTPOWER at spot $1390.10
+2025-06-22 13:38:03,557 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 10.1%)
+2025-06-22 13:38:03,557 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 32.7%)
+2025-06-22 13:38:03,557 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:38:03,560 - OptionsV4 - WARNING - ⚠️ TORNTPOWER analysis failed: No strategies could be constructed
+2025-06-22 13:38:03,560 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:38:03,560 - OptionsV4 - INFO - Analyzing PERSISTENT
+2025-06-22 13:38:03,560 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:38:03,686 - OptionsV4 - INFO - Found 24 liquid options for PERSISTENT at spot $6106.50
+2025-06-22 13:38:03,991 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 70.4%)
+2025-06-22 13:38:03,991 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 29.1%)
+2025-06-22 13:38:03,991 - OptionsV4 - INFO - Constructing 6 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call', 'Call Ratio Spread', 'Diagonal Spread']
+2025-06-22 13:38:03,996 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:38:03,996 - OptionsV4 - INFO - ✅ PERSISTENT analysis completed successfully
+2025-06-22 13:38:03,996 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:38:03,996 - OptionsV4 - INFO - Analyzing IGL
+2025-06-22 13:38:03,996 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:38:04,133 - OptionsV4 - INFO - Found 25 liquid options for IGL at spot $205.67
+2025-06-22 13:38:04,746 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 37.3%)
+2025-06-22 13:38:04,746 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 28.8%)
+2025-06-22 13:38:04,746 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:38:04,750 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:38:04,750 - OptionsV4 - INFO - ✅ IGL analysis completed successfully
+2025-06-22 13:38:04,750 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:38:04,750 - OptionsV4 - INFO - Analyzing GUJGASLTD
+2025-06-22 13:38:04,750 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:38:04,809 - OptionsV4 - WARNING - ⚠️ GUJGASLTD analysis failed: No liquid options data
+2025-06-22 13:38:04,809 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:38:04,809 - OptionsV4 - INFO - Analyzing MARUTI
+2025-06-22 13:38:04,809 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:38:04,959 - OptionsV4 - INFO - Found 41 liquid options for MARUTI at spot $12791.00
+2025-06-22 13:38:05,287 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 74.2%)
+2025-06-22 13:38:05,287 - OptionsV4 - INFO - IV Environment: LOW (ATM IV: 15.0%)
+2025-06-22 13:38:05,287 - OptionsV4 - INFO - Constructing 9 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call', 'Call Ratio Spread', 'Diagonal Spread', 'Long Straddle', 'Long Strangle', 'Calendar Spread']
+2025-06-22 13:38:05,292 - OptionsV4 - WARNING - Error constructing Long Strangle: 'NoneType' object has no attribute 'get'
+2025-06-22 13:38:05,292 - OptionsV4 - WARNING - Error constructing Calendar Spread: 'NoneType' object has no attribute 'get'
+2025-06-22 13:38:05,292 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:38:05,292 - OptionsV4 - INFO - ✅ MARUTI analysis completed successfully
+2025-06-22 13:38:05,292 - OptionsV4 - INFO - 
+Portfolio Analysis Complete: 34/50 successful
+2025-06-22 13:38:05,304 - OptionsV4 - INFO - Results saved to: /Users/jaykrish/Documents/digitalocean/cronjobs/options_v4/results/options_v4_analysis_20250622_133805.json
+2025-06-22 13:38:06,446 - OptionsV4 - INFO - Successfully stored strategy 34: Bear Put Spread for DIXON
+2025-06-22 13:38:07,188 - OptionsV4 - INFO - Successfully stored strategy 35: Bear Call Spread for DIXON
+2025-06-22 13:38:07,929 - OptionsV4 - INFO - Successfully stored strategy 36: Cash-Secured Put for DIXON
+2025-06-22 13:38:08,699 - OptionsV4 - INFO - Successfully stored strategy 37: Butterfly Spread for SUNPHARMA
+2025-06-22 13:38:09,479 - OptionsV4 - INFO - Successfully stored strategy 38: Covered Call for CESC
+2025-06-22 13:38:10,291 - OptionsV4 - INFO - Successfully stored strategy 39: Bull Call Spread for HINDZINC
+2025-06-22 13:38:11,248 - OptionsV4 - INFO - Successfully stored strategy 40: Covered Call for HINDZINC
+2025-06-22 13:38:11,307 - OptionsV4 - ERROR - Error inserting strategy legs: Out of range float values are not JSON compliant: np.float64(nan)
+2025-06-22 13:38:11,365 - OptionsV4 - ERROR - Error inserting Greek exposures: Out of range float values are not JSON compliant: np.float64(nan)
+2025-06-22 13:38:11,893 - OptionsV4 - INFO - Successfully stored strategy 41: Butterfly Spread for HINDUNILVR
+2025-06-22 13:38:12,647 - OptionsV4 - INFO - Successfully stored strategy 42: Iron Condor for HINDUNILVR
+2025-06-22 13:38:13,382 - OptionsV4 - INFO - Successfully stored strategy 43: Covered Call for IREDA
+2025-06-22 13:38:14,159 - OptionsV4 - INFO - Successfully stored strategy 44: Covered Call for BHARATFORG
+2025-06-22 13:38:14,931 - OptionsV4 - INFO - Successfully stored strategy 45: Bear Put Spread for NMDC
+2025-06-22 13:38:15,690 - OptionsV4 - INFO - Successfully stored strategy 46: Cash-Secured Put for NMDC
+2025-06-22 13:38:17,430 - OptionsV4 - INFO - Successfully stored strategy 47: Cash-Secured Put for PATANJALI
+2025-06-22 13:38:18,269 - OptionsV4 - INFO - Successfully stored strategy 48: Butterfly Spread for RECLTD
+2025-06-22 13:38:19,046 - OptionsV4 - INFO - Successfully stored strategy 49: Bull Put Spread for TECHM
+2025-06-22 13:38:19,877 - OptionsV4 - INFO - Successfully stored strategy 50: Covered Call for TECHM
+2025-06-22 13:38:20,624 - OptionsV4 - INFO - Successfully stored strategy 51: Covered Call for NCC
+2025-06-22 13:38:21,390 - OptionsV4 - INFO - Successfully stored strategy 52: Iron Condor for OBEROIRLTY
+2025-06-22 13:38:22,129 - OptionsV4 - INFO - Successfully stored strategy 53: Covered Call for LAURUSLABS
+2025-06-22 13:38:22,873 - OptionsV4 - INFO - Successfully stored strategy 54: Covered Call for SBICARD
+2025-06-22 13:38:23,611 - OptionsV4 - INFO - Successfully stored strategy 55: Cash-Secured Put for CDSL
+2025-06-22 13:38:25,169 - OptionsV4 - INFO - Successfully stored strategy 56: Covered Call for ADANIGREEN
+2025-06-22 13:38:25,904 - OptionsV4 - INFO - Successfully stored strategy 57: Bull Call Spread for TATAPOWER
+2025-06-22 13:38:26,692 - OptionsV4 - INFO - Successfully stored strategy 58: Covered Call for TATAPOWER
+2025-06-22 13:38:27,438 - OptionsV4 - INFO - Successfully stored strategy 59: Butterfly Spread for TATATECH
+2025-06-22 13:38:28,176 - OptionsV4 - INFO - Successfully stored strategy 60: Iron Condor for TATATECH
+2025-06-22 13:38:28,930 - OptionsV4 - INFO - Successfully stored strategy 61: Bear Put Spread for HINDALCO
+2025-06-22 13:38:30,649 - OptionsV4 - INFO - Successfully stored strategy 62: Butterfly Spread for ASHOKLEY
+2025-06-22 13:38:31,421 - OptionsV4 - INFO - Successfully stored strategy 63: Covered Call for KOTAKBANK
+2025-06-22 13:38:32,161 - OptionsV4 - INFO - Successfully stored strategy 64: Covered Call for ETERNAL
+2025-06-22 13:38:32,888 - OptionsV4 - INFO - Successfully stored strategy 65: Covered Call for PIIND
+2025-06-22 13:38:33,652 - OptionsV4 - INFO - Successfully stored strategy 66: Covered Call for NBCC
+2025-06-22 13:38:34,401 - OptionsV4 - INFO - Successfully stored strategy 67: Butterfly Spread for TATASTEEL
+2025-06-22 13:38:35,119 - OptionsV4 - INFO - Successfully stored strategy 68: Covered Call for OIL
+2025-06-22 13:38:35,853 - OptionsV4 - INFO - Successfully stored strategy 69: Bear Put Spread for VBL
+2025-06-22 13:38:36,675 - OptionsV4 - INFO - Successfully stored strategy 70: Cash-Secured Put for VBL
+2025-06-22 13:38:37,453 - OptionsV4 - INFO - Successfully stored strategy 71: Covered Call for ADANIENT
+2025-06-22 13:38:38,670 - OptionsV4 - INFO - Successfully stored strategy 72: Butterfly Spread for UPL
+2025-06-22 13:38:38,734 - OptionsV4 - ERROR - Error inserting strategy legs: Out of range float values are not JSON compliant: np.float64(nan)
+2025-06-22 13:38:38,794 - OptionsV4 - ERROR - Error inserting Greek exposures: Out of range float values are not JSON compliant: np.float64(nan)
+2025-06-22 13:38:38,794 - OptionsV4 - ERROR - Error inserting monitoring levels: Out of range float values are not JSON compliant: np.float64(nan)
+2025-06-22 13:38:38,924 - OptionsV4 - ERROR - Error inserting IV analysis: Out of range float values are not JSON compliant: nan
+2025-06-22 13:38:38,991 - OptionsV4 - ERROR - Error inserting expected moves: Out of range float values are not JSON compliant: np.float64(nan)
+2025-06-22 13:38:39,118 - OptionsV4 - INFO - Successfully stored strategy 73: Covered Call for MANAPPURAM
+2025-06-22 13:38:39,865 - OptionsV4 - INFO - Successfully stored strategy 74: Covered Call for PERSISTENT
+2025-06-22 13:38:40,700 - OptionsV4 - INFO - Successfully stored strategy 75: Covered Call for IGL
+2025-06-22 13:38:41,463 - OptionsV4 - INFO - Successfully stored strategy 76: Call Ratio Spread for MARUTI
+2025-06-22 13:38:41,463 - OptionsV4 - INFO - Stored 43 strategies in database
+2025-06-22 13:40:33,666 - OptionsV4 - INFO - Supabase client initialized successfully
+2025-06-22 13:40:33,666 - OptionsV4 - INFO - Database integration enabled
+2025-06-22 13:40:33,666 - OptionsV4 - INFO - Options V4 Analyzer initialized successfully
+2025-06-22 13:40:40,405 - OptionsV4 - INFO - Supabase client initialized successfully
+2025-06-22 13:40:40,405 - OptionsV4 - INFO - Database integration enabled
+2025-06-22 13:40:40,405 - OptionsV4 - INFO - Options V4 Analyzer initialized successfully
+2025-06-22 13:40:40,405 - OptionsV4 - INFO - Starting portfolio analysis...
+2025-06-22 13:40:40,861 - OptionsV4 - INFO - Analyzing 50 symbols: ['DIXON', 'MARICO', 'SUNPHARMA', 'CESC', 'GRANULES', 'BERGEPAINT', 'HDFCAMC', 'HINDZINC', 'NHPC', 'CROMPTON', 'GRASIM', 'APOLLOHOSP', 'HINDUNILVR', 'TITAGARH', 'IREDA', 'BHARATFORG', 'NMDC', 'PATANJALI', 'RECLTD', 'ADANIENSOL', 'TECHM', 'IRFC', 'NCC', 'OBEROIRLTY', 'PNBHOUSING', 'LAURUSLABS', 'SBICARD', 'CDSL', 'ADANIGREEN', 'TATAPOWER', 'TATATECH', 'HINDALCO', 'ASHOKLEY', 'KOTAKBANK', 'RBLBANK', 'ETERNAL', 'PIIND', 'NBCC', 'TATASTEEL', 'OIL', 'TORNTPHARM', 'VBL', 'ADANIENT', 'UPL', 'MANAPPURAM', 'TORNTPOWER', 'PERSISTENT', 'IGL', 'GUJGASLTD', 'MARUTI']
+2025-06-22 13:40:40,862 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:40,862 - OptionsV4 - INFO - Analyzing DIXON
+2025-06-22 13:40:40,862 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:41,012 - OptionsV4 - INFO - Found 80 liquid options for DIXON at spot $14047.00
+2025-06-22 13:40:41,611 - OptionsV4 - INFO - Market Direction: Bearish Weak (Confidence: 54.5%)
+2025-06-22 13:40:41,611 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 31.4%)
+2025-06-22 13:40:41,611 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Put', 'Bear Put Spread', 'Bear Call Spread', 'Cash-Secured Put']
+2025-06-22 13:40:41,615 - OptionsV4 - INFO - Generated 3 strategies, 3 passed filters
+2025-06-22 13:40:41,615 - OptionsV4 - INFO - ✅ DIXON analysis completed successfully
+2025-06-22 13:40:41,615 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:41,615 - OptionsV4 - INFO - Analyzing MARICO
+2025-06-22 13:40:41,615 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:41,767 - OptionsV4 - INFO - Found 18 liquid options for MARICO at spot $693.30
+2025-06-22 13:40:41,927 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 41.5%)
+2025-06-22 13:40:41,927 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 19.9%)
+2025-06-22 13:40:41,927 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:40:41,932 - OptionsV4 - WARNING - ⚠️ MARICO analysis failed: No strategies passed probability filtering
+2025-06-22 13:40:41,932 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:41,932 - OptionsV4 - INFO - Analyzing SUNPHARMA
+2025-06-22 13:40:41,932 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:42,096 - OptionsV4 - INFO - Found 72 liquid options for SUNPHARMA at spot $1665.10
+2025-06-22 13:40:42,279 - OptionsV4 - INFO - Market Direction: Neutral  (Confidence: 42.3%)
+2025-06-22 13:40:42,279 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 18.2%)
+2025-06-22 13:40:42,279 - OptionsV4 - INFO - Constructing 3 strategies: ['Iron Condor', 'Iron Butterfly', 'Butterfly Spread']
+2025-06-22 13:40:42,284 - OptionsV4 - INFO - Generated 2 strategies, 1 passed filters
+2025-06-22 13:40:42,284 - OptionsV4 - INFO - ✅ SUNPHARMA analysis completed successfully
+2025-06-22 13:40:42,284 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:42,284 - OptionsV4 - INFO - Analyzing CESC
+2025-06-22 13:40:42,284 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:42,433 - OptionsV4 - INFO - Found 8 liquid options for CESC at spot $163.39
+2025-06-22 13:40:42,573 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 42.3%)
+2025-06-22 13:40:42,573 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 29.7%)
+2025-06-22 13:40:42,573 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:40:42,576 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:40:42,576 - OptionsV4 - INFO - ✅ CESC analysis completed successfully
+2025-06-22 13:40:42,576 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:42,576 - OptionsV4 - INFO - Analyzing GRANULES
+2025-06-22 13:40:42,576 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:42,648 - OptionsV4 - WARNING - ⚠️ GRANULES analysis failed: No liquid options data
+2025-06-22 13:40:42,649 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:42,649 - OptionsV4 - INFO - Analyzing BERGEPAINT
+2025-06-22 13:40:42,649 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:42,714 - OptionsV4 - WARNING - ⚠️ BERGEPAINT analysis failed: No liquid options data
+2025-06-22 13:40:42,714 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:42,714 - OptionsV4 - INFO - Analyzing HDFCAMC
+2025-06-22 13:40:42,714 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:42,913 - OptionsV4 - INFO - Found 42 liquid options for HDFCAMC at spot $4958.60
+2025-06-22 13:40:43,457 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 47.0%)
+2025-06-22 13:40:43,457 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 22.2%)
+2025-06-22 13:40:43,457 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:40:43,460 - OptionsV4 - WARNING - ⚠️ HDFCAMC analysis failed: No strategies could be constructed
+2025-06-22 13:40:43,460 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:43,461 - OptionsV4 - INFO - Analyzing HINDZINC
+2025-06-22 13:40:43,461 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:43,610 - OptionsV4 - INFO - Found 72 liquid options for HINDZINC at spot $438.60
+2025-06-22 13:40:43,778 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 42.1%)
+2025-06-22 13:40:43,779 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 29.4%)
+2025-06-22 13:40:43,779 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:40:43,782 - OptionsV4 - INFO - Generated 2 strategies, 2 passed filters
+2025-06-22 13:40:43,783 - OptionsV4 - INFO - ✅ HINDZINC analysis completed successfully
+2025-06-22 13:40:43,783 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:43,783 - OptionsV4 - INFO - Analyzing NHPC
+2025-06-22 13:40:43,783 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:43,962 - OptionsV4 - INFO - Found 30 liquid options for NHPC at spot $82.31
+2025-06-22 13:40:44,119 - OptionsV4 - INFO - Market Direction: Neutral  (Confidence: 38.9%)
+2025-06-22 13:40:44,119 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 30.0%)
+2025-06-22 13:40:44,119 - OptionsV4 - INFO - Constructing 3 strategies: ['Iron Condor', 'Iron Butterfly', 'Butterfly Spread']
+2025-06-22 13:40:44,120 - OptionsV4 - WARNING - Error constructing Iron Butterfly: 'NoneType' object has no attribute 'get'
+2025-06-22 13:40:44,121 - OptionsV4 - WARNING - Error constructing Butterfly Spread: 'NoneType' object has no attribute 'get'
+2025-06-22 13:40:44,121 - OptionsV4 - WARNING - ⚠️ NHPC analysis failed: No strategies could be constructed
+2025-06-22 13:40:44,121 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:44,121 - OptionsV4 - INFO - Analyzing CROMPTON
+2025-06-22 13:40:44,121 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:44,298 - OptionsV4 - INFO - Found 16 liquid options for CROMPTON at spot $344.60
+2025-06-22 13:40:44,509 - OptionsV4 - INFO - Market Direction: Neutral  (Confidence: 19.4%)
+2025-06-22 13:40:44,509 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 26.5%)
+2025-06-22 13:40:44,509 - OptionsV4 - INFO - Constructing 3 strategies: ['Iron Condor', 'Iron Butterfly', 'Butterfly Spread']
+2025-06-22 13:40:44,510 - OptionsV4 - WARNING - Error constructing Iron Butterfly: 'NoneType' object has no attribute 'get'
+2025-06-22 13:40:44,511 - OptionsV4 - WARNING - Error constructing Butterfly Spread: 'NoneType' object has no attribute 'get'
+2025-06-22 13:40:44,511 - OptionsV4 - WARNING - ⚠️ CROMPTON analysis failed: No strategies could be constructed
+2025-06-22 13:40:44,511 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:44,511 - OptionsV4 - INFO - Analyzing GRASIM
+2025-06-22 13:40:44,511 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:44,696 - OptionsV4 - INFO - Found 18 liquid options for GRASIM at spot $2712.60
+2025-06-22 13:40:44,840 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 58.2%)
+2025-06-22 13:40:44,840 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 19.7%)
+2025-06-22 13:40:44,840 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:40:44,843 - OptionsV4 - WARNING - ⚠️ GRASIM analysis failed: No strategies could be constructed
+2025-06-22 13:40:44,843 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:44,843 - OptionsV4 - INFO - Analyzing APOLLOHOSP
+2025-06-22 13:40:44,843 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:45,037 - OptionsV4 - INFO - Found 36 liquid options for APOLLOHOSP at spot $7063.50
+2025-06-22 13:40:45,219 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 61.5%)
+2025-06-22 13:40:45,219 - OptionsV4 - INFO - IV Environment: LOW (ATM IV: 13.5%)
+2025-06-22 13:40:45,219 - OptionsV4 - INFO - Constructing 7 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call', 'Long Straddle', 'Long Strangle', 'Calendar Spread']
+2025-06-22 13:40:45,223 - OptionsV4 - WARNING - Error constructing Long Strangle: 'NoneType' object has no attribute 'get'
+2025-06-22 13:40:45,223 - OptionsV4 - WARNING - Error constructing Calendar Spread: 'NoneType' object has no attribute 'get'
+2025-06-22 13:40:45,223 - OptionsV4 - WARNING - ⚠️ APOLLOHOSP analysis failed: No strategies could be constructed
+2025-06-22 13:40:45,223 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:45,223 - OptionsV4 - INFO - Analyzing HINDUNILVR
+2025-06-22 13:40:45,223 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:45,388 - OptionsV4 - INFO - Found 84 liquid options for HINDUNILVR at spot $2306.20
+2025-06-22 13:40:45,579 - OptionsV4 - INFO - Market Direction: Neutral  (Confidence: 22.5%)
+2025-06-22 13:40:45,579 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 17.8%)
+2025-06-22 13:40:45,579 - OptionsV4 - INFO - Constructing 3 strategies: ['Iron Condor', 'Iron Butterfly', 'Butterfly Spread']
+2025-06-22 13:40:45,584 - OptionsV4 - INFO - Generated 2 strategies, 2 passed filters
+2025-06-22 13:40:45,584 - OptionsV4 - INFO - ✅ HINDUNILVR analysis completed successfully
+2025-06-22 13:40:45,584 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:45,584 - OptionsV4 - INFO - Analyzing TITAGARH
+2025-06-22 13:40:45,584 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:45,656 - OptionsV4 - WARNING - ⚠️ TITAGARH analysis failed: No liquid options data
+2025-06-22 13:40:45,656 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:45,656 - OptionsV4 - INFO - Analyzing IREDA
+2025-06-22 13:40:45,656 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:45,883 - OptionsV4 - INFO - Found 66 liquid options for IREDA at spot $165.07
+2025-06-22 13:40:46,122 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 49.4%)
+2025-06-22 13:40:46,122 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 32.6%)
+2025-06-22 13:40:46,122 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:40:46,126 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:40:46,126 - OptionsV4 - INFO - ✅ IREDA analysis completed successfully
+2025-06-22 13:40:46,126 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:46,126 - OptionsV4 - INFO - Analyzing BHARATFORG
+2025-06-22 13:40:46,126 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:47,012 - OptionsV4 - INFO - Found 26 liquid options for BHARATFORG at spot $1278.30
+2025-06-22 13:40:47,173 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 56.3%)
+2025-06-22 13:40:47,173 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 25.7%)
+2025-06-22 13:40:47,173 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:40:47,177 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:40:47,177 - OptionsV4 - INFO - ✅ BHARATFORG analysis completed successfully
+2025-06-22 13:40:47,177 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:47,177 - OptionsV4 - INFO - Analyzing NMDC
+2025-06-22 13:40:47,177 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:47,337 - OptionsV4 - INFO - Found 48 liquid options for NMDC at spot $67.94
+2025-06-22 13:40:47,500 - OptionsV4 - INFO - Market Direction: Bearish Weak (Confidence: 22.1%)
+2025-06-22 13:40:47,500 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 27.8%)
+2025-06-22 13:40:47,500 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Put', 'Bear Put Spread', 'Bear Call Spread', 'Cash-Secured Put']
+2025-06-22 13:40:47,503 - OptionsV4 - INFO - Generated 2 strategies, 2 passed filters
+2025-06-22 13:40:47,503 - OptionsV4 - INFO - ✅ NMDC analysis completed successfully
+2025-06-22 13:40:47,503 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:47,503 - OptionsV4 - INFO - Analyzing PATANJALI
+2025-06-22 13:40:47,503 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:47,673 - OptionsV4 - INFO - Found 8 liquid options for PATANJALI at spot $1649.60
+2025-06-22 13:40:47,840 - OptionsV4 - INFO - Market Direction: Bearish Weak (Confidence: 72.1%)
+2025-06-22 13:40:47,840 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 25.6%)
+2025-06-22 13:40:47,840 - OptionsV4 - INFO - Constructing 6 strategies: ['Long Put', 'Bear Put Spread', 'Bear Call Spread', 'Cash-Secured Put', 'Put Ratio Spread', 'Diagonal Spread']
+2025-06-22 13:40:47,843 - OptionsV4 - WARNING - Error constructing Put Ratio Spread: 'NoneType' object has no attribute 'get'
+2025-06-22 13:40:47,844 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:40:47,844 - OptionsV4 - INFO - ✅ PATANJALI analysis completed successfully
+2025-06-22 13:40:47,844 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:47,844 - OptionsV4 - INFO - Analyzing RECLTD
+2025-06-22 13:40:47,844 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:47,985 - OptionsV4 - INFO - Found 72 liquid options for RECLTD at spot $394.45
+2025-06-22 13:40:48,178 - OptionsV4 - INFO - Market Direction: Neutral  (Confidence: 48.0%)
+2025-06-22 13:40:48,178 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 28.3%)
+2025-06-22 13:40:48,178 - OptionsV4 - INFO - Constructing 3 strategies: ['Iron Condor', 'Iron Butterfly', 'Butterfly Spread']
+2025-06-22 13:40:48,184 - OptionsV4 - INFO - Generated 2 strategies, 1 passed filters
+2025-06-22 13:40:48,184 - OptionsV4 - INFO - ✅ RECLTD analysis completed successfully
+2025-06-22 13:40:48,184 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:48,184 - OptionsV4 - INFO - Analyzing ADANIENSOL
+2025-06-22 13:40:48,184 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:48,342 - OptionsV4 - INFO - Found 12 liquid options for ADANIENSOL at spot $828.10
+2025-06-22 13:40:48,476 - OptionsV4 - INFO - Market Direction: Neutral  (Confidence: 2.4%)
+2025-06-22 13:40:48,477 - OptionsV4 - INFO - IV Environment: ELEVATED (ATM IV: 36.9%)
+2025-06-22 13:40:48,477 - OptionsV4 - INFO - Constructing 3 strategies: ['Iron Condor', 'Iron Butterfly', 'Butterfly Spread']
+2025-06-22 13:40:48,478 - OptionsV4 - WARNING - Error constructing Iron Butterfly: 'NoneType' object has no attribute 'get'
+2025-06-22 13:40:48,478 - OptionsV4 - WARNING - Error constructing Butterfly Spread: 'NoneType' object has no attribute 'get'
+2025-06-22 13:40:48,478 - OptionsV4 - WARNING - ⚠️ ADANIENSOL analysis failed: No strategies could be constructed
+2025-06-22 13:40:48,478 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:48,478 - OptionsV4 - INFO - Analyzing TECHM
+2025-06-22 13:40:48,478 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:48,631 - OptionsV4 - INFO - Found 62 liquid options for TECHM at spot $1696.10
+2025-06-22 13:40:48,804 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 52.4%)
+2025-06-22 13:40:48,804 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 23.1%)
+2025-06-22 13:40:48,804 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:40:48,808 - OptionsV4 - INFO - Generated 2 strategies, 2 passed filters
+2025-06-22 13:40:48,808 - OptionsV4 - INFO - ✅ TECHM analysis completed successfully
+2025-06-22 13:40:48,808 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:48,808 - OptionsV4 - INFO - Analyzing IRFC
+2025-06-22 13:40:48,808 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:48,947 - OptionsV4 - INFO - Found 46 liquid options for IRFC at spot $134.20
+2025-06-22 13:40:49,172 - OptionsV4 - INFO - Market Direction: Neutral  (Confidence: 15.7%)
+2025-06-22 13:40:49,172 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 32.4%)
+2025-06-22 13:40:49,172 - OptionsV4 - INFO - Constructing 3 strategies: ['Iron Condor', 'Iron Butterfly', 'Butterfly Spread']
+2025-06-22 13:40:49,174 - OptionsV4 - WARNING - Error constructing Iron Butterfly: 'NoneType' object has no attribute 'get'
+2025-06-22 13:40:49,174 - OptionsV4 - WARNING - Error constructing Butterfly Spread: 'NoneType' object has no attribute 'get'
+2025-06-22 13:40:49,174 - OptionsV4 - WARNING - ⚠️ IRFC analysis failed: No strategies could be constructed
+2025-06-22 13:40:49,174 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:49,174 - OptionsV4 - INFO - Analyzing NCC
+2025-06-22 13:40:49,174 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:49,335 - OptionsV4 - INFO - Found 36 liquid options for NCC at spot $221.30
+2025-06-22 13:40:49,510 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 33.6%)
+2025-06-22 13:40:49,510 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 27.3%)
+2025-06-22 13:40:49,510 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:40:49,514 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:40:49,514 - OptionsV4 - INFO - ✅ NCC analysis completed successfully
+2025-06-22 13:40:49,514 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:49,514 - OptionsV4 - INFO - Analyzing OBEROIRLTY
+2025-06-22 13:40:49,514 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:49,658 - OptionsV4 - INFO - Found 15 liquid options for OBEROIRLTY at spot $1910.90
+2025-06-22 13:40:49,832 - OptionsV4 - INFO - Market Direction: Neutral  (Confidence: 49.7%)
+2025-06-22 13:40:49,833 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 26.7%)
+2025-06-22 13:40:49,833 - OptionsV4 - INFO - Constructing 3 strategies: ['Iron Condor', 'Iron Butterfly', 'Butterfly Spread']
+2025-06-22 13:40:49,836 - OptionsV4 - WARNING - Error constructing Iron Butterfly: 'NoneType' object has no attribute 'get'
+2025-06-22 13:40:49,837 - OptionsV4 - WARNING - Error constructing Butterfly Spread: 'NoneType' object has no attribute 'get'
+2025-06-22 13:40:49,837 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:40:49,837 - OptionsV4 - INFO - ✅ OBEROIRLTY analysis completed successfully
+2025-06-22 13:40:49,837 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:49,837 - OptionsV4 - INFO - Analyzing PNBHOUSING
+2025-06-22 13:40:49,837 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:49,910 - OptionsV4 - WARNING - ⚠️ PNBHOUSING analysis failed: No liquid options data
+2025-06-22 13:40:49,910 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:49,910 - OptionsV4 - INFO - Analyzing LAURUSLABS
+2025-06-22 13:40:49,910 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:50,051 - OptionsV4 - INFO - Found 28 liquid options for LAURUSLABS at spot $651.00
+2025-06-22 13:40:50,213 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 49.1%)
+2025-06-22 13:40:50,213 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 26.6%)
+2025-06-22 13:40:50,213 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:40:50,217 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:40:50,217 - OptionsV4 - INFO - ✅ LAURUSLABS analysis completed successfully
+2025-06-22 13:40:50,217 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:50,217 - OptionsV4 - INFO - Analyzing SBICARD
+2025-06-22 13:40:50,217 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:50,356 - OptionsV4 - INFO - Found 21 liquid options for SBICARD at spot $945.60
+2025-06-22 13:40:50,593 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 65.6%)
+2025-06-22 13:40:50,593 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 20.2%)
+2025-06-22 13:40:50,593 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:40:50,596 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:40:50,596 - OptionsV4 - INFO - ✅ SBICARD analysis completed successfully
+2025-06-22 13:40:50,596 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:50,597 - OptionsV4 - INFO - Analyzing CDSL
+2025-06-22 13:40:50,597 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:50,764 - OptionsV4 - INFO - Found 3 liquid options for CDSL at spot $1685.80
+2025-06-22 13:40:50,914 - OptionsV4 - INFO - Market Direction: Bearish Weak (Confidence: 23.3%)
+2025-06-22 13:40:50,914 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 34.0%)
+2025-06-22 13:40:50,914 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Put', 'Bear Put Spread', 'Bear Call Spread', 'Cash-Secured Put']
+2025-06-22 13:40:50,917 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:40:50,917 - OptionsV4 - INFO - ✅ CDSL analysis completed successfully
+2025-06-22 13:40:50,917 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:50,917 - OptionsV4 - INFO - Analyzing ADANIGREEN
+2025-06-22 13:40:50,917 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:51,075 - OptionsV4 - INFO - Found 17 liquid options for ADANIGREEN at spot $947.70
+2025-06-22 13:40:51,234 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 38.1%)
+2025-06-22 13:40:51,234 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 32.6%)
+2025-06-22 13:40:51,234 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:40:51,238 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:40:51,238 - OptionsV4 - INFO - ✅ ADANIGREEN analysis completed successfully
+2025-06-22 13:40:51,238 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:51,238 - OptionsV4 - INFO - Analyzing TATAPOWER
+2025-06-22 13:40:51,238 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:51,481 - OptionsV4 - INFO - Found 37 liquid options for TATAPOWER at spot $390.10
+2025-06-22 13:40:52,284 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 42.6%)
+2025-06-22 13:40:52,285 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 23.7%)
+2025-06-22 13:40:52,285 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:40:52,289 - OptionsV4 - INFO - Generated 2 strategies, 2 passed filters
+2025-06-22 13:40:52,289 - OptionsV4 - INFO - ✅ TATAPOWER analysis completed successfully
+2025-06-22 13:40:52,289 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:52,289 - OptionsV4 - INFO - Analyzing TATATECH
+2025-06-22 13:40:52,289 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:52,498 - OptionsV4 - INFO - Found 30 liquid options for TATATECH at spot $706.65
+2025-06-22 13:40:52,667 - OptionsV4 - INFO - Market Direction: Neutral  (Confidence: 36.7%)
+2025-06-22 13:40:52,667 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 29.4%)
+2025-06-22 13:40:52,667 - OptionsV4 - INFO - Constructing 3 strategies: ['Iron Condor', 'Iron Butterfly', 'Butterfly Spread']
+2025-06-22 13:40:52,673 - OptionsV4 - INFO - Generated 2 strategies, 2 passed filters
+2025-06-22 13:40:52,673 - OptionsV4 - INFO - ✅ TATATECH analysis completed successfully
+2025-06-22 13:40:52,673 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:52,673 - OptionsV4 - INFO - Analyzing HINDALCO
+2025-06-22 13:40:52,673 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:52,826 - OptionsV4 - INFO - Found 32 liquid options for HINDALCO at spot $649.15
+2025-06-22 13:40:53,013 - OptionsV4 - INFO - Market Direction: Bearish Weak (Confidence: 34.7%)
+2025-06-22 13:40:53,013 - OptionsV4 - INFO - IV Environment: LOW (ATM IV: 21.6%)
+2025-06-22 13:40:53,013 - OptionsV4 - INFO - Constructing 7 strategies: ['Long Put', 'Bear Put Spread', 'Bear Call Spread', 'Cash-Secured Put', 'Long Straddle', 'Long Strangle', 'Calendar Spread']
+2025-06-22 13:40:53,016 - OptionsV4 - WARNING - Error constructing Long Strangle: 'NoneType' object has no attribute 'get'
+2025-06-22 13:40:53,016 - OptionsV4 - WARNING - Error constructing Calendar Spread: 'NoneType' object has no attribute 'get'
+2025-06-22 13:40:53,017 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:40:53,017 - OptionsV4 - INFO - ✅ HINDALCO analysis completed successfully
+2025-06-22 13:40:53,017 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:53,017 - OptionsV4 - INFO - Analyzing ASHOKLEY
+2025-06-22 13:40:53,017 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:53,175 - OptionsV4 - INFO - Found 25 liquid options for ASHOKLEY at spot $235.15
+2025-06-22 13:40:53,392 - OptionsV4 - INFO - Market Direction: Neutral  (Confidence: 23.1%)
+2025-06-22 13:40:53,392 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 21.9%)
+2025-06-22 13:40:53,392 - OptionsV4 - INFO - Constructing 3 strategies: ['Iron Condor', 'Iron Butterfly', 'Butterfly Spread']
+2025-06-22 13:40:53,396 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:40:53,396 - OptionsV4 - INFO - ✅ ASHOKLEY analysis completed successfully
+2025-06-22 13:40:53,396 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:53,396 - OptionsV4 - INFO - Analyzing KOTAKBANK
+2025-06-22 13:40:53,396 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:53,540 - OptionsV4 - INFO - Found 40 liquid options for KOTAKBANK at spot $2169.80
+2025-06-22 13:40:53,729 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 49.0%)
+2025-06-22 13:40:53,729 - OptionsV4 - INFO - IV Environment: LOW (ATM IV: 16.9%)
+2025-06-22 13:40:53,729 - OptionsV4 - INFO - Constructing 7 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call', 'Long Straddle', 'Long Strangle', 'Calendar Spread']
+2025-06-22 13:40:53,733 - OptionsV4 - WARNING - Error constructing Calendar Spread: 'NoneType' object has no attribute 'get'
+2025-06-22 13:40:53,733 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:40:53,733 - OptionsV4 - INFO - ✅ KOTAKBANK analysis completed successfully
+2025-06-22 13:40:53,733 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:53,733 - OptionsV4 - INFO - Analyzing RBLBANK
+2025-06-22 13:40:53,733 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:53,801 - OptionsV4 - WARNING - ⚠️ RBLBANK analysis failed: No liquid options data
+2025-06-22 13:40:53,801 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:53,801 - OptionsV4 - INFO - Analyzing ETERNAL
+2025-06-22 13:40:53,801 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:53,956 - OptionsV4 - INFO - Found 39 liquid options for ETERNAL at spot $253.33
+2025-06-22 13:40:54,109 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 52.5%)
+2025-06-22 13:40:54,109 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 30.6%)
+2025-06-22 13:40:54,109 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:40:54,113 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:40:54,113 - OptionsV4 - INFO - ✅ ETERNAL analysis completed successfully
+2025-06-22 13:40:54,113 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:54,113 - OptionsV4 - INFO - Analyzing PIIND
+2025-06-22 13:40:54,113 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:54,252 - OptionsV4 - INFO - Found 2 liquid options for PIIND at spot $4121.50
+2025-06-22 13:40:54,397 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 60.6%)
+2025-06-22 13:40:54,397 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 21.8%)
+2025-06-22 13:40:54,397 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:40:54,401 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:40:54,401 - OptionsV4 - INFO - ✅ PIIND analysis completed successfully
+2025-06-22 13:40:54,401 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:54,401 - OptionsV4 - INFO - Analyzing NBCC
+2025-06-22 13:40:54,401 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:54,541 - OptionsV4 - INFO - Found 17 liquid options for NBCC at spot $117.08
+2025-06-22 13:40:54,709 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 48.7%)
+2025-06-22 13:40:54,709 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 34.1%)
+2025-06-22 13:40:54,709 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:40:54,713 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:40:54,713 - OptionsV4 - INFO - ✅ NBCC analysis completed successfully
+2025-06-22 13:40:54,713 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:54,713 - OptionsV4 - INFO - Analyzing TATASTEEL
+2025-06-22 13:40:54,713 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:54,851 - OptionsV4 - INFO - Found 32 liquid options for TATASTEEL at spot $151.97
+2025-06-22 13:40:55,082 - OptionsV4 - INFO - Market Direction: Neutral  (Confidence: 23.1%)
+2025-06-22 13:40:55,082 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 23.1%)
+2025-06-22 13:40:55,082 - OptionsV4 - INFO - Constructing 3 strategies: ['Iron Condor', 'Iron Butterfly', 'Butterfly Spread']
+2025-06-22 13:40:55,086 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:40:55,086 - OptionsV4 - INFO - ✅ TATASTEEL analysis completed successfully
+2025-06-22 13:40:55,086 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:55,086 - OptionsV4 - INFO - Analyzing OIL
+2025-06-22 13:40:55,086 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:55,226 - OptionsV4 - INFO - Found 27 liquid options for OIL at spot $464.90
+2025-06-22 13:40:55,378 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 51.7%)
+2025-06-22 13:40:55,378 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 33.1%)
+2025-06-22 13:40:55,378 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:40:55,382 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:40:55,382 - OptionsV4 - INFO - ✅ OIL analysis completed successfully
+2025-06-22 13:40:55,382 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:55,382 - OptionsV4 - INFO - Analyzing TORNTPHARM
+2025-06-22 13:40:55,382 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:55,455 - OptionsV4 - WARNING - ⚠️ TORNTPHARM analysis failed: No liquid options data
+2025-06-22 13:40:55,455 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:55,455 - OptionsV4 - INFO - Analyzing VBL
+2025-06-22 13:40:55,455 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:55,598 - OptionsV4 - INFO - Found 22 liquid options for VBL at spot $459.60
+2025-06-22 13:40:55,752 - OptionsV4 - INFO - Market Direction: Bearish Weak (Confidence: 55.4%)
+2025-06-22 13:40:55,752 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 26.8%)
+2025-06-22 13:40:55,752 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Put', 'Bear Put Spread', 'Bear Call Spread', 'Cash-Secured Put']
+2025-06-22 13:40:55,755 - OptionsV4 - INFO - Generated 2 strategies, 2 passed filters
+2025-06-22 13:40:55,755 - OptionsV4 - INFO - ✅ VBL analysis completed successfully
+2025-06-22 13:40:55,755 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:55,755 - OptionsV4 - INFO - Analyzing ADANIENT
+2025-06-22 13:40:55,755 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:55,901 - OptionsV4 - INFO - Found 27 liquid options for ADANIENT at spot $2448.40
+2025-06-22 13:40:56,167 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 50.5%)
+2025-06-22 13:40:56,167 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 26.4%)
+2025-06-22 13:40:56,167 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:40:56,170 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:40:56,170 - OptionsV4 - INFO - ✅ ADANIENT analysis completed successfully
+2025-06-22 13:40:56,170 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:56,170 - OptionsV4 - INFO - Analyzing UPL
+2025-06-22 13:40:56,171 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:56,325 - OptionsV4 - INFO - Found 19 liquid options for UPL at spot $633.50
+2025-06-22 13:40:56,461 - OptionsV4 - INFO - Market Direction: Neutral  (Confidence: 43.1%)
+2025-06-22 13:40:56,461 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 18.9%)
+2025-06-22 13:40:56,461 - OptionsV4 - INFO - Constructing 3 strategies: ['Iron Condor', 'Iron Butterfly', 'Butterfly Spread']
+2025-06-22 13:40:56,465 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:40:56,465 - OptionsV4 - INFO - ✅ UPL analysis completed successfully
+2025-06-22 13:40:56,465 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:56,465 - OptionsV4 - INFO - Analyzing MANAPPURAM
+2025-06-22 13:40:56,465 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:56,597 - OptionsV4 - INFO - Found 1 liquid options for MANAPPURAM at spot $271.45
+2025-06-22 13:40:56,748 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 48.3%)
+2025-06-22 13:40:56,748 - OptionsV4 - INFO - IV Environment: EXTREME (ATM IV: nan%)
+2025-06-22 13:40:56,748 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:40:56,752 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:40:56,753 - OptionsV4 - INFO - ✅ MANAPPURAM analysis completed successfully
+2025-06-22 13:40:56,753 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:56,753 - OptionsV4 - INFO - Analyzing TORNTPOWER
+2025-06-22 13:40:56,753 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:56,893 - OptionsV4 - INFO - Found 4 liquid options for TORNTPOWER at spot $1390.10
+2025-06-22 13:40:57,105 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 10.1%)
+2025-06-22 13:40:57,105 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 32.7%)
+2025-06-22 13:40:57,105 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:40:57,108 - OptionsV4 - WARNING - ⚠️ TORNTPOWER analysis failed: No strategies could be constructed
+2025-06-22 13:40:57,108 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:57,108 - OptionsV4 - INFO - Analyzing PERSISTENT
+2025-06-22 13:40:57,108 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:57,272 - OptionsV4 - INFO - Found 24 liquid options for PERSISTENT at spot $6106.50
+2025-06-22 13:40:57,490 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 70.4%)
+2025-06-22 13:40:57,490 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 29.1%)
+2025-06-22 13:40:57,490 - OptionsV4 - INFO - Constructing 6 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call', 'Call Ratio Spread', 'Diagonal Spread']
+2025-06-22 13:40:57,495 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:40:57,495 - OptionsV4 - INFO - ✅ PERSISTENT analysis completed successfully
+2025-06-22 13:40:57,495 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:57,495 - OptionsV4 - INFO - Analyzing IGL
+2025-06-22 13:40:57,495 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:57,641 - OptionsV4 - INFO - Found 25 liquid options for IGL at spot $205.67
+2025-06-22 13:40:57,808 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 37.3%)
+2025-06-22 13:40:57,808 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 28.8%)
+2025-06-22 13:40:57,808 - OptionsV4 - INFO - Constructing 4 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call']
+2025-06-22 13:40:57,812 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:40:57,812 - OptionsV4 - INFO - ✅ IGL analysis completed successfully
+2025-06-22 13:40:57,812 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:57,812 - OptionsV4 - INFO - Analyzing GUJGASLTD
+2025-06-22 13:40:57,812 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:57,873 - OptionsV4 - WARNING - ⚠️ GUJGASLTD analysis failed: No liquid options data
+2025-06-22 13:40:57,874 - OptionsV4 - INFO - 
+==================================================
+2025-06-22 13:40:57,874 - OptionsV4 - INFO - Analyzing MARUTI
+2025-06-22 13:40:57,874 - OptionsV4 - INFO - ==================================================
+2025-06-22 13:40:58,047 - OptionsV4 - INFO - Found 41 liquid options for MARUTI at spot $12791.00
+2025-06-22 13:40:58,238 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 74.2%)
+2025-06-22 13:40:58,238 - OptionsV4 - INFO - IV Environment: LOW (ATM IV: 15.0%)
+2025-06-22 13:40:58,238 - OptionsV4 - INFO - Constructing 9 strategies: ['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call', 'Call Ratio Spread', 'Diagonal Spread', 'Long Straddle', 'Long Strangle', 'Calendar Spread']
+2025-06-22 13:40:58,244 - OptionsV4 - WARNING - Error constructing Long Strangle: 'NoneType' object has no attribute 'get'
+2025-06-22 13:40:58,244 - OptionsV4 - WARNING - Error constructing Calendar Spread: 'NoneType' object has no attribute 'get'
+2025-06-22 13:40:58,244 - OptionsV4 - INFO - Generated 1 strategies, 1 passed filters
+2025-06-22 13:40:58,244 - OptionsV4 - INFO - ✅ MARUTI analysis completed successfully
+2025-06-22 13:40:58,244 - OptionsV4 - INFO - 
+Portfolio Analysis Complete: 34/50 successful
+2025-06-22 13:40:58,257 - OptionsV4 - INFO - Results saved to: /Users/jaykrish/Documents/digitalocean/cronjobs/options_v4/results/options_v4_analysis_20250622_134058.json
+2025-06-22 13:40:59,264 - OptionsV4 - INFO - Successfully stored strategy 77: Bear Put Spread for DIXON
+2025-06-22 13:41:00,694 - OptionsV4 - INFO - Successfully stored strategy 78: Bear Call Spread for DIXON
+2025-06-22 13:41:01,541 - OptionsV4 - INFO - Successfully stored strategy 79: Cash-Secured Put for DIXON
+2025-06-22 13:41:02,423 - OptionsV4 - INFO - Successfully stored strategy 80: Butterfly Spread for SUNPHARMA
+2025-06-22 13:41:03,301 - OptionsV4 - INFO - Successfully stored strategy 81: Covered Call for CESC
+2025-06-22 13:41:04,197 - OptionsV4 - INFO - Successfully stored strategy 82: Bull Call Spread for HINDZINC
+2025-06-22 13:41:05,027 - OptionsV4 - INFO - Successfully stored strategy 83: Covered Call for HINDZINC
+2025-06-22 13:41:05,112 - OptionsV4 - ERROR - Error inserting strategy legs: Out of range float values are not JSON compliant: np.float64(nan)
+2025-06-22 13:41:05,185 - OptionsV4 - ERROR - Error inserting Greek exposures: Out of range float values are not JSON compliant: np.float64(nan)
+2025-06-22 13:41:05,732 - OptionsV4 - INFO - Successfully stored strategy 84: Butterfly Spread for HINDUNILVR
+2025-06-22 13:41:07,146 - OptionsV4 - INFO - Successfully stored strategy 85: Iron Condor for HINDUNILVR
+2025-06-22 13:41:08,007 - OptionsV4 - INFO - Successfully stored strategy 86: Covered Call for IREDA
+2025-06-22 13:41:08,846 - OptionsV4 - INFO - Successfully stored strategy 87: Covered Call for BHARATFORG
+2025-06-22 13:41:09,813 - OptionsV4 - INFO - Successfully stored strategy 88: Bear Put Spread for NMDC
+2025-06-22 13:41:10,989 - OptionsV4 - INFO - Successfully stored strategy 89: Cash-Secured Put for NMDC
+2025-06-22 13:41:11,857 - OptionsV4 - INFO - Successfully stored strategy 90: Cash-Secured Put for PATANJALI
+2025-06-22 13:41:12,717 - OptionsV4 - INFO - Successfully stored strategy 91: Butterfly Spread for RECLTD
+2025-06-22 13:41:13,598 - OptionsV4 - INFO - Successfully stored strategy 92: Bull Put Spread for TECHM
+2025-06-22 13:41:14,423 - OptionsV4 - INFO - Successfully stored strategy 93: Covered Call for TECHM
+2025-06-22 13:41:15,247 - OptionsV4 - INFO - Successfully stored strategy 94: Covered Call for NCC
+2025-06-22 13:41:16,085 - OptionsV4 - INFO - Successfully stored strategy 95: Iron Condor for OBEROIRLTY
+2025-06-22 13:41:16,911 - OptionsV4 - INFO - Successfully stored strategy 96: Covered Call for LAURUSLABS
+2025-06-22 13:41:18,228 - OptionsV4 - INFO - Successfully stored strategy 97: Covered Call for SBICARD
+2025-06-22 13:41:19,121 - OptionsV4 - INFO - Successfully stored strategy 98: Cash-Secured Put for CDSL
+2025-06-22 13:41:19,979 - OptionsV4 - INFO - Successfully stored strategy 99: Covered Call for ADANIGREEN
+2025-06-22 13:41:20,793 - OptionsV4 - INFO - Successfully stored strategy 100: Bull Call Spread for TATAPOWER
+2025-06-22 13:41:21,647 - OptionsV4 - INFO - Successfully stored strategy 101: Covered Call for TATAPOWER
+2025-06-22 13:41:22,515 - OptionsV4 - INFO - Successfully stored strategy 102: Butterfly Spread for TATATECH
+2025-06-22 13:41:23,639 - OptionsV4 - INFO - Successfully stored strategy 103: Iron Condor for TATATECH
+2025-06-22 13:41:24,507 - OptionsV4 - INFO - Successfully stored strategy 104: Bear Put Spread for HINDALCO
+2025-06-22 13:41:25,365 - OptionsV4 - INFO - Successfully stored strategy 105: Butterfly Spread for ASHOKLEY
+2025-06-22 13:41:26,294 - OptionsV4 - INFO - Successfully stored strategy 106: Covered Call for KOTAKBANK
+2025-06-22 13:41:27,187 - OptionsV4 - INFO - Successfully stored strategy 107: Covered Call for ETERNAL
+2025-06-22 13:41:28,050 - OptionsV4 - INFO - Successfully stored strategy 108: Covered Call for PIIND
+2025-06-22 13:41:28,929 - OptionsV4 - INFO - Successfully stored strategy 109: Covered Call for NBCC
+2025-06-22 13:41:30,302 - OptionsV4 - INFO - Successfully stored strategy 110: Butterfly Spread for TATASTEEL
+2025-06-22 13:41:31,311 - OptionsV4 - INFO - Successfully stored strategy 111: Covered Call for OIL
+2025-06-22 13:41:32,238 - OptionsV4 - INFO - Successfully stored strategy 112: Bear Put Spread for VBL
+2025-06-22 13:41:33,198 - OptionsV4 - INFO - Successfully stored strategy 113: Cash-Secured Put for VBL
+2025-06-22 13:41:34,072 - OptionsV4 - INFO - Successfully stored strategy 114: Covered Call for ADANIENT
+2025-06-22 13:41:35,883 - OptionsV4 - INFO - Successfully stored strategy 115: Butterfly Spread for UPL
+2025-06-22 13:41:35,949 - OptionsV4 - ERROR - Error inserting strategy legs: Out of range float values are not JSON compliant: np.float64(nan)
+2025-06-22 13:41:36,028 - OptionsV4 - ERROR - Error inserting Greek exposures: Out of range float values are not JSON compliant: np.float64(nan)
+2025-06-22 13:41:36,029 - OptionsV4 - ERROR - Error inserting monitoring levels: Out of range float values are not JSON compliant: np.float64(nan)
+2025-06-22 13:41:36,172 - OptionsV4 - ERROR - Error inserting IV analysis: Out of range float values are not JSON compliant: nan
+2025-06-22 13:41:36,246 - OptionsV4 - ERROR - Error inserting expected moves: Out of range float values are not JSON compliant: np.float64(nan)
+2025-06-22 13:41:36,380 - OptionsV4 - INFO - Successfully stored strategy 116: Covered Call for MANAPPURAM
+2025-06-22 13:41:37,284 - OptionsV4 - INFO - Successfully stored strategy 117: Covered Call for PERSISTENT
+2025-06-22 13:41:38,197 - OptionsV4 - INFO - Successfully stored strategy 118: Covered Call for IGL
+2025-06-22 13:41:39,129 - OptionsV4 - INFO - Successfully stored strategy 119: Call Ratio Spread for MARUTI
+2025-06-22 13:41:39,130 - OptionsV4 - INFO - Stored 43 strategies in database

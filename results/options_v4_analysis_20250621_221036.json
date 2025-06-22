@@ -1,0 +1,41 @@
+{
+  "success": true,
+  "analysis_timestamp": "2025-06-21T22:10:36.498902",
+  "portfolio_summary": {
+    "total_symbols_analyzed": 5,
+    "successful_analyses": 0,
+    "success_rate": 0.0,
+    "market_sentiment_distribution": {
+      "bullish": 0,
+      "bearish": 0,
+      "neutral": 0
+    },
+    "total_strategies_recommended": 0,
+    "strategy_distribution": {},
+    "most_recommended_strategies": []
+  },
+  "symbol_results": {
+    "DIXON": {
+      "success": false,
+      "reason": "No strategies passed probability filtering"
+    },
+    "MARICO": {
+      "success": false,
+      "reason": "No strategies could be constructed"
+    },
+    "SUNPHARMA": {
+      "success": false,
+      "reason": "No strategies passed probability filtering"
+    },
+    "CESC": {
+      "success": false,
+      "reason": "No strategies passed probability filtering"
+    },
+    "GRANULES": {
+      "success": false,
+      "reason": "No liquid options data"
+    }
+  },
+  "total_symbols": 5,
+  "successful_analyses": 0
+}
