@@ -58,7 +58,10 @@ class BrokenWingButterfly(BaseStrategy):
             
             if 'neutral' in direction or confidence < 0.4:
                 logger.info("Need directional bias for Broken Wing Butterfly")
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Broken Wing Butterfly needs directional bias (confidence > 40%)'
+                }
             
             # Decide on calls or puts
             use_calls = 'bullish' in direction
@@ -66,7 +69,10 @@ class BrokenWingButterfly(BaseStrategy):
             
             type_options = self.options_df[self.options_df['option_type'] == option_type]
             if len(type_options) < 3:
-                return None
+                return {
+                    'success': False,
+                    'reason': f'Need at least 3 {option_type} strikes for Broken Wing Butterfly'
+                }
             
             strikes = sorted(type_options['strike'].unique())
             
@@ -95,7 +101,10 @@ class BrokenWingButterfly(BaseStrategy):
                 upper_strikes = [s for s in strikes if s > atm_strike]
                 
                 if len(lower_strikes) < 2 or not upper_strikes:
-                    return None
+                    return {
+                        'success': False,
+                        'reason': 'Insufficient strikes for Broken Wing Butterfly construction'
+                    }
                 
                 # Extended lower wing (5-7% below ATM)
                 lower_target = atm_strike * 0.94
@@ -126,7 +135,10 @@ class BrokenWingButterfly(BaseStrategy):
             )
             
             if not metrics:
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Unable to calculate Broken Wing Butterfly metrics'
+                }
             
             # Add exit conditions
             metrics['exit_conditions'] = {

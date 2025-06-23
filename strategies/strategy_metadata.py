@@ -346,8 +346,17 @@ def get_compatible_strategies(market_view: str, iv_env: str,
     compatible = []
     exclude_categories = exclude_categories or []
     
-    market_bias = MarketBias(market_view.lower()) if market_view else MarketBias.ANY
-    iv_environment = IVEnvironment(iv_env.lower()) if iv_env else IVEnvironment.ANY
+    # Safe enum conversion with fallback
+    try:
+        market_bias = MarketBias(market_view.lower()) if market_view else MarketBias.ANY
+    except ValueError:
+        market_bias = MarketBias.ANY
+        
+    try:
+        iv_environment = IVEnvironment(iv_env.lower()) if iv_env else IVEnvironment.ANY
+    except ValueError:
+        # Handle unknown IV environments gracefully
+        iv_environment = IVEnvironment.ANY
     
     for name, metadata in STRATEGY_REGISTRY.items():
         # Check if category should be excluded
@@ -401,12 +410,17 @@ def calculate_strategy_score(metadata: StrategyMetadata, market_analysis: Dict,
     iv_env = market_analysis.get('iv_analysis', {}).get('iv_environment', 'NORMAL')
     iv_env_lower = iv_env.lower()
     
-    if IVEnvironment(iv_env_lower) in metadata.iv_preference:
-        iv_score = 0.9
-    elif IVEnvironment.ANY in metadata.iv_preference:
-        iv_score = 0.7
-    else:
-        iv_score = 0.4
+    try:
+        iv_enum = IVEnvironment(iv_env_lower)
+        if iv_enum in metadata.iv_preference:
+            iv_score = 0.9
+        elif IVEnvironment.ANY in metadata.iv_preference:
+            iv_score = 0.7
+        else:
+            iv_score = 0.4
+    except ValueError:
+        # Unknown IV environment - use moderate score
+        iv_score = 0.6
     
     score += iv_score * 0.2
     

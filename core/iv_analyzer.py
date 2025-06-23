@@ -401,6 +401,17 @@ class IVAnalyzer:
                                         historical_iv: Dict = None) -> Dict:
         """Enhanced IV percentile calculation"""
         try:
+            # Handle NaN IV
+            if np.isnan(atm_iv):
+                return {
+                    'percentile': 50,
+                    'method': 'default_nan',
+                    'lookback_days': 0,
+                    'iv_range': (20, 45),
+                    'current_rank': 'Unknown',
+                    'confidence': 'No data - IV is NaN'
+                }
+                
             # If we have historical data, use it
             if historical_iv and 'percentile' in historical_iv:
                 return {
@@ -439,6 +450,10 @@ class IVAnalyzer:
                                      sector_ranges['high']) * 30, 14)
                 rank = 'Very High'
             
+            # Handle NaN case
+            if np.isnan(percentile):
+                percentile = 50  # Default to middle
+                
             return {
                 'percentile': int(percentile),
                 'method': 'sector_adjusted_estimation',

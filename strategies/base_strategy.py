@@ -244,6 +244,42 @@ class BaseStrategy(ABC):
             logger.error(f"Error calculating profit range: {e}")
             return (0.0, 0.0)
     
+    def _create_leg(self, option_data, position: str, quantity: int = 1, rationale: str = "") -> Dict:
+        """Create a leg dictionary from option data"""
+        try:
+            # Handle both DataFrame row and dict
+            if hasattr(option_data, 'to_dict'):
+                option_data = option_data.to_dict()
+            
+            return {
+                'option_type': option_data.get('option_type', 'CALL'),
+                'position': position,
+                'strike': option_data.get('strike', 0),
+                'quantity': quantity,
+                'premium': option_data.get('last_price', 0),
+                'delta': option_data.get('delta', 0),
+                'gamma': option_data.get('gamma', 0),
+                'theta': option_data.get('theta', 0),
+                'vega': option_data.get('vega', 0),
+                'iv': option_data.get('implied_volatility', 0),
+                'rationale': rationale
+            }
+        except Exception as e:
+            logger.error(f"Error creating leg: {e}")
+            return {
+                'option_type': 'CALL',
+                'position': position,
+                'strike': 0,
+                'quantity': quantity,
+                'premium': 0,
+                'delta': 0,
+                'gamma': 0,
+                'theta': 0,
+                'vega': 0,
+                'iv': 0,
+                'rationale': rationale
+            }
+    
     def _get_days_to_expiry(self) -> int:
         """Get days to expiry from options data"""
         try:
