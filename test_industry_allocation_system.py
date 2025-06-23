@@ -347,9 +347,6 @@ def update_database_with_allocation_priorities(supabase_client, allocation, prio
         
         print(f"   ✅ Cleared {len(clear_result.data if clear_result.data else [])} previous marks")
         
-        # Get strategies generated in last 24 hours
-        cutoff_time = (datetime.now() - timedelta(hours=24)).isoformat()
-        
         marked_count = 0
         errors = []
         
@@ -367,12 +364,13 @@ def update_database_with_allocation_priorities(supabase_client, allocation, prio
             print(f"   • Industry Weight: {weight_pct:.1f}%")
             print(f"   • Priority Score: {priority_score:.2f}")
             
-            # Get ALL available strategies for this symbol, sorted by main.py's score
+            # Get ALL pending strategies for this symbol, sorted by main.py's score
+            # No time restriction - just look for pending strategies
             strategies_result = supabase_client.table('strategies').select(
                 'id, stock_name, strategy_name, total_score, probability_of_profit'
-            ).eq('stock_name', symbol).gte(
-                'generated_on', cutoff_time
-            ).eq('execution_status', 'pending').order(
+            ).eq('stock_name', symbol).eq(
+                'execution_status', 'pending'
+            ).order(
                 'total_score', desc=True
             ).limit(1).execute()  # Take the best one as determined by main.py
             

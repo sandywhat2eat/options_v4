@@ -1,0 +1,12 @@
+DELETE FROM strategy_component_scores;
+DELETE FROM strategy_exit_levels;
+DELETE FROM strategy_expected_moves;
+DELETE FROM strategy_price_levels;
+DELETE FROM strategy_iv_analysis;
+DELETE FROM strategy_market_analysis;
+DELETE FROM strategy_risk_management;
+DELETE FROM strategy_monitoring;
+DELETE FROM strategy_greek_exposures;
+DELETE FROM strategy_parameters;
+DELETE FROM strategy_details;
+DELETE FROM strategies;

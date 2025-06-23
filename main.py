@@ -62,6 +62,8 @@ class NumpyJSONEncoder(json.JSONEncoder):
             if np.isnan(obj) or np.isinf(obj):
                 return None  # Convert NaN/Inf to null
             return float(obj)
+        elif isinstance(obj, (np.bool_, bool)):
+            return bool(obj)
         elif isinstance(obj, np.ndarray):
             return obj.tolist()
         elif isinstance(obj, Decimal):

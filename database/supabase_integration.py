@@ -82,6 +82,8 @@ class SupabaseIntegration:
             if np.isnan(value) or np.isinf(value):
                 return 0  # Default to 0 for NaN/Inf
             return float(value)
+        elif isinstance(value, (np.bool_, bool)):
+            return bool(value)
         elif isinstance(value, np.ndarray):
             return value.tolist()
         elif isinstance(value, pd.Series):

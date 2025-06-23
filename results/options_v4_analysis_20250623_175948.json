@@ -1,0 +1,233 @@
+{
+  "success": true,
+  "analysis_timestamp": "2025-06-23T17:59:48.193351",
+  "portfolio_summary": {
+    "total_symbols_analyzed": 235,
+    "successful_analyses": 145,
+    "success_rate": 0.6170212765957447,
+    "market_sentiment_distribution": {
+      "bullish": 89,
+      "bearish": 16,
+      "neutral": 40
+    },
+    "total_strategies_recommended": 200,
+    "strategy_distribution": {
+      "Bear Put Spread": 13,
+      "Bear Call Spread": 1,
+      "Cash-Secured Put": 11,
+      "Butterfly Spread": 38,
+      "Covered Call": 85,
+      "Bull Call Spread": 11,
+      "Iron Condor": 28,
+      "Bull Put Spread": 4,
+      "Diagonal Spread": 4,
+      "Call Ratio Spread": 5
+    },
+    "most_recommended_strategies": [
+      [
+        "Covered Call",
+        85
+      ],
+      [
+        "Butterfly Spread",
+        38
+      ],
+      [
+        "Iron Condor",
+        28
+      ],
+      [
+        "Bear Put Spread",
+        13
+      ],
+      [
+        "Cash-Secured Put",
+        11
+      ]
+    ]
+  },
+  "symbol_results": {
+    "DIXON": {
+      "success": true,
+      "symbol": "DIXON",
+      "spot_price": 14047.0,
+      "market_analysis": {
+        "direction": "Bearish",
+        "sub_category": "Weak",
+        "confidence": 0.46889567897232065,
+        "final_score": -0.16889567897232058,
+        "components": {
+          "technical_score": -0.5137894736842106,
+          "options_score": 0.13891909129929872,
+          "price_action_score": -0.04800628581356363
+        },
+        "timeframe": {
+          "timeframe": "mid",
+          "duration": "10-30 days",
+          "confidence": 0.37511654317785653,
+          "description": "Moderate confidence or elevated volatility suggests medium-term view",
+          "factors": {
+            "market_confidence": 0.46889567897232065,
+            "volatility_width": 0.47534069591068334,
+            "iv_environment": "ELEVATED"
+          }
+        },
+        "strength": 0.16889567897232058,
+        "details": {
+          "technical": {
+            "trend": "Downtrend",
+            "ema_alignment": "Insufficient Data",
+            "rsi": 52.07017543859649,
+            "macd_signal": "Bearish",
+            "volume_ratio": 1.9945400124987667,
+            "volume_trend": "Increasing",
+            "bb_width": 0.47534069591068334,
+            "atr": 427.07142857142856,
+            "price_position": "Near Resistance",
+            "pattern": "Consolidation"
+          },
+          "options": {
+            "volume_pcr": 0.6669057814301256,
+            "oi_pcr": 0.48632215036707516,
+            "pcr_interpretation": "Bullish",
+            "atm_call_volume": 5818400.0,
+            "atm_put_volume": 5415070.0,
+            "atm_bias": "Bullish",
+            "iv_skew": -10.771697293863594,
+            "iv_skew_type": "call_skew",
+            "oi_max_pain": 14500.0,
+            "oi_support": 14000.0,
+            "oi_resistance": 15000.0,
+            "flow_intensity": "HIGH",
+            "unusual_activity": [
+              13750.0,
+              13750.0,
+              14000.0,
+              14000.0,
+              14250.0
+            ],
+            "smart_money_direction": "Neutral",
+            "iv_environment": "ELEVATED"
+          },
+          "price_action": {
+            "spot_vs_max_pain": -3.1241379310344826,
+            "price_position": "Below Max Pain",
+            "expected_move_1sd": 140.47,
+            "expected_move_2sd": 280.94,
+            "upper_expected": 14187.47,
+            "lower_expected": 13906.53,
+            "market_breadth": "Bullish - Call activity at higher strikes",
+            "options_momentum": "Bullish",
+            "key_levels": {
+              "resistance": [
+                16000.0,
+                16000.0,
+                15000.0
+              ],
+              "support": [
+                14000.0,
+                14000.0,
+                13000.0
+              ]
+            }
+          }
+        },
+        "iv_analysis": {
+          "atm_iv": 31.438799999999997,
+          "iv_skew": {
+            "skew_type": "normal",
+            "skew_strength": 2.4073809523809544,
+            "put_iv": 35.96578571428571,
+            "call_iv": 38.37316666666666,
+            "risk_reversal": 2.4073809523809544,
+            "butterfly": 5.730676190476192,
+            "market_sentiment": "Balanced",
+            "skew_steepness": "Moderate"
+          },
+          "term_structure": {
+            "structure": "Single expiry only",
+            "front_month_iv": 31.438799999999997,
+            "calendar_spread_opportunity": "Unknown",
+            "volatility_expectation": "Stable"
+          },
+          "iv_environment": "NORMAL",
+          "percentile_analysis": {
+            "percentile": 52,
+            "method": "sector_adjusted_estimation",
+            "lookback_days": 0,
+            "iv_range": [
+              20,
+              45
+            ],
+            "current_rank": "Normal",
+            "confidence": "Low - No historical data"
+          },
+          "iv_relativity": {
+            "sector_relative": "Normal",
+            "percentile_in_sector": 52.877599999999994,
+            "market_relative": "In-line with market",
+            "iv_vs_market_pct": 12.281428571428561,
+            "sector_normal_range": [
+              25,
+              40
+            ],
+            "interpretation": "Fair value - focus on directional strategies"
+          },
+          "mean_reversion": {
+            "reversion_potential": "Low - IV near mean",
+            "direction": "Neutral",
+            "confidence": 0.3,
+            "expected_iv": 31.438799999999997,
+            "time_horizon": "10-30 days",
+            "strategy_implication": "Directional strategies preferred"
+          },
+          "call_put_iv_diff": 3.540647222222219,
+          "analysis_quality": "CURRENT_ONLY - Point-in-time analysis",
+          "recommendations": {
+            "preferred_strategies": [
+              "Bull/Bear Spreads",
+              "Iron Condor",
+              "Calendar Spreads"
+            ],
+            "avoid_strategies": [],
+            "reasoning": "Normal IV - Directional or neutral strategies",
+            "ranked_strategies": [
+              "Bull/Bear Spreads",
+              "Iron Condor",
+              "Calendar Spreads"
+            ]
+          }
+        },
+        "price_levels": {
+          "short_term": {
+            "support": 15000.0,
+            "resistance": 15000.0,
+            "strength": "strong/strong",
+            "timeframe": "1-5 days"
+          },
+          "mid_term": {
+            "support": 15000.0,
+            "resistance": 15000.0,
+            "strength": "strong/strong",
+            "timeframe": "10-30 days"
+          },
+          "expected_moves": {
+            "straddle_price": 728.704290179948,
+            "one_sd_move": 617.5460086270746,
+            "one_sd_pct": 4.396283965452229,
+            "two_sd_move": 1235.0920172541491,
+            "two_sd_pct": 8.792567930904458,
+            "daily_move": 233.41045170968397,
+            "daily_pct": 1.6616391522010676,
+            "upper_expected": 14664.546008627074,
+            "lower_expected": 13429.453991372926,
+            "upper_2sd": 15282.092017254148,
+            "lower_2sd": 12811.907982745852,
+            "method": "iv_based"
+          },
+          "max_pain": {
+            "max_pain": 14500.0,
+            "spot_vs_max_pain": -3.1241379310344826,
+            "bias": "Bearish - Spot below max pain",
+            "pin_risk": "Low",
+            "convergence_expected": 
