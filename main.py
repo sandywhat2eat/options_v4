@@ -45,6 +45,12 @@ from strategies import (
     CalendarSpread, DiagonalSpread, CallRatioSpread, PutRatioSpread,
     JadeLizard, BrokenWingButterfly
 )
+from strategies.strategy_metadata import (
+    get_compatible_strategies, 
+    get_strategy_metadata,
+    calculate_strategy_score,
+    STRATEGY_REGISTRY
+)
 from utils.logger import setup_logger, get_default_log_file
 from database import SupabaseIntegration
 
@@ -348,46 +354,90 @@ class OptionsAnalyzer:
             return {}
     
     def _select_strategies_to_construct(self, direction: str, confidence: float, iv_env: str) -> List[str]:
-        """Select which strategies to construct based on market conditions"""
-        strategies_to_try = []
-        
-        # Start with simpler strategies that are more likely to work
+        """Select strategies using metadata-based intelligent selection"""
+        try:
+            # Get compatible strategies from metadata
+            compatible_strategies = get_compatible_strategies(
+                market_view=direction,
+                iv_env=iv_env
+            )
+            
+            # Score each compatible strategy
+            strategy_scores = {}
+            
+            # Build portfolio context for diversity scoring
+            portfolio_context = {
+                'existing_categories': set(),  # Could track across portfolio
+                'market_confidence': confidence
+            }
+            
+            market_analysis = {
+                'direction': direction,
+                'confidence': confidence,
+                'iv_analysis': {'iv_environment': iv_env}
+            }
+            
+            for strategy_name in compatible_strategies:
+                metadata = get_strategy_metadata(strategy_name)
+                if metadata and strategy_name in self.strategy_classes:
+                    score = calculate_strategy_score(
+                        metadata, 
+                        market_analysis,
+                        portfolio_context
+                    )
+                    strategy_scores[strategy_name] = score
+            
+            # Sort by score and select top strategies
+            sorted_strategies = sorted(
+                strategy_scores.items(),
+                key=lambda x: x[1],
+                reverse=True
+            )
+            
+            # Select top 15-20 strategies to try
+            selected_strategies = [name for name, score in sorted_strategies[:20]]
+            
+            # Apply minimal exclusions only for extreme confidence
+            if confidence > 0.85:  # Very high confidence
+                if 'strong' in direction.lower() and 'bullish' in direction.lower():
+                    # Remove purely bearish strategies
+                    selected_strategies = [s for s in selected_strategies 
+                                         if s not in ['Long Put', 'Bear Put Spread', 'Bear Call Spread']]
+                elif 'strong' in direction.lower() and 'bearish' in direction.lower():
+                    # Remove purely bullish strategies  
+                    selected_strategies = [s for s in selected_strategies
+                                         if s not in ['Long Call', 'Bull Call Spread']]
+            
+            # Ensure we always include some income strategies for diversity
+            income_strategies = ['Cash-Secured Put', 'Covered Call']
+            for income_strat in income_strategies:
+                if income_strat in self.strategy_classes and income_strat not in selected_strategies:
+                    if len(selected_strategies) < 20:
+                        selected_strategies.append(income_strat)
+            
+            self.logger.info(f"Selected {len(selected_strategies)} strategies based on metadata scoring")
+            self.logger.debug(f"Strategy selection details - Direction: {direction}, "
+                            f"Confidence: {confidence:.1%}, IV: {iv_env}")
+            
+            return selected_strategies[:20]  # Ensure max 20 strategies
+            
+        except Exception as e:
+            self.logger.error(f"Error in metadata-based selection: {e}")
+            # Fallback to original logic if metadata system fails
+            return self._select_strategies_fallback(direction, confidence, iv_env)
+    
+    def _select_strategies_fallback(self, direction: str, confidence: float, iv_env: str) -> List[str]:
+        """Fallback strategy selection if metadata system fails"""
         base_strategies = []
         
-        # Add directional strategies first (easier to construct)
         if 'bullish' in direction:
             base_strategies.extend(['Long Call', 'Bull Call Spread', 'Bull Put Spread', 'Covered Call'])
-            if confidence > 0.7:
-                base_strategies.extend(['Call Ratio Spread', 'Diagonal Spread'])
         elif 'bearish' in direction:
             base_strategies.extend(['Long Put', 'Bear Put Spread', 'Bear Call Spread', 'Cash-Secured Put'])
-            if confidence > 0.7:
-                base_strategies.extend(['Put Ratio Spread', 'Diagonal Spread'])
         else:
-            # Neutral - try simpler strategies first
             base_strategies.extend(['Iron Condor', 'Iron Butterfly', 'Butterfly Spread'])
-            if iv_env == 'HIGH':
-                base_strategies.extend(['Short Straddle', 'Short Strangle', 'Jade Lizard'])
         
-        # Add volatility strategies based on IV environment
-        if iv_env == 'LOW':
-            base_strategies.extend(['Long Straddle', 'Long Strangle', 'Calendar Spread'])
-        elif iv_env == 'HIGH':
-            base_strategies.extend(['Short Straddle', 'Short Strangle', 'Iron Butterfly'])
-        
-        # Add advanced strategies for high confidence scenarios
-        if confidence > 0.8:
-            base_strategies.extend(['Broken Wing Butterfly', 'Jade Lizard'])
-        
-        # Remove duplicates while preserving order
-        seen = set()
-        unique_strategies = []
-        for strategy in base_strategies:
-            if strategy not in seen:
-                seen.add(strategy)
-                unique_strategies.append(strategy)
-        
-        return unique_strategies[:250]  # Limit to 250 strategies to avoid excessive computation
+        return base_strategies[:10]
     
     def _construct_single_strategy(self, strategy_instance, strategy_name: str, 
                                  market_analysis: Dict) -> Dict:

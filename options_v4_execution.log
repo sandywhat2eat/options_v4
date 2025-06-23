@@ -360,3 +360,59 @@ HINDUNILVR - Butterfly Spread:
 2025-06-23 09:38:45,794 - INFO -   Leg 194: success
 2025-06-23 09:38:45,794 - INFO -   Leg 195: success
 2025-06-23 09:38:45,795 - INFO -   Leg 196: success
+2025-06-23 18:35:20,103 - INFO - Starting Options V4 Strategy Executor
+2025-06-23 18:35:20,142 - INFO - Supabase client initialized successfully
+2025-06-23 18:35:20,142 - INFO - DHAN client initialized successfully
+2025-06-23 18:35:20,307 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=%2A%2Cstrategy_details%28%2A%29%2Cstrategy_parameters%28%2A%29&marked_for_execution=eq.True&execution_status=eq.marked&order=execution_priority.desc "HTTP/2 200 OK"
+2025-06-23 18:35:20,309 - INFO - Found 2 strategies marked for execution
+2025-06-23 18:35:20,309 - INFO - Starting execution of 2 strategies
+2025-06-23 18:35:20,309 - INFO - 
+============================================================
+2025-06-23 18:35:20,309 - INFO - Executing: ADANIENT - Covered Call
+2025-06-23 18:35:20,309 - INFO - Priority: 14430
+2025-06-23 18:35:20,309 - INFO - Executing strategy 178: ADANIENT - Covered Call
+2025-06-23 18:35:20,309 - INFO - Processing leg: SELL 2500.0 CE
+2025-06-23 18:35:20,309 - INFO - Constructed option symbol: ADANIENT-Jun2025-2500-CE
+2025-06-23 18:35:20,309 - INFO - Looking up security ID for: ADANIENT-Jun2025-2500-CE
+2025-06-23 18:35:21,238 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/api_scrip_master?select=sem_smst_security_id%2Csem_lot_units%2Csem_custom_symbol%2Csem_trading_symbol&sem_custom_symbol=eq.ADANIENT-Jun2025-2500-CE&sem_option_type=eq.CE&sem_strike_price=eq.2500.0&sem_expiry_date=eq.2025-06-26 "HTTP/2 200 OK"
+2025-06-23 18:35:21,238 - INFO - ✅ Found exact match: {'sem_smst_security_id': 59447, 'sem_lot_units': 300, 'sem_custom_symbol': 'ADANIENT-Jun2025-2500-CE', 'sem_trading_symbol': 'ADANIENT 26 JUN 2500 CALL'}
+2025-06-23 18:35:21,239 - INFO - Calculated quantity: 300 (lots: 1 × lot size: 300)
+2025-06-23 18:35:21,239 - INFO - Placing order with params: {'security_id': 59447, 'exchange_segment': 'NSE_FNO', 'transaction_type': 'SELL', 'quantity': 300, 'order_type': 'MARKET', 'product_type': 'MARGIN', 'price': 0, 'trigger_price': 0, 'validity': 'DAY'}
+2025-06-23 18:35:21,413 - INFO - Order response: {'status': 'failure', 'remarks': {'error_code': 'DH-906', 'error_type': 'Order_Error', 'error_message': 'Market is Closed! Want to place an offline order?'}, 'data': {'errorType': 'Order_Error', 'errorCode': 'DH-906', 'errorMessage': 'Market is Closed! Want to place an offline order?'}}
+2025-06-23 18:35:21,414 - ERROR - Order failed: {'status': 'failure', 'remarks': {'error_code': 'DH-906', 'error_type': 'Order_Error', 'error_message': 'Market is Closed! Want to place an offline order?'}, 'data': {'errorType': 'Order_Error', 'errorCode': 'DH-906', 'errorMessage': 'Market is Closed! Want to place an offline order?'}}
+2025-06-23 18:35:21,504 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=execution_notes&id=eq.178 "HTTP/2 200 OK"
+2025-06-23 18:35:21,598 - INFO - HTTP Request: PATCH https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?id=eq.178 "HTTP/2 200 OK"
+2025-06-23 18:35:21,599 - INFO - Updated strategy 178 status to failed
+2025-06-23 18:35:21,599 - INFO - 
+============================================================
+2025-06-23 18:35:21,599 - INFO - Executing: KPITTECH - Covered Call
+2025-06-23 18:35:21,599 - INFO - Priority: 10907
+2025-06-23 18:35:21,599 - INFO - Executing strategy 194: KPITTECH - Covered Call
+2025-06-23 18:35:21,599 - INFO - Processing leg: SELL 1420.0 CE
+2025-06-23 18:35:21,600 - INFO - Constructed option symbol: KPITTECH-Jun2025-1420-CE
+2025-06-23 18:35:21,600 - INFO - Looking up security ID for: KPITTECH-Jun2025-1420-CE
+2025-06-23 18:35:21,689 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/api_scrip_master?select=sem_smst_security_id%2Csem_lot_units%2Csem_custom_symbol%2Csem_trading_symbol&sem_custom_symbol=eq.KPITTECH-Jun2025-1420-CE&sem_option_type=eq.CE&sem_strike_price=eq.1420.0&sem_expiry_date=eq.2025-06-26 "HTTP/2 200 OK"
+2025-06-23 18:35:21,690 - INFO - ✅ Found exact match: {'sem_smst_security_id': 108750, 'sem_lot_units': 400, 'sem_custom_symbol': 'KPITTECH-Jun2025-1420-CE', 'sem_trading_symbol': 'KPITTECH 26 JUN 1420 CALL'}
+2025-06-23 18:35:21,691 - INFO - Calculated quantity: 400 (lots: 1 × lot size: 400)
+2025-06-23 18:35:21,691 - INFO - Placing order with params: {'security_id': 108750, 'exchange_segment': 'NSE_FNO', 'transaction_type': 'SELL', 'quantity': 400, 'order_type': 'MARKET', 'product_type': 'MARGIN', 'price': 0, 'trigger_price': 0, 'validity': 'DAY'}
+2025-06-23 18:35:21,752 - INFO - Order response: {'status': 'failure', 'remarks': {'error_code': 'DH-906', 'error_type': 'Order_Error', 'error_message': 'Market is Closed! Want to place an offline order?'}, 'data': {'errorType': 'Order_Error', 'errorCode': 'DH-906', 'errorMessage': 'Market is Closed! Want to place an offline order?'}}
+2025-06-23 18:35:21,754 - ERROR - Order failed: {'status': 'failure', 'remarks': {'error_code': 'DH-906', 'error_type': 'Order_Error', 'error_message': 'Market is Closed! Want to place an offline order?'}, 'data': {'errorType': 'Order_Error', 'errorCode': 'DH-906', 'errorMessage': 'Market is Closed! Want to place an offline order?'}}
+2025-06-23 18:35:21,821 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=execution_notes&id=eq.194 "HTTP/2 200 OK"
+2025-06-23 18:35:21,904 - INFO - HTTP Request: PATCH https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?id=eq.194 "HTTP/2 200 OK"
+2025-06-23 18:35:21,904 - INFO - Updated strategy 194 status to failed
+2025-06-23 18:35:21,904 - INFO - 
+============================================================
+2025-06-23 18:35:21,904 - INFO - EXECUTION SUMMARY
+2025-06-23 18:35:21,904 - INFO - ============================================================
+2025-06-23 18:35:21,904 - INFO - Total strategies: 2
+2025-06-23 18:35:21,904 - INFO - Successful: 0
+2025-06-23 18:35:21,904 - INFO - Failed: 2
+2025-06-23 18:35:21,904 - INFO - Deferred (market closed): 0
+2025-06-23 18:35:21,904 - INFO - 
+Execution completed
+2025-06-23 18:35:21,904 - INFO - 
+ADANIENT - Covered Call:
+2025-06-23 18:35:21,904 - INFO -   Leg 308: failed
+2025-06-23 18:35:21,904 - INFO - 
+KPITTECH - Covered Call:
+2025-06-23 18:35:21,904 - INFO -   Leg 337: failed

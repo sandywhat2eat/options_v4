@@ -99,6 +99,17 @@ class StrategyRanker:
                 strategy_name, strategy_data
             )
             
+            # Also use metadata scoring if available
+            try:
+                from strategies.strategy_metadata import get_strategy_metadata, calculate_strategy_score
+                metadata = get_strategy_metadata(strategy_name)
+                if metadata:
+                    metadata_score = calculate_strategy_score(metadata, market_analysis)
+                else:
+                    metadata_score = 0.5
+            except ImportError:
+                metadata_score = 0.5
+            
             # 2. Calculate Risk-Reward Ratio
             risk_reward_ratio = self._calculate_risk_reward_score(strategy_data)
             
@@ -123,6 +134,9 @@ class StrategyRanker:
                 iv_compatibility * self.scoring_weights['iv_compatibility'] +
                 liquidity_score * self.scoring_weights['liquidity_score']
             )
+            
+            # Add metadata score as a bonus (up to 10% boost)
+            total_score = total_score * (1 + metadata_score * 0.1)
             
             return {
                 'probability_profit': probability_profit,
