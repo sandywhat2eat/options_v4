@@ -58,7 +58,7 @@ python main.py --symbol RELIANCE --risk moderate
 
 ### **Step 2: Apply Industry Allocation Filter**
 
-Run the portfolio allocator to filter 40+ strategies down to ~15 based on industry weights and market conditions.
+Run the portfolio allocator to select the best strategies from priority industries based on industry weights.
 
 ```bash
 # Run portfolio allocation filter
@@ -68,11 +68,12 @@ python portfolio_allocator.py
 **What this does:**
 - Analyzes current market conditions (NIFTY + VIX + PCR)
 - Loads industry allocation weights from database tables
-- Filters strategies based on:
-  - Industry weight percentages
-  - Market condition preferences
-  - Position types (LONG/SHORT)
-- Marks ~15 priority strategies in database with execution priorities
+- Selects the BEST available strategy (as scored by main.py) for each priority symbol
+- Calculates execution priority based on:
+  - Industry weight percentage (primary factor)
+  - Strategy's own score from main.py (secondary factor)
+  - Order in priority list (tiebreaker)
+- Marks strategies in database with execution priorities
 - Saves allocation details to `results/options_portfolio_allocation_*.json`
 
 **Expected Output:**
@@ -85,8 +86,19 @@ python portfolio_allocator.py
 
 🔄 Do you want to update the database with allocation priorities? (y/n): y
 
+2. Marking strategies based on allocation priorities...
+   (Selecting best available strategy per symbol, respecting main.py's analysis)
+
+   Processing DIXON (Electronic Equipment):
+   • Industry Weight: 14.6%
+   • Priority Score: 17.51
+   ✅ Marked: Covered Call (Score: 0.847, Priority: 14684)
+
 ✅ Database updated successfully with allocation priorities!
    Strategies Marked: 15
+
+💡 Note: Portfolio allocator now respects main.py's strategy selection
+   It applies industry weights to prioritize execution order
 ```
 
 ---

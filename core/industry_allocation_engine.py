@@ -125,14 +125,37 @@ class IndustryAllocationEngine:
     
     def get_symbols_for_industry(self, industry: str, limit: int = 5) -> List[str]:
         """
-        Get symbols for a specific industry
+        Get FNO-enabled symbols for a specific industry
         """
-        symbols = [symbol for symbol, ind in self.symbol_industry_mapping.items() 
-                  if ind == industry]
+        # Get all symbols for this industry
+        industry_symbols = [symbol for symbol, ind in self.symbol_industry_mapping.items() 
+                           if ind == industry]
         
-        # For now, return first 'limit' symbols
-        # TODO: Add ranking/scoring logic here
-        return symbols[:limit]
+        # Filter for FNO-enabled symbols only
+        fno_symbols = []
+        if self.supabase:
+            try:
+                # Query stock_data to get FNO-enabled symbols
+                response = self.supabase.table('stock_data').select('symbol').eq('fno_stock', 'yes').execute()
+                fno_enabled_set = {row['symbol'] for row in response.data}
+                
+                # Filter industry symbols to only include FNO-enabled ones
+                fno_symbols = [symbol for symbol in industry_symbols if symbol in fno_enabled_set]
+                
+                if not fno_symbols:
+                    logger.warning(f"No FNO-enabled symbols found for industry {industry}")
+                    logger.info(f"Industry symbols available: {industry_symbols[:5]}")
+                    
+            except Exception as e:
+                logger.error(f"Error filtering FNO symbols for industry {industry}: {e}")
+                # Fallback to original logic if DB query fails
+                fno_symbols = industry_symbols
+        else:
+            # Fallback if no supabase client
+            fno_symbols = industry_symbols
+        
+        # Return first 'limit' FNO-enabled symbols
+        return fno_symbols[:limit]
     
     def select_strategies_for_industry(self, industry_data: Dict, 
                                      market_condition: Dict) -> List[Dict]:

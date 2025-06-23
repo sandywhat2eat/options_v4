@@ -354,96 +354,63 @@ def update_database_with_allocation_priorities(supabase_client, allocation, prio
         errors = []
         
         print("\n2. Marking strategies based on allocation priorities...")
+        print("   (Selecting best available strategy per symbol, respecting main.py's analysis)")
         
         # Process each priority symbol
         for idx, symbol_data in enumerate(priority_symbols):
             symbol = symbol_data['symbol']
             industry = symbol_data['industry']
             weight_pct = symbol_data['weight_percentage']
-            preferred_strategy = symbol_data['preferred_strategy']
             priority_score = symbol_data['priority_score']
             
             print(f"\n   Processing {symbol} ({industry}):")
-            print(f"   • Weight: {weight_pct:.1f}%")
-            print(f"   • Preferred Strategy: {preferred_strategy}")
+            print(f"   • Industry Weight: {weight_pct:.1f}%")
+            print(f"   • Priority Score: {priority_score:.2f}")
             
-            # Query strategies for this symbol
-            query = supabase_client.table('strategies').select(
+            # Get ALL available strategies for this symbol, sorted by main.py's score
+            strategies_result = supabase_client.table('strategies').select(
                 'id, stock_name, strategy_name, total_score, probability_of_profit'
             ).eq('stock_name', symbol).gte(
                 'generated_on', cutoff_time
-            ).eq('execution_status', 'pending')
+            ).eq('execution_status', 'pending').order(
+                'total_score', desc=True
+            ).limit(1).execute()  # Take the best one as determined by main.py
             
-            # Try to get preferred strategy first
-            if preferred_strategy:
-                # Make the query flexible for strategy name matching
-                preferred_result = query.ilike('strategy_name', f'%{preferred_strategy}%').execute()
+            if strategies_result.data:
+                # Found strategies - take the top one
+                strategy = strategies_result.data[0]
                 
-                if preferred_result.data:
-                    # Found preferred strategy
-                    strategy = preferred_result.data[0]
-                    execution_priority = int((weight_pct * 100) + (priority_score * 10) + (100 - idx))
-                    
-                    update_result = supabase_client.table('strategies').update({
-                        'marked_for_execution': True,
-                        'execution_status': 'marked',
-                        'execution_priority': execution_priority,
-                        'execution_notes': f'Industry allocation: {industry} ({weight_pct:.1f}%), Priority score: {priority_score:.2f}'
-                    }).eq('id', strategy['id']).execute()
-                    
-                    if update_result.data:
-                        print(f"   ✅ Marked: {strategy['strategy_name']} (Priority: {execution_priority})")
-                        marked_count += 1
-                    else:
-                        errors.append(f"Failed to mark strategy {strategy['id']}")
-                        
+                # Calculate execution priority based on:
+                # 1. Industry weight (multiplied by 1000 for primary sorting)
+                # 2. Strategy's own score from main.py (multiplied by 100)
+                # 3. Order in priority list (as tiebreaker)
+                execution_priority = int(
+                    (weight_pct * 1000) +  # Industry weight is primary factor
+                    (strategy['total_score'] * 100) +  # Strategy score is secondary
+                    (100 - idx)  # Order is tertiary
+                )
+                
+                update_result = supabase_client.table('strategies').update({
+                    'marked_for_execution': True,
+                    'execution_status': 'marked',
+                    'execution_priority': execution_priority,
+                    'execution_notes': f'Industry: {industry} ({weight_pct:.1f}%), Score: {strategy["total_score"]:.3f}, Priority: {priority_score:.2f}'
+                }).eq('id', strategy['id']).execute()
+                
+                if update_result.data:
+                    print(f"   ✅ Marked: {strategy['strategy_name']} (Score: {strategy['total_score']:.3f}, Priority: {execution_priority})")
+                    marked_count += 1
                 else:
-                    # Fallback to highest scoring strategy for this symbol
-                    fallback_result = query.order('total_score', desc=True).limit(1).execute()
-                    
-                    if fallback_result.data:
-                        strategy = fallback_result.data[0]
-                        execution_priority = int((weight_pct * 100) + (priority_score * 10) + (50 - idx))
-                        
-                        update_result = supabase_client.table('strategies').update({
-                            'marked_for_execution': True,
-                            'execution_status': 'marked',
-                            'execution_priority': execution_priority,
-                            'execution_notes': f'Industry allocation: {industry} ({weight_pct:.1f}%), Fallback strategy'
-                        }).eq('id', strategy['id']).execute()
-                        
-                        if update_result.data:
-                            print(f"   ✅ Marked fallback: {strategy['strategy_name']} (Priority: {execution_priority})")
-                            marked_count += 1
-                        else:
-                            errors.append(f"Failed to mark fallback strategy {strategy['id']}")
-                    else:
-                        print(f"   ⚠️ No strategies found for {symbol}")
+                    errors.append(f"Failed to mark strategy {strategy['id']} for {symbol}")
             else:
-                # No preferred strategy, get highest scoring
-                result = query.order('total_score', desc=True).limit(1).execute()
-                
-                if result.data:
-                    strategy = result.data[0]
-                    execution_priority = int((weight_pct * 100) + (50 - idx))
-                    
-                    update_result = supabase_client.table('strategies').update({
-                        'marked_for_execution': True,
-                        'execution_status': 'marked',
-                        'execution_priority': execution_priority,
-                        'execution_notes': f'Industry allocation: {industry} ({weight_pct:.1f}%)'
-                    }).eq('id', strategy['id']).execute()
-                    
-                    if update_result.data:
-                        print(f"   ✅ Marked: {strategy['strategy_name']} (Priority: {execution_priority})")
-                        marked_count += 1
-                    else:
-                        errors.append(f"Failed to mark strategy {strategy['id']}")
+                print(f"   ⚠️ No strategies found for {symbol}")
+                # Note: This is expected if main.py couldn't generate strategies for this symbol
         
         # Summary
         print(f"\n3. Database Update Summary:")
         print(f"   Total Symbols Processed: {len(priority_symbols)}")
         print(f"   Strategies Marked: {marked_count}")
+        print(f"   Symbols Skipped: {len(priority_symbols) - marked_count}")
         print(f"   Errors: {len(errors)}")
         
         if errors:
@@ -453,14 +420,18 @@ def update_database_with_allocation_priorities(supabase_client, allocation, prio
         
         # Verify the updates
         verify_result = supabase_client.table('strategies').select(
-            'id, stock_name, strategy_name, execution_priority'
+            'id, stock_name, strategy_name, total_score, execution_priority'
         ).eq('marked_for_execution', True).order('execution_priority', desc=True).execute()
         
         if verify_result.data:
             print(f"\n4. Verification: {len(verify_result.data)} strategies marked for execution")
             print("\n   Top 5 by priority:")
             for i, strategy in enumerate(verify_result.data[:5]):
-                print(f"   {i+1}. {strategy['stock_name']} - {strategy['strategy_name']} (Priority: {strategy['execution_priority']})")
+                print(f"   {i+1}. {strategy['stock_name']} - {strategy['strategy_name']} " + 
+                      f"(Score: {strategy['total_score']:.3f}, Priority: {strategy['execution_priority']})")
+        
+        print("\n💡 Note: Portfolio allocator now respects main.py's strategy selection")
+        print("   It applies industry weights to prioritize execution order")
         
         return marked_count > 0
         

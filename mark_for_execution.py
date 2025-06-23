@@ -177,10 +177,10 @@ class ExecutionMarker:
                 table_data.append([
                     s['id'],
                     s['stock_name'],
-                    s['strategy_name'][:30],
-                    f"{s.get('total_score', 0):.3f}",
-                    s['conviction_level'],
-                    s['execution_priority'],
+                    s['strategy_name'][:30] if s['strategy_name'] else '',
+                    f"{s.get('total_score', 0) or 0:.3f}",
+                    s.get('conviction_level', 'N/A') or 'N/A',
+                    s.get('execution_priority', 0) or 0,
                     s.get('execution_notes', '')[:30] if s.get('execution_notes') else ''
                 ])
             

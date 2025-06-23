@@ -14,6 +14,8 @@ from datetime import datetime, date
 from typing import Dict, List, Optional, Any, Tuple
 from decimal import Decimal
 import logging
+import numpy as np
+import pandas as pd
 
 try:
     from supabase import create_client, Client
@@ -70,6 +72,34 @@ class SupabaseIntegration:
             logger.addHandler(handler)
             
         return logger
+    
+    def _clean_value(self, value: Any) -> Any:
+        """Clean a single value for JSON serialization"""
+        # Handle numpy types
+        if isinstance(value, (np.integer, np.int64)):
+            return int(value)
+        elif isinstance(value, (np.floating, np.float64)):
+            if np.isnan(value) or np.isinf(value):
+                return 0  # Default to 0 for NaN/Inf
+            return float(value)
+        elif isinstance(value, np.ndarray):
+            return value.tolist()
+        elif isinstance(value, pd.Series):
+            return value.tolist()
+        elif isinstance(value, (pd.Timestamp, np.datetime64)):
+            return str(value)
+        elif isinstance(value, Decimal):
+            return float(value)
+        return value
+    
+    def _clean_data(self, data: Any) -> Any:
+        """Recursively clean data for JSON serialization"""
+        if isinstance(data, dict):
+            return {k: self._clean_data(v) for k, v in data.items()}
+        elif isinstance(data, list):
+            return [self._clean_data(item) for item in data]
+        else:
+            return self._clean_value(data)
     
     def store_analysis_results(self, analysis_results: Dict) -> Dict[str, Any]:
         """
@@ -233,26 +263,26 @@ class SupabaseIntegration:
                 'strategy_type': self._get_strategy_type(strategy_data['name']),
                 'time_horizon': market_analysis.get('timeframe', {}).get('duration', '10-30 days'),
                 'market_outlook': f"{market_analysis.get('direction', 'Neutral')} {market_analysis.get('sub_category', '')}".strip(),
-                'probability_of_profit': strategy_data.get('probability_profit', 0),
-                'risk_reward_ratio': risk_reward_ratio,
-                'market_view': json.dumps(market_analysis.get('details', {})),
-                'technical_factors': json.dumps(market_analysis.get('details', {}).get('technical', {})),
+                'probability_of_profit': self._clean_value(strategy_data.get('probability_profit', 0)),
+                'risk_reward_ratio': self._clean_value(risk_reward_ratio),
+                'market_view': json.dumps(self._clean_data(market_analysis.get('details', {}))),
+                'technical_factors': json.dumps(self._clean_data(market_analysis.get('details', {}).get('technical', {}))),
                 'volatility_outlook': market_analysis.get('iv_analysis', {}).get('iv_environment', 'NORMAL'),
                 'key_risks': self._extract_key_risks(strategy_data),
                 'description': strategy_data.get('optimal_outcome', ''),
-                'net_premium': net_premium,
+                'net_premium': self._clean_value(net_premium),
                 'conviction_level': conviction_level,
                 'generated_on': datetime.now().isoformat(),
                 # New fields
-                'total_score': strategy_data.get('total_score', 0),
-                'confidence_score': confidence,
-                'market_direction_strength': market_analysis.get('strength', 0),
-                'iv_percentile': market_analysis.get('iv_analysis', {}).get('percentile_in_sector', 50),
+                'total_score': self._clean_value(strategy_data.get('total_score', 0)),
+                'confidence_score': self._clean_value(confidence),
+                'market_direction_strength': self._clean_value(market_analysis.get('strength', 0)),
+                'iv_percentile': self._clean_value(market_analysis.get('iv_analysis', {}).get('percentile_in_sector', 50)),
                 'iv_environment': market_analysis.get('iv_analysis', {}).get('iv_environment', 'NORMAL'),
-                'spot_price': spot_price,
+                'spot_price': self._clean_value(spot_price),
                 'analysis_timestamp': datetime.now().isoformat(),
                 'market_sub_category': market_analysis.get('sub_category', ''),
-                'component_scores': json.dumps(strategy_data.get('component_scores', {})),
+                'component_scores': json.dumps(self._clean_data(strategy_data.get('component_scores', {}))),
                 'optimal_outcome': strategy_data.get('optimal_outcome', '')
             }
             
@@ -280,18 +310,18 @@ class SupabaseIntegration:
                     'instrument': f"{leg.get('option_type', '')}_OPTION",  # Placeholder
                     'lots': 1,  # Default, should be calculated based on capital
                     'quantity': 50,  # Default lot size, should come from lot_size lookup
-                    'strike_price': leg.get('strike', 0),
+                    'strike_price': self._clean_value(leg.get('strike', 0)),
                     'option_type': 'CE' if leg.get('option_type') == 'CALL' else 'PE',
                     'expiry_date': None,  # Should be provided
-                    'entry_price': leg.get('premium', 0),
-                    'delta': leg.get('delta', 0),
-                    'gamma': leg.get('gamma', 0),  # Not in current output
-                    'theta': leg.get('theta', 0),  # Not in current output
-                    'vega': leg.get('vega', 0),    # Not in current output
-                    'implied_volatility': leg.get('iv', 0),  # Not in current output
+                    'entry_price': self._clean_value(leg.get('premium', 0)),
+                    'delta': self._clean_value(leg.get('delta', 0)),
+                    'gamma': self._clean_value(leg.get('gamma', 0)),  # Not in current output
+                    'theta': self._clean_value(leg.get('theta', 0)),  # Not in current output
+                    'vega': self._clean_value(leg.get('vega', 0)),    # Not in current output
+                    'implied_volatility': self._clean_value(leg.get('iv', 0)),  # Not in current output
                     'rationale': leg.get('rationale', ''),
-                    'entry_min_price': leg.get('premium', 0) * 0.95,  # 5% buffer
-                    'entry_max_price': leg.get('premium', 0) * 1.05   # 5% buffer
+                    'entry_min_price': self._clean_value(leg.get('premium', 0) * 0.95),  # 5% buffer
+                    'entry_max_price': self._clean_value(leg.get('premium', 0) * 1.05)   # 5% buffer
                 }
                 leg_records.append(leg_record)
             
@@ -309,16 +339,16 @@ class SupabaseIntegration:
             
             params_record = {
                 'strategy_id': strategy_id,
-                'max_profit': max_profit,
-                'max_loss': max_loss,
+                'max_profit': self._clean_value(max_profit),
+                'max_loss': self._clean_value(max_loss),
                 'breakeven_point': 0,  # Should be calculated
                 'margin_required': 0,  # Should be calculated
                 'expiry_date': None,   # Should be provided
-                'risk_reward_ratio': max_profit / max_loss if max_loss > 0 else 0,
-                'probability_profit': strategy_data.get('probability_profit', 0),
+                'risk_reward_ratio': self._clean_value(max_profit / max_loss if max_loss > 0 else 0),
+                'probability_profit': self._clean_value(strategy_data.get('probability_profit', 0)),
                 'expected_value': 0,   # Should be calculated
-                'target_price': strategy_data.get('exit_conditions', {}).get('profit_targets', {}).get('primary', {}).get('target', 0),
-                'stop_loss': strategy_data.get('exit_conditions', {}).get('stop_losses', {}).get('primary', {}).get('loss_amount', 0)
+                'target_price': self._clean_value(strategy_data.get('exit_conditions', {}).get('profit_targets', {}).get('primary', {}).get('target', 0)),
+                'stop_loss': self._clean_value(strategy_data.get('exit_conditions', {}).get('stop_losses', {}).get('primary', {}).get('loss_amount', 0))
             }
             
             self.client.table('strategy_parameters').insert(params_record).execute()
@@ -337,10 +367,10 @@ class SupabaseIntegration:
             
             greek_record = {
                 'strategy_id': strategy_id,
-                'net_delta': net_delta,
-                'net_gamma': net_gamma,
-                'net_theta': net_theta,
-                'net_vega': net_vega
+                'net_delta': self._clean_value(net_delta),
+                'net_gamma': self._clean_value(net_gamma),
+                'net_theta': self._clean_value(net_theta),
+                'net_vega': self._clean_value(net_vega)
             }
             
             self.client.table('strategy_greek_exposures').insert(greek_record).execute()
@@ -358,17 +388,17 @@ class SupabaseIntegration:
             
             monitoring_record = {
                 'strategy_id': strategy_id,
-                'support_level': min(support_levels) if support_levels else 0,
-                'resistance_level': max(resistance_levels) if resistance_levels else 0,
-                'iv_upper_limit': market_analysis.get('iv_analysis', {}).get('sector_normal_range', [0, 40])[1],
-                'iv_lower_limit': market_analysis.get('iv_analysis', {}).get('sector_normal_range', [25, 0])[0],
-                'max_pain': price_levels.get('max_pain', {}).get('max_pain', 0),
-                'spot_vs_max_pain': price_levels.get('max_pain', {}).get('spot_vs_max_pain', 0),
-                'poc_level': price_levels.get('value_area', {}).get('poc', 0),
-                'value_area_high': price_levels.get('value_area', {}).get('vah', 0),
-                'value_area_low': price_levels.get('value_area', {}).get('val', 0),
-                'expected_move_1sd': price_levels.get('expected_moves', {}).get('one_sd_move', 0),
-                'expected_move_2sd': price_levels.get('expected_moves', {}).get('two_sd_move', 0)
+                'support_level': self._clean_value(min(support_levels) if support_levels else 0),
+                'resistance_level': self._clean_value(max(resistance_levels) if resistance_levels else 0),
+                'iv_upper_limit': self._clean_value(market_analysis.get('iv_analysis', {}).get('sector_normal_range', [0, 40])[1]),
+                'iv_lower_limit': self._clean_value(market_analysis.get('iv_analysis', {}).get('sector_normal_range', [25, 0])[0]),
+                'max_pain': self._clean_value(price_levels.get('max_pain', {}).get('max_pain', 0)),
+                'spot_vs_max_pain': self._clean_value(price_levels.get('max_pain', {}).get('spot_vs_max_pain', 0)),
+                'poc_level': self._clean_value(price_levels.get('value_area', {}).get('poc', 0)),
+                'value_area_high': self._clean_value(price_levels.get('value_area', {}).get('vah', 0)),
+                'value_area_low': self._clean_value(price_levels.get('value_area', {}).get('val', 0)),
+                'expected_move_1sd': self._clean_value(price_levels.get('expected_moves', {}).get('one_sd_move', 0)),
+                'expected_move_2sd': self._clean_value(price_levels.get('expected_moves', {}).get('two_sd_move', 0))
             }
             
             self.client.table('strategy_monitoring').insert(monitoring_record).execute()
@@ -388,21 +418,21 @@ class SupabaseIntegration:
                 'strategy_id': strategy_id,
                 'total_capital': 1000000,  # Default, should be configurable
                 'capital_per_trade': 50000,  # Default, should be calculated
-                'max_capital_at_risk': abs(strategy_data.get('max_loss', 0)),
-                'strategy_level_stop': stop_losses.get('primary', {}).get('loss_pct', 50),
-                'trailing_stop': profit_targets.get('trailing', {}).get('trail_by', 0),
+                'max_capital_at_risk': self._clean_value(abs(strategy_data.get('max_loss', 0))),
+                'strategy_level_stop': self._clean_value(stop_losses.get('primary', {}).get('loss_pct', 50)),
+                'trailing_stop': self._clean_value(profit_targets.get('trailing', {}).get('trail_by', 0)),
                 'time_based_stop': str(time_exits.get('primary_dte', 7)) + ' DTE',
-                'adjustment_criteria': json.dumps(exit_conditions.get('adjustment_triggers', {})),
-                'exit_conditions': json.dumps(exit_conditions),
+                'adjustment_criteria': json.dumps(self._clean_data(exit_conditions.get('adjustment_triggers', {}))),
+                'exit_conditions': json.dumps(self._clean_data(exit_conditions)),
                 'overall_risk': 'MEDIUM',  # Should be calculated
                 # New fields
-                'profit_target_primary': profit_targets.get('primary', {}).get('target', 0),
-                'profit_target_pct': profit_targets.get('primary', {}).get('target_pct', 50),
-                'scaling_exits': json.dumps(profit_targets.get('scaling', {})),
-                'trailing_stop_activation': profit_targets.get('trailing', {}).get('activate_at', 0),
-                'technical_stops': json.dumps(stop_losses.get('technical', {})),
+                'profit_target_primary': self._clean_value(profit_targets.get('primary', {}).get('target', 0)),
+                'profit_target_pct': self._clean_value(profit_targets.get('primary', {}).get('target_pct', 50)),
+                'scaling_exits': json.dumps(self._clean_data(profit_targets.get('scaling', {}))),
+                'trailing_stop_activation': self._clean_value(profit_targets.get('trailing', {}).get('activate_at', 0)),
+                'technical_stops': json.dumps(self._clean_data(stop_losses.get('technical', {}))),
                 'time_stop_dte': time_exits.get('primary_dte', 7),
-                'greek_triggers': json.dumps(exit_conditions.get('greek_triggers', {}))
+                'greek_triggers': json.dumps(self._clean_data(exit_conditions.get('greek_triggers', {})))
             }
             
             self.client.table('strategy_risk_management').insert(risk_record).execute()
@@ -421,44 +451,44 @@ class SupabaseIntegration:
                 'strategy_id': strategy_id,
                 # Market Direction
                 'market_direction': market_analysis.get('direction', 'Neutral'),
-                'direction_confidence': market_analysis.get('confidence', 0),
-                'direction_strength': market_analysis.get('strength', 0),
-                'final_market_score': market_analysis.get('final_score', 0),
+                'direction_confidence': self._clean_value(market_analysis.get('confidence', 0)),
+                'direction_strength': self._clean_value(market_analysis.get('strength', 0)),
+                'final_market_score': self._clean_value(market_analysis.get('final_score', 0)),
                 'timeframe': market_analysis.get('timeframe', {}).get('timeframe', 'mid'),
                 'timeframe_duration': market_analysis.get('timeframe', {}).get('duration', '10-30 days'),
                 
                 # Technical Analysis
-                'technical_score': market_analysis.get('components', {}).get('technical_score', 0),
+                'technical_score': self._clean_value(market_analysis.get('components', {}).get('technical_score', 0)),
                 'trend': technical.get('trend', ''),
                 'ema_alignment': technical.get('ema_alignment', ''),
-                'rsi': technical.get('rsi', 0),
+                'rsi': self._clean_value(technical.get('rsi', 0)),
                 'macd_signal': technical.get('macd_signal', ''),
-                'volume_ratio': technical.get('volume_ratio', 0),
+                'volume_ratio': self._clean_value(technical.get('volume_ratio', 0)),
                 'volume_trend': technical.get('volume_trend', ''),
-                'bb_width': technical.get('bb_width', 0),
-                'atr': technical.get('atr', 0),
+                'bb_width': self._clean_value(technical.get('bb_width', 0)),
+                'atr': self._clean_value(technical.get('atr', 0)),
                 'price_position': technical.get('price_position', ''),
                 'pattern': technical.get('pattern', ''),
                 
                 # Options Flow
-                'options_score': market_analysis.get('components', {}).get('options_score', 0),
-                'volume_pcr': options.get('volume_pcr', 0),
-                'oi_pcr': options.get('oi_pcr', 0),
+                'options_score': self._clean_value(market_analysis.get('components', {}).get('options_score', 0)),
+                'volume_pcr': self._clean_value(options.get('volume_pcr', 0)),
+                'oi_pcr': self._clean_value(options.get('oi_pcr', 0)),
                 'pcr_interpretation': options.get('pcr_interpretation', ''),
-                'atm_call_volume': options.get('atm_call_volume', 0),
-                'atm_put_volume': options.get('atm_put_volume', 0),
+                'atm_call_volume': self._clean_value(options.get('atm_call_volume', 0)),
+                'atm_put_volume': self._clean_value(options.get('atm_put_volume', 0)),
                 'atm_bias': options.get('atm_bias', ''),
-                'iv_skew': options.get('iv_skew', 0),
+                'iv_skew': self._clean_value(options.get('iv_skew', 0)),
                 'iv_skew_type': options.get('iv_skew_type', ''),
                 'flow_intensity': options.get('flow_intensity', ''),
                 'smart_money_direction': options.get('smart_money_direction', ''),
-                'unusual_activity': json.dumps(options.get('unusual_activity', [])),
+                'unusual_activity': json.dumps(self._clean_data(options.get('unusual_activity', []))),
                 
                 # Price Action
-                'price_action_score': market_analysis.get('components', {}).get('price_action_score', 0),
-                'oi_max_pain': options.get('oi_max_pain', 0),
-                'oi_support': options.get('oi_support', 0),
-                'oi_resistance': options.get('oi_resistance', 0)
+                'price_action_score': self._clean_value(market_analysis.get('components', {}).get('price_action_score', 0)),
+                'oi_max_pain': self._clean_value(options.get('oi_max_pain', 0)),
+                'oi_support': self._clean_value(options.get('oi_support', 0)),
+                'oi_resistance': self._clean_value(options.get('oi_resistance', 0))
             }
             
             self.client.table('strategy_market_analysis').insert(market_record).execute()
@@ -471,31 +501,31 @@ class SupabaseIntegration:
         try:
             iv_record = {
                 'strategy_id': strategy_id,
-                'atm_iv': iv_analysis.get('atm_iv', 0),
+                'atm_iv': self._clean_value(iv_analysis.get('atm_iv', 0)),
                 'iv_environment': iv_analysis.get('iv_environment', 'NORMAL'),
-                'atm_call_iv': iv_analysis.get('atm_call_iv', 0),
-                'atm_put_iv': iv_analysis.get('atm_put_iv', 0),
-                'call_put_iv_diff': iv_analysis.get('call_put_iv_diff', 0),
+                'atm_call_iv': self._clean_value(iv_analysis.get('atm_call_iv', 0)),
+                'atm_put_iv': self._clean_value(iv_analysis.get('atm_put_iv', 0)),
+                'call_put_iv_diff': self._clean_value(iv_analysis.get('call_put_iv_diff', 0)),
                 
                 # IV Relativity
                 'sector_relative': iv_analysis.get('iv_relativity', {}).get('sector_relative', ''),
-                'percentile_in_sector': iv_analysis.get('iv_relativity', {}).get('percentile_in_sector', 50),
+                'percentile_in_sector': self._clean_value(iv_analysis.get('iv_relativity', {}).get('percentile_in_sector', 50)),
                 'market_relative': iv_analysis.get('iv_relativity', {}).get('market_relative', ''),
-                'iv_vs_market_pct': iv_analysis.get('iv_relativity', {}).get('iv_vs_market_pct', 0),
-                'sector_normal_range_low': iv_analysis.get('sector_normal_range', [25, 40])[0],
-                'sector_normal_range_high': iv_analysis.get('sector_normal_range', [25, 40])[1],
+                'iv_vs_market_pct': self._clean_value(iv_analysis.get('iv_relativity', {}).get('iv_vs_market_pct', 0)),
+                'sector_normal_range_low': self._clean_value(iv_analysis.get('sector_normal_range', [25, 40])[0]),
+                'sector_normal_range_high': self._clean_value(iv_analysis.get('sector_normal_range', [25, 40])[1]),
                 'iv_interpretation': iv_analysis.get('iv_relativity', {}).get('interpretation', ''),
                 
                 # Mean Reversion
                 'reversion_potential': iv_analysis.get('mean_reversion', {}).get('reversion_potential', ''),
                 'reversion_direction': iv_analysis.get('mean_reversion', {}).get('direction', ''),
-                'reversion_confidence': iv_analysis.get('mean_reversion', {}).get('confidence', 0),
-                'expected_iv': iv_analysis.get('mean_reversion', {}).get('expected_iv', 0),
+                'reversion_confidence': self._clean_value(iv_analysis.get('mean_reversion', {}).get('confidence', 0)),
+                'expected_iv': self._clean_value(iv_analysis.get('mean_reversion', {}).get('expected_iv', 0)),
                 'reversion_time_horizon': iv_analysis.get('mean_reversion', {}).get('time_horizon', ''),
                 
                 # Recommendations
-                'preferred_strategies': json.dumps(iv_analysis.get('recommendations', {}).get('preferred_strategies', [])),
-                'avoid_strategies': json.dumps(iv_analysis.get('recommendations', {}).get('avoid_strategies', [])),
+                'preferred_strategies': json.dumps(self._clean_data(iv_analysis.get('recommendations', {}).get('preferred_strategies', []))),
+                'avoid_strategies': json.dumps(self._clean_data(iv_analysis.get('recommendations', {}).get('avoid_strategies', []))),
                 'reasoning': iv_analysis.get('recommendations', {}).get('reasoning', '')
             }
             
@@ -512,7 +542,7 @@ class SupabaseIntegration:
             for level_data in price_levels.get('key_levels', []):
                 level_record = {
                     'strategy_id': strategy_id,
-                    'level': level_data.get('level', 0),
+                    'level': self._clean_value(level_data.get('level', 0)),
                     'level_type': level_data.get('type', ''),
                     'source': level_data.get('source', ''),
                     'strength': level_data.get('strength', ''),
@@ -535,24 +565,24 @@ class SupabaseIntegration:
             
             moves_record = {
                 'strategy_id': strategy_id,
-                'straddle_price': expected_moves.get('straddle_price', 0),
-                'one_sd_move': expected_moves.get('one_sd_move', 0),
-                'one_sd_pct': expected_moves.get('one_sd_pct', 0),
-                'two_sd_move': expected_moves.get('two_sd_move', 0),
-                'two_sd_pct': expected_moves.get('two_sd_pct', 0),
-                'daily_move': expected_moves.get('daily_move', 0),
-                'daily_pct': expected_moves.get('daily_pct', 0),
-                'upper_expected_1sd': expected_moves.get('upper_expected', 0),
-                'lower_expected_1sd': expected_moves.get('lower_expected', 0),
-                'upper_expected_2sd': expected_moves.get('upper_2sd', 0),
-                'lower_expected_2sd': expected_moves.get('lower_2sd', 0),
-                'poc': value_area.get('poc', 0),
-                'value_area_high': value_area.get('vah', 0),
-                'value_area_low': value_area.get('val', 0),
-                'va_width_pct': value_area.get('va_width_pct', 0),
+                'straddle_price': self._clean_value(expected_moves.get('straddle_price', 0)),
+                'one_sd_move': self._clean_value(expected_moves.get('one_sd_move', 0)),
+                'one_sd_pct': self._clean_value(expected_moves.get('one_sd_pct', 0)),
+                'two_sd_move': self._clean_value(expected_moves.get('two_sd_move', 0)),
+                'two_sd_pct': self._clean_value(expected_moves.get('two_sd_pct', 0)),
+                'daily_move': self._clean_value(expected_moves.get('daily_move', 0)),
+                'daily_pct': self._clean_value(expected_moves.get('daily_pct', 0)),
+                'upper_expected_1sd': self._clean_value(expected_moves.get('upper_expected', 0)),
+                'lower_expected_1sd': self._clean_value(expected_moves.get('lower_expected', 0)),
+                'upper_expected_2sd': self._clean_value(expected_moves.get('upper_2sd', 0)),
+                'lower_expected_2sd': self._clean_value(expected_moves.get('lower_2sd', 0)),
+                'poc': self._clean_value(value_area.get('poc', 0)),
+                'value_area_high': self._clean_value(value_area.get('vah', 0)),
+                'value_area_low': self._clean_value(value_area.get('val', 0)),
+                'va_width_pct': self._clean_value(value_area.get('va_width_pct', 0)),
                 'spot_in_va': value_area.get('spot_in_va', False),
-                'bullish_consensus_target': price_targets.get('consensus', {}).get('bullish_target', 0),
-                'bearish_consensus_target': price_targets.get('consensus', {}).get('bearish_target', 0)
+                'bullish_consensus_target': self._clean_value(price_targets.get('consensus', {}).get('bullish_target', 0)),
+                'bearish_consensus_target': self._clean_value(price_targets.get('consensus', {}).get('bearish_target', 0))
             }
             
             self.client.table('strategy_expected_moves').insert(moves_record).execute()
@@ -572,7 +602,7 @@ class SupabaseIntegration:
                     'strategy_id': strategy_id,
                     'exit_type': 'profit_target',
                     'level_name': 'primary',
-                    'trigger_value': profit_targets['primary'].get('target', 0),
+                    'trigger_value': self._clean_value(profit_targets['primary'].get('target', 0)),
                     'trigger_type': 'price',
                     'action': profit_targets['primary'].get('action', ''),
                     'reasoning': profit_targets['primary'].get('reasoning', '')
@@ -584,7 +614,7 @@ class SupabaseIntegration:
                     'strategy_id': strategy_id,
                     'exit_type': 'profit_target',
                     'level_name': f'scaling_{level}',
-                    'trigger_value': data.get('profit', 0),
+                    'trigger_value': self._clean_value(data.get('profit', 0)),
                     'trigger_type': 'price',
                     'action': data.get('action', ''),
                     'reasoning': f'Scaling exit at {level}'
@@ -597,7 +627,7 @@ class SupabaseIntegration:
                     'strategy_id': strategy_id,
                     'exit_type': 'stop_loss',
                     'level_name': 'primary',
-                    'trigger_value': stop_losses['primary'].get('loss_pct', 50),
+                    'trigger_value': self._clean_value(stop_losses['primary'].get('loss_pct', 50)),
                     'trigger_type': 'percentage',
                     'action': stop_losses['primary'].get('action', ''),
                     'reasoning': stop_losses['primary'].get('type', '')
@@ -627,11 +657,11 @@ class SupabaseIntegration:
         try:
             scores_record = {
                 'strategy_id': strategy_id,
-                'probability_score': component_scores.get('probability', 0),
-                'risk_reward_score': component_scores.get('risk_reward', 0),
-                'direction_score': component_scores.get('direction', 0),
-                'iv_fit_score': component_scores.get('iv_fit', 0),
-                'liquidity_score': component_scores.get('liquidity', 0)
+                'probability_score': self._clean_value(component_scores.get('probability', 0)),
+                'risk_reward_score': self._clean_value(component_scores.get('risk_reward', 0)),
+                'direction_score': self._clean_value(component_scores.get('direction', 0)),
+                'iv_fit_score': self._clean_value(component_scores.get('iv_fit', 0)),
+                'liquidity_score': self._clean_value(component_scores.get('liquidity', 0))
             }
             
             self.client.table('strategy_component_scores').insert(scores_record).execute()

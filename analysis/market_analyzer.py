@@ -451,8 +451,15 @@ class MarketAnalyzer:
         """Analyze open interest distribution for support/resistance levels"""
         try:
             # Find max OI strikes
-            max_call_oi_strike = calls.loc[calls['open_interest'].idxmax(), 'strike'] if not calls.empty else spot_price
-            max_put_oi_strike = puts.loc[puts['open_interest'].idxmax(), 'strike'] if not puts.empty else spot_price
+            if not calls.empty and not calls['open_interest'].isna().all():
+                max_call_oi_strike = calls.loc[calls['open_interest'].idxmax(), 'strike']
+            else:
+                max_call_oi_strike = spot_price
+                
+            if not puts.empty and not puts['open_interest'].isna().all():
+                max_put_oi_strike = puts.loc[puts['open_interest'].idxmax(), 'strike']
+            else:
+                max_put_oi_strike = spot_price
             
             # Major support/resistance levels
             call_oi_sorted = calls.nlargest(3, 'open_interest')

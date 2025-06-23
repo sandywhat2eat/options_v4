@@ -9,6 +9,8 @@ import sys
 import json
 from datetime import datetime
 from typing import Dict, List, Optional
+import numpy as np
+from decimal import Decimal
 
 try:
     import yaml
@@ -49,6 +51,24 @@ from database import SupabaseIntegration
 # Load environment variables
 if DOTENV_AVAILABLE:
     load_dotenv()
+
+class NumpyJSONEncoder(json.JSONEncoder):
+    """Custom JSON encoder to handle numpy types and NaN values"""
+    
+    def default(self, obj):
+        if isinstance(obj, (np.integer, np.int64)):
+            return int(obj)
+        elif isinstance(obj, (np.floating, np.float64)):
+            if np.isnan(obj) or np.isinf(obj):
+                return None  # Convert NaN/Inf to null
+            return float(obj)
+        elif isinstance(obj, np.ndarray):
+            return obj.tolist()
+        elif isinstance(obj, Decimal):
+            return float(obj)
+        elif isinstance(obj, (datetime,)):
+            return obj.isoformat()
+        return super().default(obj)
 
 class OptionsAnalyzer:
     """
@@ -365,7 +385,7 @@ class OptionsAnalyzer:
                 seen.add(strategy)
                 unique_strategies.append(strategy)
         
-        return unique_strategies[:15]  # Limit to 15 strategies to avoid excessive computation
+        return unique_strategies[:250]  # Limit to 250 strategies to avoid excessive computation
     
     def _construct_single_strategy(self, strategy_instance, strategy_name: str, 
                                  market_analysis: Dict) -> Dict:
@@ -522,7 +542,7 @@ class OptionsAnalyzer:
             filepath = os.path.join(output_dir, filename)
             
             with open(filepath, 'w') as f:
-                json.dump(results, f, indent=2, default=str)
+                json.dump(results, f, indent=2, cls=NumpyJSONEncoder)
             
             self.logger.info(f"Results saved to: {filepath}")
             

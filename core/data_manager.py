@@ -26,8 +26,8 @@ class DataManager:
     def get_portfolio_symbols(self) -> List[str]:
         """Fetch FNO-enabled stocks from stock_data table"""
         try:
-            # Fetch from stock_data where fno_stock = 'yes', limit to 50 for portfolio analysis
-            response = self.supabase.table('stock_data').select('symbol').eq('fno_stock', 'yes').limit(50).execute()
+            # Fetch from stock_data where fno_stock = 'yes', limit to 250 for portfolio analysis
+            response = self.supabase.table('stock_data').select('symbol').eq('fno_stock', 'yes').limit(250).execute()
             
             if not response.data:
                 logger.warning("No FNO stocks found")

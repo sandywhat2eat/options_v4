@@ -6,7 +6,7 @@ Integrates with existing NIFTY analysis, VIX data, and database PCR calculations
 import logging
 import pandas as pd
 import numpy as np
-from typing import Dict, Optional, Tuple, Any
+from typing import Dict, List, Optional, Tuple, Any
 from datetime import datetime, timedelta
 import yfinance as yf
 
@@ -955,6 +955,8 @@ class MarketConditionsAnalyzer:
                 return None
             
             # Find strike with maximum OI (simplified max pain)
+            if strikes.empty or strikes['open_interest'].isna().all():
+                return None
             max_pain_strike = strikes.loc[strikes['open_interest'].idxmax(), 'strike_price']
             
             return float(max_pain_strike)

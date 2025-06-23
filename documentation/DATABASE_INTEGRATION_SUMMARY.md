@@ -164,12 +164,16 @@ strategy_details, strategy_parameters, strategy_exit_levels
 portfolio_allocator.py
   ↓ (reads)
 industry_allocations_current + market conditions
+  ↓ (queries)
+strategies table (finds best available per symbol)
   ↓ (updates)
 strategies table (marks for execution)
   - marked_for_execution = TRUE
   - execution_status = 'marked'
-  - execution_priority = calculated value
+  - execution_priority = (industry_weight * 1000) + (strategy_score * 100) + order
 ```
+
+**Key Change**: Portfolio allocator now respects main.py's strategy selection instead of trying to find specific strategy types. It selects the BEST available strategy per symbol as determined by main.py, then applies industry weights for execution prioritization.
 
 ### **3. Execution Flow**
 ```

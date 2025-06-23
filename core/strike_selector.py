@@ -192,17 +192,30 @@ class IntelligentStrikeSelector:
             type_options['distance'] = abs(type_options['strike'] - target_price)
             
             # Prefer strikes with better liquidity
-            type_options['liquidity_score'] = (
-                type_options['open_interest'] + type_options['volume']
-            ) / type_options['open_interest'].max()
+            max_oi = type_options['open_interest'].max()
+            if max_oi > 0:
+                type_options['liquidity_score'] = (
+                    type_options['open_interest'] + type_options['volume']
+                ) / max_oi
+            else:
+                type_options['liquidity_score'] = 0
             
             # Combined score: 70% distance, 30% liquidity
-            type_options['score'] = (
-                0.7 * (1 - type_options['distance'] / type_options['distance'].max()) +
-                0.3 * type_options['liquidity_score']
-            )
+            max_distance = type_options['distance'].max()
+            if max_distance > 0:
+                type_options['score'] = (
+                    0.7 * (1 - type_options['distance'] / max_distance) +
+                    0.3 * type_options['liquidity_score']
+                )
+            else:
+                # All strikes at same distance, use liquidity only
+                type_options['score'] = type_options['liquidity_score']
             
             # Get best strike
+            if type_options.empty or type_options['score'].isna().all():
+                # Fall back to simple nearest strike if no valid scores
+                return self._simple_nearest_strike(options_df, target_price, option_type)
+            
             best_idx = type_options['score'].idxmax()
             return float(type_options.loc[best_idx, 'strike'])
             

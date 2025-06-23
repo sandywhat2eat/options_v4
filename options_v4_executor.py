@@ -41,11 +41,17 @@ class OptionsV4Executor:
             logger.error("Failed to connect to Supabase")
             raise Exception("Database connection failed")
         
-        # Initialize DHAN client
+        # Initialize DHAN client with token from .env
         try:
+            client_id = os.getenv('DHAN_CLIENT_ID', '1100526168')
+            access_token = os.getenv('DHAN_ACCESS_TOKEN')
+            
+            if not access_token:
+                raise Exception("DHAN_ACCESS_TOKEN not found in environment variables")
+            
             self.dhan = dhanhq(
-                client_id="1100526168", 
-                access_token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJkaGFuIiwicGFydG5lcklkIjoiIiwiZXhwIjoxNzM2OTA5Mzg4LCJ0b2tlbkNvbnN1bWVyVHlwZSI6IlNFTEYiLCJ3ZWJob29rVXJsIjoiIiwiZGhhbkNsaWVudElkIjoiMTEwMDUyNjE2OCJ9.OOrHsLk-49l-mMxaFEW0gs16TQ8OIqRB50JSaVTMDVk2lq9CHVER-NWWPVEnBFWN4wHLaS3dNimTRTlGPd2n3w"
+                client_id=client_id, 
+                access_token=access_token
             )
             logger.info("DHAN client initialized successfully")
         except Exception as e:
@@ -72,29 +78,122 @@ class OptionsV4Executor:
             logger.error(f"Error fetching marked strategies: {e}")
             return []
     
-    def get_security_id(self, symbol, option_type, strike_price, expiry_date):
-        """Map strategy details to Dhan security ID"""
-        try:
-            # First try to get from api_scrip_master if it exists in Supabase
-            query = self.db.client.table('api_scrip_master').select(
-                'SEM_SMST_SECURITY_ID, SEM_LOT_UNITS'
-            ).like('SEM_TRADING_SYMBOL', f'%{symbol}%').eq(
-                'SEM_OPTION_TYPE', option_type
-            ).eq('SEM_STRIKE_PRICE', strike_price)
-            
-            # Handle expiry date matching
-            if expiry_date:
-                query = query.eq('SEM_EXPIRY_DATE', expiry_date)
-            
-            result = query.execute()
-            
-            if result.data and len(result.data) > 0:
-                security_data = result.data[0]
-                logger.info(f"Found security ID: {security_data['SEM_SMST_SECURITY_ID']} for {symbol} {strike_price} {option_type}")
-                return security_data['SEM_SMST_SECURITY_ID'], security_data.get('SEM_LOT_UNITS', 25)
+    def get_next_expiry_date(self, base_date=None):
+        """Get the next monthly expiry (last Thursday of current/next month)"""
+        import calendar
+        from datetime import datetime
+        
+        if base_date is None:
+            base_date = datetime.now()
+        
+        # Start with current month
+        year = base_date.year
+        month = base_date.month
+        
+        # Get last Thursday of the month
+        def get_last_thursday(year, month):
+            # Get last day of month
+            last_day = calendar.monthrange(year, month)[1]
+            # Find last Thursday
+            for day in range(last_day, 0, -1):
+                if datetime(year, month, day).weekday() == 3:  # Thursday = 3
+                    return datetime(year, month, day)
+            return None
+        
+        current_expiry = get_last_thursday(year, month)
+        
+        # If current month's expiry has passed, use next month
+        if current_expiry and current_expiry.date() <= base_date.date():
+            if month == 12:
+                month = 1
+                year += 1
             else:
-                logger.warning(f"Security ID not found for {symbol} {strike_price} {option_type}")
-                return None, None
+                month += 1
+            current_expiry = get_last_thursday(year, month)
+        
+        return current_expiry
+    
+    def get_option_symbol(self, base_symbol, expiry_date, strike_price, option_type):
+        """
+        Construct option symbol in the format: BASE-MONTHYEAR-STRIKE-OPTIONTYPE
+        
+        Args:
+            base_symbol: Underlying symbol (e.g., 'DIXON')
+            expiry_date: Date object for expiry
+            strike_price: Strike price (e.g., 14000)
+            option_type: 'CE' or 'PE'
+        """
+        # Format: MMMYYYY (e.g., Aug2025)
+        month_year = expiry_date.strftime("%b%Y")
+        
+        # Format: STRIKE (e.g., 14000)
+        strike_str = str(int(strike_price))
+        
+        # Construct full symbol with hyphens
+        symbol = f"{base_symbol}-{month_year}-{strike_str}-{option_type}"
+        logger.info(f"Constructed option symbol: {symbol}")
+        return symbol
+
+    def get_security_id(self, symbol, option_type, strike_price, expiry_date=None):
+        """Map strategy details to Dhan security ID using proven logic"""
+        try:
+            # Use next expiry if not provided
+            if expiry_date is None:
+                expiry_date = self.get_next_expiry_date()
+            
+            # Construct the option symbol
+            option_symbol = self.get_option_symbol(symbol, expiry_date, strike_price, option_type)
+            
+            logger.info(f"Looking up security ID for: {option_symbol}")
+            
+            # Try exact match first using sem_custom_symbol
+            exact_query = self.db.client.table('api_scrip_master').select(
+                'sem_smst_security_id, sem_lot_units, sem_custom_symbol, sem_trading_symbol'
+            ).eq('sem_custom_symbol', option_symbol).eq(
+                'sem_option_type', option_type
+            ).eq('sem_strike_price', strike_price)
+            
+            if expiry_date:
+                exact_query = exact_query.eq('sem_expiry_date', expiry_date.strftime('%Y-%m-%d'))
+            
+            result = exact_query.execute()
+            
+            if result.data:
+                security_data = result.data[0]
+                logger.info(f"✅ Found exact match: {security_data}")
+                return security_data['sem_smst_security_id'], security_data['sem_lot_units']
+            
+            # Try nearest strike if exact not found
+            logger.info("Exact match not found, trying nearest strike...")
+            
+            nearest_query = self.db.client.table('api_scrip_master').select(
+                'sem_smst_security_id, sem_lot_units, sem_strike_price, sem_custom_symbol'
+            ).like('sem_custom_symbol', f'{symbol}-{expiry_date.strftime("%b%Y")}-%-%{option_type}').eq(
+                'sem_option_type', option_type
+            )
+            
+            if expiry_date:
+                nearest_query = nearest_query.eq('sem_expiry_date', expiry_date.strftime('%Y-%m-%d'))
+            
+            nearest_result = nearest_query.execute()
+            
+            if nearest_result.data:
+                # Find nearest strike
+                best_match = None
+                min_diff = float('inf')
+                
+                for item in nearest_result.data:
+                    diff = abs(float(item['sem_strike_price']) - float(strike_price))
+                    if diff < min_diff:
+                        min_diff = diff
+                        best_match = item
+                
+                if best_match:
+                    logger.info(f"✅ Found nearest strike: {best_match}")
+                    return best_match['sem_smst_security_id'], best_match['sem_lot_units']
+            
+            logger.error(f"❌ No security ID found for {option_symbol}")
+            return None, None
                 
         except Exception as e:
             logger.error(f"Error fetching security ID: {e}")

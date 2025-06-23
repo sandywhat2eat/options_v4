@@ -34,3 +34,329 @@ Execution completed
 DIXON - Bear Put Spread:
 2025-06-22 13:23:38,332 - INFO -   Leg 13: failed
 2025-06-22 13:23:38,333 - INFO -   Leg 14: failed
+2025-06-22 19:45:43,984 - INFO - Starting Options V4 Strategy Executor
+2025-06-22 19:45:44,046 - INFO - Supabase client initialized successfully
+2025-06-22 19:45:44,046 - INFO - DHAN client initialized successfully
+2025-06-22 19:45:44,565 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=%2A%2Cstrategy_details%28%2A%29%2Cstrategy_parameters%28%2A%29&marked_for_execution=eq.True&execution_status=eq.marked&order=execution_priority.desc "HTTP/2 200 OK"
+2025-06-22 19:45:44,568 - INFO - No strategies marked for execution
+2025-06-22 19:45:44,568 - INFO - No strategies to execute
+2025-06-22 19:45:44,568 - INFO - No strategies were executed
+2025-06-22 19:53:29,877 - INFO - Starting Options V4 Strategy Executor
+2025-06-22 19:53:29,921 - INFO - Supabase client initialized successfully
+2025-06-22 19:53:29,921 - INFO - DHAN client initialized successfully
+2025-06-22 19:53:31,132 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=%2A%2Cstrategy_details%28%2A%29%2Cstrategy_parameters%28%2A%29&marked_for_execution=eq.True&execution_status=eq.marked&order=execution_priority.desc "HTTP/2 200 OK"
+2025-06-22 19:53:31,137 - INFO - No strategies marked for execution
+2025-06-22 19:53:31,137 - INFO - No strategies to execute
+2025-06-22 19:53:31,137 - INFO - No strategies were executed
+2025-06-22 20:02:17,502 - INFO - Starting Options V4 Strategy Executor
+2025-06-22 20:02:17,544 - INFO - Supabase client initialized successfully
+2025-06-22 20:02:17,544 - INFO - DHAN client initialized successfully
+2025-06-22 20:02:17,780 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=%2A%2Cstrategy_details%28%2A%29%2Cstrategy_parameters%28%2A%29&marked_for_execution=eq.True&execution_status=eq.marked&order=execution_priority.desc "HTTP/2 200 OK"
+2025-06-22 20:02:17,783 - INFO - Found 5 strategies marked for execution
+2025-06-22 20:02:17,783 - INFO - Starting execution of 5 strategies
+2025-06-22 20:02:17,783 - INFO - 
+============================================================
+2025-06-22 20:02:17,783 - INFO - Executing: DIXON - Bear Put Spread
+2025-06-22 20:02:17,783 - INFO - Priority: 3
+2025-06-22 20:02:17,783 - INFO - Executing strategy 13: DIXON - Bear Put Spread
+2025-06-22 20:02:17,783 - INFO - Processing leg: BUY 14000.0 PE
+2025-06-22 20:02:17,876 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/api_scrip_master?select=SEM_SMST_SECURITY_ID%2CSEM_LOT_UNITS&SEM_TRADING_SYMBOL=like.%25DIXON%25&SEM_OPTION_TYPE=eq.PE&SEM_STRIKE_PRICE=eq.14000.0 "HTTP/2 400 Bad Request"
+2025-06-22 20:02:17,876 - ERROR - Error fetching security ID: {'message': 'column api_scrip_master.SEM_SMST_SECURITY_ID does not exist', 'code': '42703', 'hint': None, 'details': None}
+2025-06-22 20:02:17,877 - ERROR - Cannot find security ID for leg: {'id': 16, 'lots': 1, 'vega': 7.2454, 'delta': -0.446, 'gamma': 0.0009, 'theta': -12.8482, 'quantity': 50, 'rationale': '', 'instrument': 'PUT_OPTION', 'setup_type': 'BUY', 'entry_price': 157.15, 'expiry_date': None, 'option_type': 'PE', 'strategy_id': 13, 'strike_price': 14000.0, 'total_premium': None, 'days_to_expiry': None, 'entry_max_price': 165.01, 'entry_min_price': 149.29, 'implied_volatility': 25.11}
+2025-06-22 20:02:17,877 - INFO - Processing leg: SELL 13750.0 PE
+2025-06-22 20:02:17,971 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/api_scrip_master?select=SEM_SMST_SECURITY_ID%2CSEM_LOT_UNITS&SEM_TRADING_SYMBOL=like.%25DIXON%25&SEM_OPTION_TYPE=eq.PE&SEM_STRIKE_PRICE=eq.13750.0 "HTTP/2 400 Bad Request"
+2025-06-22 20:02:17,973 - ERROR - Error fetching security ID: {'message': 'column api_scrip_master.SEM_SMST_SECURITY_ID does not exist', 'code': '42703', 'hint': None, 'details': None}
+2025-06-22 20:02:17,973 - ERROR - Cannot find security ID for leg: {'id': 17, 'lots': 1, 'vega': 5.9455, 'delta': -0.26, 'gamma': 0.0007, 'theta': -11.7836, 'quantity': 50, 'rationale': '', 'instrument': 'PUT_OPTION', 'setup_type': 'SELL', 'entry_price': 78.65, 'expiry_date': None, 'option_type': 'PE', 'strategy_id': 13, 'strike_price': 13750.0, 'total_premium': None, 'days_to_expiry': None, 'entry_max_price': 82.58, 'entry_min_price': 74.72, 'implied_volatility': 26.83}
+2025-06-22 20:02:18,055 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=execution_notes&id=eq.13 "HTTP/2 200 OK"
+2025-06-22 20:02:18,144 - INFO - HTTP Request: PATCH https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?id=eq.13 "HTTP/2 200 OK"
+2025-06-22 20:02:18,146 - INFO - Updated strategy 13 status to failed
+2025-06-22 20:02:18,146 - INFO - 
+============================================================
+2025-06-22 20:02:18,146 - INFO - Executing: DIXON - Cash-Secured Put
+2025-06-22 20:02:18,146 - INFO - Priority: 3
+2025-06-22 20:02:18,146 - INFO - Executing strategy 12: DIXON - Cash-Secured Put
+2025-06-22 20:02:18,146 - INFO - Processing leg: SELL 13500.0 PE
+2025-06-22 20:02:18,212 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/api_scrip_master?select=SEM_SMST_SECURITY_ID%2CSEM_LOT_UNITS&SEM_TRADING_SYMBOL=like.%25DIXON%25&SEM_OPTION_TYPE=eq.PE&SEM_STRIKE_PRICE=eq.13500.0 "HTTP/2 400 Bad Request"
+2025-06-22 20:02:18,212 - ERROR - Error fetching security ID: {'message': 'column api_scrip_master.SEM_SMST_SECURITY_ID does not exist', 'code': '42703', 'hint': None, 'details': None}
+2025-06-22 20:02:18,212 - ERROR - Cannot find security ID for leg: {'id': 15, 'lots': 1, 'vega': 16.9417, 'delta': -0.3237, 'gamma': 0.0002, 'theta': -6.3546, 'quantity': 50, 'rationale': '', 'instrument': 'PUT_OPTION', 'setup_type': 'SELL', 'entry_price': 400.6, 'expiry_date': None, 'option_type': 'PE', 'strategy_id': 12, 'strike_price': 13500.0, 'total_premium': None, 'days_to_expiry': None, 'entry_max_price': 420.63, 'entry_min_price': 380.57, 'implied_volatility': 37.52}
+2025-06-22 20:02:18,290 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=execution_notes&id=eq.12 "HTTP/2 200 OK"
+2025-06-22 20:02:18,378 - INFO - HTTP Request: PATCH https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?id=eq.12 "HTTP/2 200 OK"
+2025-06-22 20:02:18,379 - INFO - Updated strategy 12 status to failed
+2025-06-22 20:02:18,380 - INFO - 
+============================================================
+2025-06-22 20:02:18,380 - INFO - Executing: OBEROIRLTY - Iron Condor
+2025-06-22 20:02:18,380 - INFO - Priority: 3
+2025-06-22 20:02:18,380 - INFO - Executing strategy 95: OBEROIRLTY - Iron Condor
+2025-06-22 20:02:18,380 - INFO - Processing leg: SELL 1900.0 PE
+2025-06-22 20:02:18,451 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/api_scrip_master?select=SEM_SMST_SECURITY_ID%2CSEM_LOT_UNITS&SEM_TRADING_SYMBOL=like.%25OBEROIRLTY%25&SEM_OPTION_TYPE=eq.PE&SEM_STRIKE_PRICE=eq.1900.0 "HTTP/2 400 Bad Request"
+2025-06-22 20:02:18,453 - ERROR - Error fetching security ID: {'message': 'column api_scrip_master.SEM_SMST_SECURITY_ID does not exist', 'code': '42703', 'hint': None, 'details': None}
+2025-06-22 20:02:18,453 - ERROR - Cannot find security ID for leg: {'id': 151, 'lots': 1, 'vega': 0.0, 'delta': -0.4695, 'gamma': 0.0, 'theta': 0.0, 'quantity': 50, 'rationale': 'Short put (simple selection)', 'instrument': 'PUT_OPTION', 'setup_type': 'SELL', 'entry_price': 23.0, 'expiry_date': None, 'option_type': 'PE', 'strategy_id': 95, 'strike_price': 1900.0, 'total_premium': None, 'days_to_expiry': None, 'entry_max_price': 24.15, 'entry_min_price': 21.85, 'implied_volatility': 0.0}
+2025-06-22 20:02:18,453 - INFO - Processing leg: BUY 1880.0 PE
+2025-06-22 20:02:18,536 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/api_scrip_master?select=SEM_SMST_SECURITY_ID%2CSEM_LOT_UNITS&SEM_TRADING_SYMBOL=like.%25OBEROIRLTY%25&SEM_OPTION_TYPE=eq.PE&SEM_STRIKE_PRICE=eq.1880.0 "HTTP/2 400 Bad Request"
+2025-06-22 20:02:18,537 - ERROR - Error fetching security ID: {'message': 'column api_scrip_master.SEM_SMST_SECURITY_ID does not exist', 'code': '42703', 'hint': None, 'details': None}
+2025-06-22 20:02:18,537 - ERROR - Cannot find security ID for leg: {'id': 152, 'lots': 1, 'vega': 0.0, 'delta': -0.3204, 'gamma': 0.0, 'theta': 0.0, 'quantity': 50, 'rationale': 'Long put (simple selection)', 'instrument': 'PUT_OPTION', 'setup_type': 'BUY', 'entry_price': 14.4, 'expiry_date': None, 'option_type': 'PE', 'strategy_id': 95, 'strike_price': 1880.0, 'total_premium': None, 'days_to_expiry': None, 'entry_max_price': 15.12, 'entry_min_price': 13.68, 'implied_volatility': 0.0}
+2025-06-22 20:02:18,537 - INFO - Processing leg: SELL 1920.0 CE
+2025-06-22 20:02:18,611 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/api_scrip_master?select=SEM_SMST_SECURITY_ID%2CSEM_LOT_UNITS&SEM_TRADING_SYMBOL=like.%25OBEROIRLTY%25&SEM_OPTION_TYPE=eq.CE&SEM_STRIKE_PRICE=eq.1920.0 "HTTP/2 400 Bad Request"
+2025-06-22 20:02:18,613 - ERROR - Error fetching security ID: {'message': 'column api_scrip_master.SEM_SMST_SECURITY_ID does not exist', 'code': '42703', 'hint': None, 'details': None}
+2025-06-22 20:02:18,613 - ERROR - Cannot find security ID for leg: {'id': 153, 'lots': 1, 'vega': 0.0, 'delta': 0.4212, 'gamma': 0.0, 'theta': 0.0, 'quantity': 50, 'rationale': 'Short call (simple selection)', 'instrument': 'CALL_OPTION', 'setup_type': 'SELL', 'entry_price': 22.25, 'expiry_date': None, 'option_type': 'CE', 'strategy_id': 95, 'strike_price': 1920.0, 'total_premium': None, 'days_to_expiry': None, 'entry_max_price': 23.36, 'entry_min_price': 21.14, 'implied_volatility': 0.0}
+2025-06-22 20:02:18,614 - INFO - Processing leg: BUY 1940.0 CE
+2025-06-22 20:02:18,695 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/api_scrip_master?select=SEM_SMST_SECURITY_ID%2CSEM_LOT_UNITS&SEM_TRADING_SYMBOL=like.%25OBEROIRLTY%25&SEM_OPTION_TYPE=eq.CE&SEM_STRIKE_PRICE=eq.1940.0 "HTTP/2 400 Bad Request"
+2025-06-22 20:02:18,695 - ERROR - Error fetching security ID: {'message': 'column api_scrip_master.SEM_SMST_SECURITY_ID does not exist', 'code': '42703', 'hint': None, 'details': None}
+2025-06-22 20:02:18,695 - ERROR - Cannot find security ID for leg: {'id': 154, 'lots': 1, 'vega': 0.0, 'delta': 0.3211, 'gamma': 0.0, 'theta': 0.0, 'quantity': 50, 'rationale': 'Long call (simple selection)', 'instrument': 'CALL_OPTION', 'setup_type': 'BUY', 'entry_price': 15.15, 'expiry_date': None, 'option_type': 'CE', 'strategy_id': 95, 'strike_price': 1940.0, 'total_premium': None, 'days_to_expiry': None, 'entry_max_price': 15.91, 'entry_min_price': 14.39, 'implied_volatility': 0.0}
+2025-06-22 20:02:18,774 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=execution_notes&id=eq.95 "HTTP/2 200 OK"
+2025-06-22 20:02:18,857 - INFO - HTTP Request: PATCH https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?id=eq.95 "HTTP/2 200 OK"
+2025-06-22 20:02:18,860 - INFO - Updated strategy 95 status to failed
+2025-06-22 20:02:18,861 - INFO - 
+============================================================
+2025-06-22 20:02:18,861 - INFO - Executing: OBEROIRLTY - Iron Condor
+2025-06-22 20:02:18,861 - INFO - Priority: 3
+2025-06-22 20:02:18,861 - INFO - Executing strategy 52: OBEROIRLTY - Iron Condor
+2025-06-22 20:02:18,861 - INFO - Processing leg: SELL 1900.0 PE
+2025-06-22 20:02:18,937 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/api_scrip_master?select=SEM_SMST_SECURITY_ID%2CSEM_LOT_UNITS&SEM_TRADING_SYMBOL=like.%25OBEROIRLTY%25&SEM_OPTION_TYPE=eq.PE&SEM_STRIKE_PRICE=eq.1900.0 "HTTP/2 400 Bad Request"
+2025-06-22 20:02:18,938 - ERROR - Error fetching security ID: {'message': 'column api_scrip_master.SEM_SMST_SECURITY_ID does not exist', 'code': '42703', 'hint': None, 'details': None}
+2025-06-22 20:02:18,938 - ERROR - Cannot find security ID for leg: {'id': 80, 'lots': 1, 'vega': 0.0, 'delta': -0.4695, 'gamma': 0.0, 'theta': 0.0, 'quantity': 50, 'rationale': 'Short put (simple selection)', 'instrument': 'PUT_OPTION', 'setup_type': 'SELL', 'entry_price': 23.0, 'expiry_date': None, 'option_type': 'PE', 'strategy_id': 52, 'strike_price': 1900.0, 'total_premium': None, 'days_to_expiry': None, 'entry_max_price': 24.15, 'entry_min_price': 21.85, 'implied_volatility': 0.0}
+2025-06-22 20:02:18,938 - INFO - Processing leg: BUY 1880.0 PE
+2025-06-22 20:02:19,008 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/api_scrip_master?select=SEM_SMST_SECURITY_ID%2CSEM_LOT_UNITS&SEM_TRADING_SYMBOL=like.%25OBEROIRLTY%25&SEM_OPTION_TYPE=eq.PE&SEM_STRIKE_PRICE=eq.1880.0 "HTTP/2 400 Bad Request"
+2025-06-22 20:02:19,008 - ERROR - Error fetching security ID: {'message': 'column api_scrip_master.SEM_SMST_SECURITY_ID does not exist', 'code': '42703', 'hint': None, 'details': None}
+2025-06-22 20:02:19,009 - ERROR - Cannot find security ID for leg: {'id': 81, 'lots': 1, 'vega': 0.0, 'delta': -0.3204, 'gamma': 0.0, 'theta': 0.0, 'quantity': 50, 'rationale': 'Long put (simple selection)', 'instrument': 'PUT_OPTION', 'setup_type': 'BUY', 'entry_price': 14.4, 'expiry_date': None, 'option_type': 'PE', 'strategy_id': 52, 'strike_price': 1880.0, 'total_premium': None, 'days_to_expiry': None, 'entry_max_price': 15.12, 'entry_min_price': 13.68, 'implied_volatility': 0.0}
+2025-06-22 20:02:19,009 - INFO - Processing leg: SELL 1920.0 CE
+2025-06-22 20:02:19,079 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/api_scrip_master?select=SEM_SMST_SECURITY_ID%2CSEM_LOT_UNITS&SEM_TRADING_SYMBOL=like.%25OBEROIRLTY%25&SEM_OPTION_TYPE=eq.CE&SEM_STRIKE_PRICE=eq.1920.0 "HTTP/2 400 Bad Request"
+2025-06-22 20:02:19,081 - ERROR - Error fetching security ID: {'message': 'column api_scrip_master.SEM_SMST_SECURITY_ID does not exist', 'code': '42703', 'hint': None, 'details': None}
+2025-06-22 20:02:19,081 - ERROR - Cannot find security ID for leg: {'id': 82, 'lots': 1, 'vega': 0.0, 'delta': 0.4212, 'gamma': 0.0, 'theta': 0.0, 'quantity': 50, 'rationale': 'Short call (simple selection)', 'instrument': 'CALL_OPTION', 'setup_type': 'SELL', 'entry_price': 22.25, 'expiry_date': None, 'option_type': 'CE', 'strategy_id': 52, 'strike_price': 1920.0, 'total_premium': None, 'days_to_expiry': None, 'entry_max_price': 23.36, 'entry_min_price': 21.14, 'implied_volatility': 0.0}
+2025-06-22 20:02:19,082 - INFO - Processing leg: BUY 1940.0 CE
+2025-06-22 20:02:19,152 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/api_scrip_master?select=SEM_SMST_SECURITY_ID%2CSEM_LOT_UNITS&SEM_TRADING_SYMBOL=like.%25OBEROIRLTY%25&SEM_OPTION_TYPE=eq.CE&SEM_STRIKE_PRICE=eq.1940.0 "HTTP/2 400 Bad Request"
+2025-06-22 20:02:19,153 - ERROR - Error fetching security ID: {'message': 'column api_scrip_master.SEM_SMST_SECURITY_ID does not exist', 'code': '42703', 'hint': None, 'details': None}
+2025-06-22 20:02:19,153 - ERROR - Cannot find security ID for leg: {'id': 83, 'lots': 1, 'vega': 0.0, 'delta': 0.3211, 'gamma': 0.0, 'theta': 0.0, 'quantity': 50, 'rationale': 'Long call (simple selection)', 'instrument': 'CALL_OPTION', 'setup_type': 'BUY', 'entry_price': 15.15, 'expiry_date': None, 'option_type': 'CE', 'strategy_id': 52, 'strike_price': 1940.0, 'total_premium': None, 'days_to_expiry': None, 'entry_max_price': 15.91, 'entry_min_price': 14.39, 'implied_volatility': 0.0}
+2025-06-22 20:02:19,225 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=execution_notes&id=eq.52 "HTTP/2 200 OK"
+2025-06-22 20:02:19,298 - INFO - HTTP Request: PATCH https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?id=eq.52 "HTTP/2 200 OK"
+2025-06-22 20:02:19,299 - INFO - Updated strategy 52 status to failed
+2025-06-22 20:02:19,299 - INFO - 
+============================================================
+2025-06-22 20:02:19,300 - INFO - Executing: CESC - Covered Call
+2025-06-22 20:02:19,300 - INFO - Priority: 3
+2025-06-22 20:02:19,300 - INFO - Executing strategy 33: CESC - Covered Call
+2025-06-22 20:02:19,300 - INFO - Processing leg: SELL 170.0 CE
+2025-06-22 20:02:19,372 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/api_scrip_master?select=SEM_SMST_SECURITY_ID%2CSEM_LOT_UNITS&SEM_TRADING_SYMBOL=like.%25CESC%25&SEM_OPTION_TYPE=eq.CE&SEM_STRIKE_PRICE=eq.170.0 "HTTP/2 400 Bad Request"
+2025-06-22 20:02:19,373 - ERROR - Error fetching security ID: {'message': 'column api_scrip_master.SEM_SMST_SECURITY_ID does not exist', 'code': '42703', 'hint': None, 'details': None}
+2025-06-22 20:02:19,373 - ERROR - Cannot find security ID for leg: {'id': 50, 'lots': 1, 'vega': 0.2128, 'delta': 0.4043, 'gamma': 0.0244, 'theta': -0.0915, 'quantity': 50, 'rationale': '', 'instrument': 'CALL_OPTION', 'setup_type': 'SELL', 'entry_price': 4.35, 'expiry_date': None, 'option_type': 'CE', 'strategy_id': 33, 'strike_price': 170.0, 'total_premium': None, 'days_to_expiry': None, 'entry_max_price': 4.57, 'entry_min_price': 4.13, 'implied_volatility': 28.9}
+2025-06-22 20:02:19,446 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=execution_notes&id=eq.33 "HTTP/2 200 OK"
+2025-06-22 20:02:19,519 - INFO - HTTP Request: PATCH https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?id=eq.33 "HTTP/2 200 OK"
+2025-06-22 20:02:19,520 - INFO - Updated strategy 33 status to failed
+2025-06-22 20:02:19,520 - INFO - 
+============================================================
+2025-06-22 20:02:19,520 - INFO - EXECUTION SUMMARY
+2025-06-22 20:02:19,520 - INFO - ============================================================
+2025-06-22 20:02:19,520 - INFO - Total strategies: 5
+2025-06-22 20:02:19,520 - INFO - Successful: 0
+2025-06-22 20:02:19,520 - INFO - Failed: 5
+2025-06-22 20:02:19,520 - INFO - Deferred (market closed): 0
+2025-06-22 20:02:19,520 - INFO - 
+Execution completed
+2025-06-22 20:02:19,520 - INFO - 
+DIXON - Bear Put Spread:
+2025-06-22 20:02:19,520 - INFO -   Leg 16: failed
+2025-06-22 20:02:19,520 - INFO -   Leg 17: failed
+2025-06-22 20:02:19,520 - INFO - 
+DIXON - Cash-Secured Put:
+2025-06-22 20:02:19,520 - INFO -   Leg 15: failed
+2025-06-22 20:02:19,520 - INFO - 
+OBEROIRLTY - Iron Condor:
+2025-06-22 20:02:19,520 - INFO -   Leg 151: failed
+2025-06-22 20:02:19,520 - INFO -   Leg 152: failed
+2025-06-22 20:02:19,520 - INFO -   Leg 153: failed
+2025-06-22 20:02:19,520 - INFO -   Leg 154: failed
+2025-06-22 20:02:19,520 - INFO - 
+OBEROIRLTY - Iron Condor:
+2025-06-22 20:02:19,520 - INFO -   Leg 80: failed
+2025-06-22 20:02:19,520 - INFO -   Leg 81: failed
+2025-06-22 20:02:19,520 - INFO -   Leg 82: failed
+2025-06-22 20:02:19,520 - INFO -   Leg 83: failed
+2025-06-22 20:02:19,520 - INFO - 
+CESC - Covered Call:
+2025-06-22 20:02:19,520 - INFO -   Leg 50: failed
+2025-06-22 21:27:18,671 - INFO - Starting Options V4 Strategy Executor
+2025-06-22 21:27:18,740 - INFO - Supabase client initialized successfully
+2025-06-22 21:27:18,740 - INFO - DHAN client initialized successfully
+2025-06-22 21:27:19,150 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=%2A%2Cstrategy_details%28%2A%29%2Cstrategy_parameters%28%2A%29&marked_for_execution=eq.True&execution_status=eq.marked&order=execution_priority.desc "HTTP/2 200 OK"
+2025-06-22 21:27:19,155 - INFO - No strategies marked for execution
+2025-06-22 21:27:19,155 - INFO - No strategies to execute
+2025-06-22 21:27:19,155 - INFO - No strategies were executed
+2025-06-22 21:29:26,439 - INFO - Starting Options V4 Strategy Executor
+2025-06-22 21:29:26,481 - INFO - Supabase client initialized successfully
+2025-06-22 21:29:26,481 - INFO - DHAN client initialized successfully
+2025-06-22 21:29:26,752 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=%2A%2Cstrategy_details%28%2A%29%2Cstrategy_parameters%28%2A%29&marked_for_execution=eq.True&execution_status=eq.marked&order=execution_priority.desc "HTTP/2 200 OK"
+2025-06-22 21:29:26,756 - INFO - Found 1 strategies marked for execution
+2025-06-22 21:29:26,756 - INFO - Starting execution of 1 strategies
+2025-06-22 21:29:26,756 - INFO - 
+============================================================
+2025-06-22 21:29:26,756 - INFO - Executing: DIXON - Bear Put Spread
+2025-06-22 21:29:26,756 - INFO - Priority: 10
+2025-06-22 21:29:26,756 - INFO - Executing strategy 15: DIXON - Bear Put Spread
+2025-06-22 21:29:26,756 - INFO - Processing leg: BUY 14000.0 PE
+2025-06-22 21:29:26,756 - INFO - Constructed option symbol: DIXON-Jun2025-14000-PE
+2025-06-22 21:29:26,756 - INFO - Looking up security ID for: DIXON-Jun2025-14000-PE
+2025-06-22 21:29:26,851 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/api_scrip_master?select=sem_smst_security_id%2Csem_lot_units%2Csem_custom_symbol%2Csem_trading_symbol&sem_custom_symbol=eq.DIXON-Jun2025-14000-PE&sem_option_type=eq.PE&sem_strike_price=eq.14000.0&sem_expiry_date=eq.2025-06-26 "HTTP/2 200 OK"
+2025-06-22 21:29:26,852 - INFO - ✅ Found exact match: {'sem_smst_security_id': 86115, 'sem_lot_units': 50, 'sem_custom_symbol': 'DIXON-Jun2025-14000-PE', 'sem_trading_symbol': 'DIXON 26 JUN 14000 PUT'}
+2025-06-22 21:29:26,852 - INFO - Calculated quantity: 50 (lots: 1 × lot size: 50)
+2025-06-22 21:29:26,852 - INFO - Placing order with params: {'security_id': 86115, 'exchange_segment': 'NSE_FNO', 'transaction_type': 'BUY', 'quantity': 50, 'order_type': 'MARKET', 'product_type': 'MARGIN', 'price': 0, 'trigger_price': 0, 'validity': 'DAY'}
+2025-06-22 21:29:27,006 - INFO - Order response: {'status': 'failure', 'remarks': {'error_code': 'DH-901', 'error_type': 'Invalid_Authentication', 'error_message': 'Client ID or user generated access token is invalid or expired.'}, 'data': {'errorType': 'Invalid_Authentication', 'errorCode': 'DH-901', 'errorMessage': 'Client ID or user generated access token is invalid or expired.'}}
+2025-06-22 21:29:27,006 - ERROR - Order failed: {'status': 'failure', 'remarks': {'error_code': 'DH-901', 'error_type': 'Invalid_Authentication', 'error_message': 'Client ID or user generated access token is invalid or expired.'}, 'data': {'errorType': 'Invalid_Authentication', 'errorCode': 'DH-901', 'errorMessage': 'Client ID or user generated access token is invalid or expired.'}}
+2025-06-22 21:29:27,006 - INFO - Processing leg: SELL 13750.0 PE
+2025-06-22 21:29:27,006 - INFO - Constructed option symbol: DIXON-Jun2025-13750-PE
+2025-06-22 21:29:27,006 - INFO - Looking up security ID for: DIXON-Jun2025-13750-PE
+2025-06-22 21:29:27,102 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/api_scrip_master?select=sem_smst_security_id%2Csem_lot_units%2Csem_custom_symbol%2Csem_trading_symbol&sem_custom_symbol=eq.DIXON-Jun2025-13750-PE&sem_option_type=eq.PE&sem_strike_price=eq.13750.0&sem_expiry_date=eq.2025-06-26 "HTTP/2 200 OK"
+2025-06-22 21:29:27,102 - INFO - ✅ Found exact match: {'sem_smst_security_id': 88132, 'sem_lot_units': 50, 'sem_custom_symbol': 'DIXON-Jun2025-13750-PE', 'sem_trading_symbol': 'DIXON 26 JUN 13750 PUT'}
+2025-06-22 21:29:27,102 - INFO - Calculated quantity: 50 (lots: 1 × lot size: 50)
+2025-06-22 21:29:27,102 - INFO - Placing order with params: {'security_id': 88132, 'exchange_segment': 'NSE_FNO', 'transaction_type': 'SELL', 'quantity': 50, 'order_type': 'MARKET', 'product_type': 'MARGIN', 'price': 0, 'trigger_price': 0, 'validity': 'DAY'}
+2025-06-22 21:29:27,147 - INFO - Order response: {'status': 'failure', 'remarks': {'error_code': 'DH-901', 'error_type': 'Invalid_Authentication', 'error_message': 'Client ID or user generated access token is invalid or expired.'}, 'data': {'errorType': 'Invalid_Authentication', 'errorCode': 'DH-901', 'errorMessage': 'Client ID or user generated access token is invalid or expired.'}}
+2025-06-22 21:29:27,147 - ERROR - Order failed: {'status': 'failure', 'remarks': {'error_code': 'DH-901', 'error_type': 'Invalid_Authentication', 'error_message': 'Client ID or user generated access token is invalid or expired.'}, 'data': {'errorType': 'Invalid_Authentication', 'errorCode': 'DH-901', 'errorMessage': 'Client ID or user generated access token is invalid or expired.'}}
+2025-06-22 21:29:27,241 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=execution_notes&id=eq.15 "HTTP/2 200 OK"
+2025-06-22 21:29:27,326 - INFO - HTTP Request: PATCH https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?id=eq.15 "HTTP/2 200 OK"
+2025-06-22 21:29:27,328 - INFO - Updated strategy 15 status to failed
+2025-06-22 21:29:27,328 - INFO - 
+============================================================
+2025-06-22 21:29:27,328 - INFO - EXECUTION SUMMARY
+2025-06-22 21:29:27,328 - INFO - ============================================================
+2025-06-22 21:29:27,328 - INFO - Total strategies: 1
+2025-06-22 21:29:27,328 - INFO - Successful: 0
+2025-06-22 21:29:27,328 - INFO - Failed: 1
+2025-06-22 21:29:27,328 - INFO - Deferred (market closed): 0
+2025-06-22 21:29:27,329 - INFO - 
+Execution completed
+2025-06-22 21:29:27,329 - INFO - 
+DIXON - Bear Put Spread:
+2025-06-22 21:29:27,329 - INFO -   Leg 19: failed
+2025-06-22 21:29:27,329 - INFO -   Leg 20: failed
+2025-06-22 21:30:11,551 - INFO - Starting Options V4 Strategy Executor
+2025-06-22 21:30:11,597 - INFO - Supabase client initialized successfully
+2025-06-22 21:30:11,597 - INFO - DHAN client initialized successfully
+2025-06-22 21:30:11,861 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=%2A%2Cstrategy_details%28%2A%29%2Cstrategy_parameters%28%2A%29&marked_for_execution=eq.True&execution_status=eq.marked&order=execution_priority.desc "HTTP/2 200 OK"
+2025-06-22 21:30:11,863 - INFO - Found 1 strategies marked for execution
+2025-06-22 21:30:11,863 - INFO - Starting execution of 1 strategies
+2025-06-22 21:30:11,863 - INFO - 
+============================================================
+2025-06-22 21:30:11,863 - INFO - Executing: DIXON - Bear Put Spread
+2025-06-22 21:30:11,863 - INFO - Priority: 10
+2025-06-22 21:30:11,863 - INFO - Executing strategy 18: DIXON - Bear Put Spread
+2025-06-22 21:30:11,863 - INFO - Processing leg: BUY 14000.0 PE
+2025-06-22 21:30:11,863 - INFO - Constructed option symbol: DIXON-Jun2025-14000-PE
+2025-06-22 21:30:11,863 - INFO - Looking up security ID for: DIXON-Jun2025-14000-PE
+2025-06-22 21:30:11,960 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/api_scrip_master?select=sem_smst_security_id%2Csem_lot_units%2Csem_custom_symbol%2Csem_trading_symbol&sem_custom_symbol=eq.DIXON-Jun2025-14000-PE&sem_option_type=eq.PE&sem_strike_price=eq.14000.0&sem_expiry_date=eq.2025-06-26 "HTTP/2 200 OK"
+2025-06-22 21:30:11,961 - INFO - ✅ Found exact match: {'sem_smst_security_id': 86115, 'sem_lot_units': 50, 'sem_custom_symbol': 'DIXON-Jun2025-14000-PE', 'sem_trading_symbol': 'DIXON 26 JUN 14000 PUT'}
+2025-06-22 21:30:11,961 - INFO - Calculated quantity: 50 (lots: 1 × lot size: 50)
+2025-06-22 21:30:11,961 - INFO - Placing order with params: {'security_id': 86115, 'exchange_segment': 'NSE_FNO', 'transaction_type': 'BUY', 'quantity': 50, 'order_type': 'MARKET', 'product_type': 'MARGIN', 'price': 0, 'trigger_price': 0, 'validity': 'DAY'}
+2025-06-22 21:30:12,117 - INFO - Order response: {'status': 'failure', 'remarks': {'error_code': 'DH-906', 'error_type': 'Order_Error', 'error_message': 'Market is Closed! Want to place an offline order?'}, 'data': {'errorType': 'Order_Error', 'errorCode': 'DH-906', 'errorMessage': 'Market is Closed! Want to place an offline order?'}}
+2025-06-22 21:30:12,117 - ERROR - Order failed: {'status': 'failure', 'remarks': {'error_code': 'DH-906', 'error_type': 'Order_Error', 'error_message': 'Market is Closed! Want to place an offline order?'}, 'data': {'errorType': 'Order_Error', 'errorCode': 'DH-906', 'errorMessage': 'Market is Closed! Want to place an offline order?'}}
+2025-06-22 21:30:12,117 - INFO - Processing leg: SELL 13750.0 PE
+2025-06-22 21:30:12,117 - INFO - Constructed option symbol: DIXON-Jun2025-13750-PE
+2025-06-22 21:30:12,117 - INFO - Looking up security ID for: DIXON-Jun2025-13750-PE
+2025-06-22 21:30:12,205 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/api_scrip_master?select=sem_smst_security_id%2Csem_lot_units%2Csem_custom_symbol%2Csem_trading_symbol&sem_custom_symbol=eq.DIXON-Jun2025-13750-PE&sem_option_type=eq.PE&sem_strike_price=eq.13750.0&sem_expiry_date=eq.2025-06-26 "HTTP/2 200 OK"
+2025-06-22 21:30:12,205 - INFO - ✅ Found exact match: {'sem_smst_security_id': 88132, 'sem_lot_units': 50, 'sem_custom_symbol': 'DIXON-Jun2025-13750-PE', 'sem_trading_symbol': 'DIXON 26 JUN 13750 PUT'}
+2025-06-22 21:30:12,205 - INFO - Calculated quantity: 50 (lots: 1 × lot size: 50)
+2025-06-22 21:30:12,205 - INFO - Placing order with params: {'security_id': 88132, 'exchange_segment': 'NSE_FNO', 'transaction_type': 'SELL', 'quantity': 50, 'order_type': 'MARKET', 'product_type': 'MARGIN', 'price': 0, 'trigger_price': 0, 'validity': 'DAY'}
+2025-06-22 21:30:12,263 - INFO - Order response: {'status': 'failure', 'remarks': {'error_code': 'DH-906', 'error_type': 'Order_Error', 'error_message': 'Market is Closed! Want to place an offline order?'}, 'data': {'errorType': 'Order_Error', 'errorCode': 'DH-906', 'errorMessage': 'Market is Closed! Want to place an offline order?'}}
+2025-06-22 21:30:12,263 - ERROR - Order failed: {'status': 'failure', 'remarks': {'error_code': 'DH-906', 'error_type': 'Order_Error', 'error_message': 'Market is Closed! Want to place an offline order?'}, 'data': {'errorType': 'Order_Error', 'errorCode': 'DH-906', 'errorMessage': 'Market is Closed! Want to place an offline order?'}}
+2025-06-22 21:30:12,346 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=execution_notes&id=eq.18 "HTTP/2 200 OK"
+2025-06-22 21:30:12,415 - INFO - HTTP Request: PATCH https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?id=eq.18 "HTTP/2 200 OK"
+2025-06-22 21:30:12,415 - INFO - Updated strategy 18 status to failed
+2025-06-22 21:30:12,415 - INFO - 
+============================================================
+2025-06-22 21:30:12,415 - INFO - EXECUTION SUMMARY
+2025-06-22 21:30:12,415 - INFO - ============================================================
+2025-06-22 21:30:12,415 - INFO - Total strategies: 1
+2025-06-22 21:30:12,415 - INFO - Successful: 0
+2025-06-22 21:30:12,415 - INFO - Failed: 1
+2025-06-22 21:30:12,415 - INFO - Deferred (market closed): 0
+2025-06-22 21:30:12,415 - INFO - 
+Execution completed
+2025-06-22 21:30:12,415 - INFO - 
+DIXON - Bear Put Spread:
+2025-06-22 21:30:12,415 - INFO -   Leg 23: failed
+2025-06-22 21:30:12,415 - INFO -   Leg 24: failed
+2025-06-23 07:21:10,678 - INFO - Starting Options V4 Strategy Executor
+2025-06-23 07:21:10,740 - INFO - Supabase client initialized successfully
+2025-06-23 07:21:10,740 - INFO - DHAN client initialized successfully
+2025-06-23 07:21:11,102 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=%2A%2Cstrategy_details%28%2A%29%2Cstrategy_parameters%28%2A%29&marked_for_execution=eq.True&execution_status=eq.marked&order=execution_priority.desc "HTTP/2 200 OK"
+2025-06-23 07:21:11,106 - INFO - No strategies marked for execution
+2025-06-23 07:21:11,106 - INFO - No strategies to execute
+2025-06-23 07:21:11,106 - INFO - No strategies were executed
+2025-06-23 07:21:47,865 - INFO - Starting Options V4 Strategy Executor
+2025-06-23 07:21:47,926 - INFO - Supabase client initialized successfully
+2025-06-23 07:21:47,926 - INFO - DHAN client initialized successfully
+2025-06-23 07:21:48,282 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=%2A%2Cstrategy_details%28%2A%29%2Cstrategy_parameters%28%2A%29&marked_for_execution=eq.True&execution_status=eq.marked&order=execution_priority.desc "HTTP/2 200 OK"
+2025-06-23 07:21:48,288 - INFO - No strategies marked for execution
+2025-06-23 07:21:48,288 - INFO - No strategies to execute
+2025-06-23 07:21:48,289 - INFO - No strategies were executed
+2025-06-23 07:22:21,328 - INFO - Starting Options V4 Strategy Executor
+2025-06-23 07:22:21,390 - INFO - Supabase client initialized successfully
+2025-06-23 07:22:21,390 - INFO - DHAN client initialized successfully
+2025-06-23 07:22:21,585 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=%2A%2Cstrategy_details%28%2A%29%2Cstrategy_parameters%28%2A%29&marked_for_execution=eq.True&execution_status=eq.marked&order=execution_priority.desc "HTTP/2 200 OK"
+2025-06-23 07:22:21,587 - INFO - No strategies marked for execution
+2025-06-23 07:22:21,587 - INFO - No strategies to execute
+2025-06-23 07:22:21,587 - INFO - No strategies were executed
+2025-06-23 07:25:33,888 - INFO - Starting Options V4 Strategy Executor
+2025-06-23 07:25:33,958 - INFO - Supabase client initialized successfully
+2025-06-23 07:25:33,958 - INFO - DHAN client initialized successfully
+2025-06-23 07:25:34,154 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=%2A%2Cstrategy_details%28%2A%29%2Cstrategy_parameters%28%2A%29&marked_for_execution=eq.True&execution_status=eq.marked&order=execution_priority.desc "HTTP/2 200 OK"
+2025-06-23 07:25:34,156 - INFO - No strategies marked for execution
+2025-06-23 07:25:34,156 - INFO - No strategies to execute
+2025-06-23 07:25:34,156 - INFO - No strategies were executed
+2025-06-23 09:38:43,409 - INFO - Starting Options V4 Strategy Executor
+2025-06-23 09:38:43,478 - INFO - Supabase client initialized successfully
+2025-06-23 09:38:43,478 - INFO - DHAN client initialized successfully
+2025-06-23 09:38:44,078 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=%2A%2Cstrategy_details%28%2A%29%2Cstrategy_parameters%28%2A%29&marked_for_execution=eq.True&execution_status=eq.marked&order=execution_priority.desc "HTTP/2 200 OK"
+2025-06-23 09:38:44,081 - INFO - Found 1 strategies marked for execution
+2025-06-23 09:38:44,081 - INFO - Starting execution of 1 strategies
+2025-06-23 09:38:44,081 - INFO - 
+============================================================
+2025-06-23 09:38:44,081 - INFO - Executing: HINDUNILVR - Butterfly Spread
+2025-06-23 09:38:44,081 - INFO - Priority: 1
+2025-06-23 09:38:44,081 - INFO - Executing strategy 84: HINDUNILVR - Butterfly Spread
+2025-06-23 09:38:44,081 - INFO - Processing leg: BUY 2280.0 CE
+2025-06-23 09:38:44,081 - INFO - Constructed option symbol: HINDUNILVR-Jun2025-2280-CE
+2025-06-23 09:38:44,081 - INFO - Looking up security ID for: HINDUNILVR-Jun2025-2280-CE
+2025-06-23 09:38:44,838 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/api_scrip_master?select=sem_smst_security_id%2Csem_lot_units%2Csem_custom_symbol%2Csem_trading_symbol&sem_custom_symbol=eq.HINDUNILVR-Jun2025-2280-CE&sem_option_type=eq.CE&sem_strike_price=eq.2280.0&sem_expiry_date=eq.2025-06-26 "HTTP/2 200 OK"
+2025-06-23 09:38:44,838 - INFO - ✅ Found exact match: {'sem_smst_security_id': 98313, 'sem_lot_units': 300, 'sem_custom_symbol': 'HINDUNILVR-Jun2025-2280-CE', 'sem_trading_symbol': 'HINDUNILVR 26 JUN 2280 CALL'}
+2025-06-23 09:38:44,838 - INFO - Calculated quantity: 300 (lots: 1 × lot size: 300)
+2025-06-23 09:38:44,838 - INFO - Placing order with params: {'security_id': 98313, 'exchange_segment': 'NSE_FNO', 'transaction_type': 'BUY', 'quantity': 300, 'order_type': 'MARKET', 'product_type': 'MARGIN', 'price': 0, 'trigger_price': 0, 'validity': 'DAY'}
+2025-06-23 09:38:45,015 - INFO - Order response: {'status': 'success', 'remarks': '', 'data': {'orderId': '1225062378005', 'orderStatus': 'TRANSIT'}}
+2025-06-23 09:38:45,135 - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades "HTTP/2 201 Created"
+2025-06-23 09:38:45,135 - INFO - Trade stored successfully for order 1225062378005
+2025-06-23 09:38:45,135 - INFO - Processing leg: SELL 2300.0 CE
+2025-06-23 09:38:45,135 - INFO - Constructed option symbol: HINDUNILVR-Jun2025-2300-CE
+2025-06-23 09:38:45,135 - INFO - Looking up security ID for: HINDUNILVR-Jun2025-2300-CE
+2025-06-23 09:38:45,225 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/api_scrip_master?select=sem_smst_security_id%2Csem_lot_units%2Csem_custom_symbol%2Csem_trading_symbol&sem_custom_symbol=eq.HINDUNILVR-Jun2025-2300-CE&sem_option_type=eq.CE&sem_strike_price=eq.2300.0&sem_expiry_date=eq.2025-06-26 "HTTP/2 200 OK"
+2025-06-23 09:38:45,225 - INFO - ✅ Found exact match: {'sem_smst_security_id': 97656, 'sem_lot_units': 300, 'sem_custom_symbol': 'HINDUNILVR-Jun2025-2300-CE', 'sem_trading_symbol': 'HINDUNILVR 26 JUN 2300 CALL'}
+2025-06-23 09:38:45,225 - INFO - Calculated quantity: 600 (lots: 2 × lot size: 300)
+2025-06-23 09:38:45,226 - INFO - Placing order with params: {'security_id': 97656, 'exchange_segment': 'NSE_FNO', 'transaction_type': 'SELL', 'quantity': 600, 'order_type': 'MARKET', 'product_type': 'MARGIN', 'price': 0, 'trigger_price': 0, 'validity': 'DAY'}
+2025-06-23 09:38:45,294 - INFO - Order response: {'status': 'success', 'remarks': '', 'data': {'orderId': '9225062379405', 'orderStatus': 'TRANSIT'}}
+2025-06-23 09:38:45,376 - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades "HTTP/2 201 Created"
+2025-06-23 09:38:45,377 - INFO - Trade stored successfully for order 9225062379405
+2025-06-23 09:38:45,378 - INFO - Processing leg: BUY 2320.0 CE
+2025-06-23 09:38:45,378 - INFO - Constructed option symbol: HINDUNILVR-Jun2025-2320-CE
+2025-06-23 09:38:45,378 - INFO - Looking up security ID for: HINDUNILVR-Jun2025-2320-CE
+2025-06-23 09:38:45,474 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/api_scrip_master?select=sem_smst_security_id%2Csem_lot_units%2Csem_custom_symbol%2Csem_trading_symbol&sem_custom_symbol=eq.HINDUNILVR-Jun2025-2320-CE&sem_option_type=eq.CE&sem_strike_price=eq.2320.0&sem_expiry_date=eq.2025-06-26 "HTTP/2 200 OK"
+2025-06-23 09:38:45,475 - INFO - ✅ Found exact match: {'sem_smst_security_id': 98315, 'sem_lot_units': 300, 'sem_custom_symbol': 'HINDUNILVR-Jun2025-2320-CE', 'sem_trading_symbol': 'HINDUNILVR 26 JUN 2320 CALL'}
+2025-06-23 09:38:45,475 - INFO - Calculated quantity: 300 (lots: 1 × lot size: 300)
+2025-06-23 09:38:45,475 - INFO - Placing order with params: {'security_id': 98315, 'exchange_segment': 'NSE_FNO', 'transaction_type': 'BUY', 'quantity': 300, 'order_type': 'MARKET', 'product_type': 'MARGIN', 'price': 0, 'trigger_price': 0, 'validity': 'DAY'}
+2025-06-23 09:38:45,540 - INFO - Order response: {'status': 'success', 'remarks': '', 'data': {'orderId': '10225062384005', 'orderStatus': 'TRANSIT'}}
+2025-06-23 09:38:45,605 - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades "HTTP/2 201 Created"
+2025-06-23 09:38:45,606 - INFO - Trade stored successfully for order 10225062384005
+2025-06-23 09:38:45,686 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=execution_notes&id=eq.84 "HTTP/2 200 OK"
+2025-06-23 09:38:45,792 - INFO - HTTP Request: PATCH https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?id=eq.84 "HTTP/2 200 OK"
+2025-06-23 09:38:45,794 - INFO - Updated strategy 84 status to executed
+2025-06-23 09:38:45,794 - INFO - 
+============================================================
+2025-06-23 09:38:45,794 - INFO - EXECUTION SUMMARY
+2025-06-23 09:38:45,794 - INFO - ============================================================
+2025-06-23 09:38:45,794 - INFO - Total strategies: 1
+2025-06-23 09:38:45,794 - INFO - Successful: 1
+2025-06-23 09:38:45,794 - INFO - Failed: 0
+2025-06-23 09:38:45,794 - INFO - Deferred (market closed): 0
+2025-06-23 09:38:45,794 - INFO - 
+Execution completed
+2025-06-23 09:38:45,794 - INFO - 
+HINDUNILVR - Butterfly Spread:
+2025-06-23 09:38:45,794 - INFO -   Leg 194: success
+2025-06-23 09:38:45,794 - INFO -   Leg 195: success
+2025-06-23 09:38:45,795 - INFO -   Leg 196: success
