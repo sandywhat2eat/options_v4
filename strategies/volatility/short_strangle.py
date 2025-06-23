@@ -46,14 +46,20 @@ class ShortStrangle(BaseStrategy):
             atm_iv = market_analysis.get('iv_analysis', {}).get('atm_iv', 30)
             if atm_iv < 30:  # Skip if IV too low
                 logger.info("IV too low for Short Strangle")
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Unable to construct Short Strangle - need OTM strikes'
+                }
             
             # Separate calls and puts
             calls = self.options_df[self.options_df['option_type'] == 'CALL']
             puts = self.options_df[self.options_df['option_type'] == 'PUT']
             
             if calls.empty or puts.empty:
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Unable to construct Short Strangle - need OTM strikes'
+                }
             
             # Find OTM strikes (3-4% away from spot)
             call_target = self.spot_price * 1.035  # 3.5% OTM
@@ -64,7 +70,10 @@ class ShortStrangle(BaseStrategy):
             put_strikes_otm = puts[puts['strike'] < self.spot_price]['strike'].unique()
             
             if len(call_strikes_otm) == 0 or len(put_strikes_otm) == 0:
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Unable to construct Short Strangle - need OTM strikes'
+                }
             
             # Find strikes closest to targets
             call_strike = min(call_strikes_otm, key=lambda x: abs(x - call_target))
@@ -72,14 +81,20 @@ class ShortStrangle(BaseStrategy):
             
             # Validate strikes are available
             if not self.validate_strikes([call_strike, put_strike]):
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Unable to construct Short Strangle - need OTM strikes'
+                }
             
             # Get option data
             call_data = self._get_option_data(call_strike, 'CALL')
             put_data = self._get_option_data(put_strike, 'PUT')
             
             if call_data is None or put_data is None:
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Unable to construct Short Strangle - need OTM strikes'
+                }
             
             # Create legs
             legs = [
@@ -110,7 +125,10 @@ class ShortStrangle(BaseStrategy):
             # Calculate strategy metrics
             metrics = self._calculate_metrics(legs, self.spot_price, market_analysis)
             if not metrics:
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Unable to construct Short Strangle - need OTM strikes'
+                }
             
             # Add exit conditions
             metrics['exit_conditions'] = {
@@ -125,7 +143,10 @@ class ShortStrangle(BaseStrategy):
             
         except Exception as e:
             logger.error(f"Error constructing Short Strangle: {e}")
-            return None
+            return {
+                    'success': False,
+                    'reason': 'Unable to construct Short Strangle - need OTM strikes'
+                }
     
     def _calculate_metrics(self, legs: List[Dict], spot_price: float,
                          market_analysis: Dict) -> Optional[Dict]:
@@ -216,4 +237,7 @@ class ShortStrangle(BaseStrategy):
             
         except Exception as e:
             logger.error(f"Error calculating Short Strangle metrics: {e}")
-            return None
+            return {
+                    'success': False,
+                    'reason': 'Unable to construct Short Strangle - need OTM strikes'
+                }

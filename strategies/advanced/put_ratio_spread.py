@@ -46,7 +46,10 @@ class PutRatioSpread(BaseStrategy):
             # Filter liquid options
             # Using self.options_df directly
             if self.options_df.empty:
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Unable to construct Put Ratio Spread - need suitable put strikes'
+                }
             
             # Check for put skew - ideal condition
             iv_skew = market_analysis.get('iv_analysis', {}).get('iv_skew', {})
@@ -56,7 +59,10 @@ class PutRatioSpread(BaseStrategy):
             # Get puts only
             puts = self.options_df[self.options_df['option_type'] == 'PUT']
             if len(puts) < 2:
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Unable to construct Put Ratio Spread - need suitable put strikes'
+                }
             
             # Find strikes
             strikes = sorted(puts['strike'].unique(), reverse=True)
@@ -68,7 +74,10 @@ class PutRatioSpread(BaseStrategy):
             otm_target = self.spot_price * 0.96
             sell_strikes = [s for s in strikes if s < buy_strike]
             if not sell_strikes:
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Unable to construct Put Ratio Spread - need suitable put strikes'
+                }
             
             sell_strike = max(sell_strikes, key=lambda x: -abs(x - otm_target))
             
@@ -94,7 +103,10 @@ class PutRatioSpread(BaseStrategy):
             )
             
             if not metrics:
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Unable to construct Put Ratio Spread - need suitable put strikes'
+                }
             
             # Add exit conditions
             metrics['exit_conditions'] = {
@@ -109,7 +121,10 @@ class PutRatioSpread(BaseStrategy):
             
         except Exception as e:
             logger.error(f"Error constructing Put Ratio Spread: {e}")
-            return None
+            return {
+                    'success': False,
+                    'reason': 'Unable to construct Put Ratio Spread - need suitable put strikes'
+                }
     
     def _calculate_metrics(self, legs: List[Dict], spot_price: float,
                          market_analysis: Dict, buy_strike: float,
@@ -225,7 +240,10 @@ class PutRatioSpread(BaseStrategy):
             
         except Exception as e:
             logger.error(f"Error calculating Put Ratio Spread metrics: {e}")
-            return None
+            return {
+                    'success': False,
+                    'reason': 'Unable to construct Put Ratio Spread - need suitable put strikes'
+                }
     
     def _calculate_probability_range(self, lower: float, upper: float,
                                    spot: float, market_analysis: Dict) -> float:

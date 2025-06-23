@@ -46,7 +46,10 @@ class IronButterfly(BaseStrategy):
             atm_iv = market_analysis.get('iv_analysis', {}).get('atm_iv', 30)
             if atm_iv < 25:
                 logger.info("IV too low for Iron Butterfly")
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Unable to construct Butterfly Spread - need liquid strikes'
+                }
             
             # Find ATM strike
             strikes = self.options_df['strike'].unique()
@@ -58,14 +61,20 @@ class IronButterfly(BaseStrategy):
             upper_strikes = [s for s in strikes if s > atm_strike + wing_distance/2]
             
             if not lower_strikes or not upper_strikes:
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Unable to construct Butterfly Spread - need liquid strikes'
+                }
             
             lower_strike = max(lower_strikes)
             upper_strike = min(upper_strikes)
             
             # Validate strikes are available
             if not self.validate_strikes([atm_strike, lower_strike, upper_strike]):
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Unable to construct Butterfly Spread - need liquid strikes'
+                }
             
             # Get option data
             atm_call_data = self._get_option_data(atm_strike, 'CALL')
@@ -74,7 +83,10 @@ class IronButterfly(BaseStrategy):
             upper_call_data = self._get_option_data(upper_strike, 'CALL')
             
             if any(data is None for data in [atm_call_data, atm_put_data, lower_put_data, upper_call_data]):
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Unable to construct Butterfly Spread - need liquid strikes'
+                }
             
             # Create legs
             legs = [
@@ -131,7 +143,10 @@ class IronButterfly(BaseStrategy):
             )
             
             if not metrics:
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Unable to construct Butterfly Spread - need liquid strikes'
+                }
             
             # Add exit conditions
             metrics['exit_conditions'] = {
@@ -146,7 +161,10 @@ class IronButterfly(BaseStrategy):
             
         except Exception as e:
             logger.error(f"Error constructing Iron Butterfly: {e}")
-            return None
+            return {
+                    'success': False,
+                    'reason': 'Unable to construct Butterfly Spread - need liquid strikes'
+                }
     
     def _calculate_metrics(self, legs: List[Dict], spot_price: float,
                          market_analysis: Dict, lower_strike: float,
@@ -239,4 +257,7 @@ class IronButterfly(BaseStrategy):
             
         except Exception as e:
             logger.error(f"Error calculating Iron Butterfly metrics: {e}")
-            return None
+            return {
+                    'success': False,
+                    'reason': 'Unable to construct Butterfly Spread - need liquid strikes'
+                }

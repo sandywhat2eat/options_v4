@@ -47,7 +47,10 @@ class BrokenWingButterfly(BaseStrategy):
             # Filter liquid options
             # Using self.options_df directly
             if self.options_df.empty:
-                return None
+                return {
+                    'success': False,
+                    'reason': 'No liquid options available for Broken Wing Butterfly'
+                }
             
             # Get market direction
             direction = market_analysis.get('direction', 'neutral').lower()
@@ -199,7 +202,7 @@ class BrokenWingButterfly(BaseStrategy):
                 lower_breakeven,
                 upper_breakeven,
                 self.spot_price,
-                market_analysis
+                market_analysis or {}
             )
             
             # Greeks
@@ -258,7 +261,10 @@ class BrokenWingButterfly(BaseStrategy):
             
         except Exception as e:
             logger.error(f"Error calculating Broken Wing Butterfly metrics: {e}")
-            return None
+            return {
+                'success': False,
+                'reason': f'Error constructing Broken Wing Butterfly: {str(e)}'
+            }
     
     def _calculate_probability_range(self, lower: float, upper: float,
                                    spot: float, market_analysis: Dict) -> float:

@@ -46,14 +46,20 @@ class LongStrangle(BaseStrategy):
             atm_iv = market_analysis.get('iv_analysis', {}).get('atm_iv', 30)
             if atm_iv > 45:  # Skip if IV too high
                 logger.info("IV too high for Long Strangle")
-                return None
+                return {
+                    'success': False,
+                    'reason': f'IV too high ({atm_iv:.1f}%) for Long Strangle - prefer < 45%'
+                }
             
             # Separate calls and puts
             calls = self.options_df[self.options_df['option_type'] == 'CALL']
             puts = self.options_df[self.options_df['option_type'] == 'PUT']
             
             if calls.empty or puts.empty:
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Need both calls and puts for Long Strangle'
+                }
             
             # Find OTM strikes (3-5% away from spot)
             otm_call_target = self.spot_price * 1.04  # 4% OTM call
@@ -67,7 +73,10 @@ class LongStrangle(BaseStrategy):
             put_strikes_otm = put_strikes[put_strikes < self.spot_price]
             
             if len(call_strikes_otm) == 0 or len(put_strikes_otm) == 0:
-                return None
+                return {
+                    'success': False,
+                    'reason': 'No suitable OTM strikes available for Long Strangle'
+                }
             
             call_strike = min(call_strikes_otm, 
                             key=lambda x: abs(x - otm_call_target))
@@ -76,14 +85,20 @@ class LongStrangle(BaseStrategy):
             
             # Validate strikes are available
             if not self.validate_strikes([call_strike, put_strike]):
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Selected strikes failed validation for Long Strangle'
+                }
             
             # Get the options data
             call_data = self._get_option_data(call_strike, 'CALL')
             put_data = self._get_option_data(put_strike, 'PUT')
             
             if call_data is None or put_data is None:
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Unable to get option data for selected strikes'
+                }
             
             # Create legs
             legs = [

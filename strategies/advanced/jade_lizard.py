@@ -47,14 +47,20 @@ class JadeLizard(BaseStrategy):
             # Filter liquid options
             # Using self.options_df directly
             if self.options_df.empty:
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Unable to construct Jade Lizard - complex strategy needs specific conditions'
+                }
             
             # Check IV environment - prefer high IV
             iv_analysis = market_analysis.get('iv_analysis', {})
             atm_iv = iv_analysis.get('atm_iv', 30)
             if atm_iv < 30:
                 logger.info("IV too low for Jade Lizard")
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Unable to construct Jade Lizard - complex strategy needs specific conditions'
+                }
             
             # Check for put skew - ideal condition
             if iv_analysis.get('iv_skew', {}).get('skew_type') == 'put_skew':
@@ -65,14 +71,20 @@ class JadeLizard(BaseStrategy):
             puts = self.options_df[self.options_df['option_type'] == 'PUT']
             
             if len(calls) < 2 or puts.empty:
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Unable to construct Jade Lizard - complex strategy needs specific conditions'
+                }
             
             # Strike selection
             # Short put: 5-7% OTM
             put_target = self.spot_price * 0.94
             put_strikes = puts[puts['strike'] < self.spot_price]['strike'].unique()
             if len(put_strikes) == 0:
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Unable to construct Jade Lizard - complex strategy needs specific conditions'
+                }
             
             short_put_strike = max(put_strikes, key=lambda x: -abs(x - put_target))
             
@@ -84,13 +96,19 @@ class JadeLizard(BaseStrategy):
             otm_call_strikes = [s for s in call_strikes if s > self.spot_price]
             
             if len(otm_call_strikes) < 2:
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Unable to construct Jade Lizard - complex strategy needs specific conditions'
+                }
             
             short_call_strike = min(otm_call_strikes, key=lambda x: abs(x - short_call_target))
             long_call_strikes = [s for s in otm_call_strikes if s > short_call_strike]
             
             if not long_call_strikes:
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Unable to construct Jade Lizard - complex strategy needs specific conditions'
+                }
             
             long_call_strike = min(long_call_strikes, key=lambda x: abs(x - long_call_target))
             
@@ -113,7 +131,10 @@ class JadeLizard(BaseStrategy):
             )
             
             if not metrics:
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Unable to construct Jade Lizard - complex strategy needs specific conditions'
+                }
             
             # Check if total credit > call spread width (no upside risk)
             if not metrics.get('no_upside_risk'):
@@ -131,7 +152,10 @@ class JadeLizard(BaseStrategy):
             
         except Exception as e:
             logger.error(f"Error constructing Jade Lizard: {e}")
-            return None
+            return {
+                    'success': False,
+                    'reason': 'Unable to construct Jade Lizard - complex strategy needs specific conditions'
+                }
     
     def _calculate_metrics(self, legs: List[Dict], spot_price: float,
                          market_analysis: Dict, put_strike: float,
@@ -240,4 +264,7 @@ class JadeLizard(BaseStrategy):
             
         except Exception as e:
             logger.error(f"Error calculating Jade Lizard metrics: {e}")
-            return None
+            return {
+                    'success': False,
+                    'reason': 'Unable to construct Jade Lizard - complex strategy needs specific conditions'
+                }

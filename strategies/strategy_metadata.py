@@ -22,6 +22,7 @@ class IVEnvironment(Enum):
     HIGH = "high"
     ELEVATED = "elevated"
     SUBDUED = "subdued"
+    EXTREME = "extreme"  # Added for very high IV scenarios
     ANY = "any"
 
 class TimeDecayProfile(Enum):

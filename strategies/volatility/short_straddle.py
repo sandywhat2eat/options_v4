@@ -46,7 +46,10 @@ class ShortStraddle(BaseStrategy):
             atm_iv = market_analysis.get('iv_analysis', {}).get('atm_iv', 30)
             if atm_iv < 25:  # Skip if IV too low
                 logger.info("IV too low for Short Straddle")
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Unable to construct Short Straddle - check ATM liquidity'
+                }
             
             # Find ATM strike
             strikes = self.options_df['strike'].unique()
@@ -54,14 +57,20 @@ class ShortStraddle(BaseStrategy):
             
             # Validate strike is available
             if not self.validate_strikes([atm_strike]):
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Unable to construct Short Straddle - check ATM liquidity'
+                }
             
             # Get ATM options data
             call_data = self._get_option_data(atm_strike, 'CALL')
             put_data = self._get_option_data(atm_strike, 'PUT')
             
             if call_data is None or put_data is None:
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Unable to construct Short Straddle - check ATM liquidity'
+                }
             
             # Create legs
             legs = [
@@ -92,7 +101,10 @@ class ShortStraddle(BaseStrategy):
             # Calculate strategy metrics
             metrics = self._calculate_metrics(legs, self.spot_price, market_analysis)
             if not metrics:
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Unable to construct Short Straddle - check ATM liquidity'
+                }
             
             # Add exit conditions
             metrics['exit_conditions'] = {
@@ -107,7 +119,10 @@ class ShortStraddle(BaseStrategy):
             
         except Exception as e:
             logger.error(f"Error constructing Short Straddle: {e}")
-            return None
+            return {
+                    'success': False,
+                    'reason': 'Unable to construct Short Straddle - check ATM liquidity'
+                }
     
     def _calculate_metrics(self, legs: List[Dict], spot_price: float,
                          market_analysis: Dict) -> Optional[Dict]:
@@ -191,4 +206,7 @@ class ShortStraddle(BaseStrategy):
             
         except Exception as e:
             logger.error(f"Error calculating Short Straddle metrics: {e}")
-            return None
+            return {
+                    'success': False,
+                    'reason': 'Unable to construct Short Straddle - check ATM liquidity'
+                }

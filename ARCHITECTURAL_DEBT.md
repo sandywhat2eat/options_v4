@@ -230,7 +230,10 @@ The current architecture works but is fragile and error-prone. The FNO filtering
 
 **Estimated Effort**: 2-3 developer weeks for complete refactoring
 **Risk Level**: Medium (extensive testing required)
-**Priority**: High (prevents critical bugs in production)
+e 22 strategies registered in
+  self.strategy_classes, but the _select_strategies_to_construct method
+   is only selecting 3-8 strategies based on market conditions. Let me
+  modify this to be more comprehensive**Priority**: High (prevents critical bugs in production)
 
 ---
 

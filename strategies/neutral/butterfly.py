@@ -50,7 +50,10 @@ class ButterflySpread(BaseStrategy):
             type_options = self.options_df[self.options_df['option_type'] == option_type]
             
             if len(type_options) < 3:
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Unable to construct Butterfly Spread - need liquid strikes'
+                }
             
             # Find strikes for butterfly
             # Center at ATM, wings at ~2-3% away
@@ -64,7 +67,10 @@ class ButterflySpread(BaseStrategy):
             upper_strikes = [s for s in strikes if s > atm_strike + wing_distance/2]
             
             if not lower_strikes or not upper_strikes:
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Unable to construct Butterfly Spread - need liquid strikes'
+                }
             
             # Select strikes
             lower_strike = max(lower_strikes)  # Closest to ATM
@@ -72,7 +78,10 @@ class ButterflySpread(BaseStrategy):
             
             # Validate strikes are available
             if not self.validate_strikes([lower_strike, atm_strike, upper_strike]):
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Unable to construct Butterfly Spread - need liquid strikes'
+                }
             
             # Get options data for each strike
             lower_data = self._get_option_data(lower_strike, option_type)
@@ -80,7 +89,10 @@ class ButterflySpread(BaseStrategy):
             upper_data = self._get_option_data(upper_strike, option_type)
             
             if any(data is None for data in [lower_data, atm_data, upper_data]):
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Unable to construct Butterfly Spread - need liquid strikes'
+                }
             
             # Create legs
             legs = [
@@ -129,7 +141,10 @@ class ButterflySpread(BaseStrategy):
             )
             
             if not metrics:
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Unable to construct Butterfly Spread - need liquid strikes'
+                }
             
             # Add exit conditions
             metrics['exit_conditions'] = {
@@ -144,7 +159,10 @@ class ButterflySpread(BaseStrategy):
             
         except Exception as e:
             logger.error(f"Error constructing Butterfly Spread: {e}")
-            return None
+            return {
+                    'success': False,
+                    'reason': 'Unable to construct Butterfly Spread - need liquid strikes'
+                }
     
     def _calculate_metrics(self, legs: List[Dict], spot_price: float,
                          market_analysis: Dict, lower_strike: float,
@@ -239,7 +257,10 @@ class ButterflySpread(BaseStrategy):
             
         except Exception as e:
             logger.error(f"Error calculating Butterfly metrics: {e}")
-            return None
+            return {
+                    'success': False,
+                    'reason': 'Unable to construct Butterfly Spread - need liquid strikes'
+                }
     
     def _calculate_probability_range(self, lower: float, upper: float,
                                    spot: float, market_analysis: Dict) -> float:

@@ -44,12 +44,18 @@ class CalendarSpread(BaseStrategy):
             # Check if we have multiple expiries
             if 'expiry' not in self.options_df.columns:
                 logger.info("No expiry information for Calendar Spread")
-                return None
+                return {
+                    'success': False,
+                    'reason': 'No expiry information available in options data'
+                }
             
             unique_expiries = sorted(self.options_df['expiry'].unique())
             if len(unique_expiries) < 2:
                 logger.info("Need at least 2 expiries for Calendar Spread")
-                return None
+                return {
+                    'success': False,
+                    'reason': 'Need at least 2 expiries for Calendar Spread'
+                }
             
             # Use first two expiries
             near_expiry = unique_expiries[0]
