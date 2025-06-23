@@ -386,7 +386,7 @@ def update_database_with_allocation_priorities(supabase_client, allocation, prio
                     
                     update_result = supabase_client.table('strategies').update({
                         'marked_for_execution': True,
-                        'execution_status': 'pending',
+                        'execution_status': 'marked',
                         'execution_priority': execution_priority,
                         'execution_notes': f'Industry allocation: {industry} ({weight_pct:.1f}%), Priority score: {priority_score:.2f}'
                     }).eq('id', strategy['id']).execute()
@@ -407,7 +407,7 @@ def update_database_with_allocation_priorities(supabase_client, allocation, prio
                         
                         update_result = supabase_client.table('strategies').update({
                             'marked_for_execution': True,
-                            'execution_status': 'pending',
+                            'execution_status': 'marked',
                             'execution_priority': execution_priority,
                             'execution_notes': f'Industry allocation: {industry} ({weight_pct:.1f}%), Fallback strategy'
                         }).eq('id', strategy['id']).execute()
@@ -429,7 +429,7 @@ def update_database_with_allocation_priorities(supabase_client, allocation, prio
                     
                     update_result = supabase_client.table('strategies').update({
                         'marked_for_execution': True,
-                        'execution_status': 'pending',
+                        'execution_status': 'marked',
                         'execution_priority': execution_priority,
                         'execution_notes': f'Industry allocation: {industry} ({weight_pct:.1f}%)'
                     }).eq('id', strategy['id']).execute()
