@@ -33,24 +33,44 @@ python cleanup_scripts/cleanup_old_results.py     # Archive old files
 
 ### Recent Improvements
 
-1. **Sophisticated Portfolio Allocator** (June 2025)
+1. **Strategy Selection Bias Fix** (June 24, 2025)
+   - Fixed bias towards neutral/complex strategies
+   - Improved directional strategy selection (Long Call/Put now appearing)
+   - Adjusted metadata scoring weights:
+     - Reduced time_decay_profile weight: 15% → 8%
+     - Reduced complexity_penalty: 10% → 5%
+     - Added market_momentum weight: 12%
+   - Expanded strategy construction from 20 to 30 strategies
+   - Fixed `strategy_adjustments` attribute error in strike selector
+
+2. **Conviction Level Improvements** (June 24, 2025)
+   - Fixed low conviction issue - most strategies were LOW/VERY_LOW
+   - Increased base confidence calculation: 0.45 → 0.65 cap
+   - Enhanced confidence boosters (0.10 → 0.15)
+   - Adjusted conviction thresholds:
+     - VERY_HIGH: ≥80% (was 90%)
+     - HIGH: ≥65% (was 70%)
+     - MEDIUM: ≥45% (was 50%)
+   - Result: 40%+ strategies now have MEDIUM or higher conviction
+
+3. **Sophisticated Portfolio Allocator** (June 2025)
    - VIX-based strategy selection with quantum scoring
    - Kelly Criterion position sizing
    - Intelligent fallback hierarchy ensuring 80-95% capital deployment
    - Industry allocation integration with 7-component scoring system
    - Replaces basic portfolio_allocator.py with quantum-level sophistication
 
-2. **Centralized Strike Selection** (Dec 2024)
+4. **Centralized Strike Selection** (Dec 2024)
    - Fixed 100+ strike availability errors
    - Implemented intelligent fallback logic
    - Added liquidity-aware selection
 
-3. **NaN Handling Fix** (Dec 2024)
+5. **NaN Handling Fix** (Dec 2024)
    - Fixed JSON serialization errors
    - Recursive cleaning of nested structures
    - Proper handling of pandas/numpy types
 
-4. **Duplicate Prevention** (Dec 2024)
+6. **Duplicate Prevention** (Dec 2024)
    - Check before database insertion
    - Prevents multiple entries per day
    - Returns existing ID if found

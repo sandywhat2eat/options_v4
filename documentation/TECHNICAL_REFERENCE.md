@@ -114,12 +114,14 @@ class BaseStrategy(ABC):
    - Long Call/Put: Simple directional bets
    - Bull/Bear Call Spreads: Limited risk directional
    - Bull/Bear Put Spreads: Credit directional
+   - **Recent Fix**: Improved selection probability from 0% to normal levels
 
 2. **Neutral Strategies** (5 total)
    - Iron Condor: Range-bound, high probability
    - Iron Butterfly: ATM neutral, high theta
    - Butterfly Spread: Low-cost neutral
    - Short Straddle/Strangle: Pure premium collection
+   - **Recent Fix**: Reduced bias towards neutral strategies
 
 3. **Volatility Strategies** (4 total)
    - Long Straddle/Strangle: Volatility expansion

@@ -24,13 +24,17 @@ class BaseStrategy(ABC):
         self.strategy_data = {}
         self.expected_moves = self._extract_expected_moves()
         
-        # Initialize strike selector
+        # Initialize strike selector - always available
         try:
-            from core.strike_selector import IntelligentStrikeSelector
+            from core.strike_selector import IntelligentStrikeSelector, StrikeRequest, StrikeConstraint
             self.strike_selector = IntelligentStrikeSelector()
+            self.StrikeRequest = StrikeRequest
+            self.StrikeConstraint = StrikeConstraint
         except ImportError:
-            # Fallback if strike selector not available
+            logger.error("Failed to import IntelligentStrikeSelector")
             self.strike_selector = None
+            self.StrikeRequest = None
+            self.StrikeConstraint = None
     
     @abstractmethod
     def construct_strategy(self, **kwargs) -> Dict:
@@ -184,19 +188,25 @@ class BaseStrategy(ABC):
                     (self.options_df['option_type'] == 'PUT')
                 ]
                 
-                # Check if strike exists and has minimum liquidity
-                if calls.empty or puts.empty:
+                # Check if strike exists
+                if calls.empty and puts.empty:
                     logger.warning(f"Strike {strike} not available for {self.symbol}")
+                    # Try to find nearest available strike
+                    nearest_call = self._find_nearest_available_strike(strike, 'CALL')
+                    nearest_put = self._find_nearest_available_strike(strike, 'PUT')
+                    logger.info(f"Nearest available strikes - CALL: {nearest_call}, PUT: {nearest_put}")
                     return False
                 
-                # Basic liquidity check
-                call_data = calls.iloc[0]
-                put_data = puts.iloc[0]
-                
-                if (call_data.get('open_interest', 0) < 50 or 
-                    put_data.get('open_interest', 0) < 50):
-                    logger.warning(f"Strike {strike} has poor liquidity for {self.symbol}")
-                    return False
+                # Basic liquidity check - more lenient
+                if not calls.empty:
+                    call_data = calls.iloc[0]
+                    if call_data.get('open_interest', 0) < 10:  # Reduced from 50
+                        logger.warning(f"Strike {strike} CALL has low liquidity (OI: {call_data.get('open_interest', 0)})")
+                        
+                if not puts.empty:
+                    put_data = puts.iloc[0]
+                    if put_data.get('open_interest', 0) < 10:  # Reduced from 50
+                        logger.warning(f"Strike {strike} PUT has low liquidity (OI: {put_data.get('open_interest', 0)})")
             
             return True
             
@@ -320,8 +330,27 @@ class BaseStrategy(ABC):
             return {'name': self.get_strategy_name(), 'error': str(e)}
     
     def _find_atm_strike(self, option_type: str = 'CALL') -> Optional[float]:
-        """Find the at-the-money strike"""
+        """Find the at-the-money strike using centralized selector"""
         try:
+            # Use centralized strike selector if available
+            if self.strike_selector:
+                strikes = self.strike_selector.select_strikes(
+                    strategy_type='ATM_STRIKE',  # Generic ATM request
+                    options_df=self.options_df,
+                    spot_price=self.spot_price,
+                    market_analysis=self.market_analysis,
+                    custom_config=[self.StrikeRequest(
+                        name='strike',
+                        option_type=option_type,
+                        target_type='atm',
+                        target_value=None,
+                        constraint=None
+                    )]
+                )
+                if strikes and 'strike' in strikes:
+                    return strikes['strike']
+            
+            # Fallback to simple selection
             strikes = self.options_df[self.options_df['option_type'] == option_type]['strike'].unique()
             if len(strikes) == 0:
                 return None
@@ -336,8 +365,27 @@ class BaseStrategy(ABC):
             return None
     
     def _find_optimal_strike(self, target_delta: float, option_type: str) -> Optional[float]:
-        """Find strike closest to target delta"""
+        """Find strike closest to target delta using centralized selector"""
         try:
+            # Use centralized strike selector if available
+            if self.strike_selector:
+                strikes = self.strike_selector.select_strikes(
+                    strategy_type='DELTA_STRIKE',  # Generic delta-based request
+                    options_df=self.options_df,
+                    spot_price=self.spot_price,
+                    market_analysis=self.market_analysis,
+                    custom_config=[self.StrikeRequest(
+                        name='strike',
+                        option_type=option_type,
+                        target_type='delta',
+                        target_value=target_delta,
+                        constraint=None
+                    )]
+                )
+                if strikes and 'strike' in strikes:
+                    return strikes['strike']
+            
+            # Fallback to original logic
             options = self.options_df[self.options_df['option_type'] == option_type]
             if options.empty:
                 return None
@@ -365,8 +413,27 @@ class BaseStrategy(ABC):
             return None
     
     def _find_nearest_available_strike(self, target_strike: float, option_type: str) -> Optional[float]:
-        """Find the nearest available strike to target strike"""
+        """Find the nearest available strike to target strike using centralized selector"""
         try:
+            # Use centralized strike selector if available
+            if self.strike_selector:
+                strikes = self.strike_selector.select_strikes(
+                    strategy_type='NEAREST_STRIKE',  # Generic nearest strike request
+                    options_df=self.options_df,
+                    spot_price=self.spot_price,
+                    market_analysis=self.market_analysis,
+                    custom_config=[self.StrikeRequest(
+                        name='strike',
+                        option_type=option_type,
+                        target_type='moneyness',
+                        target_value=(target_strike - self.spot_price) / self.spot_price,
+                        constraint=self.StrikeConstraint(max_distance_pct=0.20)
+                    )]
+                )
+                if strikes and 'strike' in strikes:
+                    return strikes['strike']
+            
+            # Fallback to simple nearest strike
             strikes = self.options_df[self.options_df['option_type'] == option_type]['strike'].unique()
             if len(strikes) == 0:
                 return None
@@ -391,12 +458,46 @@ class BaseStrategy(ABC):
                 strikes = [s for s in strikes if s >= min_strike]
             if max_strike is not None:
                 strikes = [s for s in strikes if s <= max_strike]
+            
+            # Log available strikes for debugging
+            if len(strikes) < 5:
+                logger.warning(f"Limited strikes available for {option_type}: {strikes}")
                 
             return strikes
             
         except Exception as e:
             logger.error(f"Error getting available strikes: {e}")
             return []
+    
+    def select_strikes_for_strategy(self, use_expected_moves: bool = True) -> Dict[str, float]:
+        """
+        Select strikes using centralized strike selector
+        
+        Returns:
+            Dictionary mapping strike names to selected strikes
+        """
+        try:
+            if not self.strike_selector:
+                logger.warning("Strike selector not available, using fallback")
+                return {}
+            
+            # Get strikes from centralized selector
+            strategy_name = self.get_strategy_name()
+            strikes = self.strike_selector.select_strikes(
+                strategy_type=strategy_name,
+                options_df=self.options_df,
+                spot_price=self.spot_price,
+                market_analysis=self.market_analysis
+            )
+            
+            if not strikes:
+                logger.error(f"No strikes selected for {strategy_name}")
+                
+            return strikes
+            
+        except Exception as e:
+            logger.error(f"Error in centralized strike selection: {e}")
+            return {}
     
     def _extract_expected_moves(self) -> Dict:
         """Extract expected moves from market analysis"""

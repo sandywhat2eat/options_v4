@@ -30,6 +30,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 # Import our modules
 from core import DataManager, IVAnalyzer, ProbabilityEngine, RiskManager
 from core.exit_manager import ExitManager
+from core.stock_profiler import StockProfiler
 from analysis import MarketAnalyzer, StrategyRanker, PriceLevelsAnalyzer
 from strategies import (
     # Directional
@@ -95,17 +96,7 @@ class OptionsAnalyzer:
         # Load configuration
         self.config = self._load_config(config_path)
         
-        # Initialize core components
-        self.data_manager = DataManager()
-        self.iv_analyzer = IVAnalyzer()
-        self.price_levels_analyzer = PriceLevelsAnalyzer()
-        self.probability_engine = ProbabilityEngine()
-        self.risk_manager = RiskManager()
-        self.market_analyzer = MarketAnalyzer()
-        self.strategy_ranker = StrategyRanker()
-        self.exit_manager = ExitManager()
-        
-        # Initialize database integration if enabled
+        # Initialize database integration first if enabled
         self.enable_database = enable_database
         self.db_integration = None
         if self.enable_database:
@@ -115,6 +106,19 @@ class OptionsAnalyzer:
             except Exception as e:
                 self.logger.warning(f"Database integration failed to initialize: {e}")
                 self.db_integration = None
+        
+        # Initialize core components
+        self.data_manager = DataManager()
+        self.iv_analyzer = IVAnalyzer()
+        self.price_levels_analyzer = PriceLevelsAnalyzer()
+        self.probability_engine = ProbabilityEngine()
+        self.risk_manager = RiskManager()
+        # Pass supabase client to stock profiler if available
+        supabase_client = self.db_integration.client if self.db_integration else None
+        self.stock_profiler = StockProfiler(supabase_client=supabase_client)
+        self.market_analyzer = MarketAnalyzer()
+        self.strategy_ranker = StrategyRanker()
+        self.exit_manager = ExitManager()
         
         # Strategy mapping
         self.strategy_classes = {
@@ -230,14 +234,22 @@ class OptionsAnalyzer:
             
             self.logger.info(f"Found {len(options_df)} liquid options for {symbol} at spot ${spot_price:.2f}")
             
-            # 2. Market Analysis
+            # 2. Stock Profile Analysis
+            stock_profile = self.stock_profiler.get_complete_profile(symbol)
+            self.logger.info(f"Stock Profile: {stock_profile['volatility_bucket']} volatility, "
+                           f"Beta: {stock_profile.get('beta_nifty', 1.0):.2f}, "
+                           f"ATR%: {stock_profile.get('atr_pct', 2.0):.2f}%")
+            
+            # 3. Market Analysis (enhanced with stock profile)
             market_analysis = self.market_analyzer.analyze_market_direction(
                 symbol, options_df, spot_price
             )
+            # Add stock profile to market analysis
+            market_analysis['stock_profile'] = stock_profile
             
-            # 3. IV Analysis
-            # Get sector info if available (would come from stock info in real implementation)
-            sector = self._get_symbol_sector(symbol)  # Placeholder for sector lookup
+            # 4. IV Analysis
+            # Get sector info from stock profile
+            sector = stock_profile.get('sector', 'Unknown')
             iv_analysis = self.iv_analyzer.analyze_current_iv(options_df, symbol, sector)
             market_analysis['iv_analysis'] = iv_analysis
             
@@ -318,8 +330,11 @@ class OptionsAnalyzer:
             confidence = market_analysis.get('confidence', 0.5)
             iv_env = market_analysis.get('iv_analysis', {}).get('iv_environment', 'NORMAL')
             
-            # Strategy selection based on market conditions
-            strategies_to_try = self._select_strategies_to_construct(direction, confidence, iv_env)
+            # Strategy selection based on market conditions and stock profile
+            stock_profile = market_analysis.get('stock_profile')
+            strategies_to_try = self._select_strategies_to_construct(
+                direction, confidence, iv_env, stock_profile
+            )
             
             self.logger.info(f"Constructing {len(strategies_to_try)} strategies: {strategies_to_try}")
             
@@ -353,9 +368,24 @@ class OptionsAnalyzer:
             self.logger.error(f"Error in strategy construction: {e}")
             return {}
     
-    def _select_strategies_to_construct(self, direction: str, confidence: float, iv_env: str) -> List[str]:
-        """Select strategies using metadata-based intelligent selection"""
+    def _select_strategies_to_construct(self, direction: str, confidence: float, iv_env: str, 
+                                       stock_profile: Optional[Dict] = None) -> List[str]:
+        """Select strategies using metadata-based intelligent selection with volatility profiles"""
         try:
+            # If stock profile is available, use its strategy preferences
+            if stock_profile:
+                strategy_prefs = self.stock_profiler.get_strategy_preferences(
+                    stock_profile['symbol'], stock_profile
+                )
+                preferred_strategies = strategy_prefs.get('preferred_strategies', [])
+                avoid_strategies = strategy_prefs.get('avoid_strategies', [])
+                
+                self.logger.info(f"Stock volatility profile suggests: "
+                               f"Preferred: {preferred_strategies}, Avoid: {avoid_strategies}")
+            else:
+                preferred_strategies = []
+                avoid_strategies = []
+            
             # Get compatible strategies from metadata
             compatible_strategies = get_compatible_strategies(
                 market_view=direction,
@@ -380,11 +410,20 @@ class OptionsAnalyzer:
             for strategy_name in compatible_strategies:
                 metadata = get_strategy_metadata(strategy_name)
                 if metadata and strategy_name in self.strategy_classes:
+                    # Skip strategies that should be avoided for this stock
+                    if strategy_name in avoid_strategies:
+                        continue
+                        
                     score = calculate_strategy_score(
                         metadata, 
                         market_analysis,
                         portfolio_context
                     )
+                    
+                    # Boost score if strategy is preferred for this volatility profile
+                    if strategy_name in preferred_strategies:
+                        score *= 1.5  # 50% boost for preferred strategies
+                        
                     strategy_scores[strategy_name] = score
             
             # Sort by score and select top strategies
@@ -394,8 +433,8 @@ class OptionsAnalyzer:
                 reverse=True
             )
             
-            # Select top 15-20 strategies to try
-            selected_strategies = [name for name, score in sorted_strategies[:20]]
+            # Select top 25-30 strategies to try
+            selected_strategies = [name for name, score in sorted_strategies[:30]]
             
             # Apply minimal exclusions only for extreme confidence
             if confidence > 0.85:  # Very high confidence
@@ -412,14 +451,14 @@ class OptionsAnalyzer:
             income_strategies = ['Cash-Secured Put', 'Covered Call']
             for income_strat in income_strategies:
                 if income_strat in self.strategy_classes and income_strat not in selected_strategies:
-                    if len(selected_strategies) < 20:
+                    if len(selected_strategies) < 30:
                         selected_strategies.append(income_strat)
             
             self.logger.info(f"Selected {len(selected_strategies)} strategies based on metadata scoring")
             self.logger.debug(f"Strategy selection details - Direction: {direction}, "
                             f"Confidence: {confidence:.1%}, IV: {iv_env}")
             
-            return selected_strategies[:20]  # Ensure max 20 strategies
+            return selected_strategies[:30]  # Ensure max 30 strategies
             
         except Exception as e:
             self.logger.error(f"Error in metadata-based selection: {e}")
@@ -453,8 +492,14 @@ class OptionsAnalyzer:
                 return strategy_instance.construct_strategy()
             
             elif 'Long' in strategy_name:
-                # For long options, consider using slightly OTM for cost efficiency
-                target_delta = 0.4 if market_analysis.get('confidence', 0) > 0.7 else 0.5
+                # For long options, use higher delta for better probability of profit
+                confidence = market_analysis.get('confidence', 0)
+                if 'Call' in strategy_name:
+                    # Long Call: use higher delta for better PoP
+                    target_delta = 0.5 if confidence > 0.7 else 0.45
+                else:  # Long Put
+                    # Long Put: similar approach
+                    target_delta = 0.5 if confidence > 0.7 else 0.45
                 return strategy_instance.construct_strategy(target_delta=target_delta)
             
             else:

@@ -51,7 +51,7 @@ STRATEGY_REGISTRY = {
     "Long Call": StrategyMetadata(
         name="Long Call",
         category="directional",
-        market_bias=[MarketBias.BULLISH],
+        market_bias=[MarketBias.BULLISH, MarketBias.NEUTRAL],
         iv_preference=[IVEnvironment.LOW, IVEnvironment.SUBDUED, IVEnvironment.NORMAL],
         complexity=1,
         capital_efficiency=0.9,
@@ -64,7 +64,7 @@ STRATEGY_REGISTRY = {
     "Long Put": StrategyMetadata(
         name="Long Put",
         category="directional",
-        market_bias=[MarketBias.BEARISH],
+        market_bias=[MarketBias.BEARISH, MarketBias.NEUTRAL],
         iv_preference=[IVEnvironment.LOW, IVEnvironment.SUBDUED, IVEnvironment.NORMAL],
         complexity=1,
         capital_efficiency=0.9,
@@ -104,7 +104,7 @@ STRATEGY_REGISTRY = {
         name="Bull Put Spread",
         category="directional",
         market_bias=[MarketBias.BULLISH, MarketBias.NEUTRAL],
-        iv_preference=[IVEnvironment.HIGH, IVEnvironment.ELEVATED, IVEnvironment.NORMAL],
+        iv_preference=[IVEnvironment.ANY],  # More flexible IV preference
         complexity=2,
         capital_efficiency=0.6,
         time_decay_profile=TimeDecayProfile.POSITIVE,
@@ -224,7 +224,7 @@ STRATEGY_REGISTRY = {
         name="Cash-Secured Put",
         category="income",
         market_bias=[MarketBias.BULLISH, MarketBias.NEUTRAL, MarketBias.BEARISH],
-        iv_preference=[IVEnvironment.HIGH, IVEnvironment.ELEVATED, IVEnvironment.NORMAL],
+        iv_preference=[IVEnvironment.ANY],  # Works in any IV environment
         complexity=1,
         capital_efficiency=0.2,
         time_decay_profile=TimeDecayProfile.POSITIVE,
@@ -237,7 +237,7 @@ STRATEGY_REGISTRY = {
         name="Covered Call",
         category="income",
         market_bias=[MarketBias.NEUTRAL, MarketBias.BULLISH, MarketBias.BEARISH],
-        iv_preference=[IVEnvironment.HIGH, IVEnvironment.ELEVATED, IVEnvironment.NORMAL],
+        iv_preference=[IVEnvironment.ANY],  # Works in any IV environment
         complexity=1,
         capital_efficiency=0.1,
         time_decay_profile=TimeDecayProfile.POSITIVE,
@@ -393,7 +393,7 @@ def calculate_strategy_score(metadata: StrategyMetadata, market_analysis: Dict,
     """
     score = 0.0
     
-    # Market alignment score (0.3 weight)
+    # Market alignment score (0.25 weight - increased from 0.3)
     market_view = market_analysis.get('direction', 'neutral').lower()
     market_confidence = market_analysis.get('confidence', 0.5)
     
@@ -404,7 +404,7 @@ def calculate_strategy_score(metadata: StrategyMetadata, market_analysis: Dict,
     else:
         market_score = 0.3
     
-    score += market_score * 0.3
+    score += market_score * 0.25
     
     # IV environment score (0.2 weight)
     iv_env = market_analysis.get('iv_analysis', {}).get('iv_environment', 'NORMAL')
@@ -424,14 +424,14 @@ def calculate_strategy_score(metadata: StrategyMetadata, market_analysis: Dict,
     
     score += iv_score * 0.2
     
-    # Complexity penalty (0.1 weight) - prefer simpler strategies
+    # Complexity penalty (0.05 weight - reduced from 0.1) - prefer simpler strategies
     complexity_score = 1.0 - (metadata.complexity - 1) / 4.0
-    score += complexity_score * 0.1
+    score += complexity_score * 0.05
     
     # Capital efficiency (0.15 weight)
     score += metadata.capital_efficiency * 0.15
     
-    # Time decay alignment (0.15 weight)
+    # Time decay alignment (0.08 weight - reduced from 0.15)
     if metadata.time_decay_profile == TimeDecayProfile.POSITIVE:
         time_score = 0.8  # Generally prefer positive theta
     elif metadata.time_decay_profile == TimeDecayProfile.NEUTRAL:
@@ -439,16 +439,34 @@ def calculate_strategy_score(metadata: StrategyMetadata, market_analysis: Dict,
     else:
         time_score = 0.4
     
-    score += time_score * 0.15
+    score += time_score * 0.08
     
-    # Diversity bonus (0.1 weight) - bonus if strategy type not in portfolio
+    # Market momentum bonus (0.12 weight - new) - favor directional in trending markets
+    momentum_score = 0.5  # Default neutral
+    if 'stock_profile' in market_analysis:
+        # Check for trending conditions
+        technical_score = market_analysis.get('components', {}).get('technical_score', 0)
+        if abs(technical_score) > 0.5:  # Strong trend
+            if metadata.category == 'directional':
+                momentum_score = 0.9
+            elif metadata.category in ['neutral', 'income']:
+                momentum_score = 0.3
+        else:  # Ranging market
+            if metadata.category in ['neutral', 'income']:
+                momentum_score = 0.8
+            elif metadata.category == 'directional':
+                momentum_score = 0.4
+    
+    score += momentum_score * 0.12
+    
+    # Diversity bonus (0.15 weight - increased from 0.1) - bonus if strategy type not in portfolio
     if portfolio_context:
         existing_categories = portfolio_context.get('existing_categories', set())
         if metadata.category not in existing_categories:
-            score += 0.1
+            score += 0.15
         else:
-            score += 0.05
+            score += 0.075
     else:
-        score += 0.05
+        score += 0.075
     
     return min(1.0, max(0.0, score))

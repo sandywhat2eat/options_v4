@@ -197,10 +197,16 @@ class StrategyRanker:
         try:
             delta = abs(leg.get('delta', 0))
             # Long options need to overcome premium + be ITM
-            # Conservative estimate: delta * 0.85 (15% haircut for premium)
-            return min(0.85, delta * 0.85)
+            # Less conservative estimate: delta * 0.92 (8% haircut for premium)
+            base_prob = min(0.92, delta * 0.92)
+            
+            # Add momentum boost if available from market analysis
+            # This would be passed through strategy_data in future enhancement
+            # For now, use base probability
+            
+            return base_prob
         except:
-            return 0.4
+            return 0.45
     
     def _calculate_credit_spread_probability(self, legs: List[Dict]) -> float:
         """Calculate PoP for credit spreads"""

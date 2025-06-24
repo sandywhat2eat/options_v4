@@ -25,33 +25,44 @@ class LongCall(BaseStrategy):
     def get_iv_preference(self) -> str:
         return "low"
     
-    def construct_strategy(self, strike: float = None, use_expected_moves: bool = True) -> Dict:
+    def construct_strategy(self, strike: float = None, use_expected_moves: bool = True, target_delta: float = 0.45) -> Dict:
         """
         Construct Long Call strategy
         
         Args:
             strike: Specific strike to use (optional)
             use_expected_moves: Use intelligent strike selection based on expected moves
+            target_delta: Target delta for option selection (default 0.45)
         """
         try:
+            logger.info(f"Constructing Long Call for {self.symbol} at spot {self.spot_price}")
+            
             if strike is None:
-                if use_expected_moves and self.market_analysis:
+                if use_expected_moves and self.market_analysis and hasattr(self, 'strike_selector') and self.strike_selector:
                     # Use intelligent strike selection
+                    logger.info("Using intelligent strike selection")
                     strike = self.strike_selector.select_optimal_strike(
                         self.options_df, self.spot_price, self.market_analysis,
                         'Long Call', 'CALL'
                     )
                 else:
-                    # Fallback to delta-based selection
-                    strike = self._find_optimal_strike(0.35, 'CALL')  # Target 0.35 delta instead of 0.5
+                    # Fallback to delta-based selection with higher delta for better probability
+                    logger.info(f"Using delta-based selection with target delta {target_delta}")
+                    strike = self._find_optimal_strike(target_delta, 'CALL')  # Higher delta for better PoP
+            
+            logger.info(f"Selected strike: {strike}")
             
             if not self.validate_strikes([strike]):
+                logger.warning(f"Strike validation failed for {strike}")
                 return {'success': False, 'reason': 'Invalid strike selection'}
             
             # Get option data
             call_data = self._get_option_data(strike, 'CALL')
             if call_data is None:
+                logger.warning(f"No option data available for strike {strike}")
                 return {'success': False, 'reason': 'Option data not available'}
+            
+            logger.info(f"Found option data: Delta={call_data.get('delta', 0):.3f}, Premium={call_data.get('last_price', 0)}")
             
             # Construct leg
             self.legs = [{

@@ -10,8 +10,8 @@ This module handles:
 
 import os
 import json
-from datetime import datetime, date
-from typing import Dict, List, Optional, Any, Tuple
+from datetime import datetime
+from typing import Dict, List, Optional, Any
 from decimal import Decimal
 import logging
 import numpy as np
@@ -75,6 +75,10 @@ class SupabaseIntegration:
     
     def _clean_value(self, value: Any) -> Any:
         """Clean a single value for JSON serialization"""
+        # Handle None/null
+        if value is None:
+            return None
+            
         # Handle numpy types
         if isinstance(value, (np.integer, np.int64)):
             return int(value)
@@ -85,13 +89,26 @@ class SupabaseIntegration:
         elif isinstance(value, (np.bool_, bool)):
             return bool(value)
         elif isinstance(value, np.ndarray):
-            return value.tolist()
+            # Clean each element in the array
+            return [self._clean_value(v) for v in value.tolist()]
         elif isinstance(value, pd.Series):
-            return value.tolist()
+            # Clean each element in the series
+            return [self._clean_value(v) for v in value.tolist()]
         elif isinstance(value, (pd.Timestamp, np.datetime64)):
             return str(value)
         elif isinstance(value, Decimal):
             return float(value)
+        elif isinstance(value, float):
+            # Handle regular Python float NaN/Inf
+            if np.isnan(value) or np.isinf(value):
+                return 0
+            return value
+        elif isinstance(value, list):
+            # Recursively clean lists
+            return [self._clean_value(v) for v in value]
+        elif isinstance(value, dict):
+            # Recursively clean dictionaries
+            return {k: self._clean_value(v) for k, v in value.items()}
         return value
     
     def _clean_data(self, data: Any) -> Any:
@@ -242,8 +259,26 @@ class SupabaseIntegration:
     
     def _insert_strategy_main(self, symbol: str, strategy_data: Dict, 
                              spot_price: float, market_analysis: Dict) -> Optional[int]:
-        """Insert main strategy record"""
+        """Insert main strategy record with duplicate prevention"""
         try:
+            # Get today's date in ISO format for duplicate check
+            today = datetime.now().date().isoformat()
+            
+            # Check for existing record for same symbol + date + strategy
+            existing_check = self.client.table('strategies').select('id').eq(
+                'stock_name', symbol
+            ).eq(
+                'strategy_name', strategy_data['name']
+            ).gte(
+                'generated_on', f"{today}T00:00:00"
+            ).lte(
+                'generated_on', f"{today}T23:59:59"
+            ).execute()
+            
+            if existing_check.data and len(existing_check.data) > 0:
+                self.logger.info(f"Strategy {strategy_data['name']} for {symbol} already exists for today, skipping insert")
+                return existing_check.data[0]['id']
+            
             # Map confidence to conviction level
             confidence = market_analysis.get('confidence', 0.5)
             conviction_level = self._map_conviction_level(confidence)
@@ -675,13 +710,13 @@ class SupabaseIntegration:
     
     def _map_conviction_level(self, confidence: float) -> str:
         """Map confidence score to conviction level"""
-        if confidence >= 0.9:
+        if confidence >= 0.8:  # Reduced from 0.9
             return 'VERY_HIGH'
-        elif confidence >= 0.7:
+        elif confidence >= 0.65:  # Reduced from 0.7
             return 'HIGH'
-        elif confidence >= 0.5:
+        elif confidence >= 0.45:  # Reduced from 0.5
             return 'MEDIUM'
-        elif confidence >= 0.3:
+        elif confidence >= 0.25:  # Reduced from 0.3
             return 'LOW'
         else:
             return 'VERY_LOW'

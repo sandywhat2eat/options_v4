@@ -1004,27 +1004,36 @@ class MarketAnalyzer:
             # Calculate confidence based on signal alignment
             confidence_factors = []
             
-            # Technical alignment
+            # Technical alignment (same weight)
             if technical_details.get('trend') == 'Uptrend' and score > 0:
                 confidence_factors.append(0.2)
             elif technical_details.get('trend') == 'Downtrend' and score < 0:
                 confidence_factors.append(0.2)
             
-            # EMA alignment
+            # EMA alignment (same weight)
             if technical_details.get('ema_alignment') in ['Bullish', 'Bearish']:
                 confidence_factors.append(0.15)
             
-            # Momentum confirmation
+            # Momentum confirmation (increased)
             rsi = technical_details.get('rsi', 50)
             if (rsi > 50 and score > 0) or (rsi < 50 and score < 0):
-                confidence_factors.append(0.1)
+                confidence_factors.append(0.15)
             
-            # Volume confirmation
+            # Volume confirmation (increased)
             if technical_details.get('volume_trend') == 'Increasing':
-                confidence_factors.append(0.1)
+                confidence_factors.append(0.15)
+            
+            # RSI extreme alignment (new)
+            if (rsi < 30 and score > 0) or (rsi > 70 and score < 0):
+                confidence_factors.append(0.10)
+            
+            # MACD signal alignment (new)
+            macd_signal = technical_details.get('macd_signal', 'Neutral')
+            if (macd_signal == 'Bullish' and score > 0) or (macd_signal == 'Bearish' and score < 0):
+                confidence_factors.append(0.10)
             
             # Base confidence from score strength
-            base_confidence = min(abs_score, 0.45)
+            base_confidence = min(abs_score * 1.2, 0.65)  # Increased base confidence
             
             # Total confidence
             confidence = base_confidence + sum(confidence_factors)

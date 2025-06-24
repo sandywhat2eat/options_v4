@@ -30,6 +30,8 @@ The Options V4 Trading System is an automated options strategy analyzer that:
 - **Intelligent fallback hierarchy** ensuring 80-95% capital deployment
 - **Automated exit management** with profit targets and stop losses
 - **Complete trade lifecycle** from analysis to execution
+- **Enhanced directional strategy selection** - Fixed bias towards neutral strategies (June 2025)
+- **Improved conviction levels** - Better distribution across HIGH/MEDIUM/LOW (June 2025)
 
 ---
 
