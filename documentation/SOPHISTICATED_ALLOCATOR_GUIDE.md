@@ -122,15 +122,20 @@ python sophisticated_portfolio_allocator_runner.py --config my_config.yaml --upd
 # Step 1: Generate strategies (existing)
 python main.py --risk moderate
 
-# Step 2: Run sophisticated allocation (new)
+# Step 2: Run sophisticated allocation (FIXED - use this script)
 python sophisticated_portfolio_allocator_runner.py --update-database
 
-# Step 3: Review allocations (existing)
+# Step 3: Review allocations (existing) 
 python mark_for_execution.py --list-recent
 
 # Step 4: Execute strategies (existing)
 python options_v4_executor.py --execute
 ```
+
+**Important**: Use `sophisticated_portfolio_allocator_runner.py` NOT `deploy_sophisticated_allocator.py`. The runner script has been fixed to:
+- Fetch real VIX data from Dhan API (not hardcoded)
+- Load actual strategies from database
+- Properly update database with allocation results
 
 ### **Command Line Options**
 

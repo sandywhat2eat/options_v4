@@ -14,7 +14,7 @@
 ```bash
 # Daily workflow
 python main.py --risk moderate                    # Generate strategies
-python deploy_sophisticated_allocator.py          # Run sophisticated allocation
+python sophisticated_portfolio_allocator_runner.py --update-database  # Run sophisticated allocation (FIXED)
 python options_v4_executor.py --execute          # Execute trades
 python execution_status.py                        # Monitor status
 

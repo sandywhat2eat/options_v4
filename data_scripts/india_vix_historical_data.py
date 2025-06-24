@@ -14,7 +14,7 @@ from dotenv import load_dotenv
 from dhanhq import dhanhq
 
 # Load environment variables
-load_dotenv("/root/.env")
+load_dotenv()
 
 class IndiaVixHistoricalDataFetcher:
     def __init__(self):
