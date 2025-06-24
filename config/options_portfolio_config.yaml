@@ -1,0 +1,173 @@
+# Options Portfolio Allocation Configuration
+# Sophisticated VIX-based strategy allocation with intelligent fallbacks
+
+portfolio:
+  total_capital: 10000000  # 1 crore in rupees
+  target_strategies: 30
+  minimum_allocation_target: 80.0  # Minimum 80% capital deployment
+  maximum_individual_allocation: 5.0  # Max 5% per strategy
+  maximum_symbol_allocation: 15.0     # Max 15% per symbol
+  maximum_industry_allocation: 12.0   # Max 12% per industry
+
+# VIX Environment Thresholds
+vix_environments:
+  low: 15
+  normal: 25
+  high: 999  # Above 25
+
+# Primary Strategy Allocation by VIX Environment
+vix_allocation_targets:
+  low_vix:  # VIX ≤ 15 (IV Contraction)
+    tier_1:
+      iron_condors: 30
+      butterflies: 20
+      cash_secured_puts: 20
+    tier_2:
+      calendar_spreads: 15
+      short_strangles: 10
+    tier_3:
+      long_options: 5
+  
+  normal_vix:  # VIX 15-25 (Balanced IV)
+    tier_1:
+      iron_condors: 20
+      bull_bear_spreads: 20
+      cash_secured_puts: 20
+    tier_2:
+      covered_calls: 15
+      calendar_spreads: 15
+    tier_3:
+      diagonal_spreads: 10
+  
+  high_vix:  # VIX ≥ 25 (IV Expansion)
+    tier_1:
+      long_straddles: 20
+      long_strangles: 15
+      protective_puts: 15
+    tier_2:
+      short_term_iron_condors: 20
+      short_straddles_otm: 10
+    tier_3:
+      deep_itm_covered_calls: 20
+
+# Fallback Hierarchy for Each Strategy Type
+fallback_hierarchy:
+  low_vix:
+    iron_condors: [iron_butterflies, butterfly_spreads, short_strangles]
+    butterflies: [iron_butterflies, calendar_spreads, iron_condors]
+    cash_secured_puts: [bull_put_spreads, covered_calls, long_puts]
+    calendar_spreads: [diagonal_spreads, butterflies, iron_condors]
+    short_strangles: [iron_condors, short_straddles, butterflies]
+    long_options: [bull_call_spreads, bear_put_spreads, protective_puts]
+  
+  normal_vix:
+    iron_condors: [iron_butterflies, butterfly_spreads, short_strangles]
+    bull_bear_spreads: [long_calls_puts, cash_secured_puts, covered_calls]
+    cash_secured_puts: [bull_put_spreads, covered_calls, long_puts]
+    covered_calls: [bull_call_spreads, cash_secured_puts, collar_strategies]
+    calendar_spreads: [diagonal_spreads, butterflies, iron_condors]
+    diagonal_spreads: [calendar_spreads, bull_bear_spreads, iron_condors]
+  
+  high_vix:
+    long_straddles: [long_strangles, long_calls_puts, protective_collars]
+    long_strangles: [wide_iron_condors, calendar_spreads, long_straddles]
+    protective_puts: [collar_strategies, put_spreads, long_puts]
+    short_term_iron_condors: [iron_butterflies, butterfly_spreads, calendar_spreads]
+    short_straddles_otm: [iron_condors, short_strangles, butterflies]
+    deep_itm_covered_calls: [covered_calls, collar_strategies, bull_call_spreads]
+
+# Strategy Mapping (database strategy names to config names)
+strategy_mapping:
+  # Neutral Strategies
+  iron_condors: ["Iron Condor"]
+  iron_butterflies: ["Iron Butterfly"]
+  butterfly_spreads: ["Butterfly Spread"]
+  short_strangles: ["Short Strangle"]
+  
+  # Directional Strategies
+  bull_bear_spreads: ["Bull Call Spread", "Bear Call Spread", "Bull Put Spread", "Bear Put Spread"]
+  long_calls_puts: ["Long Call", "Long Put"]
+  bull_call_spreads: ["Bull Call Spread"]
+  bear_put_spreads: ["Bear Put Spread"]
+  bull_put_spreads: ["Bull Put Spread"]
+  
+  # Income Strategies
+  cash_secured_puts: ["Cash-Secured Put"]
+  covered_calls: ["Covered Call"]
+  
+  # Volatility Strategies
+  long_straddles: ["Long Straddle"]
+  long_strangles: ["Long Strangle"]
+  short_straddles: ["Short Straddle"]
+  calendar_spreads: ["Calendar Spread"]
+  diagonal_spreads: ["Diagonal Spread"]
+  
+  # Advanced Strategies
+  protective_puts: ["Long Put"]  # When used as protection
+  collar_strategies: ["Collar"]
+  put_spreads: ["Bear Put Spread", "Bull Put Spread"]
+  protective_collars: ["Collar"]
+  wide_iron_condors: ["Iron Condor"]  # Wider strikes
+  short_term_iron_condors: ["Iron Condor"]  # <21 DTE
+
+# Quality Thresholds for Strategy Selection
+quality_thresholds:
+  minimum_probability_of_profit: 0.40
+  minimum_risk_reward_ratio: 1.2
+  minimum_total_score: 0.5
+  minimum_liquidity_score: 0.4
+  minimum_open_interest: 100
+  minimum_volume: 10
+
+# VIX Percentile Multipliers
+vix_multipliers:
+  premium_selling_bias: 1.5  # When VIX percentile < 20
+  premium_buying_bias: 1.5   # When VIX percentile > 80
+  neutral_bias: 1.0          # When VIX percentile 20-80
+
+# Position Sizing by VIX Environment
+position_sizing:
+  low_vix:
+    max_iron_condor: 8.0
+    max_calendar_spread: 5.0
+    max_long_option: 3.0
+    default_max: 4.0
+  
+  normal_vix:
+    max_iron_condor: 6.0
+    max_spread: 5.0
+    max_income_strategy: 7.0
+    default_max: 5.0
+  
+  high_vix:
+    max_long_straddle: 10.0
+    max_short_strategy: 3.0
+    max_protective_put: 5.0
+    default_max: 4.0
+
+# Risk Management Parameters
+risk_management:
+  target_portfolio_volatility: 20.0  # Target annual volatility %
+  max_portfolio_delta: 0.2           # Portfolio delta limits
+  max_portfolio_gamma: 0.1           # Portfolio gamma limits
+  max_portfolio_vega: 1.0            # Portfolio vega limits
+  min_portfolio_theta: 0.5           # Minimum positive theta
+  max_portfolio_theta: 2.0           # Maximum theta exposure
+
+# Dynamic Rebalancing Triggers
+rebalancing_triggers:
+  vix_point_change: 5      # Rebalance if VIX moves >5 points in 5 days
+  vix_percentile_change: 30 # Rebalance if VIX percentile changes >30 points
+  portfolio_allocation_drift: 15  # Rebalance if allocation drifts >15% from target
+
+# Substitution Rules for Similar Strategies
+substitution_weights:
+  same_risk_profile: 1.0      # 100% substitution weight
+  similar_profile: 0.8        # 80% substitution weight
+  different_profile: 0.6      # 60% substitution weight
+
+# Cross-VIX Environment Borrowing
+cross_environment_borrowing:
+  enabled: true
+  penalty_factor: 0.8  # Apply 0.8x weight when borrowing from other VIX environments
+  max_borrowing_percent: 30  # Maximum 30% can be borrowed from other environments

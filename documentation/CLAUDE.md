@@ -1,226 +1,158 @@
-# Options V4 Trading System - Claude Build Instructions
+# Options V4 Trading System - Build & Maintenance Guide
 
-## System Overview
-This is a comprehensive options trading strategy analysis system with 22+ strategies, industry-first allocation framework, complete database integration, and direct execution capabilities via Dhan API.
+## Quick Reference
 
-## Project Structure
-```
-options_v4/
-├── main.py                          # Main entry point (50-symbol support)
-├── requirements.txt                 # Python dependencies
-├── config/
-│   └── options_config.py           # Industry allocation configuration
-├── core/                           # Core system components
-│   ├── data_manager.py             # Data fetching (50-symbol limit)
-│   ├── market_conditions_analyzer.py # Market environment analysis
-│   ├── industry_allocation_engine.py # Industry-based allocation
-│   ├── options_portfolio_manager.py  # Main orchestration controller
-│   ├── strike_selector.py          # Intelligent strike selection
-│   ├── exit_manager.py             # Exit condition generation
-│   └── probability_engine.py       # Probability calculations
-├── strategies/                     # 22+ strategy implementations
-├── analysis/                       # Market analysis modules
-├── database/
-│   └── supabase_integration.py     # Complete database interface
-├── documentation/                  # Complete documentation library
-├── data_scripts/                   # VIX & NIFTY historical data fetchers
-├── execution/                      # Trading execution scripts
-│   ├── mark_for_execution.py       # Strategy selection for execution
-│   ├── options_v4_executor.py      # Dhan API order execution
-│   └── execution_status.py         # Execution monitoring
-├── logs/                          # System logs
-└── results/                       # Analysis output files
-```
+### System Overview
+- **Purpose**: Automated options strategy analysis, storage, and execution
+- **Capacity**: 50 symbols across 6 industries
+- **Strategies**: 22+ options strategies
+- **Database**: Supabase with 12+ tables
+- **Execution**: Dhan API integration
 
-## Key Features
-- **22+ Options Strategies**: Complete strategy library covering all market conditions
-- **Industry-First Allocation**: Uses database allocation tables for strategy prioritization
-- **50-Symbol Portfolio Analysis**: Enhanced from 5 to 50-symbol capability (68% success rate)
-- **Market Conditions Integration**: NIFTY + VIX + PCR analysis with 9 market states
-- **Complete Database Integration**: 12+ tables for comprehensive strategy storage
-- **Direct Execution**: Dhan API integration for order placement and monitoring
-- **Exit Management**: Comprehensive exit conditions with profit targets, stop losses, time exits
-- **Risk Management**: Industry diversification and position sizing controls
-- **Real-time Monitoring**: Live execution status and performance tracking
+### Key Commands
 
-## Core Components
-
-### Strategies (22+ Total)
-**Directional (6)**: Long Call/Put, Bull/Bear Call/Put Spreads
-**Neutral (5)**: Iron Condor, Iron Butterfly, Butterfly, Short Straddle/Strangle  
-**Volatility (4)**: Long/Short Straddle, Long/Short Strangle
-**Income (2)**: Cash-Secured Put, Covered Call
-**Advanced (5)**: Calendar, Diagonal, Call/Put Ratio Spreads, Jade Lizard, Broken Wing Butterfly
-
-### Exit Management System
-- **Profit Targets**: 25-75% based on strategy type
-- **Stop Losses**: 50% to 2x based on risk profile
-- **Time Exits**: 7-21 DTE depending on strategy
-- **Greek Triggers**: Delta, Gamma, Theta, Vega monitoring
-- **Adjustments**: Defensive, offensive, rolling, morphing options
-
-## Complete Trading Workflow
-
-### Phase 1: Strategy Analysis & Database Storage
 ```bash
-# Run complete portfolio analysis (50 symbols with industry allocation)
-python main.py --risk moderate
+# Daily workflow
+python main.py --risk moderate                    # Generate strategies
+python deploy_sophisticated_allocator.py          # Run sophisticated allocation
+python options_v4_executor.py --execute          # Execute trades
+python execution_status.py                        # Monitor status
 
-# Run industry allocation framework testing
-python test_industry_allocation_system.py
+# Portfolio allocation testing
+python validate_sophisticated_allocator.py        # Validate allocator readiness
+python sophisticated_allocator_db_runner.py       # Test with database integration
 
-# Single symbol analysis
-python main.py --symbol DIXON --risk moderate
+# Testing & debugging
+python test_strike_selection.py                   # Test strike selector
+python check_stored_data.py                       # Verify DB storage
+
+# Maintenance
+python import_scrip_master.py                     # Update security master
+python cleanup_scripts/cleanup_old_results.py     # Archive old files
 ```
 
-### Phase 2: Strategy Selection & Marking for Execution
+### Recent Improvements
+
+1. **Sophisticated Portfolio Allocator** (June 2025)
+   - VIX-based strategy selection with quantum scoring
+   - Kelly Criterion position sizing
+   - Intelligent fallback hierarchy ensuring 80-95% capital deployment
+   - Industry allocation integration with 7-component scoring system
+   - Replaces basic portfolio_allocator.py with quantum-level sophistication
+
+2. **Centralized Strike Selection** (Dec 2024)
+   - Fixed 100+ strike availability errors
+   - Implemented intelligent fallback logic
+   - Added liquidity-aware selection
+
+3. **NaN Handling Fix** (Dec 2024)
+   - Fixed JSON serialization errors
+   - Recursive cleaning of nested structures
+   - Proper handling of pandas/numpy types
+
+4. **Duplicate Prevention** (Dec 2024)
+   - Check before database insertion
+   - Prevents multiple entries per day
+   - Returns existing ID if found
+
+### Critical Files
+
+```
+core/
+├── strike_selector.py                    # Centralized strike selection
+├── sophisticated_portfolio_allocator.py  # Quantum-level portfolio allocation
+├── industry_allocation_engine.py         # Industry-based allocation
+└── options_portfolio_manager.py          # Main orchestrator
+
+database/
+└── supabase_integration.py               # DB interface with duplicate prevention
+
+strategies/
+├── base_strategy.py                      # Base class with strike selector integration
+└── [22 strategy implementations]
+
+# Production deployment scripts
+├── deploy_sophisticated_allocator.py      # Production allocator deployment
+├── validate_sophisticated_allocator.py    # Allocator validation
+└── sophisticated_allocator_db_runner.py   # Database integration testing
+```
+
+### Environment Variables
+
 ```bash
-# Review generated strategies
-python mark_for_execution.py --list-recent
-
-# Interactive strategy selection
-python mark_for_execution.py --interactive
-
-# Mark top strategies by score
-python mark_for_execution.py --mark-top 5
-
-# Mark best strategy for specific symbol
-python mark_for_execution.py --mark-best DIXON
+# Required in .env
+SUPABASE_URL=
+SUPABASE_ANON_KEY=
+DHAN_CLIENT_ID=
+DHAN_ACCESS_TOKEN=
 ```
 
-### Phase 3: Order Execution & Monitoring
+### Performance Benchmarks
+
+- Portfolio analysis: 50 symbols in ~18 minutes
+- Success rate: 68% (34/50 symbols)
+- Strategy storage: <5 seconds per symbol
+- Execution speed: 4.2 seconds per strategy
+
+### Common Issues & Solutions
+
+1. **Strike Not Available**
+   - System auto-selects nearest available strike
+   - Check logs for details
+
+2. **Low Success Rate**
+   - Verify API connectivity
+   - Check if markets are open
+   - Review symbol list validity
+
+3. **Database Errors**
+   - Verify Supabase credentials
+   - Check internet connection
+   - Review table permissions
+
+### Monitoring & Logs
+
 ```bash
-# Preview execution plan (dry run)
-python options_v4_executor.py --preview
+# Key log files
+logs/options_v4_main_YYYYMMDD.log      # Analysis logs
+logs/options_v4_execution.log           # Execution logs
 
-# Execute all marked strategies
-python options_v4_executor.py --execute
-
-# Monitor execution status
-python execution_status.py
-
-# View performance dashboard
-python execution_status.py --performance-dashboard
+# Check for errors
+grep ERROR logs/options_v4_main_$(date +%Y%m%d).log
+grep "Strike.*not available" logs/*.log
 ```
 
-## Configuration
+### System Health Checks
 
-### Industry Allocation Framework
-The system uses database-driven allocation:
-- **Industry Tables**: `industry_allocations_current`, `sector_allocations_current`
-- **Weight-based Prioritization**: Strategies selected based on industry weight percentages
-- **Market Conditions**: 9 market states (Bullish/Bearish/Neutral × Low/Normal/High VIX)
-- **Position Sizing**: Capital allocation based on industry weights (₹3 crores total)
-
-### Strategy Selection
-The system intelligently selects strategies based on:
-- Industry allocation weights and position types (LONG/SHORT)
-- Market direction confidence (NIFTY technical analysis)
-- VIX environment (existing Dhan historical data)
-- PCR sentiment (calculated from option_chain_data table)
-- Risk tolerance and probability thresholds
-
-### Exit Management
-Exit conditions are automatically generated for each strategy:
-- Strategy-specific profit targets (25-75% based on strategy type)
-- Risk-appropriate stop losses (50% to 2x based on risk profile)
-- Time-based exit triggers (7-21 DTE depending on strategy)
-- Greek-based adjustments and monitoring alerts
-
-## Dependencies
-```
-pandas>=1.5.0
-numpy>=1.20.0
-python-dotenv>=0.19.0
-pyyaml>=6.0
-dhanhq>=1.3.0
-supabase>=1.0.0
-yfinance>=0.2.0
-tabulate>=0.9.0
-```
-
-## Data Requirements
-- **Database Tables**: Industry/sector allocations, stock mappings, options chain data
-- **API Access**: Dhan trading API credentials, Supabase database access
-- **Market Data**: Real-time options data with Greeks, volume, open interest
-- **Historical Data**: VIX and NIFTY historical data (90 days)
-
-## Performance Metrics
-- **Portfolio Analysis**: 50 symbols in ~18 minutes (vs 5 symbols in 8-12 seconds)
-- **Success Rate**: 68% (34/50 symbols successfully analyzed)
-- **Industry Coverage**: 6 major industries with 12 strategy types
-- **Database Storage**: <5 seconds per symbol for complete strategy storage
-- **Execution Speed**: 4.2 seconds average for multi-leg strategy execution
-
-## Current Status
-✅ **Fully Functional**: All 22+ strategies implemented with lot size integration
-✅ **Industry Allocation**: Complete framework with database-driven allocation
-✅ **Database Integration**: 12+ tables with comprehensive strategy storage
-✅ **Execution Integration**: Dhan API with order management and monitoring
-✅ **Portfolio Scaling**: 50-symbol analysis capability (68% success rate)
-✅ **Documentation**: Complete documentation library with user guides
-
-## Environment Setup
 ```bash
-# Required environment variables in .env file
-SUPABASE_URL=your_supabase_url
-SUPABASE_ANON_KEY=your_supabase_key
-DHAN_CLIENT_ID=your_dhan_client_id
-DHAN_ACCESS_TOKEN=your_dhan_access_token
+# Daily checks
+1. grep -c "ERROR" logs/options_v4_main_$(date +%Y%m%d).log
+2. python check_stored_data.py --today
+3. python execution_status.py --summary
+
+# Weekly maintenance
+1. python import_scrip_master.py
+2. python cleanup_scripts/archive_old_data.py
+3. Review performance metrics in database
 ```
 
-## Quick Start Guide
-```bash
-# 1. Generate strategies (analysis phase)
-python main.py --risk moderate
+### For Development
 
-# 2. Review and mark strategies for execution
-python mark_for_execution.py --interactive
+When modifying the system:
 
-# 3. Execute marked strategies
-python options_v4_executor.py --execute --confirm
+1. **Adding New Strategy**
+   - Inherit from `BaseStrategy`
+   - Add to strategy registry
+   - Update strike selector config
 
-# 4. Monitor execution status
-python execution_status.py
-```
+2. **Modifying Strike Selection**
+   - Update `IntelligentStrikeSelector`
+   - Add strategy config if needed
+   - Test with `test_strike_selection.py`
 
-## Key Scripts & Their Functions
+3. **Database Changes**
+   - Update schema in Supabase
+   - Modify `supabase_integration.py`
+   - Test with sample data first
 
-### **Analysis Scripts**
-- `main.py`: Main portfolio analysis (50 symbols, industry allocation)
-- `test_industry_allocation_system.py`: Framework testing and validation
-
-### **Execution Scripts**
-- `mark_for_execution.py`: Review and select strategies for execution
-- `options_v4_executor.py`: Execute orders via Dhan API
-- `execution_status.py`: Monitor execution status and performance
-
-### **Utility Scripts**
-- `check_stored_data.py`: Validate database storage
-- `demo_trading_queries.py`: Database query examples
-- `import_scrip_master.py`: Import Dhan security mappings
-
-## File Locations
-```bash
-📁 Results & Logs:
-├── results/options_v4_analysis_YYYYMMDD_HHMMSS.json  # Analysis results
-├── results/options_portfolio_allocation_*.json      # Portfolio allocation
-├── logs/options_v4_main_YYYYMMDD.log               # Analysis logs
-└── options_v4_execution.log                        # Execution logs
-
-🗄️ Database Tables:
-├── strategies                   # Main strategy records  
-├── strategy_details            # Individual option legs
-├── strategy_execution_status   # Execution tracking
-└── industry_allocations_current # Industry weights
-```
-
-## Complete Documentation
-- **EXECUTION_WORKFLOW_GUIDE.md**: Complete step-by-step execution guide
-- **INDUSTRY_ALLOCATION_FRAMEWORK.md**: Industry allocation documentation
-- **SYSTEM_OVERVIEW_V4.md**: Comprehensive system architecture
-- **DATABASE_INTEGRATION_SUMMARY.md**: Database schema and integration
-- **DHAN_EXECUTION_GUIDE.md**: Trading execution framework
-
-## Support
-This system provides comprehensive options strategy analysis with industry-first allocation, complete database integration, and direct execution capabilities. The system generates strategies, stores them in database, allows selection for execution, and provides complete monitoring - delivering end-to-end options trading automation.
+Remember: Always test changes with single symbol before full portfolio run!
