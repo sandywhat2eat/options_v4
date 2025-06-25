@@ -11,6 +11,7 @@ from datetime import datetime
 from dotenv import load_dotenv
 from dhanhq import dhanhq
 import json
+import time
 
 # Add current directory to path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -199,6 +200,85 @@ class OptionsV4Executor:
             logger.error(f"Error fetching security ID: {e}")
             return None, None
     
+    def get_order_details(self, order_id):
+        """
+        Fetch order details from Dhan API to get executed price
+        
+        Args:
+            order_id: The order ID to fetch details for
+            
+        Returns:
+            Dictionary with order details or None if failed
+        """
+        try:
+            logger.info(f"Fetching order details for order ID: {order_id}")
+            
+            # Fetch order details from Dhan API
+            order_details = self.dhan.get_order_by_id(order_id)
+            
+            if order_details and order_details.get('status') == 'success':
+                order_data_list = order_details.get('data', [])
+                
+                # Data comes as a list, get the first (and usually only) item
+                if order_data_list and len(order_data_list) > 0:
+                    order_data = order_data_list[0]
+                    
+                    # Extract relevant information
+                    executed_price = order_data.get('averageTradedPrice', 0) or order_data.get('price', 0)
+                    order_status = order_data.get('orderStatus', '')
+                    filled_qty = order_data.get('filledQty', 0)
+                    
+                    logger.info(f"Order {order_id} - Status: {order_status}, Price: {executed_price}, Filled: {filled_qty}")
+                    
+                    return {
+                        'order_id': order_id,
+                        'executed_price': executed_price,
+                        'order_status': order_status,
+                        'filled_quantity': filled_qty,
+                        'full_details': order_data
+                    }
+                else:
+                    logger.warning(f"No order data found in response for {order_id}")
+                    return None
+            else:
+                logger.warning(f"Failed to fetch order details for {order_id}: {order_details}")
+                return None
+                
+        except Exception as e:
+            logger.error(f"Error fetching order details for {order_id}: {e}")
+            return None
+    
+    def update_trade_price(self, order_id, price):
+        """
+        Update the price in trades table for a given order ID
+        
+        Args:
+            order_id: The order ID to update
+            price: The executed price to set
+        """
+        try:
+            if price <= 0:
+                logger.warning(f"Invalid price {price} for order {order_id}, skipping update")
+                return False
+                
+            logger.info(f"Updating trade price for order {order_id} to {price}")
+            
+            # Update trades table with the executed price
+            result = self.db.client.table('trades').update({
+                'price': price
+            }).eq('order_id', order_id).execute()
+            
+            if result.data:
+                logger.info(f"Successfully updated price for order {order_id}")
+                return True
+            else:
+                logger.error(f"Failed to update price for order {order_id}")
+                return False
+                
+        except Exception as e:
+            logger.error(f"Error updating trade price for order {order_id}: {e}")
+            return False
+    
     def execute_strategy_legs(self, strategy):
         """Execute all legs of a strategy"""
         strategy_id = strategy['id']
@@ -264,24 +344,41 @@ class OptionsV4Executor:
                 
                 # Handle response
                 if order_response['status'] == 'success':
-                    # Store trade in database
+                    order_id = order_response['data']['orderId']
+                    
+                    # Store trade in database with initial price as 0
                     self.store_trade(
                         strategy_id=strategy_id,
-                        order_id=order_response['data']['orderId'],
+                        order_id=order_id,
                         security_id=security_id,
                         transaction_type=leg['setup_type'],
                         quantity=quantity,
-                        price=0,  # Market order
+                        price=0,  # Will be updated after fetching order details
                         option_type=leg['option_type'],
                         strategy_name=strategy['strategy_name'],
                         symbol=strategy['stock_name'],
                         strike_price=leg['strike_price']
                     )
                     
+                    # Wait 5 seconds for order to be processed
+                    logger.info(f"Waiting 5 seconds before fetching order details for {order_id}...")
+                    time.sleep(5)
+                    
+                    # Fetch order details to get executed price
+                    order_details = self.get_order_details(order_id)
+                    
+                    if order_details and order_details['executed_price'] > 0:
+                        # Update the trade with actual executed price
+                        self.update_trade_price(order_id, order_details['executed_price'])
+                        logger.info(f"Updated order {order_id} with price {order_details['executed_price']}")
+                    else:
+                        logger.warning(f"Could not fetch executed price for order {order_id}, will need manual update")
+                    
                     all_responses.append({
                         'leg_id': leg['id'],
                         'status': 'success',
-                        'order_id': order_response['data']['orderId']
+                        'order_id': order_id,
+                        'executed_price': order_details.get('executed_price', 0) if order_details else 0
                     })
                     
                 elif 'market closed' in str(order_response.get('remarks', '')).lower():
@@ -425,23 +522,82 @@ class OptionsV4Executor:
         
         return results
 
+    def execute_specific_strategy(self, strategy_id):
+        """Execute a specific strategy by ID"""
+        try:
+            logger.info(f"Fetching strategy {strategy_id} for execution")
+            
+            # Fetch specific strategy
+            result = self.db.client.table('strategies').select(
+                '*, strategy_details(*), strategy_parameters(*)'
+            ).eq('id', strategy_id).execute()
+            
+            if not result.data:
+                logger.error(f"Strategy {strategy_id} not found")
+                return None
+            
+            strategy = result.data[0]
+            logger.info(f"Found strategy: {strategy['stock_name']} - {strategy['strategy_name']}")
+            
+            # Execute the strategy
+            leg_results = self.execute_strategy_legs(strategy)
+            
+            return {
+                'strategy_id': strategy['id'],
+                'symbol': strategy['stock_name'],
+                'strategy_name': strategy['strategy_name'],
+                'legs': leg_results
+            }
+            
+        except Exception as e:
+            logger.error(f"Error executing specific strategy {strategy_id}: {e}")
+            return None
+
 def main():
     """Main execution function"""
+    import argparse
+    
+    parser = argparse.ArgumentParser(description='Options V4 Strategy Executor')
+    parser.add_argument('--execute', action='store_true', 
+                       help='Execute all marked strategies')
+    parser.add_argument('--strategy-id', type=int,
+                       help='Execute specific strategy by ID')
+    
+    args = parser.parse_args()
+    
     try:
         logger.info("Starting Options V4 Strategy Executor")
         executor = OptionsV4Executor()
         
-        # Execute all marked strategies
-        results = executor.execute_all_marked()
-        
-        if results:
-            logger.info("\nExecution completed")
-            for result in results:
-                logger.info(f"\n{result['symbol']} - {result['strategy_name']}:")
+        if args.strategy_id:
+            # Execute specific strategy
+            logger.info(f"Executing specific strategy ID: {args.strategy_id}")
+            result = executor.execute_specific_strategy(args.strategy_id)
+            
+            if result:
+                logger.info(f"\nExecution completed for strategy {args.strategy_id}")
+                logger.info(f"{result['symbol']} - {result['strategy_name']}:")
                 for leg in result['legs']:
                     logger.info(f"  Leg {leg.get('leg_id', 'N/A')}: {leg['status']}")
+                    if 'executed_price' in leg:
+                        logger.info(f"    Executed Price: {leg['executed_price']}")
+            else:
+                logger.error(f"Failed to execute strategy {args.strategy_id}")
+                
+        elif args.execute:
+            # Execute all marked strategies
+            results = executor.execute_all_marked()
+            
+            if results:
+                logger.info("\nExecution completed")
+                for result in results:
+                    logger.info(f"\n{result['symbol']} - {result['strategy_name']}:")
+                    for leg in result['legs']:
+                        logger.info(f"  Leg {leg.get('leg_id', 'N/A')}: {leg['status']}")
+            else:
+                logger.info("No strategies were executed")
         else:
-            logger.info("No strategies were executed")
+            parser.print_help()
             
     except Exception as e:
         logger.error(f"Executor failed: {e}", exc_info=True)
