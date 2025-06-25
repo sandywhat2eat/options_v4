@@ -12,6 +12,11 @@ import argparse
 import json
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional
+from tabulate import tabulate
+from colorama import init, Fore, Back, Style
+
+# Initialize colorama for cross-platform colored output
+init()
 
 # Add current directory to path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -121,7 +126,10 @@ class AutomatedMonitor:
                         'pnl_pct': pnl_data.get('total_pnl_pct', 0),
                         'action': evaluation.get('recommended_action'),
                         'urgency': evaluation.get('urgency'),
-                        'reason': evaluation.get('action_reason')
+                        'reason': evaluation.get('action_reason'),
+                        'days_in_trade': pnl_data.get('days_in_trade', 0),
+                        'entry_value': pnl_data.get('entry_value', 0),
+                        'current_value': pnl_data.get('current_value', 0)
                     }
                     
                     results['details'].append(position_info)
@@ -268,6 +276,220 @@ class AutomatedMonitor:
         except Exception as e:
             logger.error(f"Error saving monitoring results: {e}")
     
+    def get_colored_pnl(self, pnl: float, pnl_pct: float) -> str:
+        """Return colored P&L string"""
+        if pnl > 0:
+            return f"{Fore.GREEN}₹{pnl:,.2f} ({pnl_pct:.2f}%){Style.RESET_ALL}"
+        elif pnl < 0:
+            return f"{Fore.RED}₹{pnl:,.2f} ({pnl_pct:.2f}%){Style.RESET_ALL}"
+        else:
+            return f"₹{pnl:,.2f} ({pnl_pct:.2f}%)"
+    
+    def get_colored_status(self, position_data: Dict, exit_conditions: Dict) -> str:
+        """Get colored status indicator based on proximity to exit levels"""
+        pnl_pct = position_data.get('total_pnl_pct', 0)
+        
+        # Check profit targets
+        profit_targets = exit_conditions.get('profit_targets', {})
+        if 'primary' in profit_targets:
+            target_pct = profit_targets['primary'].get('trigger_value', 50)
+            if pnl_pct >= target_pct * 0.8:  # Within 80% of target
+                return f"{Fore.YELLOW}📈 Near Target{Style.RESET_ALL}"
+        
+        # Check stop losses
+        stop_losses = exit_conditions.get('stop_losses', {})
+        if 'primary' in stop_losses:
+            stop_pct = stop_losses['primary'].get('trigger_value', 50)
+            if pnl_pct <= -(stop_pct * 0.8):  # Within 80% of stop
+                return f"{Fore.RED}⚠️  Near Stop{Style.RESET_ALL}"
+        
+        # Check time exits
+        days_in_trade = position_data.get('days_in_trade', 0)
+        time_exits = exit_conditions.get('time_exits', {})
+        if 'primary' in time_exits:
+            dte_threshold = time_exits['primary'].get('trigger_value', 7)
+            estimated_dte = max(30 - days_in_trade, 0)
+            if estimated_dte <= dte_threshold:
+                return f"{Fore.YELLOW}⏰ Time Exit{Style.RESET_ALL}"
+        
+        return f"{Fore.GREEN}✓ Normal{Style.RESET_ALL}"
+    
+    def display_position_table(self, results: Dict):
+        """Display detailed position table with P&L and status"""
+        if not results.get('details'):
+            return
+        
+        # Clear screen and display header
+        os.system('cls' if os.name == 'nt' else 'clear')
+        
+        print(f"\n{Fore.CYAN}{'=' * 140}{Style.RESET_ALL}")
+        print(f"{Fore.CYAN}AUTOMATED POSITION MONITOR - LIVE STATUS{Style.RESET_ALL}")
+        print(f"{Fore.CYAN}Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}{Style.RESET_ALL}")
+        print(f"{Fore.CYAN}Mode: {'LIVE EXECUTION' if self.execute_exits else 'SIMULATION'}{Style.RESET_ALL}")
+        print(f"{Fore.CYAN}{'=' * 140}{Style.RESET_ALL}\n")
+        
+        # Group positions by strategy for better organization
+        positions_by_strategy = {}
+        for detail in results['details']:
+            strategy = detail.get('strategy', 'Unknown')
+            if strategy not in positions_by_strategy:
+                positions_by_strategy[strategy] = []
+            positions_by_strategy[strategy].append(detail)
+        
+        # Create table data
+        all_table_data = []
+        strategy_summaries = []
+        
+        for strategy_name, positions in positions_by_strategy.items():
+            strategy_pnl = sum(p.get('pnl', 0) for p in positions)
+            strategy_summaries.append({
+                'strategy': strategy_name,
+                'positions': len(positions),
+                'total_pnl': strategy_pnl
+            })
+            
+            for pos in positions:
+                # Get exit conditions for status
+                try:
+                    # Fetch exit conditions for this position
+                    strategy_id = self._get_strategy_id_for_position(pos['symbol'], strategy_name)
+                    exit_conditions = {}
+                    if strategy_id:
+                        exit_cond_result = self.db.client.table('strategy_exit_levels').select(
+                            '*'
+                        ).eq('strategy_id', strategy_id).execute()
+                        
+                        if exit_cond_result.data:
+                            exit_conditions = self._parse_exit_conditions(exit_cond_result.data)
+                    
+                    # Mock position data for status calculation
+                    position_data = {
+                        'total_pnl_pct': pos.get('pnl_pct', 0),
+                        'days_in_trade': 2  # Placeholder - you'd get this from actual data
+                    }
+                    
+                    status = self.get_colored_status(position_data, exit_conditions)
+                except:
+                    status = f"{Fore.GRAY}Unknown{Style.RESET_ALL}"
+                
+                all_table_data.append([
+                    strategy_name,
+                    pos.get('symbol', 'N/A'),
+                    self.get_colored_pnl(pos.get('pnl', 0), pos.get('pnl_pct', 0)),
+                    status,
+                    pos.get('action', 'MONITOR'),
+                    pos.get('urgency', 'NORMAL'),
+                    pos.get('reason', '')[:40]  # Truncate reason
+                ])
+        
+        # Display position table
+        if all_table_data:
+            print(f"{Fore.YELLOW}📊 POSITION DETAILS{Style.RESET_ALL}")
+            print("-" * 140)
+            
+            headers = ['Strategy', 'Symbol', 'Current P&L', 'Status', 'Action', 'Urgency', 'Reason']
+            print(tabulate(all_table_data, headers=headers, tablefmt='grid'))
+        
+        # Display strategy summary
+        if strategy_summaries:
+            print(f"\n{Fore.YELLOW}📈 STRATEGY SUMMARY{Style.RESET_ALL}")
+            print("-" * 80)
+            
+            summary_data = []
+            total_positions = 0
+            total_pnl = 0
+            
+            for summary in strategy_summaries:
+                total_positions += summary['positions']
+                total_pnl += summary['total_pnl']
+                
+                summary_data.append([
+                    summary['strategy'],
+                    summary['positions'],
+                    self.get_colored_pnl(summary['total_pnl'], 0)
+                ])
+            
+            # Add total row
+            summary_data.append([
+                f"{Fore.CYAN}TOTAL{Style.RESET_ALL}",
+                total_positions,
+                self.get_colored_pnl(total_pnl, 0)
+            ])
+            
+            headers = ['Strategy', 'Positions', 'Total P&L']
+            print(tabulate(summary_data, headers=headers, tablefmt='grid'))
+        
+        # Display alerts if any
+        high_alerts = [d for d in results['details'] if d.get('urgency') == 'HIGH']
+        medium_alerts = [d for d in results['details'] if d.get('urgency') == 'MEDIUM']
+        
+        if high_alerts or medium_alerts:
+            print(f"\n{Fore.YELLOW}⚠️  ALERTS{Style.RESET_ALL}")
+            print("-" * 80)
+            
+            if high_alerts:
+                print(f"\n{Back.RED}{Fore.WHITE} HIGH PRIORITY {Style.RESET_ALL}")
+                for alert in high_alerts:
+                    print(f"  🚨 {alert['symbol']} - {alert['strategy']}: {alert['action']}")
+                    print(f"     Reason: {alert['reason']}")
+            
+            if medium_alerts:
+                print(f"\n{Back.YELLOW}{Fore.BLACK} MEDIUM PRIORITY {Style.RESET_ALL}")
+                for alert in medium_alerts:
+                    print(f"  ⚡ {alert['symbol']} - {alert['strategy']}: {alert['action']}")
+                    print(f"     Reason: {alert['reason']}")
+        
+        # Display summary statistics
+        print(f"\n{Fore.YELLOW}📊 CYCLE SUMMARY{Style.RESET_ALL}")
+        print("-" * 60)
+        print(f"Total Positions: {results.get('positions_monitored', 0)}")
+        print(f"Alerts Generated: {results.get('alerts_generated', 0)}")
+        print(f"Exits Executed: {results.get('exits_executed', 0)}")
+        
+        profitable = sum(1 for d in results['details'] if d.get('pnl', 0) > 0)
+        losing = sum(1 for d in results['details'] if d.get('pnl', 0) < 0)
+        
+        if results.get('positions_monitored', 0) > 0:
+            print(f"Profitable: {Fore.GREEN}{profitable} ({profitable/results['positions_monitored']*100:.1f}%){Style.RESET_ALL}")
+            print(f"Losing: {Fore.RED}{losing} ({losing/results['positions_monitored']*100:.1f}%){Style.RESET_ALL}")
+    
+    def _get_strategy_id_for_position(self, symbol: str, strategy_name: str) -> Optional[int]:
+        """Helper to get strategy ID for a position"""
+        try:
+            # This is a simplified lookup - you might need to enhance based on your schema
+            result = self.db.client.table('strategies').select('id').eq(
+                'stock_name', symbol
+            ).eq('strategy_name', strategy_name).order(
+                'created_at'
+            ).limit(1).execute()
+            
+            if result.data:
+                return result.data[0]['id']
+        except:
+            pass
+        return None
+    
+    def _parse_exit_conditions(self, exit_data: List[Dict]) -> Dict:
+        """Parse exit conditions from database format"""
+        conditions = {
+            'profit_targets': {},
+            'stop_losses': {},
+            'time_exits': {}
+        }
+        
+        for item in exit_data:
+            level_type = item.get('level_type', '')
+            if 'profit' in level_type.lower():
+                conditions['profit_targets']['primary'] = {
+                    'trigger_value': item.get('profit_percentage', 50)
+                }
+            elif 'stop' in level_type.lower():
+                conditions['stop_losses']['primary'] = {
+                    'trigger_value': item.get('stop_percentage', 50)
+                }
+        
+        return conditions
+    
     def run_continuous(self, interval_minutes: int = 5, max_cycles: Optional[int] = None):
         """
         Run continuous monitoring
@@ -295,14 +517,13 @@ class AutomatedMonitor:
                 
                 cycles_run += 1
                 
-                # Display summary
-                print(f"\n📊 Cycle {cycles_run} Summary:")
-                print(f"   Positions: {results.get('positions_monitored', 0)}")
-                print(f"   Alerts: {results.get('alerts_generated', 0)}")
-                print(f"   Exits: {results.get('exits_executed', 0)}")
+                # Display detailed position table instead of simple summary
+                self.display_position_table(results)
                 
                 if results.get('errors'):
-                    print(f"   ⚠️  Errors: {len(results['errors'])}")
+                    print(f"\n⚠️  Errors encountered: {len(results['errors'])}")
+                    for error in results['errors'][:3]:  # Show first 3 errors
+                        print(f"   - {error.get('position', 'Unknown')}: {error.get('error', 'Unknown error')}")
                 
                 # Sleep until next cycle
                 if max_cycles is None or cycles_run < max_cycles:
@@ -345,8 +566,8 @@ def main():
             # Run single cycle
             results = monitor.run_monitoring_cycle()
             
-            print("\n📊 Monitoring Results:")
-            print(json.dumps(results, indent=2))
+            # Display the position table for single runs too
+            monitor.display_position_table(results)
         else:
             # Run continuous monitoring
             monitor.run_continuous(
