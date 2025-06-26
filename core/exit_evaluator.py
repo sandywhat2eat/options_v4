@@ -238,39 +238,59 @@ class ExitEvaluator:
                 'urgency': 'NORMAL'
             }
             
+            # Get actual DTE from position data
+            actual_dte = position_data.get('actual_dte')
+            
+            # If no actual DTE, try to estimate from days in trade (fallback)
+            if actual_dte is None:
+                # Use the old estimation method as fallback
+                estimated_dte = max(30 - days_in_trade, 0)
+                self.logger.warning(f"No actual DTE available, using estimated: {estimated_dte}")
+                actual_dte = estimated_dte
+            
             # Check primary DTE exit
             if 'primary' in time_exits:
                 primary = time_exits['primary']
                 dte_threshold = primary.get('trigger_value', 7)
                 
-                # Assuming monthly expiry (~30 days), calculate remaining DTE
-                estimated_dte = max(30 - days_in_trade, 0)
-                
-                if estimated_dte <= dte_threshold:
+                if actual_dte <= dte_threshold:
                     results['triggered'] = True
                     results['action'] = primary.get('action', 'CLOSE_POSITION')
-                    results['urgency'] = 'MEDIUM' if estimated_dte > 3 else 'HIGH'
+                    results['urgency'] = 'HIGH' if actual_dte <= 1 else 'MEDIUM'
                     results['details'].append(
-                        f"Time exit triggered: Estimated {estimated_dte} DTE <= {dte_threshold} DTE threshold"
+                        f"Time exit triggered: {actual_dte} DTE <= {dte_threshold} DTE threshold"
                     )
+                    
+                    # Extra urgent if expiring tomorrow or today
+                    if actual_dte <= 1:
+                        results['urgency'] = 'HIGH'
+                        results['action'] = 'CLOSE_IMMEDIATELY'
+                        results['details'].append(f"⚠️ URGENT: Option expires in {actual_dte} days!")
             
             # Check theta decay threshold
             if 'theta_decay_threshold' in time_exits:
                 theta_exit = time_exits['theta_decay_threshold']
                 dte_threshold = theta_exit.get('dte', 7)
-                estimated_dte = max(30 - days_in_trade, 0)
                 
-                if estimated_dte <= dte_threshold and position_data.get('total_pnl', 0) <= 0:
+                if actual_dte <= dte_threshold and position_data.get('total_pnl', 0) <= 0:
                     results['triggered'] = True
                     results['action'] = theta_exit.get('action', 'CLOSE_POSITION')
-                    results['urgency'] = 'MEDIUM'
+                    results['urgency'] = 'HIGH' if actual_dte <= 1 else 'MEDIUM'
                     results['details'].append(
-                        f"Theta decay exit: Position unprofitable with {estimated_dte} DTE"
+                        f"Theta decay exit: Position unprofitable with {actual_dte} DTE"
                     )
             
+            # Special handling for expiry day/tomorrow
+            if actual_dte <= 1:
+                if not results['triggered']:
+                    results['triggered'] = True
+                    results['action'] = 'CLOSE_IMMEDIATELY'
+                    results['urgency'] = 'HIGH'
+                    results['details'].append(f"⚠️ EMERGENCY: Option expires in {actual_dte} days - must exit!")
+            
             # General time warnings
-            if days_in_trade > 21:
-                results['details'].append(f"Position open for {days_in_trade} days - consider reviewing")
+            elif actual_dte <= 3:
+                results['details'].append(f"⚠️ Position expires in {actual_dte} days - monitor closely")
             
             return results
             

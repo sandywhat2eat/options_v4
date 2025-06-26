@@ -227,27 +227,19 @@ class ExitExecutor:
         try:
             # Prepare order parameters
             order_params = {
-                'transaction_type': dhanhq.BUY if action == 'BUY' else dhanhq.SELL,
-                'exchange_segment': dhanhq.NSE_FNO,
-                'product_type': dhanhq.MARGIN,  # or INTRADAY based on position
-                'order_type': dhanhq.MARKET,  # Market order for immediate exit
-                'validity': dhanhq.DAY,
-                'security_id': str(security_id),
+                'security_id': security_id,
+                'exchange_segment': 'NSE_FNO',
+                'transaction_type': action,  # 'BUY' or 'SELL'
                 'quantity': quantity,
-                'disclosed_quantity': 0,
-                'price': 0,  # Market order
+                'order_type': 'MARKET',
+                'product_type': 'MARGIN',
+                'price': 0,
                 'trigger_price': 0,
-                'after_market_order': False,
-                'amo_time': 'OPEN',
-                'bo_profit_value': 0,
-                'bo_stop_loss_value': 0,
-                'drv_expiry_date': None,  # Will be set based on position
-                'drv_options_type': 'CE' if option_type == 'CE' else 'PE',
-                'drv_strike_price': strike
+                'validity': 'DAY'
             }
             
             # Place order
-            response = self.dhan.place_order(order_params)
+            response = self.dhan.place_order(**order_params)
             
             if response and response.get('status') == 'success':
                 order_id = response.get('data', {}).get('orderId')
@@ -294,7 +286,7 @@ class ExitExecutor:
             }
             
             self.db.client.table('trades').update(update_data).eq(
-                'id', trade_id
+                'new_id', trade_id
             ).execute()
             
             self.logger.info(f"Updated trade {trade_id} with exit details")

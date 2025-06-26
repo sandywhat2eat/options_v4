@@ -94,14 +94,15 @@ class PositionMonitor:
                 
                 # Add leg details
                 leg = {
-                    'trade_id': trade.get('id'),
+                    'trade_id': trade.get('new_id'),
                     'security_id': trade.get('security_id'),
                     'action': trade.get('action'),  # BUY/SELL
                     'type': trade.get('type'),      # CE/PE
                     'strike_price': trade.get('strike_price'),
                     'quantity': trade.get('quantity', 0),
                     'entry_price': trade.get('price', 0),
-                    'order_id': trade.get('order_id')
+                    'order_id': trade.get('order_id'),
+                    'expiry_date': trade.get('expiry_date')
                 }
                 
                 positions[strategy_id]['legs'].append(leg)
@@ -186,6 +187,23 @@ class PositionMonitor:
             if position.get('entry_time'):
                 entry_date = datetime.fromisoformat(position['entry_time'].replace('Z', '+00:00'))
                 pnl_details['days_in_trade'] = (datetime.now() - entry_date.replace(tzinfo=None)).days
+            
+            # Calculate actual DTE from expiry date
+            expiry_dates = []
+            for leg in position['legs']:
+                if leg.get('expiry_date'):
+                    expiry_dates.append(leg['expiry_date'])
+            
+            if expiry_dates:
+                # Use the earliest expiry date if multiple legs
+                earliest_expiry = min(expiry_dates)
+                expiry_dt = datetime.strptime(earliest_expiry, '%Y-%m-%d')
+                actual_dte = (expiry_dt - datetime.now()).days
+                pnl_details['actual_dte'] = max(actual_dte, 0)  # Don't go negative
+                pnl_details['expiry_date'] = earliest_expiry
+            else:
+                pnl_details['actual_dte'] = None
+                pnl_details['expiry_date'] = None
             
             # Calculate P&L for each leg
             total_current_value = 0

@@ -13,5 +13,13 @@ python-dotenv>=0.19.0
 # Database connectivity (required for production)
 supabase>=2.0.0
 
+# Real-time WebSocket dependencies (for live trading)
+websockets>=11.0.2
+redis>=4.5.0
+asyncio-mqtt>=0.13.0
+
+# Performance enhancements for async operations
+uvloop>=0.17.0
+
 # Note: The system is designed to work without optional dependencies
 # Missing dependencies will trigger graceful fallbacks

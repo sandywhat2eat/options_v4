@@ -279,6 +279,21 @@ class SupabaseIntegration:
                 self.logger.info(f"Strategy {strategy_data['name']} for {symbol} already exists for today, skipping insert")
                 return existing_check.data[0]['id']
             
+            # Fetch sector and industry from stock_data table
+            sector = None
+            industry = None
+            try:
+                stock_data_result = self.client.table('stock_data').select('sector,industry').eq('symbol', symbol).execute()
+                if stock_data_result.data and len(stock_data_result.data) > 0:
+                    sector = stock_data_result.data[0].get('sector')
+                    industry = stock_data_result.data[0].get('industry')
+                    self.logger.debug(f"Found sector: {sector}, industry: {industry} for symbol: {symbol}")
+                else:
+                    self.logger.warning(f"No sector/industry data found for symbol: {symbol}")
+            except Exception as e:
+                self.logger.warning(f"Error fetching sector/industry for {symbol}: {e}")
+                # Continue with None values
+            
             # Map confidence to conviction level
             confidence = market_analysis.get('confidence', 0.5)
             conviction_level = self._map_conviction_level(confidence)
@@ -320,7 +335,10 @@ class SupabaseIntegration:
                 'analysis_timestamp': datetime.now().isoformat(),
                 'market_sub_category': market_analysis.get('sub_category', ''),
                 'component_scores': json.dumps(self._clean_data(strategy_data.get('component_scores', {}))),
-                'optimal_outcome': strategy_data.get('optimal_outcome', '')
+                'optimal_outcome': strategy_data.get('optimal_outcome', ''),
+                # Sector and industry fields fetched from stock_data table
+                'sector': sector,
+                'industry': industry
             }
             
             # Insert and get ID

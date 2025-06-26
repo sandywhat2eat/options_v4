@@ -1,0 +1,64 @@
+# Market Cap Allocation Configuration
+# Defines how capital is allocated across market caps based on market conditions
+
+market_cap_allocation:
+  strong_bullish:  # Direction score > 0.75
+    large_cap: 20
+    mid_cap: 25
+    small_cap: 30
+    micro_cap: 25
+    
+  moderate_bullish:  # Direction score 0.5 to 0.75
+    large_cap: 30
+    mid_cap: 30
+    small_cap: 25
+    micro_cap: 15
+    
+  weak_bullish:  # Direction score 0.25 to 0.5
+    large_cap: 40
+    mid_cap: 30
+    small_cap: 20
+    micro_cap: 10
+    
+  neutral:  # Direction score -0.25 to 0.25
+    large_cap: 45
+    mid_cap: 30
+    small_cap: 20
+    micro_cap: 5
+    
+  weak_bearish:  # Direction score -0.5 to -0.25
+    large_cap: 55
+    mid_cap: 25
+    small_cap: 15
+    micro_cap: 5
+    
+  moderate_bearish:  # Direction score -0.75 to -0.5
+    large_cap: 65
+    mid_cap: 20
+    small_cap: 10
+    micro_cap: 5
+    
+  strong_bearish:  # Direction score < -0.75
+    large_cap: 75
+    mid_cap: 15
+    small_cap: 10
+    micro_cap: 0
+
+# Long/Short ratio based on market direction
+long_short_ratio:
+  strong_bullish: [80, 20]
+  moderate_bullish: [70, 30]
+  weak_bullish: [60, 40]
+  neutral: [50, 50]
+  weak_bearish: [40, 60]
+  moderate_bearish: [30, 70]
+  strong_bearish: [20, 80]
+
+# Direction score thresholds
+direction_thresholds:
+  strong_bullish: 0.75
+  moderate_bullish: 0.5
+  weak_bullish: 0.25
+  neutral: -0.25
+  weak_bearish: -0.5
+  moderate_bearish: -0.75

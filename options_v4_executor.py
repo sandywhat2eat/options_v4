@@ -80,18 +80,28 @@ class OptionsV4Executor:
             return []
     
     def get_next_expiry_date(self, base_date=None):
-        """Get the next monthly expiry (last Thursday of current/next month)"""
+        """Get the next monthly expiry (last Thursday of current/next month) - Legacy method"""
+        return self.get_smart_expiry_date(base_date, use_legacy_logic=True)
+    
+    def get_smart_expiry_date(self, base_date=None, cutoff_day=20, use_legacy_logic=False):
+        """
+        Get expiry date using smart 20th date cutoff logic
+        
+        Args:
+            base_date: Base date for calculation (default: now)
+            cutoff_day: Cutoff day of month (default: 20)
+            use_legacy_logic: Use old logic for backward compatibility
+        
+        Returns:
+            datetime: Expiry date (last Thursday of target month)
+        """
         import calendar
         from datetime import datetime
         
         if base_date is None:
             base_date = datetime.now()
         
-        # Start with current month
-        year = base_date.year
-        month = base_date.month
-        
-        # Get last Thursday of the month
+        # Helper function to get last Thursday of a month
         def get_last_thursday(year, month):
             # Get last day of month
             last_day = calendar.monthrange(year, month)[1]
@@ -101,18 +111,57 @@ class OptionsV4Executor:
                     return datetime(year, month, day)
             return None
         
-        current_expiry = get_last_thursday(year, month)
-        
-        # If current month's expiry has passed, use next month
-        if current_expiry and current_expiry.date() <= base_date.date():
-            if month == 12:
-                month = 1
-                year += 1
-            else:
-                month += 1
+        # Legacy logic (original behavior)
+        if use_legacy_logic:
+            year = base_date.year
+            month = base_date.month
             current_expiry = get_last_thursday(year, month)
+            
+            # If current month's expiry has passed, use next month
+            if current_expiry and current_expiry.date() <= base_date.date():
+                if month == 12:
+                    month = 1
+                    year += 1
+                else:
+                    month += 1
+                current_expiry = get_last_thursday(year, month)
+            
+            return current_expiry
         
-        return current_expiry
+        # Smart logic: Use 20th date cutoff
+        current_day = base_date.day
+        
+        # If before cutoff day of month: try current month expiry
+        if current_day <= cutoff_day:
+            target_month = base_date.month
+            target_year = base_date.year
+            
+            # Check if current month's expiry is still valid (hasn't passed)
+            current_month_expiry = get_last_thursday(target_year, target_month)
+            if current_month_expiry and current_month_expiry.date() > base_date.date():
+                logger.info(f"Using current month expiry (day {current_day} <= cutoff {cutoff_day}): {current_month_expiry.strftime('%Y-%m-%d')}")
+                return current_month_expiry
+            else:
+                # Current month expiry has passed, use next month
+                logger.info(f"Current month expiry has passed, using next month")
+                if target_month == 12:
+                    target_month = 1
+                    target_year += 1
+                else:
+                    target_month += 1
+        else:
+            # After cutoff day: use next month expiry
+            logger.info(f"Using next month expiry (day {current_day} > cutoff {cutoff_day})")
+            if base_date.month == 12:
+                target_month = 1
+                target_year = base_date.year + 1
+            else:
+                target_month = base_date.month + 1
+                target_year = base_date.year
+        
+        target_expiry = get_last_thursday(target_year, target_month)
+        logger.info(f"Selected expiry date: {target_expiry.strftime('%Y-%m-%d')}")
+        return target_expiry
     
     def get_option_symbol(self, base_symbol, expiry_date, strike_price, option_type):
         """
@@ -138,9 +187,9 @@ class OptionsV4Executor:
     def get_security_id(self, symbol, option_type, strike_price, expiry_date=None):
         """Map strategy details to Dhan security ID using proven logic"""
         try:
-            # Use next expiry if not provided
+            # Use smart expiry if not provided
             if expiry_date is None:
-                expiry_date = self.get_next_expiry_date()
+                expiry_date = self.get_smart_expiry_date()
             
             # Construct the option symbol
             option_symbol = self.get_option_symbol(symbol, expiry_date, strike_price, option_type)
@@ -230,11 +279,15 @@ class OptionsV4Executor:
                     
                     logger.info(f"Order {order_id} - Status: {order_status}, Price: {executed_price}, Filled: {filled_qty}")
                     
+                    # Extract expiry date
+                    expiry_date = order_data.get('drvExpiryDate', None)
+                    
                     return {
                         'order_id': order_id,
                         'executed_price': executed_price,
                         'order_status': order_status,
                         'filled_quantity': filled_qty,
+                        'expiry_date': expiry_date,
                         'full_details': order_data
                     }
                 else:
@@ -248,35 +301,43 @@ class OptionsV4Executor:
             logger.error(f"Error fetching order details for {order_id}: {e}")
             return None
     
-    def update_trade_price(self, order_id, price):
+    def update_trade_details(self, order_id, price, expiry_date=None):
         """
-        Update the price in trades table for a given order ID
+        Update the price and expiry date in trades table for a given order ID
         
         Args:
             order_id: The order ID to update
             price: The executed price to set
+            expiry_date: The expiry date of the option
         """
         try:
             if price <= 0:
-                logger.warning(f"Invalid price {price} for order {order_id}, skipping update")
-                return False
+                logger.warning(f"Invalid price {price} for order {order_id}, skipping price update")
+                # Still update expiry date if available
+                if not expiry_date:
+                    return False
                 
-            logger.info(f"Updating trade price for order {order_id} to {price}")
+            logger.info(f"Updating trade details for order {order_id} - Price: {price}, Expiry: {expiry_date}")
             
-            # Update trades table with the executed price
-            result = self.db.client.table('trades').update({
-                'price': price
-            }).eq('order_id', order_id).execute()
+            # Build update data
+            update_data = {}
+            if price > 0:
+                update_data['price'] = price
+            if expiry_date:
+                update_data['expiry_date'] = expiry_date
+            
+            # Update trades table
+            result = self.db.client.table('trades').update(update_data).eq('order_id', order_id).execute()
             
             if result.data:
-                logger.info(f"Successfully updated price for order {order_id}")
+                logger.info(f"Successfully updated details for order {order_id}")
                 return True
             else:
-                logger.error(f"Failed to update price for order {order_id}")
+                logger.error(f"Failed to update details for order {order_id}")
                 return False
                 
         except Exception as e:
-            logger.error(f"Error updating trade price for order {order_id}: {e}")
+            logger.error(f"Error updating trade details for order {order_id}: {e}")
             return False
     
     def execute_strategy_legs(self, strategy):
@@ -367,12 +428,16 @@ class OptionsV4Executor:
                     # Fetch order details to get executed price
                     order_details = self.get_order_details(order_id)
                     
-                    if order_details and order_details['executed_price'] > 0:
-                        # Update the trade with actual executed price
-                        self.update_trade_price(order_id, order_details['executed_price'])
-                        logger.info(f"Updated order {order_id} with price {order_details['executed_price']}")
+                    if order_details:
+                        # Update the trade with actual executed price and expiry date
+                        self.update_trade_details(
+                            order_id, 
+                            order_details.get('executed_price', 0),
+                            order_details.get('expiry_date')
+                        )
+                        logger.info(f"Updated order {order_id} with price {order_details.get('executed_price')} and expiry {order_details.get('expiry_date')}")
                     else:
-                        logger.warning(f"Could not fetch executed price for order {order_id}, will need manual update")
+                        logger.warning(f"Could not fetch order details for {order_id}, will need manual update")
                     
                     all_responses.append({
                         'leg_id': leg['id'],
@@ -434,7 +499,8 @@ class OptionsV4Executor:
                 'timestamp': datetime.now().isoformat(),
                 'product_type': 'MARGIN',
                 'order_type': 'MARKET',
-                'account_id': '1100526168'
+                'account_id': '1100526168',
+                'expiry_date': None  # Will be updated after fetching order details
             }
             
             result = self.db.client.table('trades').insert(trade_data).execute()

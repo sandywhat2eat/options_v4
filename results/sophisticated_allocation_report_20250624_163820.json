@@ -1,0 +1,156 @@
+{
+  "timestamp": "2025-06-24T16:38:17.036447",
+  "portfolio_metrics": {
+    "total_strategies": 20,
+    "total_allocation_percent": 100.0,
+    "total_capital_allocated": 10000000.0,
+    "expected_annual_return": 40.79,
+    "portfolio_volatility": 20.0,
+    "sharpe_ratio": 1.739,
+    "portfolio_greeks": {
+      "delta": 0.1,
+      "gamma": 0.05,
+      "theta": 1.5,
+      "vega": -0.5
+    }
+  },
+  "allocation_by_industry": {
+    "Oil Refining/Marketing": {
+      "allocation_percent": 45.0,
+      "strategy_count": 9
+    },
+    "Motor Vehicles": {
+      "allocation_percent": 25.0,
+      "strategy_count": 5
+    },
+    "Banking": {
+      "allocation_percent": 10.0,
+      "strategy_count": 2
+    },
+    "Packaged Software": {
+      "allocation_percent": 20.0,
+      "strategy_count": 4
+    }
+  },
+  "allocation_by_strategy_type": {
+    "Volatility": {
+      "allocation_percent": 35.0,
+      "strategy_count": 7
+    },
+    "Income": {
+      "allocation_percent": 45.0,
+      "strategy_count": 9
+    },
+    "Neutral": {
+      "allocation_percent": 5.0,
+      "strategy_count": 1
+    },
+    "Directional": {
+      "allocation_percent": 15.0,
+      "strategy_count": 3
+    }
+  },
+  "allocation_by_risk_profile": {
+    "Moderate": {
+      "allocation_percent": 65.0,
+      "strategy_count": 13
+    },
+    "Conservative": {
+      "allocation_percent": 30.0,
+      "strategy_count": 6
+    },
+    "Aggressive": {
+      "allocation_percent": 5.0,
+      "strategy_count": 1
+    }
+  },
+  "top_strategies": [
+    {
+      "stock_name": "RELIANCE",
+      "strategy_name": "Iron Condor",
+      "allocation_percent": 5.0,
+      "capital_amount": 500000.0,
+      "quantum_score": 89.8,
+      "kelly_percent": 25.0
+    },
+    {
+      "stock_name": "RELIANCE",
+      "strategy_name": "Iron Condor",
+      "allocation_percent": 5.0,
+      "capital_amount": 500000.0,
+      "quantum_score": 86.9,
+      "kelly_percent": 25.0
+    },
+    {
+      "stock_name": "TATAMOTORS",
+      "strategy_name": "Iron Condor",
+      "allocation_percent": 5.0,
+      "capital_amount": 500000.0,
+      "quantum_score": 86.0,
+      "kelly_percent": 25.0
+    },
+    {
+      "stock_name": "OIL",
+      "strategy_name": "Iron Condor",
+      "allocation_percent": 5.0,
+      "capital_amount": 500000.0,
+      "quantum_score": 83.7,
+      "kelly_percent": 25.0
+    },
+    {
+      "stock_name": "ICICIBANK",
+      "strategy_name": "Calendar Spread",
+      "allocation_percent": 5.0,
+      "capital_amount": 500000.0,
+      "quantum_score": 80.3,
+      "kelly_percent": 25.0
+    },
+    {
+      "stock_name": "BPCL",
+      "strategy_name": "Calendar Spread",
+      "allocation_percent": 5.0,
+      "capital_amount": 500000.0,
+      "quantum_score": 79.2,
+      "kelly_percent": 25.0
+    },
+    {
+      "stock_name": "INFY",
+      "strategy_name": "Calendar Spread",
+      "allocation_percent": 5.0,
+      "capital_amount": 500000.0,
+      "quantum_score": 79.0,
+      "kelly_percent": 25.0
+    },
+    {
+      "stock_name": "TATAMOTORS",
+      "strategy_name": "Calendar Spread",
+      "allocation_percent": 5.0,
+      "capital_amount": 500000.0,
+      "quantum_score": 73.0,
+      "kelly_percent": 21.1
+    },
+    {
+      "stock_name": "MARUTI",
+      "strategy_name": "Cash-Secured Put",
+      "allocation_percent": 5.0,
+      "capital_amount": 500000.0,
+      "quantum_score": 83.4,
+      "kelly_percent": 25.0
+    },
+    {
+      "stock_name": "MARUTI",
+      "strategy_name": "Cash-Secured Put",
+      "allocation_percent": 5.0,
+      "capital_amount": 500000.0,
+      "quantum_score": 83.3,
+      "kelly_percent": 25.0
+    }
+  ],
+  "market_environment": {
+    "vix_level": 14.05,
+    "vix_percentile": 20.33898305084746,
+    "vix_environment": "unknown",
+    "source": "dhan_api"
+  },
+  "database_updated": false
+}

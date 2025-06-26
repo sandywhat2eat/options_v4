@@ -179,7 +179,10 @@ class TechnicalAnalyzer:
             
             # Volume trend
             volume_sma = df['Volume'].rolling(window=5).mean()
-            volume_trend = "Increasing" if volume_sma.iloc[-1] > volume_sma.iloc[-5] else "Decreasing"
+            if len(volume_sma) >= 5:
+                volume_trend = "Increasing" if volume_sma.iloc[-1] > volume_sma.iloc[-5] else "Decreasing"
+            else:
+                volume_trend = "Neutral"
             
             return {
                 'current_volume': current_volume,

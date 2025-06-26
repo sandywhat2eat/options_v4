@@ -1,0 +1,301 @@
+2025-06-24 10:17:09,053 - SophisticatedAllocator - INFO - Sophisticated Portfolio Allocator Runner initialized
+2025-06-24 10:17:09,053 - SophisticatedAllocator - INFO - ============================================================
+2025-06-24 10:17:09,053 - SophisticatedAllocator - INFO - SOPHISTICATED OPTIONS PORTFOLIO ALLOCATOR
+2025-06-24 10:17:09,053 - SophisticatedAllocator - INFO - ============================================================
+2025-06-24 10:17:09,062 - SophisticatedAllocator - INFO - Allocation report saved to: results/sophisticated_allocation_report_20250624_101709.json
+2025-06-24 10:17:09,062 - SophisticatedAllocator - INFO - Allocation completed successfully:
+2025-06-24 10:17:09,062 - SophisticatedAllocator - INFO -   • Strategies: 20
+2025-06-24 10:17:09,062 - SophisticatedAllocator - INFO -   • Capital Allocated: 100.0%
+2025-06-24 10:17:09,062 - SophisticatedAllocator - INFO -   • Expected Return: 49.5%
+2025-06-24 10:17:09,062 - SophisticatedAllocator - INFO -   • Sharpe Ratio: 2.17
+2025-06-24 10:17:09,062 - SophisticatedAllocator - INFO -   • Execution Time: 0.0 seconds
+2025-06-24 10:17:34,633 - SophisticatedAllocator - INFO - Sophisticated Portfolio Allocator Runner initialized
+2025-06-24 10:17:34,633 - SophisticatedAllocator - INFO - ============================================================
+2025-06-24 10:17:34,633 - SophisticatedAllocator - INFO - SOPHISTICATED OPTIONS PORTFOLIO ALLOCATOR
+2025-06-24 10:17:34,633 - SophisticatedAllocator - INFO - ============================================================
+2025-06-24 10:17:34,640 - SophisticatedAllocator - INFO - Allocation report saved to: results/sophisticated_allocation_report_20250624_101734.json
+2025-06-24 10:17:34,640 - SophisticatedAllocator - INFO - Allocation completed successfully:
+2025-06-24 10:17:34,640 - SophisticatedAllocator - INFO -   • Strategies: 20
+2025-06-24 10:17:34,640 - SophisticatedAllocator - INFO -   • Capital Allocated: 100.0%
+2025-06-24 10:17:34,640 - SophisticatedAllocator - INFO -   • Expected Return: 49.5%
+2025-06-24 10:17:34,640 - SophisticatedAllocator - INFO -   • Sharpe Ratio: 2.17
+2025-06-24 10:17:34,640 - SophisticatedAllocator - INFO -   • Execution Time: 0.0 seconds
+2025-06-24 10:18:06,448 - SophisticatedAllocator - INFO - Supabase client initialized successfully
+2025-06-24 10:18:06,448 - SophisticatedAllocator - INFO - Database integration enabled
+2025-06-24 10:18:06,452 - SophisticatedAllocator - INFO - Sophisticated Portfolio Allocator Runner initialized
+2025-06-24 10:18:06,452 - SophisticatedAllocator - INFO - ============================================================
+2025-06-24 10:18:06,452 - SophisticatedAllocator - INFO - SOPHISTICATED OPTIONS PORTFOLIO ALLOCATOR
+2025-06-24 10:18:06,452 - SophisticatedAllocator - INFO - ============================================================
+2025-06-24 10:18:06,452 - SophisticatedAllocator - INFO - Market environment: VIX 13.67, Percentile: 11.86
+2025-06-24 10:18:06,452 - SophisticatedAllocator - ERROR - Error loading strategies from database: 'SupabaseIntegration' object has no attribute 'supabase'
+2025-06-24 10:18:06,452 - SophisticatedAllocator - WARNING - Using mock data due to database issues
+2025-06-24 10:18:06,459 - SophisticatedAllocator - ERROR - Error updating database with allocations: 'SupabaseIntegration' object has no attribute 'supabase'
+2025-06-24 10:18:06,460 - SophisticatedAllocator - INFO - Allocation report saved to: results/sophisticated_allocation_report_20250624_101806.json
+2025-06-24 10:18:06,460 - SophisticatedAllocator - INFO - Allocation completed successfully:
+2025-06-24 10:18:06,460 - SophisticatedAllocator - INFO -   • Strategies: 20
+2025-06-24 10:18:06,460 - SophisticatedAllocator - INFO -   • Capital Allocated: 100.0%
+2025-06-24 10:18:06,460 - SophisticatedAllocator - INFO -   • Expected Return: 49.5%
+2025-06-24 10:18:06,460 - SophisticatedAllocator - INFO -   • Sharpe Ratio: 2.17
+2025-06-24 10:18:06,460 - SophisticatedAllocator - INFO -   • Execution Time: 0.0 seconds
+2025-06-24 10:18:26,091 - SophisticatedAllocator - INFO - Supabase client initialized successfully
+2025-06-24 10:18:26,092 - SophisticatedAllocator - INFO - Database integration enabled
+2025-06-24 10:18:26,096 - SophisticatedAllocator - INFO - Sophisticated Portfolio Allocator Runner initialized
+2025-06-24 10:18:26,096 - SophisticatedAllocator - INFO - ============================================================
+2025-06-24 10:18:26,096 - SophisticatedAllocator - INFO - SOPHISTICATED OPTIONS PORTFOLIO ALLOCATOR
+2025-06-24 10:18:26,096 - SophisticatedAllocator - INFO - ============================================================
+2025-06-24 10:18:26,096 - SophisticatedAllocator - INFO - Market environment: VIX 13.67, Percentile: 11.86
+2025-06-24 10:18:26,096 - SophisticatedAllocator - ERROR - Error loading strategies from database: 'SupabaseIntegration' object has no attribute 'supabase'
+2025-06-24 10:18:26,096 - SophisticatedAllocator - WARNING - Using mock data due to database issues
+2025-06-24 10:18:26,103 - SophisticatedAllocator - ERROR - Error updating database with allocations: 'SupabaseIntegration' object has no attribute 'supabase'
+2025-06-24 10:18:26,103 - SophisticatedAllocator - INFO - Allocation report saved to: results/sophisticated_allocation_report_20250624_101826.json
+2025-06-24 10:18:26,103 - SophisticatedAllocator - INFO - Allocation completed successfully:
+2025-06-24 10:18:26,103 - SophisticatedAllocator - INFO -   • Strategies: 20
+2025-06-24 10:18:26,103 - SophisticatedAllocator - INFO -   • Capital Allocated: 100.0%
+2025-06-24 10:18:26,103 - SophisticatedAllocator - INFO -   • Expected Return: 49.5%
+2025-06-24 10:18:26,103 - SophisticatedAllocator - INFO -   • Sharpe Ratio: 2.17
+2025-06-24 10:18:26,103 - SophisticatedAllocator - INFO -   • Execution Time: 0.0 seconds
+2025-06-24 10:19:35,789 - SophisticatedAllocator - INFO - Sophisticated Portfolio Allocator Runner initialized
+2025-06-24 10:19:35,789 - SophisticatedAllocator - INFO - ============================================================
+2025-06-24 10:19:35,789 - SophisticatedAllocator - INFO - SOPHISTICATED OPTIONS PORTFOLIO ALLOCATOR
+2025-06-24 10:19:35,789 - SophisticatedAllocator - INFO - ============================================================
+2025-06-24 10:19:35,801 - SophisticatedAllocator - INFO - Allocation report saved to: results/sophisticated_allocation_report_20250624_101935.json
+2025-06-24 10:19:35,801 - SophisticatedAllocator - INFO - Allocation completed successfully:
+2025-06-24 10:19:35,801 - SophisticatedAllocator - INFO -   • Strategies: 20
+2025-06-24 10:19:35,801 - SophisticatedAllocator - INFO -   • Capital Allocated: 100.0%
+2025-06-24 10:19:35,801 - SophisticatedAllocator - INFO -   • Expected Return: 49.5%
+2025-06-24 10:19:35,801 - SophisticatedAllocator - INFO -   • Sharpe Ratio: 2.17
+2025-06-24 10:19:35,801 - SophisticatedAllocator - INFO -   • Execution Time: 0.0 seconds
+2025-06-24 14:51:58,245 - SophisticatedAllocator - INFO - Supabase client initialized successfully
+2025-06-24 14:51:58,246 - SophisticatedAllocator - INFO - Database integration enabled
+2025-06-24 14:51:58,250 - SophisticatedAllocator - INFO - Sophisticated Portfolio Allocator Runner initialized
+2025-06-24 14:51:58,250 - SophisticatedAllocator - INFO - ============================================================
+2025-06-24 14:51:58,250 - SophisticatedAllocator - INFO - SOPHISTICATED OPTIONS PORTFOLIO ALLOCATOR
+2025-06-24 14:51:58,250 - SophisticatedAllocator - INFO - ============================================================
+2025-06-24 14:51:58,250 - SophisticatedAllocator - INFO - Market environment: VIX 13.67, Percentile: 11.86
+2025-06-24 14:51:58,250 - SophisticatedAllocator - ERROR - Error loading strategies from database: 'SupabaseIntegration' object has no attribute 'supabase'
+2025-06-24 14:51:58,250 - SophisticatedAllocator - WARNING - Using mock data due to database issues
+2025-06-24 14:51:58,258 - SophisticatedAllocator - ERROR - Error updating database with allocations: 'SupabaseIntegration' object has no attribute 'supabase'
+2025-06-24 14:51:58,258 - SophisticatedAllocator - INFO - Allocation report saved to: results/sophisticated_allocation_report_20250624_145158.json
+2025-06-24 14:51:58,258 - SophisticatedAllocator - INFO - Allocation completed successfully:
+2025-06-24 14:51:58,258 - SophisticatedAllocator - INFO -   • Strategies: 20
+2025-06-24 14:51:58,258 - SophisticatedAllocator - INFO -   • Capital Allocated: 100.0%
+2025-06-24 14:51:58,258 - SophisticatedAllocator - INFO -   • Expected Return: 49.5%
+2025-06-24 14:51:58,258 - SophisticatedAllocator - INFO -   • Sharpe Ratio: 2.17
+2025-06-24 14:51:58,258 - SophisticatedAllocator - INFO -   • Execution Time: 0.0 seconds
+2025-06-24 15:27:20,298 - SophisticatedAllocator - INFO - Supabase client initialized successfully
+2025-06-24 15:27:20,298 - SophisticatedAllocator - INFO - Database integration enabled
+2025-06-24 15:27:20,302 - SophisticatedAllocator - INFO - Sophisticated Portfolio Allocator Runner initialized
+2025-06-24 15:27:20,302 - SophisticatedAllocator - INFO - ============================================================
+2025-06-24 15:27:20,302 - SophisticatedAllocator - INFO - SOPHISTICATED OPTIONS PORTFOLIO ALLOCATOR
+2025-06-24 15:27:20,302 - SophisticatedAllocator - INFO - ============================================================
+2025-06-24 15:27:22,896 - SophisticatedAllocator - INFO - Retrieved real VIX data: Current 14.05, Percentile 20.3
+2025-06-24 15:27:22,897 - SophisticatedAllocator - INFO - Market environment: VIX 14.05, Percentile: 20.3 (Source: dhan_api)
+2025-06-24 15:27:24,111 - SophisticatedAllocator - ERROR - Error loading strategies from database: {'message': '"failed to parse order (total_score.desc.asc)" (line 1, column 18)', 'code': 'PGRST100', 'hint': None, 'details': 'unexpected "a" expecting "nullsfirst" or "nullslast"'}
+2025-06-24 15:27:24,112 - SophisticatedAllocator - WARNING - Using mock data due to database issues or no strategies found
+2025-06-24 15:27:24,132 - SophisticatedAllocator - ERROR - Error in allocation process: 'StrategyAllocation' object has no attribute 'get'
+2025-06-24 15:27:24,133 - SophisticatedAllocator - ERROR - Traceback (most recent call last):
+  File "/Users/jaykrish/Documents/digitalocean/cronjobs/options_v4/sophisticated_portfolio_allocator_runner.py", line 325, in run_allocation
+    'strategy_id': getattr(strategy, 'strategy_id', strategy.get('id')),
+                                                    ^^^^^^^^^^^^
+AttributeError: 'StrategyAllocation' object has no attribute 'get'
+
+2025-06-24 15:29:10,948 - SophisticatedAllocator - INFO - Supabase client initialized successfully
+2025-06-24 15:29:10,948 - SophisticatedAllocator - INFO - Database integration enabled
+2025-06-24 15:29:10,952 - SophisticatedAllocator - INFO - Sophisticated Portfolio Allocator Runner initialized
+2025-06-24 15:29:10,952 - SophisticatedAllocator - INFO - ============================================================
+2025-06-24 15:29:10,952 - SophisticatedAllocator - INFO - SOPHISTICATED OPTIONS PORTFOLIO ALLOCATOR
+2025-06-24 15:29:10,952 - SophisticatedAllocator - INFO - ============================================================
+2025-06-24 15:29:12,416 - SophisticatedAllocator - INFO - Retrieved real VIX data: Current 14.05, Percentile 20.3
+2025-06-24 15:29:12,417 - SophisticatedAllocator - INFO - Market environment: VIX 14.05, Percentile: 20.3 (Source: dhan_api)
+2025-06-24 15:29:13,159 - SophisticatedAllocator - ERROR - Error loading strategies from database: {'message': '"failed to parse order (total_score.desc.asc)" (line 1, column 18)', 'code': 'PGRST100', 'hint': None, 'details': 'unexpected "a" expecting "nullsfirst" or "nullslast"'}
+2025-06-24 15:29:13,160 - SophisticatedAllocator - WARNING - Using mock data due to database issues or no strategies found
+2025-06-24 15:29:13,177 - SophisticatedAllocator - INFO - Updating database with sophisticated allocations...
+2025-06-24 15:29:13,307 - SophisticatedAllocator - INFO - Cleared previous allocation marks
+2025-06-24 15:29:15,531 - SophisticatedAllocator - INFO - Successfully updated 0 strategies in database
+2025-06-24 15:29:15,531 - SophisticatedAllocator - INFO - Allocation report saved to: results/sophisticated_allocation_report_20250624_152915.json
+2025-06-24 15:29:15,532 - SophisticatedAllocator - INFO - Allocation completed successfully:
+2025-06-24 15:29:15,532 - SophisticatedAllocator - INFO -   • Strategies: 20
+2025-06-24 15:29:15,532 - SophisticatedAllocator - INFO -   • Capital Allocated: 100.0%
+2025-06-24 15:29:15,532 - SophisticatedAllocator - INFO -   • Expected Return: 49.5%
+2025-06-24 15:29:15,532 - SophisticatedAllocator - INFO -   • Sharpe Ratio: 2.17
+2025-06-24 15:29:15,532 - SophisticatedAllocator - INFO -   • Execution Time: 4.6 seconds
+2025-06-24 15:33:58,165 - SophisticatedAllocator - INFO - Supabase client initialized successfully
+2025-06-24 15:33:58,165 - SophisticatedAllocator - INFO - Database integration enabled
+2025-06-24 15:33:58,169 - SophisticatedAllocator - INFO - Sophisticated Portfolio Allocator Runner initialized
+2025-06-24 15:33:58,169 - SophisticatedAllocator - INFO - ============================================================
+2025-06-24 15:33:58,169 - SophisticatedAllocator - INFO - SOPHISTICATED OPTIONS PORTFOLIO ALLOCATOR
+2025-06-24 15:33:58,169 - SophisticatedAllocator - INFO - ============================================================
+2025-06-24 15:33:59,455 - SophisticatedAllocator - INFO - Retrieved real VIX data: Current 14.05, Percentile 20.3
+2025-06-24 15:33:59,455 - SophisticatedAllocator - INFO - Market environment: VIX 14.05, Percentile: 20.3 (Source: dhan_api)
+2025-06-24 15:34:00,147 - SophisticatedAllocator - ERROR - Error loading strategies from database: {'message': '"failed to parse order (total_score.desc.asc)" (line 1, column 18)', 'code': 'PGRST100', 'hint': None, 'details': 'unexpected "a" expecting "nullsfirst" or "nullslast"'}
+2025-06-24 15:34:00,147 - SophisticatedAllocator - WARNING - Using mock data due to database issues or no strategies found
+2025-06-24 15:34:00,159 - SophisticatedAllocator - INFO - Updating database with sophisticated allocations...
+2025-06-24 15:34:00,286 - SophisticatedAllocator - INFO - Cleared previous allocation marks
+2025-06-24 15:34:02,603 - SophisticatedAllocator - INFO - Successfully updated 0 strategies in database
+2025-06-24 15:34:02,605 - SophisticatedAllocator - INFO - Allocation report saved to: results/sophisticated_allocation_report_20250624_153402.json
+2025-06-24 15:34:02,606 - SophisticatedAllocator - INFO - Allocation completed successfully:
+2025-06-24 15:34:02,606 - SophisticatedAllocator - INFO -   • Strategies: 20
+2025-06-24 15:34:02,606 - SophisticatedAllocator - INFO -   • Capital Allocated: 100.0%
+2025-06-24 15:34:02,606 - SophisticatedAllocator - INFO -   • Expected Return: 40.8%
+2025-06-24 15:34:02,606 - SophisticatedAllocator - INFO -   • Sharpe Ratio: 1.74
+2025-06-24 15:34:02,606 - SophisticatedAllocator - INFO -   • Execution Time: 4.4 seconds
+2025-06-24 15:34:30,362 - SophisticatedAllocator - INFO - Supabase client initialized successfully
+2025-06-24 15:34:30,362 - SophisticatedAllocator - INFO - Database integration enabled
+2025-06-24 15:34:30,366 - SophisticatedAllocator - INFO - Sophisticated Portfolio Allocator Runner initialized
+2025-06-24 15:34:30,366 - SophisticatedAllocator - INFO - ============================================================
+2025-06-24 15:34:30,366 - SophisticatedAllocator - INFO - SOPHISTICATED OPTIONS PORTFOLIO ALLOCATOR
+2025-06-24 15:34:30,366 - SophisticatedAllocator - INFO - ============================================================
+2025-06-24 15:34:31,649 - SophisticatedAllocator - INFO - Retrieved real VIX data: Current 14.05, Percentile 20.3
+2025-06-24 15:34:31,650 - SophisticatedAllocator - INFO - Market environment: VIX 14.05, Percentile: 20.3 (Source: dhan_api)
+2025-06-24 15:34:32,108 - SophisticatedAllocator - ERROR - Error loading strategies from database: {'message': 'column strategy_details.open_interest does not exist', 'code': '42703', 'hint': None, 'details': None}
+2025-06-24 15:34:32,109 - SophisticatedAllocator - WARNING - Using mock data due to database issues or no strategies found
+2025-06-24 15:34:32,127 - SophisticatedAllocator - INFO - Updating database with sophisticated allocations...
+2025-06-24 15:34:32,232 - SophisticatedAllocator - INFO - Cleared previous allocation marks
+2025-06-24 15:34:34,362 - SophisticatedAllocator - INFO - Successfully updated 0 strategies in database
+2025-06-24 15:34:34,363 - SophisticatedAllocator - INFO - Allocation report saved to: results/sophisticated_allocation_report_20250624_153434.json
+2025-06-24 15:34:34,363 - SophisticatedAllocator - INFO - Allocation completed successfully:
+2025-06-24 15:34:34,363 - SophisticatedAllocator - INFO -   • Strategies: 20
+2025-06-24 15:34:34,363 - SophisticatedAllocator - INFO -   • Capital Allocated: 100.0%
+2025-06-24 15:34:34,363 - SophisticatedAllocator - INFO -   • Expected Return: 40.8%
+2025-06-24 15:34:34,363 - SophisticatedAllocator - INFO -   • Sharpe Ratio: 1.74
+2025-06-24 15:34:34,363 - SophisticatedAllocator - INFO -   • Execution Time: 4.0 seconds
+2025-06-24 15:35:03,165 - SophisticatedAllocator - INFO - Supabase client initialized successfully
+2025-06-24 15:35:03,165 - SophisticatedAllocator - INFO - Database integration enabled
+2025-06-24 15:35:03,169 - SophisticatedAllocator - INFO - Sophisticated Portfolio Allocator Runner initialized
+2025-06-24 15:35:03,169 - SophisticatedAllocator - INFO - ============================================================
+2025-06-24 15:35:03,169 - SophisticatedAllocator - INFO - SOPHISTICATED OPTIONS PORTFOLIO ALLOCATOR
+2025-06-24 15:35:03,169 - SophisticatedAllocator - INFO - ============================================================
+2025-06-24 15:35:04,444 - SophisticatedAllocator - INFO - Retrieved real VIX data: Current 14.05, Percentile 20.3
+2025-06-24 15:35:04,444 - SophisticatedAllocator - INFO - Market environment: VIX 14.05, Percentile: 20.3 (Source: dhan_api)
+2025-06-24 15:36:07,792 - SophisticatedAllocator - INFO - Loaded 497 strategies from database
+2025-06-24 15:36:07,799 - SophisticatedAllocator - INFO - Using 497 strategies from database
+2025-06-24 15:36:07,815 - SophisticatedAllocator - INFO - Updating database with sophisticated allocations...
+2025-06-24 15:36:07,966 - SophisticatedAllocator - INFO - Cleared previous allocation marks
+2025-06-24 15:36:10,466 - SophisticatedAllocator - INFO - Successfully updated 0 strategies in database
+2025-06-24 15:36:10,468 - SophisticatedAllocator - INFO - Allocation report saved to: results/sophisticated_allocation_report_20250624_153610.json
+2025-06-24 15:36:10,468 - SophisticatedAllocator - INFO - Allocation completed successfully:
+2025-06-24 15:36:10,468 - SophisticatedAllocator - INFO -   • Strategies: 20
+2025-06-24 15:36:10,468 - SophisticatedAllocator - INFO -   • Capital Allocated: 100.0%
+2025-06-24 15:36:10,468 - SophisticatedAllocator - INFO -   • Expected Return: 40.8%
+2025-06-24 15:36:10,468 - SophisticatedAllocator - INFO -   • Sharpe Ratio: 1.74
+2025-06-24 15:36:10,469 - SophisticatedAllocator - INFO -   • Execution Time: 67.3 seconds
+2025-06-24 15:40:30,913 - SophisticatedAllocator - INFO - Sophisticated Portfolio Allocator Runner initialized
+2025-06-24 15:40:42,420 - SophisticatedAllocator - INFO - Sophisticated Portfolio Allocator Runner initialized
+2025-06-24 15:41:17,186 - SophisticatedAllocator - INFO - Supabase client initialized successfully
+2025-06-24 15:41:17,186 - SophisticatedAllocator - INFO - Database integration enabled
+2025-06-24 15:41:17,190 - SophisticatedAllocator - INFO - Sophisticated Portfolio Allocator Runner initialized
+2025-06-24 15:41:17,190 - SophisticatedAllocator - INFO - ============================================================
+2025-06-24 15:41:17,190 - SophisticatedAllocator - INFO - SOPHISTICATED OPTIONS PORTFOLIO ALLOCATOR
+2025-06-24 15:41:17,190 - SophisticatedAllocator - INFO - ============================================================
+2025-06-24 15:41:18,571 - SophisticatedAllocator - INFO - Retrieved real VIX data: Current 14.05, Percentile 20.3
+2025-06-24 15:41:18,572 - SophisticatedAllocator - INFO - Market environment: VIX 14.05, Percentile: 20.3 (Source: dhan_api)
+2025-06-24 15:42:14,995 - SophisticatedAllocator - INFO - Loaded 497 strategies from database
+2025-06-24 15:42:14,997 - SophisticatedAllocator - INFO - Using 497 strategies from database
+2025-06-24 15:42:15,012 - SophisticatedAllocator - INFO - Found 20 allocated strategies
+2025-06-24 15:42:15,012 - SophisticatedAllocator - INFO - Updating database with sophisticated allocations...
+2025-06-24 15:42:15,153 - SophisticatedAllocator - INFO - Cleared previous allocation marks
+2025-06-24 15:42:17,045 - SophisticatedAllocator - INFO - Successfully updated 0 strategies in database
+2025-06-24 15:42:17,047 - SophisticatedAllocator - INFO - Allocation report saved to: results/sophisticated_allocation_report_20250624_154217.json
+2025-06-24 15:42:17,048 - SophisticatedAllocator - INFO - Allocation completed successfully:
+2025-06-24 15:42:17,048 - SophisticatedAllocator - INFO -   • Strategies: 20
+2025-06-24 15:42:17,048 - SophisticatedAllocator - INFO -   • Capital Allocated: 100.0%
+2025-06-24 15:42:17,048 - SophisticatedAllocator - INFO -   • Expected Return: 40.8%
+2025-06-24 15:42:17,048 - SophisticatedAllocator - INFO -   • Sharpe Ratio: 1.74
+2025-06-24 15:42:17,048 - SophisticatedAllocator - INFO -   • Execution Time: 59.9 seconds
+2025-06-24 15:53:10,217 - SophisticatedAllocator - INFO - Supabase client initialized successfully
+2025-06-24 15:53:10,218 - SophisticatedAllocator - INFO - Database integration enabled
+2025-06-24 15:53:10,222 - SophisticatedAllocator - INFO - Sophisticated Portfolio Allocator Runner initialized
+2025-06-24 15:53:10,222 - SophisticatedAllocator - INFO - ============================================================
+2025-06-24 15:53:10,222 - SophisticatedAllocator - INFO - SOPHISTICATED OPTIONS PORTFOLIO ALLOCATOR
+2025-06-24 15:53:10,222 - SophisticatedAllocator - INFO - ============================================================
+2025-06-24 15:53:11,640 - SophisticatedAllocator - INFO - Retrieved real VIX data: Current 14.05, Percentile 20.3
+2025-06-24 15:53:11,640 - SophisticatedAllocator - INFO - Market environment: VIX 14.05, Percentile: 20.3 (Source: dhan_api)
+2025-06-24 15:54:12,886 - SophisticatedAllocator - INFO - Loaded 497 strategies from database
+2025-06-24 15:54:12,894 - SophisticatedAllocator - INFO - Using 497 strategies from database
+2025-06-24 15:54:12,911 - SophisticatedAllocator - INFO - Found 20 allocated strategies
+2025-06-24 15:54:12,911 - SophisticatedAllocator - INFO - Updating database with sophisticated allocations...
+2025-06-24 15:54:13,032 - SophisticatedAllocator - INFO - Cleared previous allocation marks
+2025-06-24 15:54:15,473 - SophisticatedAllocator - INFO - Successfully updated 0 strategies in database
+2025-06-24 15:54:15,475 - SophisticatedAllocator - INFO - Allocation report saved to: results/sophisticated_allocation_report_20250624_155415.json
+2025-06-24 15:54:15,476 - SophisticatedAllocator - INFO - Allocation completed successfully:
+2025-06-24 15:54:15,476 - SophisticatedAllocator - INFO -   • Strategies: 20
+2025-06-24 15:54:15,476 - SophisticatedAllocator - INFO -   • Capital Allocated: 100.0%
+2025-06-24 15:54:15,476 - SophisticatedAllocator - INFO -   • Expected Return: 40.8%
+2025-06-24 15:54:15,476 - SophisticatedAllocator - INFO -   • Sharpe Ratio: 1.74
+2025-06-24 15:54:15,476 - SophisticatedAllocator - INFO -   • Execution Time: 65.3 seconds
+2025-06-24 16:37:27,139 - SophisticatedAllocator - INFO - Supabase client initialized successfully
+2025-06-24 16:37:27,140 - SophisticatedAllocator - INFO - Database integration enabled
+2025-06-24 16:37:27,144 - SophisticatedAllocator - INFO - Sophisticated Portfolio Allocator Runner initialized
+2025-06-24 16:37:27,144 - SophisticatedAllocator - INFO - ============================================================
+2025-06-24 16:37:27,144 - SophisticatedAllocator - INFO - SOPHISTICATED OPTIONS PORTFOLIO ALLOCATOR
+2025-06-24 16:37:27,144 - SophisticatedAllocator - INFO - ============================================================
+2025-06-24 16:37:28,420 - SophisticatedAllocator - INFO - Retrieved real VIX data: Current 14.05, Percentile 20.3
+2025-06-24 16:37:28,421 - SophisticatedAllocator - INFO - Market environment: VIX 14.05, Percentile: 20.3 (Source: dhan_api)
+2025-06-24 16:38:17,022 - SophisticatedAllocator - INFO - Loaded 494 strategies from database
+2025-06-24 16:38:17,024 - SophisticatedAllocator - INFO - Using 494 strategies from database
+2025-06-24 16:38:17,036 - SophisticatedAllocator - INFO - Found 20 allocated strategies
+2025-06-24 16:38:17,036 - SophisticatedAllocator - INFO - Updating database with sophisticated allocations...
+2025-06-24 16:38:17,136 - SophisticatedAllocator - INFO - Cleared previous allocation marks
+2025-06-24 16:38:20,831 - SophisticatedAllocator - INFO - Successfully updated 0 strategies in database
+2025-06-24 16:38:20,833 - SophisticatedAllocator - INFO - Allocation report saved to: results/sophisticated_allocation_report_20250624_163820.json
+2025-06-24 16:38:20,834 - SophisticatedAllocator - INFO - Allocation completed successfully:
+2025-06-24 16:38:20,834 - SophisticatedAllocator - INFO -   • Strategies: 20
+2025-06-24 16:38:20,834 - SophisticatedAllocator - INFO -   • Capital Allocated: 100.0%
+2025-06-24 16:38:20,835 - SophisticatedAllocator - INFO -   • Expected Return: 40.8%
+2025-06-24 16:38:20,835 - SophisticatedAllocator - INFO -   • Sharpe Ratio: 1.74
+2025-06-24 16:38:20,835 - SophisticatedAllocator - INFO -   • Execution Time: 53.7 seconds
+2025-06-24 16:41:27,295 - SophisticatedAllocator - INFO - Supabase client initialized successfully
+2025-06-24 16:41:27,295 - SophisticatedAllocator - INFO - Database integration enabled
+2025-06-24 16:41:27,300 - SophisticatedAllocator - INFO - Sophisticated Portfolio Allocator Runner initialized
+2025-06-24 16:41:27,300 - SophisticatedAllocator - INFO - ============================================================
+2025-06-24 16:41:27,300 - SophisticatedAllocator - INFO - SOPHISTICATED OPTIONS PORTFOLIO ALLOCATOR
+2025-06-24 16:41:27,300 - SophisticatedAllocator - INFO - ============================================================
+2025-06-24 16:41:28,635 - SophisticatedAllocator - INFO - Retrieved real VIX data: Current 14.05, Percentile 20.3
+2025-06-24 16:41:28,635 - SophisticatedAllocator - INFO - Market environment: VIX 14.05, Percentile: 20.3 (Source: dhan_api)
+2025-06-24 16:42:15,508 - SophisticatedAllocator - INFO - Loaded 494 strategies from database
+2025-06-24 16:42:15,514 - SophisticatedAllocator - INFO - Using 494 strategies from database
+2025-06-24 16:42:15,531 - SophisticatedAllocator - INFO - Found 20 allocated strategies
+2025-06-24 16:42:15,531 - SophisticatedAllocator - INFO - Updating database with sophisticated allocations...
+2025-06-24 16:42:15,618 - SophisticatedAllocator - INFO - Cleared previous allocation marks
+2025-06-24 16:42:17,520 - SophisticatedAllocator - INFO - Successfully updated 0 strategies in database
+2025-06-24 16:42:17,522 - SophisticatedAllocator - INFO - Allocation report saved to: results/sophisticated_allocation_report_20250624_164217.json
+2025-06-24 16:42:17,522 - SophisticatedAllocator - INFO - Allocation completed successfully:
+2025-06-24 16:42:17,523 - SophisticatedAllocator - INFO -   • Strategies: 20
+2025-06-24 16:42:17,523 - SophisticatedAllocator - INFO -   • Capital Allocated: 100.0%
+2025-06-24 16:42:17,523 - SophisticatedAllocator - INFO -   • Expected Return: 40.8%
+2025-06-24 16:42:17,523 - SophisticatedAllocator - INFO -   • Sharpe Ratio: 1.74
+2025-06-24 16:42:17,523 - SophisticatedAllocator - INFO -   • Execution Time: 50.2 seconds
+2025-06-24 16:45:10,553 - SophisticatedAllocator - INFO - Supabase client initialized successfully
+2025-06-24 16:45:10,554 - SophisticatedAllocator - INFO - Database integration enabled
+2025-06-24 16:45:10,558 - SophisticatedAllocator - INFO - Sophisticated Portfolio Allocator Runner initialized
+2025-06-24 16:45:10,558 - SophisticatedAllocator - INFO - ============================================================
+2025-06-24 16:45:10,558 - SophisticatedAllocator - INFO - SOPHISTICATED OPTIONS PORTFOLIO ALLOCATOR
+2025-06-24 16:45:10,558 - SophisticatedAllocator - INFO - ============================================================
+2025-06-24 16:45:11,865 - SophisticatedAllocator - INFO - Retrieved real VIX data: Current 14.05, Percentile 20.3
+2025-06-24 16:45:11,866 - SophisticatedAllocator - INFO - Market environment: VIX 14.05, Percentile: 20.3 (Source: dhan_api)
+2025-06-24 16:46:06,593 - SophisticatedAllocator - INFO - Loaded 494 strategies from database
+2025-06-24 16:46:06,602 - SophisticatedAllocator - INFO - Using 494 strategies from database
+2025-06-24 16:46:06,623 - SophisticatedAllocator - INFO - Found 20 allocated strategies
+2025-06-24 16:46:06,623 - SophisticatedAllocator - INFO - Updating database with sophisticated allocations...
+2025-06-24 16:46:06,719 - SophisticatedAllocator - INFO - Cleared previous allocation marks
+2025-06-24 16:46:08,804 - SophisticatedAllocator - INFO - Successfully updated 20 strategies in database
+2025-06-24 16:46:08,806 - SophisticatedAllocator - INFO - Allocation report saved to: results/sophisticated_allocation_report_20250624_164608.json
+2025-06-24 16:46:08,806 - SophisticatedAllocator - INFO - Allocation completed successfully:
+2025-06-24 16:46:08,806 - SophisticatedAllocator - INFO -   • Strategies: 20
+2025-06-24 16:46:08,806 - SophisticatedAllocator - INFO -   • Capital Allocated: 100.0%
+2025-06-24 16:46:08,806 - SophisticatedAllocator - INFO -   • Expected Return: 41.0%
+2025-06-24 16:46:08,806 - SophisticatedAllocator - INFO -   • Sharpe Ratio: 1.75
+2025-06-24 16:46:08,806 - SophisticatedAllocator - INFO -   • Execution Time: 58.2 seconds
+2025-06-24 21:01:31,978 - SophisticatedAllocator - INFO - Sophisticated Portfolio Allocator Runner initialized
+2025-06-24 21:01:31,979 - SophisticatedAllocator - INFO - ============================================================
+2025-06-24 21:01:31,979 - SophisticatedAllocator - INFO - SOPHISTICATED OPTIONS PORTFOLIO ALLOCATOR
+2025-06-24 21:01:31,979 - SophisticatedAllocator - INFO - ============================================================
+2025-06-24 21:01:33,180 - SophisticatedAllocator - INFO - Retrieved real VIX data: Current 14.05, Percentile 20.3
+2025-06-24 21:01:33,181 - SophisticatedAllocator - INFO - Market environment: VIX 14.05, Percentile: 20.3 (Source: dhan_api)
+2025-06-24 21:01:33,198 - SophisticatedAllocator - INFO - Allocation report saved to: results/sophisticated_allocation_report_20250624_210133.json
+2025-06-24 21:01:33,198 - SophisticatedAllocator - INFO - Allocation completed successfully:
+2025-06-24 21:01:33,198 - SophisticatedAllocator - INFO -   • Strategies: 20
+2025-06-24 21:01:33,198 - SophisticatedAllocator - INFO -   • Capital Allocated: 100.0%
+2025-06-24 21:01:33,198 - SophisticatedAllocator - INFO -   • Expected Return: 40.8%
+2025-06-24 21:01:33,198 - SophisticatedAllocator - INFO -   • Sharpe Ratio: 1.74
+2025-06-24 21:01:33,198 - SophisticatedAllocator - INFO -   • Execution Time: 1.2 seconds

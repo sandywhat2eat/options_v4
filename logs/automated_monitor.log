@@ -1,0 +1,590 @@
+2025-06-24 20:54:19,961 - __main__ - INFO - Supabase client initialized successfully
+2025-06-24 20:54:19,965 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-24 20:54:20,344 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open&strategy=eq.Butterfly+Spread "HTTP/2 200 OK"
+2025-06-24 20:54:20,347 - __main__ - INFO - Position Monitor initialized successfully
+2025-06-24 20:54:20,357 - __main__ - INFO - Supabase client initialized successfully
+2025-06-24 20:54:20,358 - __main__ - INFO - Exit Executor initialized successfully
+2025-06-24 20:54:20,365 - __main__ - INFO - Supabase client initialized successfully
+2025-06-24 20:54:20,366 - __main__ - INFO - Automated Monitor initialized (execute_exits=False, alert_only=False)
+2025-06-24 20:54:20,366 - __main__ - INFO - Starting monitoring cycle at 2025-06-24 20:54:20.366065
+2025-06-24 20:54:20,765 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-24 20:54:22,008 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.None "HTTP/2 400 Bad Request"
+2025-06-24 20:54:22,008 - __main__ - ERROR - Error fetching exit conditions for strategy None: {'message': 'invalid input syntax for type integer: "None"', 'code': '22P02', 'hint': None, 'details': None}
+2025-06-24 20:54:22,102 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.146 "HTTP/2 200 OK"
+2025-06-24 20:54:22,198 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.146 "HTTP/2 200 OK"
+2025-06-24 20:54:22,279 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-24 20:54:22,379 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-24 20:54:22,380 - __main__ - INFO - Monitoring cycle completed in 2.01s - Positions: 3, Alerts: 0, Exits: 0
+2025-06-24 20:54:22,757 - httpx - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/monitoring_logs "HTTP/2 404 Not Found"
+2025-06-24 21:03:01,261 - __main__ - INFO - Supabase client initialized successfully
+2025-06-24 21:03:01,265 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-24 21:03:01,419 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open&strategy=eq.Butterfly+Spread "HTTP/2 200 OK"
+2025-06-24 21:03:01,420 - __main__ - INFO - Position Monitor initialized successfully
+2025-06-24 21:03:01,425 - __main__ - INFO - Supabase client initialized successfully
+2025-06-24 21:03:01,426 - __main__ - INFO - Exit Executor initialized successfully
+2025-06-24 21:03:01,431 - __main__ - INFO - Supabase client initialized successfully
+2025-06-24 21:03:01,431 - __main__ - INFO - Automated Monitor initialized (execute_exits=False, alert_only=False)
+2025-06-24 21:03:01,431 - __main__ - INFO - Starting continuous monitoring (interval: 5 minutes)
+2025-06-24 21:03:01,431 - __main__ - INFO - Running in SIMULATION mode - no actual trades will be executed
+2025-06-24 21:03:01,431 - __main__ - INFO - Starting monitoring cycle at 2025-06-24 21:03:01.431599
+2025-06-24 21:03:01,628 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-24 21:03:02,862 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.None "HTTP/2 400 Bad Request"
+2025-06-24 21:03:02,863 - __main__ - ERROR - Error fetching exit conditions for strategy None: {'message': 'invalid input syntax for type integer: "None"', 'code': '22P02', 'hint': None, 'details': None}
+2025-06-24 21:03:02,918 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.146 "HTTP/2 200 OK"
+2025-06-24 21:03:02,980 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.146 "HTTP/2 200 OK"
+2025-06-24 21:03:03,039 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-24 21:03:03,096 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-24 21:03:03,097 - __main__ - INFO - Monitoring cycle completed in 1.67s - Positions: 3, Alerts: 0, Exits: 0
+2025-06-24 21:03:03,567 - httpx - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/monitoring_logs "HTTP/2 404 Not Found"
+2025-06-24 21:03:51,829 - __main__ - INFO - Monitoring stopped by user
+2025-06-24 21:07:28,881 - __main__ - INFO - Supabase client initialized successfully
+2025-06-24 21:07:28,885 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-24 21:07:29,258 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open&strategy=eq.Butterfly+Spread "HTTP/2 200 OK"
+2025-06-24 21:07:29,261 - __main__ - INFO - Position Monitor initialized successfully
+2025-06-24 21:07:29,272 - __main__ - INFO - Supabase client initialized successfully
+2025-06-24 21:07:29,272 - __main__ - INFO - Exit Executor initialized successfully
+2025-06-24 21:07:29,280 - __main__ - INFO - Supabase client initialized successfully
+2025-06-24 21:07:29,280 - __main__ - INFO - Automated Monitor initialized (execute_exits=False, alert_only=False)
+2025-06-24 21:07:29,280 - __main__ - INFO - Starting continuous monitoring (interval: 5 minutes)
+2025-06-24 21:07:29,280 - __main__ - INFO - Running in SIMULATION mode - no actual trades will be executed
+2025-06-24 21:07:29,280 - __main__ - INFO - Starting monitoring cycle at 2025-06-24 21:07:29.280610
+2025-06-24 21:07:29,641 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-24 21:07:30,901 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.None "HTTP/2 400 Bad Request"
+2025-06-24 21:07:30,903 - __main__ - ERROR - Error fetching exit conditions for strategy None: {'message': 'invalid input syntax for type integer: "None"', 'code': '22P02', 'hint': None, 'details': None}
+2025-06-24 21:07:30,985 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.146 "HTTP/2 200 OK"
+2025-06-24 21:07:31,052 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.146 "HTTP/2 200 OK"
+2025-06-24 21:07:31,117 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-24 21:07:31,195 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-24 21:07:31,196 - __main__ - INFO - Monitoring cycle completed in 1.92s - Positions: 3, Alerts: 0, Exits: 0
+2025-06-24 21:07:31,384 - httpx - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/monitoring_logs "HTTP/2 404 Not Found"
+2025-06-24 21:08:14,088 - __main__ - INFO - Monitoring stopped by user
+2025-06-25 13:02:17,784 - __main__ - INFO - Supabase client initialized successfully
+2025-06-25 13:02:17,789 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-25 13:02:17,794 - __main__ - INFO - Position Monitor initialized successfully
+2025-06-25 13:02:17,798 - __main__ - INFO - Supabase client initialized successfully
+2025-06-25 13:02:17,798 - __main__ - INFO - Exit Executor initialized successfully
+2025-06-25 13:02:17,802 - __main__ - INFO - Supabase client initialized successfully
+2025-06-25 13:02:17,802 - __main__ - INFO - Automated Monitor initialized (execute_exits=False, alert_only=False)
+2025-06-25 13:02:17,802 - __main__ - INFO - Starting continuous monitoring (interval: 5 minutes)
+2025-06-25 13:02:17,802 - __main__ - INFO - Running in SIMULATION mode - no actual trades will be executed
+2025-06-25 13:02:17,802 - __main__ - INFO - Starting monitoring cycle at 2025-06-25 13:02:17.802193
+2025-06-25 13:02:17,807 - __main__ - ERROR - Error fetching open positions: [Errno 8] nodename nor servname provided, or not known
+2025-06-25 13:02:17,807 - __main__ - INFO - No open positions to monitor
+2025-06-25 13:02:25,798 - __main__ - INFO - Monitoring stopped by user
+2025-06-25 13:03:43,471 - __main__ - INFO - Supabase client initialized successfully
+2025-06-25 13:03:43,475 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-25 13:03:43,945 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open&strategy=eq.Butterfly+Spread "HTTP/2 200 OK"
+2025-06-25 13:03:43,950 - __main__ - INFO - Position Monitor initialized successfully
+2025-06-25 13:03:43,961 - __main__ - INFO - Supabase client initialized successfully
+2025-06-25 13:03:43,961 - __main__ - INFO - Exit Executor initialized successfully
+2025-06-25 13:03:43,968 - __main__ - INFO - Supabase client initialized successfully
+2025-06-25 13:03:43,968 - __main__ - INFO - Automated Monitor initialized (execute_exits=False, alert_only=False)
+2025-06-25 13:03:43,968 - __main__ - INFO - Starting continuous monitoring (interval: 5 minutes)
+2025-06-25 13:03:43,968 - __main__ - INFO - Running in SIMULATION mode - no actual trades will be executed
+2025-06-25 13:03:43,968 - __main__ - INFO - Starting monitoring cycle at 2025-06-25 13:03:43.968792
+2025-06-25 13:03:44,533 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-25 13:03:45,841 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-25 13:03:45,925 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-25 13:03:45,927 - __main__ - INFO - Monitoring cycle completed in 1.96s - Positions: 1, Alerts: 0, Exits: 0
+2025-06-25 13:03:46,161 - httpx - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/monitoring_logs "HTTP/2 404 Not Found"
+2025-06-25 13:08:46,164 - __main__ - INFO - Starting monitoring cycle at 2025-06-25 13:08:46.164271
+2025-06-25 13:08:46,723 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-25 13:08:47,970 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-25 13:08:48,032 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-25 13:08:48,033 - __main__ - INFO - Monitoring cycle completed in 1.87s - Positions: 1, Alerts: 0, Exits: 0
+2025-06-25 13:08:48,385 - httpx - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/monitoring_logs "HTTP/2 404 Not Found"
+2025-06-25 13:13:48,387 - __main__ - INFO - Starting monitoring cycle at 2025-06-25 13:13:48.387235
+2025-06-25 13:13:48,907 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-25 13:13:50,107 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-25 13:13:50,167 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-25 13:13:50,255 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-25 13:13:50,333 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-25 13:13:50,334 - __main__ - INFO - Monitoring cycle completed in 1.95s - Positions: 2, Alerts: 0, Exits: 0
+2025-06-25 13:13:50,490 - httpx - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/monitoring_logs "HTTP/2 404 Not Found"
+2025-06-25 13:18:50,517 - __main__ - INFO - Starting monitoring cycle at 2025-06-25 13:18:50.516626
+2025-06-25 13:18:50,854 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-25 13:18:52,076 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-25 13:18:52,150 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-25 13:18:52,228 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-25 13:18:52,313 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-25 13:18:52,391 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-25 13:18:52,469 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-25 13:18:52,471 - __main__ - INFO - Monitoring cycle completed in 1.95s - Positions: 3, Alerts: 0, Exits: 0
+2025-06-25 13:18:52,626 - httpx - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/monitoring_logs "HTTP/2 404 Not Found"
+2025-06-25 13:21:47,151 - __main__ - INFO - Monitoring stopped by user
+2025-06-25 13:34:43,513 - __main__ - INFO - Supabase client initialized successfully
+2025-06-25 13:34:43,519 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-25 13:34:44,671 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open&strategy=eq.Butterfly+Spread "HTTP/2 200 OK"
+2025-06-25 13:34:44,673 - __main__ - INFO - Position Monitor initialized successfully
+2025-06-25 13:34:44,680 - __main__ - INFO - Supabase client initialized successfully
+2025-06-25 13:34:44,680 - __main__ - INFO - Exit Executor initialized successfully
+2025-06-25 13:34:44,686 - __main__ - INFO - Supabase client initialized successfully
+2025-06-25 13:34:44,687 - __main__ - INFO - Automated Monitor initialized (execute_exits=False, alert_only=False)
+2025-06-25 13:34:44,687 - __main__ - INFO - Starting monitoring cycle at 2025-06-25 13:34:44.687060
+2025-06-25 13:34:45,486 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-25 13:34:46,732 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-25 13:34:46,822 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-25 13:34:46,960 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-25 13:34:47,060 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-25 13:34:47,182 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-25 13:34:47,290 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-25 13:34:47,291 - __main__ - INFO - Monitoring cycle completed in 2.60s - Positions: 3, Alerts: 0, Exits: 0
+2025-06-25 13:34:47,785 - httpx - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/monitoring_logs "HTTP/2 404 Not Found"
+2025-06-25 13:35:06,658 - __main__ - INFO - Supabase client initialized successfully
+2025-06-25 13:35:06,662 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-25 13:35:07,073 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open&strategy=eq.Butterfly+Spread "HTTP/2 200 OK"
+2025-06-25 13:35:07,075 - __main__ - INFO - Position Monitor initialized successfully
+2025-06-25 13:35:07,082 - __main__ - INFO - Supabase client initialized successfully
+2025-06-25 13:35:07,082 - __main__ - INFO - Exit Executor initialized successfully
+2025-06-25 13:35:07,088 - __main__ - INFO - Supabase client initialized successfully
+2025-06-25 13:35:07,088 - __main__ - INFO - Automated Monitor initialized (execute_exits=False, alert_only=False)
+2025-06-25 13:35:07,088 - __main__ - INFO - Starting monitoring cycle at 2025-06-25 13:35:07.088685
+2025-06-25 13:35:07,455 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-25 13:35:08,730 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-25 13:35:08,823 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-25 13:35:08,883 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-25 13:35:08,953 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-25 13:35:09,015 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-25 13:35:09,092 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-25 13:35:09,093 - __main__ - INFO - Monitoring cycle completed in 2.00s - Positions: 3, Alerts: 0, Exits: 0
+2025-06-25 13:35:09,295 - httpx - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/monitoring_logs "HTTP/2 404 Not Found"
+2025-06-25 13:35:09,371 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=id&stock_name=eq.HINDUNILVR&strategy_name=eq.Butterfly+Spread&order=created_at.asc&limit=1 "HTTP/2 200 OK"
+2025-06-25 13:35:09,461 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3376 "HTTP/2 200 OK"
+2025-06-25 13:35:09,548 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=id&stock_name=eq.DIXON&strategy_name=eq.Butterfly+Spread&order=created_at.asc&limit=1 "HTTP/2 200 OK"
+2025-06-25 13:35:09,633 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-25 13:35:09,714 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=id&stock_name=eq.TVSMOTOR&strategy_name=eq.Long+Call&order=created_at.asc&limit=1 "HTTP/2 200 OK"
+2025-06-25 13:35:09,779 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-25 13:50:29,234 - __main__ - INFO - Supabase client initialized successfully
+2025-06-25 13:50:29,238 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-25 13:50:29,764 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open&strategy=eq.Butterfly+Spread "HTTP/2 200 OK"
+2025-06-25 13:50:29,772 - __main__ - INFO - Position Monitor initialized successfully
+2025-06-25 13:50:29,782 - __main__ - INFO - Supabase client initialized successfully
+2025-06-25 13:50:29,782 - __main__ - INFO - Exit Executor initialized successfully
+2025-06-25 13:50:29,789 - __main__ - INFO - Supabase client initialized successfully
+2025-06-25 13:50:29,789 - __main__ - INFO - Automated Monitor initialized (execute_exits=False, alert_only=False)
+2025-06-25 13:50:29,789 - __main__ - INFO - Starting monitoring cycle at 2025-06-25 13:50:29.789975
+2025-06-25 13:50:30,136 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-25 13:50:31,392 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-25 13:50:31,456 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-25 13:50:31,540 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-25 13:50:31,604 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-25 13:50:31,697 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-25 13:50:31,772 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-25 13:50:31,775 - __main__ - INFO - Monitoring cycle completed in 1.99s - Positions: 3, Alerts: 0, Exits: 0
+2025-06-25 13:50:31,945 - httpx - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/monitoring_logs "HTTP/2 404 Not Found"
+2025-06-25 13:50:32,029 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=id&stock_name=eq.HINDUNILVR&strategy_name=eq.Butterfly+Spread&order=created_at.asc&limit=1 "HTTP/2 200 OK"
+2025-06-25 13:50:32,109 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3376 "HTTP/2 200 OK"
+2025-06-25 13:50:32,194 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=id&stock_name=eq.DIXON&strategy_name=eq.Butterfly+Spread&order=created_at.asc&limit=1 "HTTP/2 200 OK"
+2025-06-25 13:50:32,279 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-25 13:50:32,354 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=id&stock_name=eq.TVSMOTOR&strategy_name=eq.Long+Call&order=created_at.asc&limit=1 "HTTP/2 200 OK"
+2025-06-25 13:50:32,468 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-25 14:17:06,256 - __main__ - INFO - Supabase client initialized successfully
+2025-06-25 14:17:06,260 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-25 14:17:06,939 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open&strategy=eq.Butterfly+Spread "HTTP/2 200 OK"
+2025-06-25 14:17:06,941 - __main__ - INFO - Position Monitor initialized successfully
+2025-06-25 14:17:06,948 - __main__ - INFO - Supabase client initialized successfully
+2025-06-25 14:17:06,948 - __main__ - INFO - Exit Executor initialized successfully
+2025-06-25 14:17:06,954 - __main__ - INFO - Supabase client initialized successfully
+2025-06-25 14:17:06,954 - __main__ - INFO - Automated Monitor initialized (execute_exits=False, alert_only=False)
+2025-06-25 14:17:06,954 - __main__ - INFO - Starting monitoring cycle at 2025-06-25 14:17:06.954193
+2025-06-25 14:17:07,348 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-25 14:17:08,795 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-25 14:17:08,879 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-25 14:17:08,988 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-25 14:17:09,101 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-25 14:17:09,207 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-25 14:17:09,318 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-25 14:17:09,319 - __main__ - INFO - Monitoring cycle completed in 2.37s - Positions: 3, Alerts: 0, Exits: 0
+2025-06-25 14:17:09,714 - httpx - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/monitoring_logs "HTTP/2 404 Not Found"
+2025-06-25 14:17:09,848 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=id&stock_name=eq.HINDUNILVR&strategy_name=eq.Butterfly+Spread&order=created_at.asc&limit=1 "HTTP/2 200 OK"
+2025-06-25 14:17:09,938 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3376 "HTTP/2 200 OK"
+2025-06-25 14:17:09,939 - __main__ - ERROR - Fatal error: 'AnsiFore' object has no attribute 'GRAY'
+2025-06-25 14:17:52,378 - __main__ - INFO - Supabase client initialized successfully
+2025-06-25 14:17:52,383 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-25 14:17:52,627 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open&strategy=eq.Butterfly+Spread "HTTP/2 200 OK"
+2025-06-25 14:17:52,629 - __main__ - INFO - Position Monitor initialized successfully
+2025-06-25 14:17:52,638 - __main__ - INFO - Supabase client initialized successfully
+2025-06-25 14:17:52,639 - __main__ - INFO - Exit Executor initialized successfully
+2025-06-25 14:17:52,646 - __main__ - INFO - Supabase client initialized successfully
+2025-06-25 14:17:52,646 - __main__ - INFO - Automated Monitor initialized (execute_exits=False, alert_only=False)
+2025-06-25 14:17:52,646 - __main__ - INFO - Starting monitoring cycle at 2025-06-25 14:17:52.646250
+2025-06-25 14:17:52,888 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-25 14:17:54,223 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-25 14:17:54,340 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-25 14:17:54,466 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-25 14:17:54,573 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-25 14:17:54,743 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-25 14:17:54,855 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-25 14:17:54,856 - __main__ - INFO - Monitoring cycle completed in 2.21s - Positions: 3, Alerts: 0, Exits: 0
+2025-06-25 14:17:55,123 - httpx - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/monitoring_logs "HTTP/2 404 Not Found"
+2025-06-25 14:17:55,239 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=id&stock_name=eq.HINDUNILVR&strategy_name=eq.Butterfly+Spread&order=created_at.asc&limit=1 "HTTP/2 200 OK"
+2025-06-25 14:17:55,340 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3376 "HTTP/2 200 OK"
+2025-06-25 14:17:55,342 - __main__ - INFO - Parsed exit conditions: 4 profit targets, 1 stop losses
+2025-06-25 14:17:55,442 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=id&stock_name=eq.DIXON&strategy_name=eq.Butterfly+Spread&order=created_at.asc&limit=1 "HTTP/2 200 OK"
+2025-06-25 14:17:55,528 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-25 14:17:55,529 - __main__ - INFO - Parsed exit conditions: 4 profit targets, 1 stop losses
+2025-06-25 14:17:55,624 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=id&stock_name=eq.TVSMOTOR&strategy_name=eq.Long+Call&order=created_at.asc&limit=1 "HTTP/2 200 OK"
+2025-06-25 14:17:55,725 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-25 14:17:55,726 - __main__ - INFO - Parsed exit conditions: 4 profit targets, 1 stop losses
+2025-06-25 17:48:59,199 - __main__ - INFO - Supabase client initialized successfully
+2025-06-25 17:48:59,205 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-25 17:48:59,754 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open&strategy=eq.Butterfly+Spread "HTTP/2 200 OK"
+2025-06-25 17:48:59,756 - __main__ - INFO - Position Monitor initialized successfully
+2025-06-25 17:48:59,763 - __main__ - INFO - Supabase client initialized successfully
+2025-06-25 17:48:59,763 - __main__ - INFO - Exit Executor initialized successfully
+2025-06-25 17:48:59,770 - __main__ - INFO - Supabase client initialized successfully
+2025-06-25 17:48:59,770 - __main__ - INFO - Automated Monitor initialized (execute_exits=False, alert_only=False)
+2025-06-25 17:48:59,770 - __main__ - INFO - Starting monitoring cycle at 2025-06-25 17:48:59.770571
+2025-06-25 17:49:00,134 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-25 17:49:01,483 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-25 17:49:01,587 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-25 17:49:01,589 - __main__ - WARNING - No actual DTE available, using estimated: 28
+2025-06-25 17:49:01,694 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-25 17:49:01,769 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-25 17:49:02,134 - httpx - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/position_alerts "HTTP/2 404 Not Found"
+2025-06-25 17:49:02,136 - __main__ - WARNING - ALERT [HIGH] DIXON - Butterfly Spread: CLOSE_IMMEDIATELY (P&L: 740.00)
+2025-06-25 17:49:02,136 - __main__ - INFO - [SIMULATION] Would execute: CLOSE_IMMEDIATELY
+2025-06-25 17:49:02,136 - __main__ - INFO - [SIMULATION] Position: DIXON - Butterfly Spread
+2025-06-25 17:49:02,136 - __main__ - INFO - [SIMULATION] Reason: Time Exit triggered
+2025-06-25 17:49:02,136 - __main__ - INFO - [SIMULATION] Would place: SELL 50 DIXON 13750.0 CE
+2025-06-25 17:49:02,136 - __main__ - INFO - [SIMULATION] Would place: BUY 50 DIXON 14000.0 CE
+2025-06-25 17:49:02,136 - __main__ - INFO - [SIMULATION] Would place: SELL 50 DIXON 14250.0 CE
+2025-06-25 17:49:02,138 - __main__ - INFO - Exit executed: {'timestamp': '2025-06-25T17:49:02.137094', 'strategy_id': 3359, 'symbol': 'DIXON', 'strategy_name': 'Butterfly Spread', 'action': 'CLOSE_IMMEDIATELY', 'reason': 'Time Exit triggered', 'result': {'success': True, 'action': 'SIMULATED_CLOSE_IMMEDIATELY', 'message': 'Exit simulation completed'}, 'mode': 'SIMULATION'}
+2025-06-25 17:49:02,219 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-25 17:49:02,311 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-25 17:49:02,414 - httpx - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/position_alerts "HTTP/2 404 Not Found"
+2025-06-25 17:49:02,414 - __main__ - WARNING - ALERT [HIGH] TVSMOTOR - Long Call: CLOSE_IMMEDIATELY (P&L: 7315.00)
+2025-06-25 17:49:02,414 - __main__ - INFO - [SIMULATION] Would execute: CLOSE_IMMEDIATELY
+2025-06-25 17:49:02,414 - __main__ - INFO - [SIMULATION] Position: TVSMOTOR - Long Call
+2025-06-25 17:49:02,414 - __main__ - INFO - [SIMULATION] Reason: Time Exit triggered
+2025-06-25 17:49:02,415 - __main__ - INFO - [SIMULATION] Would place: SELL 350 TVSMOTOR 2820.0 CE
+2025-06-25 17:49:02,415 - __main__ - INFO - Exit executed: {'timestamp': '2025-06-25T17:49:02.415099', 'strategy_id': 3626, 'symbol': 'TVSMOTOR', 'strategy_name': 'Long Call', 'action': 'CLOSE_IMMEDIATELY', 'reason': 'Time Exit triggered', 'result': {'success': True, 'action': 'SIMULATED_CLOSE_IMMEDIATELY', 'message': 'Exit simulation completed'}, 'mode': 'SIMULATION'}
+2025-06-25 17:49:02,415 - __main__ - INFO - Monitoring cycle completed in 2.64s - Positions: 3, Alerts: 2, Exits: 2
+2025-06-25 17:49:02,494 - httpx - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/monitoring_logs "HTTP/2 404 Not Found"
+2025-06-25 17:49:02,583 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=id&stock_name=eq.HINDUNILVR&strategy_name=eq.Butterfly+Spread&order=created_at.asc&limit=1 "HTTP/2 200 OK"
+2025-06-25 17:49:02,660 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3376 "HTTP/2 200 OK"
+2025-06-25 17:49:02,662 - __main__ - INFO - Parsed exit conditions: 4 profit targets, 1 stop losses
+2025-06-25 17:49:02,726 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=id&stock_name=eq.DIXON&strategy_name=eq.Butterfly+Spread&order=created_at.asc&limit=1 "HTTP/2 200 OK"
+2025-06-25 17:49:02,792 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-25 17:49:02,793 - __main__ - INFO - Parsed exit conditions: 4 profit targets, 1 stop losses
+2025-06-25 17:49:02,911 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=id&stock_name=eq.TVSMOTOR&strategy_name=eq.Long+Call&order=created_at.asc&limit=1 "HTTP/2 200 OK"
+2025-06-25 17:49:02,987 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-25 17:49:02,988 - __main__ - INFO - Parsed exit conditions: 4 profit targets, 1 stop losses
+2025-06-26 09:12:39,066 - __main__ - INFO - Supabase client initialized successfully
+2025-06-26 09:12:39,071 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-26 09:12:39,611 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open&strategy=eq.Butterfly+Spread "HTTP/2 200 OK"
+2025-06-26 09:12:39,613 - __main__ - INFO - Position Monitor initialized successfully
+2025-06-26 09:12:39,622 - __main__ - INFO - Supabase client initialized successfully
+2025-06-26 09:12:39,622 - __main__ - INFO - Exit Executor initialized successfully
+2025-06-26 09:12:39,629 - __main__ - INFO - Supabase client initialized successfully
+2025-06-26 09:12:39,629 - __main__ - INFO - Automated Monitor initialized (execute_exits=False, alert_only=False)
+2025-06-26 09:12:39,629 - __main__ - INFO - Starting continuous monitoring (interval: 5 minutes)
+2025-06-26 09:12:39,629 - __main__ - INFO - Running in SIMULATION mode - no actual trades will be executed
+2025-06-26 09:12:39,629 - __main__ - INFO - Starting monitoring cycle at 2025-06-26 09:12:39.629631
+2025-06-26 09:12:40,011 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-26 09:12:41,302 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-26 09:12:41,433 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-26 09:12:41,435 - __main__ - WARNING - No actual DTE available, using estimated: 28
+2025-06-26 09:12:41,562 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-26 09:12:41,649 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-26 09:12:42,125 - httpx - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/position_alerts "HTTP/2 404 Not Found"
+2025-06-26 09:12:42,126 - __main__ - WARNING - ALERT [HIGH] DIXON - Butterfly Spread: CLOSE_IMMEDIATELY (P&L: 152.50)
+2025-06-26 09:12:42,126 - __main__ - INFO - [SIMULATION] Would execute: CLOSE_IMMEDIATELY
+2025-06-26 09:12:42,126 - __main__ - INFO - [SIMULATION] Position: DIXON - Butterfly Spread
+2025-06-26 09:12:42,126 - __main__ - INFO - [SIMULATION] Reason: Time Exit triggered
+2025-06-26 09:12:42,126 - __main__ - INFO - [SIMULATION] Would place: SELL 50 DIXON 13750.0 CE
+2025-06-26 09:12:42,126 - __main__ - INFO - [SIMULATION] Would place: BUY 50 DIXON 14000.0 CE
+2025-06-26 09:12:42,126 - __main__ - INFO - [SIMULATION] Would place: SELL 50 DIXON 14250.0 CE
+2025-06-26 09:12:42,127 - __main__ - INFO - Exit executed: {'timestamp': '2025-06-26T09:12:42.126382', 'strategy_id': 3359, 'symbol': 'DIXON', 'strategy_name': 'Butterfly Spread', 'action': 'CLOSE_IMMEDIATELY', 'reason': 'Time Exit triggered', 'result': {'success': True, 'action': 'SIMULATED_CLOSE_IMMEDIATELY', 'message': 'Exit simulation completed'}, 'mode': 'SIMULATION'}
+2025-06-26 09:12:42,198 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-26 09:12:42,272 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-26 09:12:42,344 - httpx - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/position_alerts "HTTP/2 404 Not Found"
+2025-06-26 09:12:42,344 - __main__ - WARNING - ALERT [HIGH] TVSMOTOR - Long Call: CLOSE_IMMEDIATELY (P&L: 8715.00)
+2025-06-26 09:12:42,344 - __main__ - INFO - [SIMULATION] Would execute: CLOSE_IMMEDIATELY
+2025-06-26 09:12:42,344 - __main__ - INFO - [SIMULATION] Position: TVSMOTOR - Long Call
+2025-06-26 09:12:42,344 - __main__ - INFO - [SIMULATION] Reason: Time Exit triggered
+2025-06-26 09:12:42,344 - __main__ - INFO - [SIMULATION] Would place: SELL 350 TVSMOTOR 2820.0 CE
+2025-06-26 09:12:42,344 - __main__ - INFO - Exit executed: {'timestamp': '2025-06-26T09:12:42.344730', 'strategy_id': 3626, 'symbol': 'TVSMOTOR', 'strategy_name': 'Long Call', 'action': 'CLOSE_IMMEDIATELY', 'reason': 'Time Exit triggered', 'result': {'success': True, 'action': 'SIMULATED_CLOSE_IMMEDIATELY', 'message': 'Exit simulation completed'}, 'mode': 'SIMULATION'}
+2025-06-26 09:12:42,344 - __main__ - INFO - Monitoring cycle completed in 2.72s - Positions: 3, Alerts: 2, Exits: 2
+2025-06-26 09:12:42,408 - httpx - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/monitoring_logs "HTTP/2 404 Not Found"
+2025-06-26 09:12:42,482 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=id&stock_name=eq.HINDUNILVR&strategy_name=eq.Butterfly+Spread&order=created_at.asc&limit=1 "HTTP/2 200 OK"
+2025-06-26 09:12:42,611 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3376 "HTTP/2 200 OK"
+2025-06-26 09:12:42,613 - __main__ - INFO - Parsed exit conditions: 4 profit targets, 1 stop losses
+2025-06-26 09:12:42,682 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=id&stock_name=eq.DIXON&strategy_name=eq.Butterfly+Spread&order=created_at.asc&limit=1 "HTTP/2 200 OK"
+2025-06-26 09:12:42,750 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-26 09:12:42,751 - __main__ - INFO - Parsed exit conditions: 4 profit targets, 1 stop losses
+2025-06-26 09:12:42,817 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=id&stock_name=eq.TVSMOTOR&strategy_name=eq.Long+Call&order=created_at.asc&limit=1 "HTTP/2 200 OK"
+2025-06-26 09:12:42,893 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-26 09:12:42,894 - __main__ - INFO - Parsed exit conditions: 4 profit targets, 1 stop losses
+2025-06-26 09:12:53,399 - __main__ - INFO - Monitoring stopped by user
+2025-06-26 09:17:25,541 - __main__ - INFO - Supabase client initialized successfully
+2025-06-26 09:17:25,547 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-26 09:17:26,072 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open&strategy=eq.Butterfly+Spread "HTTP/2 200 OK"
+2025-06-26 09:17:26,077 - __main__ - INFO - Position Monitor initialized successfully
+2025-06-26 09:17:26,087 - __main__ - INFO - Supabase client initialized successfully
+2025-06-26 09:17:26,087 - __main__ - INFO - Exit Executor initialized successfully
+2025-06-26 09:17:26,095 - __main__ - INFO - Supabase client initialized successfully
+2025-06-26 09:17:26,095 - __main__ - INFO - Automated Monitor initialized (execute_exits=True, alert_only=False)
+2025-06-26 09:17:26,095 - __main__ - INFO - Starting continuous monitoring (interval: 5 minutes)
+2025-06-26 09:17:26,095 - __main__ - WARNING - ⚠️  LIVE MODE - Exits will be executed automatically!
+2025-06-26 09:17:31,100 - __main__ - INFO - Starting monitoring cycle at 2025-06-26 09:17:31.100468
+2025-06-26 09:17:31,468 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-26 09:17:32,715 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-26 09:17:32,790 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-26 09:17:32,790 - __main__ - WARNING - No actual DTE available, using estimated: 28
+2025-06-26 09:17:32,861 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-26 09:17:32,947 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-26 09:17:33,301 - httpx - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/position_alerts "HTTP/2 404 Not Found"
+2025-06-26 09:17:33,301 - __main__ - WARNING - ALERT [HIGH] DIXON - Butterfly Spread: CLOSE_IMMEDIATELY (P&L: -380.00)
+2025-06-26 09:17:33,301 - __main__ - INFO - Executing exit for DIXON - Butterfly Spread
+2025-06-26 09:17:33,301 - __main__ - INFO - Action: CLOSE_IMMEDIATELY, Reason: Time Exit triggered
+2025-06-26 09:17:33,301 - __main__ - ERROR - Error placing exit order: dhanhq.place_order() missing 6 required positional arguments: 'exchange_segment', 'transaction_type', 'quantity', 'order_type', 'product_type', and 'price'
+2025-06-26 09:17:33,301 - __main__ - ERROR - Error placing exit order: dhanhq.place_order() missing 6 required positional arguments: 'exchange_segment', 'transaction_type', 'quantity', 'order_type', 'product_type', and 'price'
+2025-06-26 09:17:33,301 - __main__ - ERROR - Error placing exit order: dhanhq.place_order() missing 6 required positional arguments: 'exchange_segment', 'transaction_type', 'quantity', 'order_type', 'product_type', and 'price'
+2025-06-26 09:17:33,368 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-26 09:17:33,439 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-26 09:17:33,516 - httpx - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/position_alerts "HTTP/2 404 Not Found"
+2025-06-26 09:17:33,516 - __main__ - WARNING - ALERT [HIGH] TVSMOTOR - Long Call: CLOSE_IMMEDIATELY (P&L: 8697.50)
+2025-06-26 09:17:33,516 - __main__ - INFO - Executing exit for TVSMOTOR - Long Call
+2025-06-26 09:17:33,516 - __main__ - INFO - Action: CLOSE_IMMEDIATELY, Reason: Time Exit triggered
+2025-06-26 09:17:33,516 - __main__ - ERROR - Error placing exit order: dhanhq.place_order() missing 6 required positional arguments: 'exchange_segment', 'transaction_type', 'quantity', 'order_type', 'product_type', and 'price'
+2025-06-26 09:17:33,516 - __main__ - INFO - Monitoring cycle completed in 2.42s - Positions: 3, Alerts: 2, Exits: 0
+2025-06-26 09:17:33,590 - httpx - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/monitoring_logs "HTTP/2 404 Not Found"
+2025-06-26 09:17:33,679 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=id&stock_name=eq.HINDUNILVR&strategy_name=eq.Butterfly+Spread&order=created_at.asc&limit=1 "HTTP/2 200 OK"
+2025-06-26 09:17:33,752 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3376 "HTTP/2 200 OK"
+2025-06-26 09:17:33,752 - __main__ - INFO - Parsed exit conditions: 4 profit targets, 1 stop losses
+2025-06-26 09:17:33,826 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=id&stock_name=eq.DIXON&strategy_name=eq.Butterfly+Spread&order=created_at.asc&limit=1 "HTTP/2 200 OK"
+2025-06-26 09:17:33,900 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-26 09:17:33,901 - __main__ - INFO - Parsed exit conditions: 4 profit targets, 1 stop losses
+2025-06-26 09:17:33,990 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=id&stock_name=eq.TVSMOTOR&strategy_name=eq.Long+Call&order=created_at.asc&limit=1 "HTTP/2 200 OK"
+2025-06-26 09:17:34,067 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-26 09:17:34,068 - __main__ - INFO - Parsed exit conditions: 4 profit targets, 1 stop losses
+2025-06-26 09:17:38,466 - __main__ - INFO - Monitoring stopped by user
+2025-06-26 09:19:17,323 - __main__ - INFO - Supabase client initialized successfully
+2025-06-26 09:19:17,330 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-26 09:19:17,811 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open&strategy=eq.Butterfly+Spread "HTTP/2 200 OK"
+2025-06-26 09:19:17,813 - __main__ - INFO - Position Monitor initialized successfully
+2025-06-26 09:19:17,818 - __main__ - INFO - Supabase client initialized successfully
+2025-06-26 09:19:17,818 - __main__ - INFO - Exit Executor initialized successfully
+2025-06-26 09:19:17,824 - __main__ - INFO - Supabase client initialized successfully
+2025-06-26 09:19:17,824 - __main__ - INFO - Automated Monitor initialized (execute_exits=False, alert_only=False)
+2025-06-26 09:19:17,824 - __main__ - INFO - Starting continuous monitoring (interval: 5 minutes)
+2025-06-26 09:19:17,824 - __main__ - INFO - Running in SIMULATION mode - no actual trades will be executed
+2025-06-26 09:19:17,825 - __main__ - INFO - Starting monitoring cycle at 2025-06-26 09:19:17.824996
+2025-06-26 09:19:18,168 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-26 09:19:19,429 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-26 09:19:19,506 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-26 09:19:19,506 - __main__ - WARNING - No actual DTE available, using estimated: 28
+2025-06-26 09:19:19,643 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-26 09:19:19,716 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-26 09:19:19,896 - httpx - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/position_alerts "HTTP/2 404 Not Found"
+2025-06-26 09:19:19,896 - __main__ - WARNING - ALERT [HIGH] DIXON - Butterfly Spread: CLOSE_IMMEDIATELY (P&L: -1295.00)
+2025-06-26 09:19:19,896 - __main__ - INFO - [SIMULATION] Would execute: CLOSE_IMMEDIATELY
+2025-06-26 09:19:19,896 - __main__ - INFO - [SIMULATION] Position: DIXON - Butterfly Spread
+2025-06-26 09:19:19,896 - __main__ - INFO - [SIMULATION] Reason: Time Exit triggered
+2025-06-26 09:19:19,896 - __main__ - INFO - [SIMULATION] Would place: SELL 50 DIXON 13750.0 CE
+2025-06-26 09:19:19,896 - __main__ - INFO - [SIMULATION] Would place: BUY 50 DIXON 14000.0 CE
+2025-06-26 09:19:19,896 - __main__ - INFO - [SIMULATION] Would place: SELL 50 DIXON 14250.0 CE
+2025-06-26 09:19:19,899 - __main__ - INFO - Exit executed: {'timestamp': '2025-06-26T09:19:19.896933', 'strategy_id': 3359, 'symbol': 'DIXON', 'strategy_name': 'Butterfly Spread', 'action': 'CLOSE_IMMEDIATELY', 'reason': 'Time Exit triggered', 'result': {'success': True, 'action': 'SIMULATED_CLOSE_IMMEDIATELY', 'message': 'Exit simulation completed'}, 'mode': 'SIMULATION'}
+2025-06-26 09:19:19,978 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-26 09:19:20,059 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-26 09:19:20,122 - httpx - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/position_alerts "HTTP/2 404 Not Found"
+2025-06-26 09:19:20,123 - __main__ - WARNING - ALERT [HIGH] TVSMOTOR - Long Call: CLOSE_IMMEDIATELY (P&L: 8697.50)
+2025-06-26 09:19:20,124 - __main__ - INFO - [SIMULATION] Would execute: CLOSE_IMMEDIATELY
+2025-06-26 09:19:20,124 - __main__ - INFO - [SIMULATION] Position: TVSMOTOR - Long Call
+2025-06-26 09:19:20,124 - __main__ - INFO - [SIMULATION] Reason: Time Exit triggered
+2025-06-26 09:19:20,124 - __main__ - INFO - [SIMULATION] Would place: SELL 350 TVSMOTOR 2820.0 CE
+2025-06-26 09:19:20,125 - __main__ - INFO - Exit executed: {'timestamp': '2025-06-26T09:19:20.124540', 'strategy_id': 3626, 'symbol': 'TVSMOTOR', 'strategy_name': 'Long Call', 'action': 'CLOSE_IMMEDIATELY', 'reason': 'Time Exit triggered', 'result': {'success': True, 'action': 'SIMULATED_CLOSE_IMMEDIATELY', 'message': 'Exit simulation completed'}, 'mode': 'SIMULATION'}
+2025-06-26 09:19:20,125 - __main__ - INFO - Monitoring cycle completed in 2.30s - Positions: 3, Alerts: 2, Exits: 2
+2025-06-26 09:19:20,192 - httpx - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/monitoring_logs "HTTP/2 404 Not Found"
+2025-06-26 09:19:20,284 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=id&stock_name=eq.HINDUNILVR&strategy_name=eq.Butterfly+Spread&order=created_at.asc&limit=1 "HTTP/2 200 OK"
+2025-06-26 09:19:20,352 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3376 "HTTP/2 200 OK"
+2025-06-26 09:19:20,354 - __main__ - INFO - Parsed exit conditions: 4 profit targets, 1 stop losses
+2025-06-26 09:19:20,443 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=id&stock_name=eq.DIXON&strategy_name=eq.Butterfly+Spread&order=created_at.asc&limit=1 "HTTP/2 200 OK"
+2025-06-26 09:19:20,530 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-26 09:19:20,531 - __main__ - INFO - Parsed exit conditions: 4 profit targets, 1 stop losses
+2025-06-26 09:19:20,603 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=id&stock_name=eq.TVSMOTOR&strategy_name=eq.Long+Call&order=created_at.asc&limit=1 "HTTP/2 200 OK"
+2025-06-26 09:19:20,671 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-26 09:19:20,673 - __main__ - INFO - Parsed exit conditions: 4 profit targets, 1 stop losses
+2025-06-26 09:19:23,622 - __main__ - INFO - Monitoring stopped by user
+2025-06-26 09:20:16,752 - __main__ - INFO - Supabase client initialized successfully
+2025-06-26 09:20:16,757 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-26 09:20:16,933 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open&strategy=eq.Butterfly+Spread "HTTP/2 200 OK"
+2025-06-26 09:20:16,934 - __main__ - INFO - Position Monitor initialized successfully
+2025-06-26 09:20:16,938 - __main__ - INFO - Supabase client initialized successfully
+2025-06-26 09:20:16,938 - __main__ - INFO - Exit Executor initialized successfully
+2025-06-26 09:20:16,942 - __main__ - INFO - Supabase client initialized successfully
+2025-06-26 09:20:16,942 - __main__ - INFO - Automated Monitor initialized (execute_exits=True, alert_only=False)
+2025-06-26 09:20:16,942 - __main__ - INFO - Starting continuous monitoring (interval: 5 minutes)
+2025-06-26 09:20:16,942 - __main__ - WARNING - ⚠️  LIVE MODE - Exits will be executed automatically!
+2025-06-26 09:20:21,947 - __main__ - INFO - Starting monitoring cycle at 2025-06-26 09:20:21.947438
+2025-06-26 09:20:22,102 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-26 09:20:23,342 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-26 09:20:23,409 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-26 09:20:23,410 - __main__ - WARNING - No actual DTE available, using estimated: 28
+2025-06-26 09:20:23,476 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-26 09:20:23,537 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-26 09:20:23,859 - httpx - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/position_alerts "HTTP/2 404 Not Found"
+2025-06-26 09:20:23,859 - __main__ - WARNING - ALERT [HIGH] DIXON - Butterfly Spread: CLOSE_IMMEDIATELY (P&L: -2040.00)
+2025-06-26 09:20:23,859 - __main__ - INFO - Executing exit for DIXON - Butterfly Spread
+2025-06-26 09:20:23,859 - __main__ - INFO - Action: CLOSE_IMMEDIATELY, Reason: Stop Loss triggered
+2025-06-26 09:20:23,859 - __main__ - ERROR - Error placing exit order: dhanhq.place_order() missing 6 required positional arguments: 'exchange_segment', 'transaction_type', 'quantity', 'order_type', 'product_type', and 'price'
+2025-06-26 09:20:23,859 - __main__ - ERROR - Error placing exit order: dhanhq.place_order() missing 6 required positional arguments: 'exchange_segment', 'transaction_type', 'quantity', 'order_type', 'product_type', and 'price'
+2025-06-26 09:20:23,859 - __main__ - ERROR - Error placing exit order: dhanhq.place_order() missing 6 required positional arguments: 'exchange_segment', 'transaction_type', 'quantity', 'order_type', 'product_type', and 'price'
+2025-06-26 09:20:23,915 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-26 09:20:23,970 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-26 09:20:24,047 - httpx - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/position_alerts "HTTP/2 404 Not Found"
+2025-06-26 09:20:24,047 - __main__ - WARNING - ALERT [HIGH] TVSMOTOR - Long Call: CLOSE_IMMEDIATELY (P&L: 8697.50)
+2025-06-26 09:20:24,047 - __main__ - INFO - Executing exit for TVSMOTOR - Long Call
+2025-06-26 09:20:24,047 - __main__ - INFO - Action: CLOSE_IMMEDIATELY, Reason: Time Exit triggered
+2025-06-26 09:20:24,047 - __main__ - ERROR - Error placing exit order: dhanhq.place_order() missing 6 required positional arguments: 'exchange_segment', 'transaction_type', 'quantity', 'order_type', 'product_type', and 'price'
+2025-06-26 09:20:24,047 - __main__ - INFO - Monitoring cycle completed in 2.10s - Positions: 3, Alerts: 2, Exits: 0
+2025-06-26 09:20:24,109 - httpx - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/monitoring_logs "HTTP/2 404 Not Found"
+2025-06-26 09:20:24,175 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=id&stock_name=eq.HINDUNILVR&strategy_name=eq.Butterfly+Spread&order=created_at.asc&limit=1 "HTTP/2 200 OK"
+2025-06-26 09:20:24,358 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3376 "HTTP/2 200 OK"
+2025-06-26 09:20:24,359 - __main__ - INFO - Parsed exit conditions: 4 profit targets, 1 stop losses
+2025-06-26 09:20:24,419 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=id&stock_name=eq.DIXON&strategy_name=eq.Butterfly+Spread&order=created_at.asc&limit=1 "HTTP/2 200 OK"
+2025-06-26 09:20:24,495 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-26 09:20:24,497 - __main__ - INFO - Parsed exit conditions: 4 profit targets, 1 stop losses
+2025-06-26 09:20:24,569 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=id&stock_name=eq.TVSMOTOR&strategy_name=eq.Long+Call&order=created_at.asc&limit=1 "HTTP/2 200 OK"
+2025-06-26 09:20:24,676 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-26 09:20:24,677 - __main__ - INFO - Parsed exit conditions: 4 profit targets, 1 stop losses
+2025-06-26 09:20:53,437 - __main__ - INFO - Monitoring stopped by user
+2025-06-26 09:23:45,328 - __main__ - INFO - Supabase client initialized successfully
+2025-06-26 09:23:45,334 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-26 09:23:45,856 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open&strategy=eq.Butterfly+Spread "HTTP/2 200 OK"
+2025-06-26 09:23:45,859 - __main__ - INFO - Position Monitor initialized successfully
+2025-06-26 09:23:45,868 - __main__ - INFO - Supabase client initialized successfully
+2025-06-26 09:23:45,868 - __main__ - INFO - Exit Executor initialized successfully
+2025-06-26 09:23:45,875 - __main__ - INFO - Supabase client initialized successfully
+2025-06-26 09:23:45,876 - __main__ - INFO - Automated Monitor initialized (execute_exits=False, alert_only=False)
+2025-06-26 09:23:45,876 - __main__ - INFO - Starting monitoring cycle at 2025-06-26 09:23:45.876109
+2025-06-26 09:23:46,262 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-26 09:23:47,513 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-26 09:23:47,596 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-26 09:23:47,598 - __main__ - WARNING - No actual DTE available, using estimated: 28
+2025-06-26 09:23:47,671 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-26 09:23:47,742 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-26 09:23:48,155 - httpx - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/position_alerts "HTTP/2 404 Not Found"
+2025-06-26 09:23:48,156 - __main__ - WARNING - ALERT [HIGH] DIXON - Butterfly Spread: CLOSE_IMMEDIATELY (P&L: -1880.00)
+2025-06-26 09:23:48,156 - __main__ - INFO - [SIMULATION] Would execute: CLOSE_IMMEDIATELY
+2025-06-26 09:23:48,157 - __main__ - INFO - [SIMULATION] Position: DIXON - Butterfly Spread
+2025-06-26 09:23:48,157 - __main__ - INFO - [SIMULATION] Reason: Stop Loss triggered
+2025-06-26 09:23:48,157 - __main__ - INFO - [SIMULATION] Would place: SELL 50 DIXON 13750.0 CE
+2025-06-26 09:23:48,157 - __main__ - INFO - [SIMULATION] Would place: BUY 50 DIXON 14000.0 CE
+2025-06-26 09:23:48,157 - __main__ - INFO - [SIMULATION] Would place: SELL 50 DIXON 14250.0 CE
+2025-06-26 09:23:48,160 - __main__ - INFO - Exit executed: {'timestamp': '2025-06-26T09:23:48.157642', 'strategy_id': 3359, 'symbol': 'DIXON', 'strategy_name': 'Butterfly Spread', 'action': 'CLOSE_IMMEDIATELY', 'reason': 'Stop Loss triggered', 'result': {'success': True, 'action': 'SIMULATED_CLOSE_IMMEDIATELY', 'message': 'Exit simulation completed'}, 'mode': 'SIMULATION'}
+2025-06-26 09:23:48,224 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-26 09:23:48,296 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-26 09:23:48,375 - httpx - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/position_alerts "HTTP/2 404 Not Found"
+2025-06-26 09:23:48,376 - __main__ - WARNING - ALERT [HIGH] TVSMOTOR - Long Call: CLOSE_IMMEDIATELY (P&L: 8697.50)
+2025-06-26 09:23:48,376 - __main__ - INFO - [SIMULATION] Would execute: CLOSE_IMMEDIATELY
+2025-06-26 09:23:48,376 - __main__ - INFO - [SIMULATION] Position: TVSMOTOR - Long Call
+2025-06-26 09:23:48,376 - __main__ - INFO - [SIMULATION] Reason: Time Exit triggered
+2025-06-26 09:23:48,376 - __main__ - INFO - [SIMULATION] Would place: SELL 350 TVSMOTOR 2820.0 CE
+2025-06-26 09:23:48,376 - __main__ - INFO - Exit executed: {'timestamp': '2025-06-26T09:23:48.376156', 'strategy_id': 3626, 'symbol': 'TVSMOTOR', 'strategy_name': 'Long Call', 'action': 'CLOSE_IMMEDIATELY', 'reason': 'Time Exit triggered', 'result': {'success': True, 'action': 'SIMULATED_CLOSE_IMMEDIATELY', 'message': 'Exit simulation completed'}, 'mode': 'SIMULATION'}
+2025-06-26 09:23:48,376 - __main__ - INFO - Monitoring cycle completed in 2.50s - Positions: 3, Alerts: 2, Exits: 2
+2025-06-26 09:23:48,446 - httpx - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/monitoring_logs "HTTP/2 404 Not Found"
+2025-06-26 09:23:48,522 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=id&stock_name=eq.HINDUNILVR&strategy_name=eq.Butterfly+Spread&order=created_at.asc&limit=1 "HTTP/2 200 OK"
+2025-06-26 09:23:48,598 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3376 "HTTP/2 200 OK"
+2025-06-26 09:23:48,599 - __main__ - INFO - Parsed exit conditions: 4 profit targets, 1 stop losses
+2025-06-26 09:23:48,701 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=id&stock_name=eq.DIXON&strategy_name=eq.Butterfly+Spread&order=created_at.asc&limit=1 "HTTP/2 200 OK"
+2025-06-26 09:23:48,786 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-26 09:23:48,787 - __main__ - INFO - Parsed exit conditions: 4 profit targets, 1 stop losses
+2025-06-26 09:23:48,854 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=id&stock_name=eq.TVSMOTOR&strategy_name=eq.Long+Call&order=created_at.asc&limit=1 "HTTP/2 200 OK"
+2025-06-26 09:23:48,936 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-26 09:23:48,938 - __main__ - INFO - Parsed exit conditions: 4 profit targets, 1 stop losses
+2025-06-26 09:23:57,138 - __main__ - INFO - Supabase client initialized successfully
+2025-06-26 09:23:57,142 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-26 09:23:57,300 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open&strategy=eq.Butterfly+Spread "HTTP/2 200 OK"
+2025-06-26 09:23:57,301 - __main__ - INFO - Position Monitor initialized successfully
+2025-06-26 09:23:57,305 - __main__ - INFO - Supabase client initialized successfully
+2025-06-26 09:23:57,305 - __main__ - INFO - Exit Executor initialized successfully
+2025-06-26 09:23:57,309 - __main__ - INFO - Supabase client initialized successfully
+2025-06-26 09:23:57,309 - __main__ - INFO - Automated Monitor initialized (execute_exits=True, alert_only=False)
+2025-06-26 09:23:57,309 - __main__ - INFO - Starting monitoring cycle at 2025-06-26 09:23:57.309705
+2025-06-26 09:23:57,468 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-26 09:23:58,685 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-26 09:23:58,747 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-26 09:23:58,747 - __main__ - WARNING - No actual DTE available, using estimated: 28
+2025-06-26 09:23:58,812 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-26 09:23:58,868 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-26 09:23:59,212 - httpx - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/position_alerts "HTTP/2 404 Not Found"
+2025-06-26 09:23:59,212 - __main__ - WARNING - ALERT [HIGH] DIXON - Butterfly Spread: CLOSE_IMMEDIATELY (P&L: -1997.50)
+2025-06-26 09:23:59,212 - __main__ - INFO - Executing exit for DIXON - Butterfly Spread
+2025-06-26 09:23:59,212 - __main__ - INFO - Action: CLOSE_IMMEDIATELY, Reason: Stop Loss triggered
+2025-06-26 09:23:59,377 - __main__ - INFO - Exit order placed successfully: 7225062638505
+2025-06-26 09:23:59,575 - httpx - INFO - HTTP Request: PATCH https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?new_id=eq.497 "HTTP/2 200 OK"
+2025-06-26 09:23:59,575 - __main__ - INFO - Updated trade 497 with exit details
+2025-06-26 09:23:59,642 - __main__ - INFO - Exit order placed successfully: 4225062677005
+2025-06-26 09:23:59,711 - httpx - INFO - HTTP Request: PATCH https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?new_id=eq.498 "HTTP/2 200 OK"
+2025-06-26 09:23:59,711 - __main__ - INFO - Updated trade 498 with exit details
+2025-06-26 09:23:59,775 - __main__ - INFO - Exit order placed successfully: 9225062671605
+2025-06-26 09:23:59,850 - httpx - INFO - HTTP Request: PATCH https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?new_id=eq.499 "HTTP/2 200 OK"
+2025-06-26 09:23:59,850 - __main__ - INFO - Updated trade 499 with exit details
+2025-06-26 09:23:59,850 - __main__ - INFO - Exit executed: {'timestamp': '2025-06-26T09:23:59.850686', 'strategy_id': 3359, 'symbol': 'DIXON', 'strategy_name': 'Butterfly Spread', 'action': 'CLOSE_IMMEDIATELY', 'reason': 'Stop Loss triggered', 'result': {'success': True, 'action': 'FULL_EXIT', 'message': 'Exited 3 legs', 'details': [{'success': True, 'order_id': '7225062638505', 'security_id': 88131, 'action': 'SELL', 'quantity': 50, 'message': 'Order 7225062638505 placed for DIXON 13750.0 CE'}, {'success': True, 'order_id': '4225062677005', 'security_id': 86114, 'action': 'BUY', 'quantity': 50, 'message': 'Order 4225062677005 placed for DIXON 14000.0 CE'}, {'success': True, 'order_id': '9225062671605', 'security_id': 88133, 'action': 'SELL', 'quantity': 50, 'message': 'Order 9225062671605 placed for DIXON 14250.0 CE'}]}, 'mode': 'LIVE'}
+2025-06-26 09:23:59,934 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-26 09:24:00,028 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-26 09:24:00,114 - httpx - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/position_alerts "HTTP/2 404 Not Found"
+2025-06-26 09:24:00,115 - __main__ - WARNING - ALERT [HIGH] TVSMOTOR - Long Call: CLOSE_IMMEDIATELY (P&L: 8697.50)
+2025-06-26 09:24:00,115 - __main__ - INFO - Executing exit for TVSMOTOR - Long Call
+2025-06-26 09:24:00,115 - __main__ - INFO - Action: CLOSE_IMMEDIATELY, Reason: Time Exit triggered
+2025-06-26 09:24:00,188 - __main__ - INFO - Exit order placed successfully: 2225062649105
+2025-06-26 09:24:00,268 - httpx - INFO - HTTP Request: PATCH https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?new_id=eq.500 "HTTP/2 200 OK"
+2025-06-26 09:24:00,268 - __main__ - INFO - Updated trade 500 with exit details
+2025-06-26 09:24:00,268 - __main__ - INFO - Exit executed: {'timestamp': '2025-06-26T09:24:00.268727', 'strategy_id': 3626, 'symbol': 'TVSMOTOR', 'strategy_name': 'Long Call', 'action': 'CLOSE_IMMEDIATELY', 'reason': 'Time Exit triggered', 'result': {'success': True, 'action': 'FULL_EXIT', 'message': 'Exited 1 legs', 'details': [{'success': True, 'order_id': '2225062649105', 'security_id': 133355, 'action': 'SELL', 'quantity': 350, 'message': 'Order 2225062649105 placed for TVSMOTOR 2820.0 CE'}]}, 'mode': 'LIVE'}
+2025-06-26 09:24:00,269 - __main__ - INFO - Monitoring cycle completed in 2.96s - Positions: 3, Alerts: 2, Exits: 2
+2025-06-26 09:24:00,333 - httpx - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/monitoring_logs "HTTP/2 404 Not Found"
+2025-06-26 09:24:00,421 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=id&stock_name=eq.HINDUNILVR&strategy_name=eq.Butterfly+Spread&order=created_at.asc&limit=1 "HTTP/2 200 OK"
+2025-06-26 09:24:00,491 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3376 "HTTP/2 200 OK"
+2025-06-26 09:24:00,491 - __main__ - INFO - Parsed exit conditions: 4 profit targets, 1 stop losses
+2025-06-26 09:24:00,560 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=id&stock_name=eq.DIXON&strategy_name=eq.Butterfly+Spread&order=created_at.asc&limit=1 "HTTP/2 200 OK"
+2025-06-26 09:24:00,650 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-26 09:24:00,652 - __main__ - INFO - Parsed exit conditions: 4 profit targets, 1 stop losses
+2025-06-26 09:24:00,726 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=id&stock_name=eq.TVSMOTOR&strategy_name=eq.Long+Call&order=created_at.asc&limit=1 "HTTP/2 200 OK"
+2025-06-26 09:24:00,795 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-26 09:24:00,795 - __main__ - INFO - Parsed exit conditions: 4 profit targets, 1 stop losses
+2025-06-26 09:27:35,783 - __main__ - INFO - Supabase client initialized successfully
+2025-06-26 09:27:35,788 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-26 09:27:35,982 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open&strategy=eq.Butterfly+Spread "HTTP/2 200 OK"
+2025-06-26 09:27:35,985 - __main__ - INFO - Position Monitor initialized successfully
+2025-06-26 09:27:35,994 - __main__ - INFO - Supabase client initialized successfully
+2025-06-26 09:27:35,994 - __main__ - INFO - Exit Executor initialized successfully
+2025-06-26 09:27:36,001 - __main__ - INFO - Supabase client initialized successfully
+2025-06-26 09:27:36,001 - __main__ - INFO - Automated Monitor initialized (execute_exits=True, alert_only=False)
+2025-06-26 09:27:36,001 - __main__ - INFO - Starting continuous monitoring (interval: 5 minutes)
+2025-06-26 09:27:36,001 - __main__ - WARNING - ⚠️  LIVE MODE - Exits will be executed automatically!
+2025-06-26 09:27:41,006 - __main__ - INFO - Starting monitoring cycle at 2025-06-26 09:27:41.006453
+2025-06-26 09:27:41,383 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-26 09:27:42,655 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-26 09:27:42,728 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-26 09:27:42,730 - __main__ - WARNING - No actual DTE available, using estimated: 28
+2025-06-26 09:27:42,730 - __main__ - INFO - Monitoring cycle completed in 1.72s - Positions: 1, Alerts: 0, Exits: 0
+2025-06-26 09:27:42,944 - httpx - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/monitoring_logs "HTTP/2 404 Not Found"
+2025-06-26 09:27:43,037 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=id&stock_name=eq.HINDUNILVR&strategy_name=eq.Butterfly+Spread&order=created_at.asc&limit=1 "HTTP/2 200 OK"
+2025-06-26 09:27:43,113 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3376 "HTTP/2 200 OK"
+2025-06-26 09:27:43,115 - __main__ - INFO - Parsed exit conditions: 4 profit targets, 1 stop losses
+2025-06-26 09:32:43,120 - __main__ - INFO - Starting monitoring cycle at 2025-06-26 09:32:43.119640
+2025-06-26 09:32:43,574 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-26 09:32:44,907 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-26 09:32:44,977 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-26 09:32:45,147 - httpx - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/position_alerts "HTTP/2 404 Not Found"
+2025-06-26 09:32:45,147 - __main__ - WARNING - ALERT [HIGH] HINDUNILVR - Butterfly Spread: CLOSE_IMMEDIATELY (P&L: 1050.00)
+2025-06-26 09:32:45,147 - __main__ - INFO - Executing exit for HINDUNILVR - Butterfly Spread
+2025-06-26 09:32:45,148 - __main__ - INFO - Action: CLOSE_IMMEDIATELY, Reason: Time Exit triggered
+2025-06-26 09:32:45,387 - __main__ - INFO - Exit order placed successfully: 92250626136205
+2025-06-26 09:32:45,760 - httpx - INFO - HTTP Request: PATCH https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?new_id=eq.27 "HTTP/2 200 OK"
+2025-06-26 09:32:45,761 - __main__ - INFO - Updated trade 27 with exit details
+2025-06-26 09:32:45,850 - __main__ - INFO - Exit order placed successfully: 8225062673005
+2025-06-26 09:32:45,926 - httpx - INFO - HTTP Request: PATCH https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?new_id=eq.28 "HTTP/2 200 OK"
+2025-06-26 09:32:45,927 - __main__ - INFO - Updated trade 28 with exit details
+2025-06-26 09:32:46,001 - __main__ - INFO - Exit order placed successfully: 1225062674805
+2025-06-26 09:32:46,082 - httpx - INFO - HTTP Request: PATCH https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?new_id=eq.29 "HTTP/2 200 OK"
+2025-06-26 09:32:46,084 - __main__ - INFO - Updated trade 29 with exit details
+2025-06-26 09:32:46,088 - __main__ - INFO - Exit executed: {'timestamp': '2025-06-26T09:32:46.084885', 'strategy_id': 84, 'symbol': 'HINDUNILVR', 'strategy_name': 'Butterfly Spread', 'action': 'CLOSE_IMMEDIATELY', 'reason': 'Time Exit triggered', 'result': {'success': True, 'action': 'FULL_EXIT', 'message': 'Exited 3 legs', 'details': [{'success': True, 'order_id': '92250626136205', 'security_id': 98313, 'action': 'SELL', 'quantity': 300, 'message': 'Order 92250626136205 placed for HINDUNILVR 2280.0 CE'}, {'success': True, 'order_id': '8225062673005', 'security_id': 97656, 'action': 'BUY', 'quantity': 600, 'message': 'Order 8225062673005 placed for HINDUNILVR 2300.0 CE'}, {'success': True, 'order_id': '1225062674805', 'security_id': 98315, 'action': 'SELL', 'quantity': 300, 'message': 'Order 1225062674805 placed for HINDUNILVR 2320.0 CE'}]}, 'mode': 'LIVE'}
+2025-06-26 09:32:46,088 - __main__ - INFO - Monitoring cycle completed in 2.97s - Positions: 1, Alerts: 1, Exits: 1
+2025-06-26 09:32:46,163 - httpx - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/monitoring_logs "HTTP/2 404 Not Found"
+2025-06-26 09:32:46,245 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=id&stock_name=eq.HINDUNILVR&strategy_name=eq.Butterfly+Spread&order=created_at.asc&limit=1 "HTTP/2 200 OK"
+2025-06-26 09:32:46,376 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3376 "HTTP/2 200 OK"
+2025-06-26 09:32:46,377 - __main__ - INFO - Parsed exit conditions: 4 profit targets, 1 stop losses
+2025-06-26 09:32:51,446 - __main__ - INFO - Monitoring stopped by user

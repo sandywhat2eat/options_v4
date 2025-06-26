@@ -232,6 +232,67 @@ class IntelligentStrikeSelector:
             ]
         }
     
+    def get_smart_expiry_date(self, base_date=None, cutoff_day=20):
+        """
+        Get expiry date using smart 20th date cutoff logic
+        
+        Args:
+            base_date: Base date for calculation (default: now)
+            cutoff_day: Cutoff day of month (default: 20)
+        
+        Returns:
+            datetime: Expiry date (last Thursday of target month)
+        """
+        import calendar
+        from datetime import datetime
+        
+        if base_date is None:
+            base_date = datetime.now()
+        
+        # Helper function to get last Thursday of a month
+        def get_last_thursday(year, month):
+            # Get last day of month
+            last_day = calendar.monthrange(year, month)[1]
+            # Find last Thursday
+            for day in range(last_day, 0, -1):
+                if datetime(year, month, day).weekday() == 3:  # Thursday = 3
+                    return datetime(year, month, day)
+            return None
+        
+        current_day = base_date.day
+        
+        # If before cutoff day of month: try current month expiry
+        if current_day <= cutoff_day:
+            target_month = base_date.month
+            target_year = base_date.year
+            
+            # Check if current month's expiry is still valid (hasn't passed)
+            current_month_expiry = get_last_thursday(target_year, target_month)
+            if current_month_expiry and current_month_expiry.date() > base_date.date():
+                logger.info(f"Using current month expiry (day {current_day} <= cutoff {cutoff_day}): {current_month_expiry.strftime('%Y-%m-%d')}")
+                return current_month_expiry
+            else:
+                # Current month expiry has passed, use next month
+                logger.info(f"Current month expiry has passed, using next month")
+                if target_month == 12:
+                    target_month = 1
+                    target_year += 1
+                else:
+                    target_month += 1
+        else:
+            # After cutoff day: use next month expiry
+            logger.info(f"Using next month expiry (day {current_day} > cutoff {cutoff_day})")
+            if base_date.month == 12:
+                target_month = 1
+                target_year = base_date.year + 1
+            else:
+                target_month = base_date.month + 1
+                target_year = base_date.year
+        
+        target_expiry = get_last_thursday(target_year, target_month)
+        logger.info(f"Selected expiry date: {target_expiry.strftime('%Y-%m-%d')}")
+        return target_expiry
+    
     def select_optimal_strike(self, options_df: pd.DataFrame, spot_price: float,
                             market_analysis: Dict, strategy_type: str,
                             option_type: str = 'CALL') -> float:

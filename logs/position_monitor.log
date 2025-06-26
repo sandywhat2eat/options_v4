@@ -1,0 +1,136 @@
+2025-06-24 20:51:51,151 - INFO - Supabase client initialized successfully
+2025-06-24 20:51:51,155 - INFO - Supabase client initialized successfully
+2025-06-24 20:51:51,520 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open&strategy=eq.Butterfly+Spread "HTTP/2 200 OK"
+2025-06-24 20:51:51,525 - INFO - Position Monitor initialized successfully
+2025-06-24 20:51:51,535 - INFO - Supabase client initialized successfully
+2025-06-24 20:51:51,535 - INFO - Monitor dashboard initialized successfully
+2025-06-24 20:51:51,917 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-24 20:51:53,154 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.None "HTTP/2 400 Bad Request"
+2025-06-24 20:51:53,154 - ERROR - Error fetching exit conditions for strategy None: {'message': 'invalid input syntax for type integer: "None"', 'code': '22P02', 'hint': None, 'details': None}
+2025-06-24 20:51:53,226 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.146 "HTTP/2 200 OK"
+2025-06-24 20:51:53,302 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.146 "HTTP/2 200 OK"
+2025-06-24 20:51:53,368 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-24 20:51:53,443 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-24 20:55:48,831 - INFO - Supabase client initialized successfully
+2025-06-24 20:55:48,835 - INFO - Supabase client initialized successfully
+2025-06-24 20:55:49,066 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open&strategy=eq.Butterfly+Spread "HTTP/2 200 OK"
+2025-06-24 20:55:49,068 - INFO - Position Monitor initialized successfully
+2025-06-24 20:55:49,073 - INFO - Supabase client initialized successfully
+2025-06-24 20:55:49,073 - INFO - Monitor dashboard initialized successfully
+2025-06-24 20:55:49,270 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-24 20:55:50,537 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.None "HTTP/2 400 Bad Request"
+2025-06-24 20:55:50,537 - ERROR - Error fetching exit conditions for strategy None: {'message': 'invalid input syntax for type integer: "None"', 'code': '22P02', 'hint': None, 'details': None}
+2025-06-24 20:55:50,632 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.146 "HTTP/2 200 OK"
+2025-06-24 20:55:50,824 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.146 "HTTP/2 200 OK"
+2025-06-24 20:55:50,926 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-24 20:55:51,018 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-24 20:57:58,579 - INFO - Supabase client initialized successfully
+2025-06-24 20:57:58,583 - INFO - Supabase client initialized successfully
+2025-06-24 20:57:59,084 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open&strategy=eq.Butterfly+Spread "HTTP/2 200 OK"
+2025-06-24 20:57:59,086 - INFO - Position Monitor initialized successfully
+2025-06-24 20:57:59,093 - INFO - Supabase client initialized successfully
+2025-06-24 20:57:59,093 - INFO - Monitor dashboard initialized successfully
+2025-06-24 20:57:59,511 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-24 20:58:00,755 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.None "HTTP/2 400 Bad Request"
+2025-06-24 20:58:00,757 - ERROR - Error fetching exit conditions for strategy None: {'message': 'invalid input syntax for type integer: "None"', 'code': '22P02', 'hint': None, 'details': None}
+2025-06-24 20:58:00,833 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.146 "HTTP/2 200 OK"
+2025-06-24 20:58:00,926 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.146 "HTTP/2 200 OK"
+2025-06-24 20:58:01,019 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-24 20:58:01,101 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-24 21:05:13,444 - INFO - Supabase client initialized successfully
+2025-06-24 21:05:13,448 - INFO - Supabase client initialized successfully
+2025-06-24 21:05:13,637 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open&strategy=eq.Butterfly+Spread "HTTP/2 200 OK"
+2025-06-24 21:05:13,639 - INFO - Position Monitor initialized successfully
+2025-06-24 21:05:13,647 - INFO - Supabase client initialized successfully
+2025-06-24 21:05:13,647 - INFO - Monitor dashboard initialized successfully
+2025-06-24 21:05:14,023 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-24 21:05:15,267 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.None "HTTP/2 400 Bad Request"
+2025-06-24 21:05:15,269 - ERROR - Error fetching exit conditions for strategy None: {'message': 'invalid input syntax for type integer: "None"', 'code': '22P02', 'hint': None, 'details': None}
+2025-06-24 21:05:15,351 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.146 "HTTP/2 200 OK"
+2025-06-24 21:05:15,462 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.146 "HTTP/2 200 OK"
+2025-06-24 21:05:15,536 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-24 21:05:15,603 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-24 21:05:29,477 - INFO - Supabase client initialized successfully
+2025-06-24 21:05:29,481 - INFO - Supabase client initialized successfully
+2025-06-24 21:05:29,866 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open&strategy=eq.Butterfly+Spread "HTTP/2 200 OK"
+2025-06-24 21:05:29,879 - INFO - Position Monitor initialized successfully
+2025-06-24 21:05:29,887 - INFO - Supabase client initialized successfully
+2025-06-24 21:05:29,888 - INFO - Monitor dashboard initialized successfully
+2025-06-24 21:05:30,221 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-24 21:05:31,633 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.None "HTTP/2 400 Bad Request"
+2025-06-24 21:05:31,639 - ERROR - Error fetching exit conditions for strategy None: {'message': 'invalid input syntax for type integer: "None"', 'code': '22P02', 'hint': None, 'details': None}
+2025-06-24 21:05:31,721 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.146 "HTTP/2 200 OK"
+2025-06-24 21:05:31,806 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.146 "HTTP/2 200 OK"
+2025-06-24 21:05:31,910 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-24 21:05:32,073 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-25 13:01:59,383 - INFO - Supabase client initialized successfully
+2025-06-25 13:01:59,387 - INFO - Supabase client initialized successfully
+2025-06-25 13:01:59,393 - INFO - Position Monitor initialized successfully
+2025-06-25 13:01:59,397 - INFO - Supabase client initialized successfully
+2025-06-25 13:01:59,397 - INFO - Monitor dashboard initialized successfully
+2025-06-25 13:01:59,409 - ERROR - Error fetching open positions: [Errno 8] nodename nor servname provided, or not known
+2025-06-25 13:02:08,794 - INFO - Supabase client initialized successfully
+2025-06-25 13:02:08,798 - INFO - Supabase client initialized successfully
+2025-06-25 13:02:08,804 - INFO - Position Monitor initialized successfully
+2025-06-25 13:02:08,809 - INFO - Supabase client initialized successfully
+2025-06-25 13:02:08,809 - INFO - Monitor dashboard initialized successfully
+2025-06-25 13:02:08,818 - ERROR - Error fetching open positions: [Errno 8] nodename nor servname provided, or not known
+2025-06-25 13:02:31,280 - INFO - Supabase client initialized successfully
+2025-06-25 13:02:31,284 - INFO - Supabase client initialized successfully
+2025-06-25 13:02:31,810 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open&strategy=eq.Butterfly+Spread "HTTP/2 200 OK"
+2025-06-25 13:02:31,814 - INFO - Position Monitor initialized successfully
+2025-06-25 13:02:31,850 - INFO - Supabase client initialized successfully
+2025-06-25 13:02:31,852 - INFO - Monitor dashboard initialized successfully
+2025-06-25 13:02:32,603 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-25 13:02:34,029 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-25 13:02:34,135 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-25 13:15:55,115 - INFO - Supabase client initialized successfully
+2025-06-25 13:15:55,119 - INFO - Supabase client initialized successfully
+2025-06-25 13:15:55,478 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open&strategy=eq.Butterfly+Spread "HTTP/2 200 OK"
+2025-06-25 13:15:55,483 - INFO - Position Monitor initialized successfully
+2025-06-25 13:15:55,492 - INFO - Supabase client initialized successfully
+2025-06-25 13:15:55,492 - INFO - Monitor dashboard initialized successfully
+2025-06-25 13:15:55,646 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-25 13:15:56,859 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-25 13:15:56,909 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-25 13:15:56,965 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-25 13:15:57,025 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-25 13:23:33,739 - INFO - Supabase client initialized successfully
+2025-06-25 13:23:33,744 - INFO - Supabase client initialized successfully
+2025-06-25 13:23:33,906 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open&strategy=eq.Butterfly+Spread "HTTP/2 200 OK"
+2025-06-25 13:23:33,908 - INFO - Position Monitor initialized successfully
+2025-06-25 13:23:33,916 - INFO - Supabase client initialized successfully
+2025-06-25 13:23:33,916 - INFO - Monitor dashboard initialized successfully
+2025-06-25 13:23:34,063 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-25 13:23:35,226 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-25 13:23:35,278 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-25 13:23:35,341 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-25 13:23:35,400 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-25 13:23:35,485 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-25 13:23:35,563 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-25 13:44:27,101 - INFO - Supabase client initialized successfully
+2025-06-25 13:44:27,105 - INFO - Supabase client initialized successfully
+2025-06-25 13:44:27,635 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open&strategy=eq.Butterfly+Spread "HTTP/2 200 OK"
+2025-06-25 13:44:27,636 - INFO - Position Monitor initialized successfully
+2025-06-25 13:44:27,642 - INFO - Supabase client initialized successfully
+2025-06-25 13:44:27,642 - INFO - Monitor dashboard initialized successfully
+2025-06-25 13:44:27,926 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-25 13:44:29,112 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-25 13:44:29,182 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-25 13:44:29,291 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-25 13:44:29,369 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-25 13:44:29,437 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-25 13:44:29,531 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-25 14:01:59,807 - INFO - Supabase client initialized successfully
+2025-06-25 14:01:59,811 - INFO - Supabase client initialized successfully
+2025-06-25 14:02:00,210 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open&strategy=eq.Butterfly+Spread "HTTP/2 200 OK"
+2025-06-25 14:02:00,212 - INFO - Position Monitor initialized successfully
+2025-06-25 14:02:00,220 - INFO - Supabase client initialized successfully
+2025-06-25 14:02:00,220 - INFO - Monitor dashboard initialized successfully
+2025-06-25 14:02:00,608 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-25 14:02:01,873 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-25 14:02:01,963 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.84 "HTTP/2 200 OK"
+2025-06-25 14:02:02,059 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-25 14:02:02,145 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3359 "HTTP/2 200 OK"
+2025-06-25 14:02:02,254 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"
+2025-06-25 14:02:02,346 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3626 "HTTP/2 200 OK"

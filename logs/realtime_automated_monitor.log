@@ -1,0 +1,332 @@
+2025-06-26 11:57:04,189 - PositionMonitor - INFO - Supabase client initialized successfully
+2025-06-26 11:57:04,193 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-26 11:57:04,736 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open&strategy=eq.Butterfly+Spread "HTTP/2 200 OK"
+2025-06-26 11:57:04,738 - PositionMonitor - INFO - Position Monitor initialized successfully
+2025-06-26 11:57:04,748 - ExitExecutor - INFO - Supabase client initialized successfully
+2025-06-26 11:57:04,748 - ExitExecutor - INFO - Exit Executor initialized successfully
+2025-06-26 11:57:04,755 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-26 11:57:05,132 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open&strategy=eq.Butterfly+Spread "HTTP/2 200 OK"
+2025-06-26 11:57:05,138 - core.websocket_manager - INFO - Redis cache connected successfully
+2025-06-26 11:57:05,147 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-26 11:57:05,148 - core.websocket_manager - INFO - WebSocket Manager initialized
+2025-06-26 11:57:05,148 - data_scripts.realtime_market_fetcher - INFO - WebSocket manager initialized
+2025-06-26 11:57:05,148 - data_scripts.realtime_market_fetcher - INFO - Real-time Market Fetcher initialized
+2025-06-26 11:57:05,156 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-26 11:57:05,156 - core.supabase_realtime - INFO - Supabase Realtime initialized
+2025-06-26 11:57:05,156 - __main__ - INFO - Supabase realtime initialized
+2025-06-26 11:57:05,156 - __main__ - INFO - Realtime Automated Monitor initialized
+2025-06-26 11:57:05,156 - __main__ - INFO - Mode: SIMULATION, WebSocket: ENABLED
+2025-06-26 11:57:05,156 - __main__ - INFO - Starting real-time automated monitor...
+2025-06-26 11:57:05,156 - core.websocket_manager - INFO - Starting WebSocket Manager...
+2025-06-26 11:57:05,156 - core.websocket_manager - INFO - Connecting to Dhan live market feed...
+2025-06-26 11:57:05,156 - core.websocket_manager - INFO - Dhan market feed connected
+2025-06-26 11:57:05,156 - core.websocket_manager - INFO - Setting up Supabase realtime subscription...
+2025-06-26 11:57:05,156 - core.websocket_manager - INFO - Supabase realtime subscription active
+2025-06-26 11:57:05,156 - core.websocket_manager - INFO - All WebSocket connections established
+2025-06-26 11:57:05,156 - core.websocket_manager - INFO - Subscribing to 3 new instruments
+2025-06-26 11:57:05,156 - core.websocket_manager - INFO - Total subscribed instruments: 3
+2025-06-26 11:57:05,156 - data_scripts.realtime_market_fetcher - INFO - Subscribed to 3 instruments
+2025-06-26 11:57:05,156 - data_scripts.realtime_market_fetcher - INFO - Real-time feed started successfully
+2025-06-26 11:57:05,156 - __main__ - INFO - ✅ Real-time market feed active
+2025-06-26 11:57:05,156 - core.supabase_realtime - INFO - Starting Supabase realtime connection...
+2025-06-26 11:57:05,156 - core.supabase_realtime - INFO - Connecting to Supabase realtime: wss://aisqbjjpdztnuerniefl.supabase.co/realtime/v1/websocket?apikey=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFpc3FiampwZHp0bnVlcm5pZWZsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI5NzYzNzMsImV4cCI6MjA0ODU1MjM3M30.RbCzw1ImiKD4_khZEj3FaXOkfcHfIWzdcrFha5CxHlE&vsn=1.0.0
+2025-06-26 11:57:05,156 - core.supabase_realtime - INFO - WebSocket connection established
+2025-06-26 11:57:05,156 - core.supabase_realtime - INFO - Subscribed to table: trades
+2025-06-26 11:57:05,156 - core.supabase_realtime - INFO - Subscribed to table: strategies
+2025-06-26 11:57:05,156 - core.supabase_realtime - INFO - Subscribed to table: strategy_exit_levels
+2025-06-26 11:57:05,156 - core.supabase_realtime - INFO - Default subscriptions set up successfully
+2025-06-26 11:57:05,156 - core.supabase_realtime - INFO - Supabase realtime connection established
+2025-06-26 11:57:05,156 - __main__ - INFO - ✅ Supabase realtime active
+2025-06-26 11:57:05,156 - __main__ - INFO - Starting monitoring cycle...
+2025-06-26 11:57:05,503 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-26 11:57:05,643 - data_scripts.realtime_market_fetcher - ERROR - Error fetching multiple prices via REST: 'str' object has no attribute 'get'
+2025-06-26 11:57:05,643 - data_scripts.realtime_market_fetcher - INFO - Fetched quotes: 0 real-time, 0 REST
+2025-06-26 11:57:05,732 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3758 "HTTP/2 200 OK"
+2025-06-26 11:57:05,878 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3758 "HTTP/2 200 OK"
+2025-06-26 11:57:05,878 - __main__ - WARNING - ALERT [HIGH] ASTRAL - Long Call: CLOSE_IMMEDIATELY (P&L: -24225.00)
+2025-06-26 11:57:05,878 - ExitExecutor - INFO - [SIMULATION] Would execute: CLOSE_IMMEDIATELY
+2025-06-26 11:57:05,878 - ExitExecutor - INFO - [SIMULATION] Position: ASTRAL - Long Call
+2025-06-26 11:57:05,878 - ExitExecutor - INFO - [SIMULATION] Reason: Stop Loss triggered
+2025-06-26 11:57:05,878 - ExitExecutor - INFO - [SIMULATION] Would place: SELL 425 ASTRAL 1500.0 CE
+2025-06-26 11:57:05,878 - __main__ - INFO - Exit executed: ASTRAL - Stop Loss triggered
+2025-06-26 11:57:05,879 - __main__ - INFO - Monitoring cycle completed in 0.72s
+2025-06-26 11:57:05,879 - __main__ - INFO - Real-time evaluation loop started
+2025-06-26 12:02:28,746 - __main__ - INFO - Received signal 2, initiating graceful shutdown...
+2025-06-26 12:02:30,629 - __main__ - INFO - Received signal 2, initiating graceful shutdown...
+2025-06-26 12:02:32,629 - __main__ - INFO - Received signal 2, initiating graceful shutdown...
+2025-06-26 12:02:39,278 - PositionMonitor - INFO - Supabase client initialized successfully
+2025-06-26 12:02:39,283 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-26 12:02:39,838 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open "HTTP/2 200 OK"
+2025-06-26 12:02:39,839 - PositionMonitor - INFO - Position Monitor initialized successfully
+2025-06-26 12:02:39,845 - ExitExecutor - INFO - Supabase client initialized successfully
+2025-06-26 12:02:39,845 - ExitExecutor - INFO - Exit Executor initialized successfully
+2025-06-26 12:02:39,849 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-26 12:02:40,217 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open "HTTP/2 200 OK"
+2025-06-26 12:02:40,221 - core.websocket_manager - INFO - Redis cache connected successfully
+2025-06-26 12:02:40,226 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-26 12:02:40,226 - core.websocket_manager - INFO - WebSocket Manager initialized
+2025-06-26 12:02:40,226 - data_scripts.realtime_market_fetcher - INFO - WebSocket manager initialized
+2025-06-26 12:02:40,226 - data_scripts.realtime_market_fetcher - INFO - Real-time Market Fetcher initialized
+2025-06-26 12:02:40,232 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-26 12:02:40,232 - core.supabase_realtime - INFO - Supabase Realtime initialized
+2025-06-26 12:02:40,232 - __main__ - INFO - Supabase realtime initialized
+2025-06-26 12:02:40,232 - __main__ - INFO - Realtime Automated Monitor initialized
+2025-06-26 12:02:40,232 - __main__ - INFO - Mode: SIMULATION, WebSocket: ENABLED
+2025-06-26 12:02:40,232 - __main__ - INFO - Starting monitoring cycle...
+2025-06-26 12:02:40,568 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-26 12:02:40,715 - data_scripts.realtime_market_fetcher - WARNING - Unexpected quotes format for data: <class 'dict'>
+2025-06-26 12:02:40,715 - data_scripts.realtime_market_fetcher - WARNING - Unexpected quotes format for status: <class 'str'>
+2025-06-26 12:02:40,716 - data_scripts.realtime_market_fetcher - INFO - Fetched quotes: 0 real-time, 0 REST
+2025-06-26 12:02:40,789 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3758 "HTTP/2 200 OK"
+2025-06-26 12:02:40,851 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3758 "HTTP/2 200 OK"
+2025-06-26 12:02:40,853 - __main__ - WARNING - ALERT [HIGH] ASTRAL - Long Call: CLOSE_IMMEDIATELY (P&L: -24225.00)
+2025-06-26 12:02:40,853 - ExitExecutor - INFO - [SIMULATION] Would execute: CLOSE_IMMEDIATELY
+2025-06-26 12:02:40,853 - ExitExecutor - INFO - [SIMULATION] Position: ASTRAL - Long Call
+2025-06-26 12:02:40,853 - ExitExecutor - INFO - [SIMULATION] Reason: Stop Loss triggered
+2025-06-26 12:02:40,853 - ExitExecutor - INFO - [SIMULATION] Would place: SELL 425 ASTRAL 1500.0 CE
+2025-06-26 12:02:40,853 - __main__ - INFO - Exit executed: ASTRAL - Stop Loss triggered
+2025-06-26 12:02:40,853 - __main__ - INFO - Stopping real-time monitoring system...
+2025-06-26 12:02:40,853 - core.websocket_manager - INFO - Stopping WebSocket Manager...
+2025-06-26 12:02:40,853 - core.websocket_manager - INFO - WebSocket Manager stopped
+2025-06-26 12:02:40,853 - data_scripts.realtime_market_fetcher - INFO - Real-time feed stopped
+2025-06-26 12:02:40,854 - core.supabase_realtime - INFO - Stopping Supabase realtime connection...
+2025-06-26 12:02:40,854 - core.supabase_realtime - INFO - Supabase realtime connection stopped
+2025-06-26 12:02:40,854 - __main__ - INFO - === FINAL STATISTICS ===
+2025-06-26 12:02:40,854 - __main__ - INFO - Positions Monitored: 0
+2025-06-26 12:02:40,854 - __main__ - INFO - Alerts Generated: 0
+2025-06-26 12:02:40,854 - __main__ - INFO - Exits Executed: 0
+2025-06-26 12:02:40,854 - __main__ - INFO - Price Updates Processed: 0
+2025-06-26 12:02:40,854 - __main__ - INFO - Trade Updates Processed: 0
+2025-06-26 12:02:40,854 - __main__ - INFO - Errors Encountered: 0
+2025-06-26 12:02:40,854 - __main__ - INFO - === END STATISTICS ===
+2025-06-26 12:02:40,854 - __main__ - INFO - Real-time monitoring system stopped
+2025-06-26 12:03:31,598 - PositionMonitor - INFO - Supabase client initialized successfully
+2025-06-26 12:03:31,603 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-26 12:03:31,943 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open "HTTP/2 200 OK"
+2025-06-26 12:03:31,948 - PositionMonitor - INFO - Position Monitor initialized successfully
+2025-06-26 12:03:31,958 - ExitExecutor - INFO - Supabase client initialized successfully
+2025-06-26 12:03:31,958 - ExitExecutor - INFO - Exit Executor initialized successfully
+2025-06-26 12:03:31,966 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-26 12:03:32,160 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open "HTTP/2 200 OK"
+2025-06-26 12:03:32,164 - core.websocket_manager - INFO - Redis cache connected successfully
+2025-06-26 12:03:32,175 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-26 12:03:32,176 - core.websocket_manager - INFO - WebSocket Manager initialized
+2025-06-26 12:03:32,176 - data_scripts.realtime_market_fetcher - INFO - WebSocket manager initialized
+2025-06-26 12:03:32,176 - data_scripts.realtime_market_fetcher - INFO - Real-time Market Fetcher initialized
+2025-06-26 12:03:32,183 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-26 12:03:32,183 - core.supabase_realtime - INFO - Supabase Realtime initialized
+2025-06-26 12:03:32,183 - __main__ - INFO - Supabase realtime initialized
+2025-06-26 12:03:32,183 - __main__ - INFO - Realtime Automated Monitor initialized
+2025-06-26 12:03:32,183 - __main__ - INFO - Mode: SIMULATION, WebSocket: ENABLED
+2025-06-26 12:03:32,183 - __main__ - INFO - Starting monitoring cycle...
+2025-06-26 12:03:32,387 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-26 12:03:32,543 - data_scripts.realtime_market_fetcher - INFO - Fetched quotes: 0 real-time, 0 REST
+2025-06-26 12:03:32,627 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3758 "HTTP/2 200 OK"
+2025-06-26 12:03:32,719 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3758 "HTTP/2 200 OK"
+2025-06-26 12:03:32,720 - __main__ - WARNING - ALERT [HIGH] ASTRAL - Long Call: CLOSE_IMMEDIATELY (P&L: -24225.00)
+2025-06-26 12:03:32,720 - ExitExecutor - INFO - [SIMULATION] Would execute: CLOSE_IMMEDIATELY
+2025-06-26 12:03:32,720 - ExitExecutor - INFO - [SIMULATION] Position: ASTRAL - Long Call
+2025-06-26 12:03:32,720 - ExitExecutor - INFO - [SIMULATION] Reason: Stop Loss triggered
+2025-06-26 12:03:32,720 - ExitExecutor - INFO - [SIMULATION] Would place: SELL 425 ASTRAL 1500.0 CE
+2025-06-26 12:03:32,720 - __main__ - INFO - Exit executed: ASTRAL - Stop Loss triggered
+2025-06-26 12:03:32,721 - __main__ - INFO - Stopping real-time monitoring system...
+2025-06-26 12:03:32,721 - core.websocket_manager - INFO - Stopping WebSocket Manager...
+2025-06-26 12:03:32,721 - core.websocket_manager - INFO - WebSocket Manager stopped
+2025-06-26 12:03:32,721 - data_scripts.realtime_market_fetcher - INFO - Real-time feed stopped
+2025-06-26 12:03:32,721 - core.supabase_realtime - INFO - Stopping Supabase realtime connection...
+2025-06-26 12:03:32,721 - core.supabase_realtime - INFO - Supabase realtime connection stopped
+2025-06-26 12:03:32,721 - __main__ - INFO - === FINAL STATISTICS ===
+2025-06-26 12:03:32,721 - __main__ - INFO - Positions Monitored: 0
+2025-06-26 12:03:32,721 - __main__ - INFO - Alerts Generated: 0
+2025-06-26 12:03:32,721 - __main__ - INFO - Exits Executed: 0
+2025-06-26 12:03:32,721 - __main__ - INFO - Price Updates Processed: 0
+2025-06-26 12:03:32,721 - __main__ - INFO - Trade Updates Processed: 0
+2025-06-26 12:03:32,721 - __main__ - INFO - Errors Encountered: 0
+2025-06-26 12:03:32,721 - __main__ - INFO - === END STATISTICS ===
+2025-06-26 12:03:32,721 - __main__ - INFO - Real-time monitoring system stopped
+2025-06-26 12:04:36,340 - PositionMonitor - INFO - Supabase client initialized successfully
+2025-06-26 12:04:36,344 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-26 12:04:36,915 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open "HTTP/2 200 OK"
+2025-06-26 12:04:36,919 - PositionMonitor - INFO - Position Monitor initialized successfully
+2025-06-26 12:04:36,929 - ExitExecutor - INFO - Supabase client initialized successfully
+2025-06-26 12:04:36,929 - ExitExecutor - INFO - Exit Executor initialized successfully
+2025-06-26 12:04:36,936 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-26 12:04:37,352 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open "HTTP/2 200 OK"
+2025-06-26 12:04:37,357 - core.websocket_manager - INFO - Redis cache connected successfully
+2025-06-26 12:04:37,366 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-26 12:04:37,366 - core.websocket_manager - INFO - WebSocket Manager initialized
+2025-06-26 12:04:37,366 - data_scripts.realtime_market_fetcher - INFO - WebSocket manager initialized
+2025-06-26 12:04:37,366 - data_scripts.realtime_market_fetcher - INFO - Real-time Market Fetcher initialized
+2025-06-26 12:04:37,374 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-26 12:04:37,374 - core.supabase_realtime - INFO - Supabase Realtime initialized
+2025-06-26 12:04:37,374 - __main__ - INFO - Supabase realtime initialized
+2025-06-26 12:04:37,374 - __main__ - INFO - Realtime Automated Monitor initialized
+2025-06-26 12:04:37,374 - __main__ - INFO - Mode: SIMULATION, WebSocket: ENABLED
+2025-06-26 12:04:37,374 - __main__ - INFO - Starting monitoring cycle...
+2025-06-26 12:04:37,760 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-26 12:04:37,972 - data_scripts.realtime_market_fetcher - INFO - Fetched quotes: 0 real-time, 1 REST
+2025-06-26 12:04:38,054 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3758 "HTTP/2 200 OK"
+2025-06-26 12:04:38,202 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3758 "HTTP/2 200 OK"
+2025-06-26 12:04:38,204 - __main__ - WARNING - ALERT [HIGH] ASTRAL - Long Call: CLOSE_IMMEDIATELY (P&L: -24225.00)
+2025-06-26 12:04:38,204 - ExitExecutor - INFO - [SIMULATION] Would execute: CLOSE_IMMEDIATELY
+2025-06-26 12:04:38,204 - ExitExecutor - INFO - [SIMULATION] Position: ASTRAL - Long Call
+2025-06-26 12:04:38,204 - ExitExecutor - INFO - [SIMULATION] Reason: Stop Loss triggered
+2025-06-26 12:04:38,204 - ExitExecutor - INFO - [SIMULATION] Would place: SELL 425 ASTRAL 1500.0 CE
+2025-06-26 12:04:38,204 - __main__ - INFO - Exit executed: ASTRAL - Stop Loss triggered
+2025-06-26 12:04:38,205 - __main__ - INFO - Stopping real-time monitoring system...
+2025-06-26 12:04:38,206 - core.websocket_manager - INFO - Stopping WebSocket Manager...
+2025-06-26 12:04:38,206 - core.websocket_manager - INFO - WebSocket Manager stopped
+2025-06-26 12:04:38,206 - data_scripts.realtime_market_fetcher - INFO - Real-time feed stopped
+2025-06-26 12:04:38,206 - core.supabase_realtime - INFO - Stopping Supabase realtime connection...
+2025-06-26 12:04:38,206 - core.supabase_realtime - INFO - Supabase realtime connection stopped
+2025-06-26 12:04:38,206 - __main__ - INFO - === FINAL STATISTICS ===
+2025-06-26 12:04:38,206 - __main__ - INFO - Positions Monitored: 0
+2025-06-26 12:04:38,206 - __main__ - INFO - Alerts Generated: 0
+2025-06-26 12:04:38,206 - __main__ - INFO - Exits Executed: 0
+2025-06-26 12:04:38,206 - __main__ - INFO - Price Updates Processed: 0
+2025-06-26 12:04:38,206 - __main__ - INFO - Trade Updates Processed: 0
+2025-06-26 12:04:38,206 - __main__ - INFO - Errors Encountered: 0
+2025-06-26 12:04:38,206 - __main__ - INFO - === END STATISTICS ===
+2025-06-26 12:04:38,206 - __main__ - INFO - Real-time monitoring system stopped
+2025-06-26 12:06:31,643 - PositionMonitor - INFO - Supabase client initialized successfully
+2025-06-26 12:06:31,647 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-26 12:06:32,186 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open "HTTP/2 200 OK"
+2025-06-26 12:06:32,190 - PositionMonitor - INFO - Position Monitor initialized successfully
+2025-06-26 12:06:32,199 - ExitExecutor - INFO - Supabase client initialized successfully
+2025-06-26 12:06:32,199 - ExitExecutor - INFO - Exit Executor initialized successfully
+2025-06-26 12:06:32,206 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-26 12:06:32,588 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open "HTTP/2 200 OK"
+2025-06-26 12:06:32,589 - core.websocket_manager - INFO - Redis cache connected successfully
+2025-06-26 12:06:32,594 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-26 12:06:32,594 - core.websocket_manager - INFO - WebSocket Manager initialized
+2025-06-26 12:06:32,594 - data_scripts.realtime_market_fetcher - INFO - WebSocket manager initialized
+2025-06-26 12:06:32,594 - data_scripts.realtime_market_fetcher - INFO - Real-time Market Fetcher initialized
+2025-06-26 12:06:32,599 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-26 12:06:32,599 - core.supabase_realtime - INFO - Supabase Realtime initialized
+2025-06-26 12:06:32,599 - __main__ - INFO - Supabase realtime initialized
+2025-06-26 12:06:32,599 - __main__ - INFO - Realtime Automated Monitor initialized
+2025-06-26 12:06:32,600 - __main__ - INFO - Mode: SIMULATION, WebSocket: ENABLED
+2025-06-26 12:06:32,600 - __main__ - INFO - Starting monitoring cycle...
+2025-06-26 12:06:32,839 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-26 12:06:33,108 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3758 "HTTP/2 200 OK"
+2025-06-26 12:06:33,194 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3758 "HTTP/2 200 OK"
+2025-06-26 12:06:33,195 - __main__ - INFO - Stopping real-time monitoring system...
+2025-06-26 12:06:33,195 - core.websocket_manager - INFO - Stopping WebSocket Manager...
+2025-06-26 12:06:33,195 - core.websocket_manager - INFO - WebSocket Manager stopped
+2025-06-26 12:06:33,195 - data_scripts.realtime_market_fetcher - INFO - Real-time feed stopped
+2025-06-26 12:06:33,195 - core.supabase_realtime - INFO - Stopping Supabase realtime connection...
+2025-06-26 12:06:33,195 - core.supabase_realtime - INFO - Supabase realtime connection stopped
+2025-06-26 12:06:33,195 - __main__ - INFO - === FINAL STATISTICS ===
+2025-06-26 12:06:33,195 - __main__ - INFO - Positions Monitored: 0
+2025-06-26 12:06:33,195 - __main__ - INFO - Alerts Generated: 0
+2025-06-26 12:06:33,195 - __main__ - INFO - Exits Executed: 0
+2025-06-26 12:06:33,195 - __main__ - INFO - Price Updates Processed: 0
+2025-06-26 12:06:33,195 - __main__ - INFO - Trade Updates Processed: 0
+2025-06-26 12:06:33,195 - __main__ - INFO - Errors Encountered: 0
+2025-06-26 12:06:33,195 - __main__ - INFO - === END STATISTICS ===
+2025-06-26 12:06:33,195 - __main__ - INFO - Real-time monitoring system stopped
+2025-06-26 12:06:45,855 - PositionMonitor - INFO - Supabase client initialized successfully
+2025-06-26 12:06:45,859 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-26 12:06:46,225 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open "HTTP/2 200 OK"
+2025-06-26 12:06:46,227 - PositionMonitor - INFO - Position Monitor initialized successfully
+2025-06-26 12:06:46,235 - ExitExecutor - INFO - Supabase client initialized successfully
+2025-06-26 12:06:46,235 - ExitExecutor - INFO - Exit Executor initialized successfully
+2025-06-26 12:06:46,242 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-26 12:06:46,617 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open "HTTP/2 200 OK"
+2025-06-26 12:06:46,622 - core.websocket_manager - INFO - Redis cache connected successfully
+2025-06-26 12:06:46,630 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-26 12:06:46,631 - core.websocket_manager - INFO - WebSocket Manager initialized
+2025-06-26 12:06:46,631 - data_scripts.realtime_market_fetcher - INFO - WebSocket manager initialized
+2025-06-26 12:06:46,631 - data_scripts.realtime_market_fetcher - INFO - Real-time Market Fetcher initialized
+2025-06-26 12:06:46,637 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-26 12:06:46,637 - core.supabase_realtime - INFO - Supabase Realtime initialized
+2025-06-26 12:06:46,637 - __main__ - INFO - Supabase realtime initialized
+2025-06-26 12:06:46,637 - __main__ - INFO - Realtime Automated Monitor initialized
+2025-06-26 12:06:46,637 - __main__ - INFO - Mode: SIMULATION, WebSocket: ENABLED
+2025-06-26 12:06:46,637 - __main__ - INFO - Starting real-time automated monitor...
+2025-06-26 12:06:46,637 - core.websocket_manager - INFO - Starting WebSocket Manager...
+2025-06-26 12:06:46,637 - core.websocket_manager - INFO - Connecting to Dhan live market feed...
+2025-06-26 12:06:46,637 - core.websocket_manager - INFO - Dhan market feed connected
+2025-06-26 12:06:46,637 - core.websocket_manager - INFO - Setting up Supabase realtime subscription...
+2025-06-26 12:06:46,637 - core.websocket_manager - INFO - Supabase realtime subscription active
+2025-06-26 12:06:46,638 - core.websocket_manager - INFO - All WebSocket connections established
+2025-06-26 12:06:46,638 - core.websocket_manager - INFO - Subscribing to 1 new instruments
+2025-06-26 12:06:46,638 - core.websocket_manager - INFO - Total subscribed instruments: 1
+2025-06-26 12:06:46,638 - data_scripts.realtime_market_fetcher - INFO - Subscribed to 1 instruments
+2025-06-26 12:06:46,638 - data_scripts.realtime_market_fetcher - INFO - Real-time feed started successfully
+2025-06-26 12:06:46,638 - __main__ - INFO - ✅ Real-time market feed active
+2025-06-26 12:06:46,638 - core.supabase_realtime - INFO - Starting Supabase realtime connection...
+2025-06-26 12:06:46,638 - core.supabase_realtime - INFO - Connecting to Supabase realtime: wss://aisqbjjpdztnuerniefl.supabase.co/realtime/v1/websocket?apikey=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFpc3FiampwZHp0bnVlcm5pZWZsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI5NzYzNzMsImV4cCI6MjA0ODU1MjM3M30.RbCzw1ImiKD4_khZEj3FaXOkfcHfIWzdcrFha5CxHlE&vsn=1.0.0
+2025-06-26 12:06:46,638 - core.supabase_realtime - INFO - WebSocket connection established
+2025-06-26 12:06:46,638 - core.supabase_realtime - INFO - Subscribed to table: trades
+2025-06-26 12:06:46,638 - core.supabase_realtime - INFO - Subscribed to table: strategies
+2025-06-26 12:06:46,638 - core.supabase_realtime - INFO - Subscribed to table: strategy_exit_levels
+2025-06-26 12:06:46,638 - core.supabase_realtime - INFO - Default subscriptions set up successfully
+2025-06-26 12:06:46,638 - core.supabase_realtime - INFO - Supabase realtime connection established
+2025-06-26 12:06:46,638 - __main__ - INFO - ✅ Supabase realtime active
+2025-06-26 12:06:46,638 - __main__ - INFO - Starting monitoring cycle...
+2025-06-26 12:06:46,907 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-26 12:06:47,123 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3758 "HTTP/2 200 OK"
+2025-06-26 12:06:47,211 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3758 "HTTP/2 200 OK"
+2025-06-26 12:06:47,213 - __main__ - INFO - Monitoring cycle completed in 0.58s
+2025-06-26 12:06:47,214 - __main__ - INFO - Real-time evaluation loop started
+2025-06-26 12:06:57,215 - __main__ - INFO - Starting monitoring cycle...
+2025-06-26 12:06:57,424 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-26 12:06:57,628 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3758 "HTTP/2 200 OK"
+2025-06-26 12:06:57,698 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3758 "HTTP/2 200 OK"
+2025-06-26 12:06:57,723 - __main__ - INFO - Monitoring cycle completed in 0.51s
+2025-06-26 12:07:07,724 - __main__ - INFO - Starting monitoring cycle...
+2025-06-26 12:07:07,955 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-26 12:07:08,075 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3758 "HTTP/2 200 OK"
+2025-06-26 12:07:08,148 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3758 "HTTP/2 200 OK"
+2025-06-26 12:07:08,150 - __main__ - INFO - Monitoring cycle completed in 0.43s
+2025-06-26 12:13:15,647 - PositionMonitor - INFO - Supabase client initialized successfully
+2025-06-26 12:13:15,651 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-26 12:13:16,189 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open "HTTP/2 200 OK"
+2025-06-26 12:13:16,193 - PositionMonitor - INFO - Position Monitor initialized successfully
+2025-06-26 12:13:16,203 - ExitExecutor - INFO - Supabase client initialized successfully
+2025-06-26 12:13:16,203 - ExitExecutor - INFO - Exit Executor initialized successfully
+2025-06-26 12:13:16,210 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-26 12:13:16,356 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=security_id%2Csymbol%2Ctype%2Cstrategy%2Caction%2Cstrike_price%2Corder_status&order_status=eq.open "HTTP/2 200 OK"
+2025-06-26 12:13:16,357 - core.websocket_manager - INFO - Redis cache connected successfully
+2025-06-26 12:13:16,362 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-26 12:13:16,362 - core.websocket_manager - INFO - WebSocket Manager initialized
+2025-06-26 12:13:16,362 - data_scripts.realtime_market_fetcher - INFO - WebSocket manager initialized
+2025-06-26 12:13:16,362 - data_scripts.realtime_market_fetcher - INFO - Real-time Market Fetcher initialized
+2025-06-26 12:13:16,366 - SupabaseIntegration - INFO - Supabase client initialized successfully
+2025-06-26 12:13:16,366 - core.supabase_realtime - INFO - Supabase Realtime initialized
+2025-06-26 12:13:16,366 - __main__ - INFO - Supabase realtime initialized
+2025-06-26 12:13:16,367 - __main__ - INFO - Realtime Automated Monitor initialized
+2025-06-26 12:13:16,367 - __main__ - INFO - Mode: SIMULATION, WebSocket: ENABLED
+2025-06-26 12:13:16,367 - __main__ - INFO - Starting real-time automated monitor...
+2025-06-26 12:13:16,367 - core.websocket_manager - INFO - Starting WebSocket Manager...
+2025-06-26 12:13:16,367 - core.websocket_manager - INFO - Connecting to Dhan live market feed...
+2025-06-26 12:13:16,367 - core.websocket_manager - INFO - Dhan market feed connected
+2025-06-26 12:13:16,367 - core.websocket_manager - INFO - Setting up Supabase realtime subscription...
+2025-06-26 12:13:16,367 - core.websocket_manager - INFO - Supabase realtime subscription active
+2025-06-26 12:13:16,367 - core.websocket_manager - INFO - All WebSocket connections established
+2025-06-26 12:13:16,367 - core.websocket_manager - INFO - Subscribing to 1 new instruments
+2025-06-26 12:13:16,367 - core.websocket_manager - INFO - Total subscribed instruments: 1
+2025-06-26 12:13:16,367 - data_scripts.realtime_market_fetcher - INFO - Subscribed to 1 instruments
+2025-06-26 12:13:16,367 - data_scripts.realtime_market_fetcher - INFO - Real-time feed started successfully
+2025-06-26 12:13:16,367 - __main__ - INFO - ✅ Real-time market feed active
+2025-06-26 12:13:16,367 - core.supabase_realtime - INFO - Starting Supabase realtime connection...
+2025-06-26 12:13:16,367 - core.supabase_realtime - INFO - Connecting to Supabase realtime: wss://aisqbjjpdztnuerniefl.supabase.co/realtime/v1/websocket?apikey=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFpc3FiampwZHp0bnVlcm5pZWZsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI5NzYzNzMsImV4cCI6MjA0ODU1MjM3M30.RbCzw1ImiKD4_khZEj3FaXOkfcHfIWzdcrFha5CxHlE&vsn=1.0.0
+2025-06-26 12:13:16,367 - core.supabase_realtime - INFO - WebSocket connection established
+2025-06-26 12:13:16,367 - core.supabase_realtime - INFO - Subscribed to table: trades
+2025-06-26 12:13:16,367 - core.supabase_realtime - INFO - Subscribed to table: strategies
+2025-06-26 12:13:16,367 - core.supabase_realtime - INFO - Subscribed to table: strategy_exit_levels
+2025-06-26 12:13:16,367 - core.supabase_realtime - INFO - Default subscriptions set up successfully
+2025-06-26 12:13:16,367 - core.supabase_realtime - INFO - Supabase realtime connection established
+2025-06-26 12:13:16,367 - __main__ - INFO - ✅ Supabase realtime active
+2025-06-26 12:13:16,367 - __main__ - INFO - Starting monitoring cycle...
+2025-06-26 12:13:16,507 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-26 12:13:16,790 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3758 "HTTP/2 200 OK"
+2025-06-26 12:13:16,866 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3758 "HTTP/2 200 OK"
+2025-06-26 12:13:16,868 - __main__ - INFO - Monitoring cycle completed in 0.50s
+2025-06-26 12:13:16,869 - __main__ - INFO - Real-time evaluation loop started
+2025-06-26 12:18:16,871 - __main__ - INFO - Starting monitoring cycle...
+2025-06-26 12:18:17,744 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?select=%2A&order_status=eq.open&order=timestamp.asc "HTTP/2 200 OK"
+2025-06-26 12:18:18,099 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_exit_levels?select=%2A&strategy_id=eq.3758 "HTTP/2 200 OK"
+2025-06-26 12:18:18,181 - httpx - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategy_risk_management?select=%2A&strategy_id=eq.3758 "HTTP/2 200 OK"
+2025-06-26 12:18:18,183 - __main__ - INFO - Monitoring cycle completed in 1.31s

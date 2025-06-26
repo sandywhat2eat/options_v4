@@ -1,0 +1,29 @@
+{
+  "timestamp": "2025-06-26T09:13:31.977702",
+  "market_analysis": {
+    "direction_score": 0.0,
+    "market_state": "neutral",
+    "confidence": 0.3,
+    "technical_score": 0,
+    "options_flow_score": 0,
+    "price_action_score": 0
+  },
+  "allocations": [],
+  "summary": {
+    "total_positions": 0,
+    "long_positions": 0,
+    "short_positions": 0,
+    "total_premium_at_risk": 0,
+    "total_position_value": 0,
+    "average_probability": 0,
+    "market_cap_distribution": {},
+    "strategy_distribution": {},
+    "industry_distribution": {}
+  },
+  "parameters": {
+    "total_capital": 10000000,
+    "vix_level": 20.0,
+    "long_percentage": 50,
+    "short_percentage": 50
+  }
+}

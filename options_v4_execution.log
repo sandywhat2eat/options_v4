@@ -416,3 +416,51 @@ ADANIENT - Covered Call:
 2025-06-23 18:35:21,904 - INFO - 
 KPITTECH - Covered Call:
 2025-06-23 18:35:21,904 - INFO -   Leg 337: failed
+2025-06-26 10:43:13,105 - INFO - Supabase client initialized successfully
+2025-06-26 10:43:13,108 - INFO - DHAN client initialized successfully
+2025-06-26 10:43:13,109 - INFO - Using next month expiry (day 26 > cutoff 20)
+2025-06-26 10:43:13,110 - INFO - Selected expiry date: 2025-07-31
+2025-06-26 10:43:13,110 - INFO - Using current month expiry (day 15 <= cutoff 20): 2025-06-26
+2025-06-26 10:43:13,110 - INFO - Using current month expiry (day 20 <= cutoff 20): 2025-06-26
+2025-06-26 10:43:13,110 - INFO - Using next month expiry (day 25 > cutoff 20)
+2025-06-26 10:43:13,110 - INFO - Selected expiry date: 2025-07-31
+2025-06-26 10:43:13,110 - INFO - Using current month expiry (day 5 <= cutoff 20): 2025-07-31
+2025-06-26 10:43:13,110 - INFO - Using next month expiry (day 25 > cutoff 20)
+2025-06-26 10:43:13,110 - INFO - Selected expiry date: 2025-08-28
+2025-06-26 10:43:13,110 - INFO - Using next month expiry (day 26 > cutoff 20)
+2025-06-26 10:43:13,110 - INFO - Selected expiry date: 2025-07-31
+2025-06-26 11:29:59,752 - INFO - Starting Options V4 Strategy Executor
+2025-06-26 11:29:59,817 - INFO - Supabase client initialized successfully
+2025-06-26 11:29:59,817 - INFO - DHAN client initialized successfully
+2025-06-26 11:29:59,817 - INFO - Executing specific strategy ID: 3758
+2025-06-26 11:29:59,817 - INFO - Fetching strategy 3758 for execution
+2025-06-26 11:30:00,230 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=%2A%2Cstrategy_details%28%2A%29%2Cstrategy_parameters%28%2A%29&id=eq.3758 "HTTP/2 200 OK"
+2025-06-26 11:30:00,232 - INFO - Found strategy: ASTRAL - Long Call
+2025-06-26 11:30:00,232 - INFO - Executing strategy 3758: ASTRAL - Long Call
+2025-06-26 11:30:00,232 - INFO - Processing leg: BUY 1500.0 CE
+2025-06-26 11:30:00,232 - INFO - Using next month expiry (day 26 > cutoff 20)
+2025-06-26 11:30:00,232 - INFO - Selected expiry date: 2025-07-31
+2025-06-26 11:30:00,233 - INFO - Constructed option symbol: ASTRAL-Jul2025-1500-CE
+2025-06-26 11:30:00,233 - INFO - Looking up security ID for: ASTRAL-Jul2025-1500-CE
+2025-06-26 11:30:01,324 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/api_scrip_master?select=sem_smst_security_id%2Csem_lot_units%2Csem_custom_symbol%2Csem_trading_symbol&sem_custom_symbol=eq.ASTRAL-Jul2025-1500-CE&sem_option_type=eq.CE&sem_strike_price=eq.1500.0&sem_expiry_date=eq.2025-07-31 "HTTP/2 200 OK"
+2025-06-26 11:30:01,326 - INFO - ✅ Found exact match: {'sem_smst_security_id': 78165, 'sem_lot_units': 425, 'sem_custom_symbol': 'ASTRAL-Jul2025-1500-CE', 'sem_trading_symbol': 'ASTRAL 31 JUL 1500 CALL'}
+2025-06-26 11:30:01,326 - INFO - Calculated quantity: 425 (lots: 1 × lot size: 425)
+2025-06-26 11:30:01,326 - INFO - Placing order with params: {'security_id': 78165, 'exchange_segment': 'NSE_FNO', 'transaction_type': 'BUY', 'quantity': 425, 'order_type': 'MARKET', 'product_type': 'MARGIN', 'price': 0, 'trigger_price': 0, 'validity': 'DAY'}
+2025-06-26 11:30:01,627 - INFO - Order response: {'status': 'success', 'remarks': '', 'data': {'orderId': '22250626314305', 'orderStatus': 'TRANSIT'}}
+2025-06-26 11:30:01,734 - INFO - HTTP Request: POST https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades "HTTP/2 201 Created"
+2025-06-26 11:30:01,735 - INFO - Trade stored successfully for order 22250626314305
+2025-06-26 11:30:01,735 - INFO - Waiting 5 seconds before fetching order details for 22250626314305...
+2025-06-26 11:30:06,737 - INFO - Fetching order details for order ID: 22250626314305
+2025-06-26 11:30:06,787 - INFO - Order 22250626314305 - Status: TRADED, Price: 57.0, Filled: 425
+2025-06-26 11:30:06,787 - INFO - Updating trade details for order 22250626314305 - Price: 57.0, Expiry: 2025-07-31
+2025-06-26 11:30:07,136 - INFO - HTTP Request: PATCH https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/trades?order_id=eq.22250626314305 "HTTP/2 200 OK"
+2025-06-26 11:30:07,138 - INFO - Successfully updated details for order 22250626314305
+2025-06-26 11:30:07,138 - INFO - Updated order 22250626314305 with price 57.0 and expiry 2025-07-31
+2025-06-26 11:30:07,218 - INFO - HTTP Request: GET https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?select=execution_notes&id=eq.3758 "HTTP/2 200 OK"
+2025-06-26 11:30:07,309 - INFO - HTTP Request: PATCH https://aisqbjjpdztnuerniefl.supabase.co/rest/v1/strategies?id=eq.3758 "HTTP/2 200 OK"
+2025-06-26 11:30:07,310 - INFO - Updated strategy 3758 status to executed
+2025-06-26 11:30:07,311 - INFO - 
+Execution completed for strategy 3758
+2025-06-26 11:30:07,311 - INFO - ASTRAL - Long Call:
+2025-06-26 11:30:07,311 - INFO -   Leg 6846: success
+2025-06-26 11:30:07,311 - INFO -     Executed Price: 57.0

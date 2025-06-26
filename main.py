@@ -120,6 +120,14 @@ class OptionsAnalyzer:
         self.strategy_ranker = StrategyRanker()
         self.exit_manager = ExitManager()
         
+        # Import and initialize strike selector for expiry logic
+        try:
+            from core.strike_selector import IntelligentStrikeSelector
+            self.strike_selector = IntelligentStrikeSelector(self.stock_profiler)
+        except ImportError:
+            self.logger.warning("Strike selector not available")
+            self.strike_selector = None
+        
         # Strategy mapping
         self.strategy_classes = {
             'Long Call': LongCall,
@@ -552,6 +560,46 @@ class OptionsAnalyzer:
         except Exception as e:
             self.logger.error(f"Error generating portfolio summary: {e}")
             return {}
+    
+    def get_smart_expiry_date(self, cutoff_day=20):
+        """
+        Get expiry date using smart 20th date cutoff logic
+        
+        Args:
+            cutoff_day: Cutoff day of month (default: 20)
+        
+        Returns:
+            datetime: Expiry date (last Thursday of target month)
+        """
+        if self.strike_selector:
+            return self.strike_selector.get_smart_expiry_date(cutoff_day=cutoff_day)
+        else:
+            # Fallback implementation
+            import calendar
+            from datetime import datetime
+            
+            base_date = datetime.now()
+            current_day = base_date.day
+            
+            # Simple fallback logic
+            if current_day <= cutoff_day:
+                target_month = base_date.month
+                target_year = base_date.year
+            else:
+                if base_date.month == 12:
+                    target_month = 1
+                    target_year = base_date.year + 1
+                else:
+                    target_month = base_date.month + 1
+                    target_year = base_date.year
+            
+            # Get last Thursday of target month
+            last_day = calendar.monthrange(target_year, target_month)[1]
+            for day in range(last_day, 0, -1):
+                if datetime(target_year, target_month, day).weekday() == 3:  # Thursday = 3
+                    return datetime(target_year, target_month, day)
+            
+            return None
     
     def _load_config(self, config_path: Optional[str] = None) -> Dict:
         """Load configuration from YAML file"""

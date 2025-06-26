@@ -129,7 +129,9 @@ class AutomatedMonitor:
                         'reason': evaluation.get('action_reason'),
                         'days_in_trade': pnl_data.get('days_in_trade', 0),
                         'entry_value': pnl_data.get('entry_value', 0),
-                        'current_value': pnl_data.get('current_value', 0)
+                        'current_value': pnl_data.get('current_value', 0),
+                        'actual_dte': pnl_data.get('actual_dte'),
+                        'expiry_date': pnl_data.get('expiry_date')
                     }
                     
                     results['details'].append(position_info)
@@ -288,20 +290,36 @@ class AutomatedMonitor:
     def get_colored_status(self, position_data: Dict, exit_conditions: Dict) -> str:
         """Get colored status indicator based on proximity to exit levels"""
         pnl_pct = position_data.get('total_pnl_pct', 0)
+        pnl = position_data.get('total_pnl', 0)
+        entry_value = position_data.get('entry_value', 0)
         
         # Check profit targets
         profit_targets = exit_conditions.get('profit_targets', {})
         if 'primary' in profit_targets:
-            target_pct = profit_targets['primary'].get('trigger_value', 50)
-            if pnl_pct >= target_pct * 0.8:  # Within 80% of target
-                return f"{Fore.YELLOW}📈 Near Target{Style.RESET_ALL}"
+            primary_target = profit_targets['primary']
+            target_value = primary_target.get('trigger_value', 50)
+            target_type = primary_target.get('trigger_type', 'percentage')
+            
+            if target_type == 'percentage':
+                if pnl_pct >= target_value * 0.8:  # Within 80% of target
+                    return f"{Fore.YELLOW}📈 Near Target{Style.RESET_ALL}"
+            else:  # price-based
+                if pnl >= target_value * 0.8:  # Within 80% of target
+                    return f"{Fore.YELLOW}📈 Near Target{Style.RESET_ALL}"
         
         # Check stop losses
         stop_losses = exit_conditions.get('stop_losses', {})
         if 'primary' in stop_losses:
-            stop_pct = stop_losses['primary'].get('trigger_value', 50)
-            if pnl_pct <= -(stop_pct * 0.8):  # Within 80% of stop
-                return f"{Fore.RED}⚠️  Near Stop{Style.RESET_ALL}"
+            primary_stop = stop_losses['primary']
+            stop_value = primary_stop.get('trigger_value', 50)
+            stop_type = primary_stop.get('trigger_type', 'percentage')
+            
+            if stop_type == 'percentage':
+                if pnl_pct <= -(stop_value * 0.8):  # Within 80% of stop
+                    return f"{Fore.RED}⚠️  Near Stop{Style.RESET_ALL}"
+            else:  # price-based
+                if abs(pnl) >= stop_value * 0.8:  # Within 80% of stop loss amount
+                    return f"{Fore.RED}⚠️  Near Stop{Style.RESET_ALL}"
         
         # Check time exits
         days_in_trade = position_data.get('days_in_trade', 0)
@@ -362,15 +380,18 @@ class AutomatedMonitor:
                         if exit_cond_result.data:
                             exit_conditions = self._parse_exit_conditions(exit_cond_result.data)
                     
-                    # Mock position data for status calculation
+                    # Use actual position data for status calculation
                     position_data = {
                         'total_pnl_pct': pos.get('pnl_pct', 0),
-                        'days_in_trade': 2  # Placeholder - you'd get this from actual data
+                        'total_pnl': pos.get('pnl', 0),
+                        'entry_value': pos.get('entry_value', 0),
+                        'days_in_trade': pos.get('days_in_trade', 0),
+                        'actual_dte': pos.get('actual_dte')
                     }
                     
                     status = self.get_colored_status(position_data, exit_conditions)
                 except:
-                    status = f"{Fore.GRAY}Unknown{Style.RESET_ALL}"
+                    status = f"{Fore.LIGHTBLACK_EX}Unknown{Style.RESET_ALL}"
                 
                 # Get target and SL info
                 target_info = "N/A"
@@ -379,18 +400,44 @@ class AutomatedMonitor:
                 
                 try:
                     current_pnl_pct = pos.get('pnl_pct', 0)
+                    current_pnl = pos.get('pnl', 0)
+                    entry_value = pos.get('entry_value', 0)
                     
                     # Get profit target
                     if 'profit_targets' in exit_conditions and 'primary' in exit_conditions['profit_targets']:
-                        target_pct = exit_conditions['profit_targets']['primary'].get('trigger_value', 50)
-                        target_info = f"+{target_pct}%"
-                        distance_to_target = target_pct - current_pnl_pct
+                        primary_target = exit_conditions['profit_targets']['primary']
+                        target_value = primary_target.get('trigger_value', 50)
+                        target_type = primary_target.get('trigger_type', 'percentage')
+                        
+                        if target_type == 'percentage':
+                            target_info = f"+{target_value}%"
+                            distance_to_target = target_value - current_pnl_pct
+                        else:  # price-based target
+                            target_info = f"₹{target_value:,.0f}"
+                            # Convert to percentage for comparison
+                            if entry_value != 0:
+                                target_pct_equiv = (target_value / abs(entry_value)) * 100
+                                distance_to_target = target_pct_equiv - current_pnl_pct
+                            else:
+                                distance_to_target = float('inf')
                         
                     # Get stop loss
                     if 'stop_losses' in exit_conditions and 'primary' in exit_conditions['stop_losses']:
-                        sl_pct = exit_conditions['stop_losses']['primary'].get('trigger_value', 50)
-                        sl_info = f"-{sl_pct}%"
-                        distance_to_sl = current_pnl_pct + sl_pct  # Distance from negative SL
+                        primary_stop = exit_conditions['stop_losses']['primary']
+                        stop_value = primary_stop.get('trigger_value', 50)
+                        stop_type = primary_stop.get('trigger_type', 'percentage')
+                        
+                        if stop_type == 'percentage':
+                            sl_info = f"-{stop_value}%"
+                            distance_to_sl = current_pnl_pct + stop_value  # Distance from negative SL
+                        else:  # price-based stop
+                            sl_info = f"₹{stop_value:,.0f}"
+                            # Convert to percentage for comparison
+                            if entry_value != 0:
+                                stop_pct_equiv = (stop_value / abs(entry_value)) * 100
+                                distance_to_sl = current_pnl_pct + stop_pct_equiv
+                            else:
+                                distance_to_sl = float('inf')
                         
                         # Determine which is closer
                         if 'profit_targets' in exit_conditions and 'primary' in exit_conditions['profit_targets']:
@@ -404,8 +451,22 @@ class AutomatedMonitor:
                                     distance_to_exit = f"{Fore.CYAN}SL: {distance_to_sl:.1f}%{Style.RESET_ALL}"
                                 else:
                                     distance_to_exit = f"{Fore.RED}Below SL{Style.RESET_ALL}"
-                except:
-                    pass
+                except Exception as e:
+                    logger.error(f"Error calculating exit distances: {e}")
+                
+                # Get expiry info and format DTE
+                expiry_date = pos.get('expiry_date', 'N/A')
+                dte = pos.get('actual_dte')
+                
+                if dte is not None:
+                    if dte <= 1:
+                        dte_display = f"{Fore.RED}{dte}d{Style.RESET_ALL}"
+                    elif dte <= 3:
+                        dte_display = f"{Fore.YELLOW}{dte}d{Style.RESET_ALL}"
+                    else:
+                        dte_display = f"{dte}d"
+                else:
+                    dte_display = "N/A"
                 
                 all_table_data.append([
                     strategy_name,
@@ -414,9 +475,11 @@ class AutomatedMonitor:
                     target_info,
                     sl_info,
                     distance_to_exit,
+                    expiry_date if expiry_date != 'N/A' else 'N/A',
+                    dte_display,
                     status,
                     pos.get('action', 'MONITOR'),
-                    pos.get('reason', '')[:30]  # Truncate reason
+                    pos.get('reason', '')[:25]  # Truncate reason more for space
                 ])
         
         # Display position table
@@ -424,7 +487,7 @@ class AutomatedMonitor:
             print(f"{Fore.YELLOW}📊 POSITION DETAILS{Style.RESET_ALL}")
             print("-" * 140)
             
-            headers = ['Strategy', 'Symbol', 'Current P&L', 'Target', 'Stop Loss', 'Distance', 'Status', 'Action', 'Reason']
+            headers = ['Strategy', 'Symbol', 'Current P&L', 'Target', 'Stop Loss', 'Distance', 'Expiry', 'DTE', 'Status', 'Action', 'Reason']
             print(tabulate(all_table_data, headers=headers, tablefmt='grid'))
         
         # Display strategy summary
@@ -515,54 +578,49 @@ class AutomatedMonitor:
         }
         
         for item in exit_data:
-            level_type = item.get('level_type', '').lower()
+            exit_type = item.get('exit_type', '').lower()
+            level_name = item.get('level_name', 'primary')
+            trigger_value = item.get('trigger_value')
+            trigger_type = item.get('trigger_type', 'percentage')
             
-            # Handle various profit target formats
-            if 'profit' in level_type or 'target' in level_type:
-                # Check for percentage or absolute value
-                profit_pct = item.get('profit_percentage') or item.get('target_percentage') or item.get('percentage')
-                profit_val = item.get('profit_value') or item.get('target_value') or item.get('value')
-                
-                if profit_pct:
-                    conditions['profit_targets']['primary'] = {
-                        'trigger_value': float(profit_pct),
-                        'trigger_type': 'percentage'
-                    }
-                elif profit_val:
-                    conditions['profit_targets']['primary'] = {
-                        'trigger_value': float(profit_val),
-                        'trigger_type': 'absolute'
-                    }
+            # Parse profit targets
+            if exit_type == 'profit_target' and trigger_value is not None:
+                conditions['profit_targets'][level_name] = {
+                    'trigger_value': float(trigger_value),
+                    'trigger_type': trigger_type,
+                    'action': item.get('action'),
+                    'reasoning': item.get('reasoning')
+                }
             
-            # Handle various stop loss formats
-            elif 'stop' in level_type or 'loss' in level_type:
-                stop_pct = item.get('stop_percentage') or item.get('loss_percentage') or item.get('percentage')
-                stop_val = item.get('stop_value') or item.get('loss_value') or item.get('value')
-                
-                if stop_pct:
-                    conditions['stop_losses']['primary'] = {
-                        'trigger_value': float(stop_pct),
-                        'trigger_type': 'percentage'
-                    }
-                elif stop_val:
-                    conditions['stop_losses']['primary'] = {
-                        'trigger_value': float(stop_val),
-                        'trigger_type': 'absolute'
-                    }
+            # Parse stop losses
+            elif exit_type == 'stop_loss' and trigger_value is not None:
+                conditions['stop_losses'][level_name] = {
+                    'trigger_value': float(trigger_value),
+                    'trigger_type': trigger_type,
+                    'action': item.get('action'),
+                    'reasoning': item.get('reasoning')
+                }
             
-            # Handle time exits
-            elif 'time' in level_type or 'dte' in level_type:
-                dte = item.get('dte_trigger') or item.get('days_to_expiry') or item.get('value')
-                if dte:
-                    conditions['time_exits']['primary'] = {
-                        'trigger_value': int(dte),
-                        'trigger_type': 'dte'
-                    }
+            # Parse time exits
+            elif exit_type == 'time_exit' and trigger_value is not None:
+                conditions['time_exits'][level_name] = {
+                    'trigger_value': float(trigger_value),
+                    'trigger_type': trigger_type,
+                    'action': item.get('action'),
+                    'reasoning': item.get('reasoning')
+                }
+        
+        # Log what we found for debugging
+        found_targets = len(conditions['profit_targets'])
+        found_stops = len(conditions['stop_losses'])
+        logger.info(f"Parsed exit conditions: {found_targets} profit targets, {found_stops} stop losses")
         
         # If no exit conditions found in database, use defaults
         if not conditions['profit_targets']:
+            logger.warning("No profit targets found in database, using default 50%")
             conditions['profit_targets']['primary'] = {'trigger_value': 50, 'trigger_type': 'percentage'}
         if not conditions['stop_losses']:
+            logger.warning("No stop losses found in database, using default 50%")
             conditions['stop_losses']['primary'] = {'trigger_value': 50, 'trigger_type': 'percentage'}
         
         return conditions

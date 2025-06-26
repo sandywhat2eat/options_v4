@@ -50,22 +50,20 @@ class MarketQuoteFetcher:
         """
         Fetch security IDs from Supabase trades table where:
         - order_status = 'open'
-        - strategy = 'Butterfly Spread'
+        - All strategy types (not just Butterfly Spread)
         """
         try:
-            print("🔍 Fetching open Butterfly Spread trades from database...")
+            print("🔍 Fetching open trades from database...")
             
-            # Query trades table for open Butterfly Spread positions
+            # Query trades table for ALL open positions
             response = self.supabase_integration.client.table('trades').select(
                 'security_id, symbol, type, strategy, action, strike_price, order_status'
             ).eq(
                 'order_status', 'open'
-            ).eq(
-                'strategy', 'Butterfly Spread'
             ).execute()
             
             if not response.data:
-                print("⚠️ No open Butterfly Spread trades found in database")
+                print("⚠️ No open trades found in database")
                 print("📊 Using fallback instruments for demonstration")
                 # Fallback to demo instruments
                 self.instruments = {
@@ -79,7 +77,7 @@ class MarketQuoteFetcher:
             nse_fno_ids = []
             
             trade_count = len(response.data)
-            print(f"📊 Found {trade_count} open Butterfly Spread trades")
+            print(f"📊 Found {trade_count} open trades")
             
             for trade in response.data:
                 security_id = trade.get('security_id')

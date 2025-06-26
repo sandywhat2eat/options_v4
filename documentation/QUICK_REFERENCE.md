@@ -1,51 +1,105 @@
-# Options V4 Documentation - Quick Reference
+# Options V4 - Quick Reference
 
-## 📋 Document Purpose Guide
-
-### For Daily Trading
-- **[USER_GUIDE.md](./USER_GUIDE.md)** - Complete trading workflow and best practices
-- **[EXECUTION_WORKFLOW_GUIDE.md](./EXECUTION_WORKFLOW_GUIDE.md)** - Step-by-step execution procedures
-
-### For Technical Understanding  
-- **[TECHNICAL_REFERENCE.md](./TECHNICAL_REFERENCE.md)** - System architecture and implementation
-- **[DATABASE_INTEGRATION_SUMMARY.md](./DATABASE_INTEGRATION_SUMMARY.md)** - Database schema and queries
-
-### For System Maintenance
-- **[CLAUDE.md](./CLAUDE.md)** - Quick commands and troubleshooting
-- **[STRIKE_SELECTION_IMPROVEMENTS.md](./STRIKE_SELECTION_IMPROVEMENTS.md)** - Recent improvements
-
-### For Specialized Topics
-- **[INDUSTRY_ALLOCATION_FRAMEWORK.md](./INDUSTRY_ALLOCATION_FRAMEWORK.md)** - Allocation methodology
-- **[DHAN_EXECUTION_GUIDE.md](./DHAN_EXECUTION_GUIDE.md)** - Dhan API specifics
-
-## 🚀 Quick Start Commands
+## Daily Commands
 
 ```bash
-# Generate strategies
-python main.py --risk moderate
+# Morning workflow
+python main.py --risk moderate                              # Generate strategies
+python sophisticated_portfolio_allocator_runner.py --update-database  # Allocate
+python options_v4_executor.py --execute                    # Execute trades
 
-# Select for execution  
-python mark_for_execution.py --interactive
-
-# Execute trades
-python options_v4_executor.py --execute
-
-# Monitor performance
-python execution_status.py
+# Monitoring
+python execution_status.py                                  # Check status
+python check_stored_data.py --today                        # Verify storage
+grep ERROR logs/options_v4_main_$(date +%Y%m%d).log       # Check errors
 ```
 
-## 🔧 Common Tasks
+## Key Scripts
 
-| Task | Command | Documentation |
-|------|---------|---------------|
-| Run analysis | `python main.py` | USER_GUIDE.md |
-| Debug errors | Check logs/ | CLAUDE.md |
-| Database queries | See SQL examples | DATABASE_INTEGRATION_SUMMARY.md |
-| Add new strategy | Modify strategies/ | TECHNICAL_REFERENCE.md |
+| Script | Purpose | When to Use |
+|--------|---------|-------------|
+| `main.py` | Generate strategies | Daily, before market open |
+| `sophisticated_portfolio_allocator_runner.py` | Portfolio allocation | After strategy generation |
+| `options_v4_executor.py` | Execute trades | After allocation |
+| `execution_status.py` | Monitor executions | Throughout the day |
+| `check_stored_data.py` | Verify DB storage | After generation |
+| `mark_for_execution.py` | Manual marking | As needed |
+| `demo_portfolio_selection.py` | Demo strategy selection | Learning/Testing |
+| `portfolio_backtesting_demo.py` | Demo backtesting | Performance analysis |
 
-## ⚡ Most Used References
+## Configuration
 
-1. **Exit Conditions** → USER_GUIDE.md#exit-management
-2. **Risk Limits** → USER_GUIDE.md#risk-management  
-3. **Strike Selection** → STRIKE_SELECTION_IMPROVEMENTS.md
-4. **Error Fixes** → CLAUDE.md#common-issues-solutions
+### Risk Profiles
+- `--risk conservative` - Lower risk, income focus
+- `--risk moderate` - Balanced (default)
+- `--risk aggressive` - Higher risk, directional
+
+### Allocator Options
+- `--update-database` - Update DB with allocations
+- `--no-database` - Dry run with mock data
+- `--quiet` - Minimal output
+
+## Important Numbers
+
+- **Symbols**: 50 across 6 industries
+- **Strategies**: Target 25-35 for execution
+- **Capital**: ₹1 crore allocation
+- **Max per strategy**: 5%
+- **Min allocation**: 80%
+- **Processing time**: ~20 minutes total
+
+## Troubleshooting
+
+```bash
+# If strategies fail
+tail -100 logs/options_v4_main_$(date +%Y%m%d).log
+
+# If allocation fails
+tail -100 logs/sophisticated_allocator_$(date +%Y%m%d).log
+
+# If execution fails
+tail -100 logs/options_v4_execution.log
+
+# Database issues
+python check_stored_data.py --debug
+```
+
+## File Locations
+
+- **Logs**: `logs/`
+- **Results**: `results/`
+- **Config**: `config/options_portfolio_config.yaml`
+- **Archive**: `archive/` (old scripts and docs)
+
+## Demo Scripts
+
+### Portfolio Selection Demo
+```bash
+# Learn how to select best strategies for ₹1 crore portfolio
+python demo_portfolio_selection.py
+```
+
+### Backtesting Demo
+```bash
+# Analyze historical performance and run simulations
+python portfolio_backtesting_demo.py
+```
+
+## Strategy Selection Best Practices
+
+1. **Primary Filters**:
+   - Total Score ≥ 0.5
+   - Probability of Profit ≥ 40%
+   - Risk-Reward Ratio ≥ 1.2
+   - Conviction: MEDIUM/HIGH/VERY_HIGH
+
+2. **Position Sizing**:
+   - Max 5% per strategy (₹5 lakh)
+   - Max 15% per stock
+   - Max 12% per industry
+   - Target 20-30 strategies
+
+3. **VIX-Based Selection**:
+   - Low VIX: Iron Condors, Premium Selling
+   - Normal VIX: Balanced mix
+   - High VIX: Long Options, Debit Spreads
