@@ -456,8 +456,15 @@ class OptionsAnalyzer:
                         score *= 1.8  # 80% boost for vol strategies in high IV
                     
                     # Boost neutral strategies for neutral markets
-                    if 'neutral' in direction.lower() and strategy_name in ['Iron Condor', 'Butterfly Spread', 'Iron Butterfly', 'Long Straddle', 'Long Strangle']:
-                        score *= 1.7  # 70% boost for neutral strategies in neutral markets
+                    if 'neutral' in direction.lower():
+                        if strategy_name in ['Long Straddle', 'Long Strangle']:
+                            score *= 2.2  # 120% boost for long volatility in neutral markets
+                        elif strategy_name in ['Iron Condor', 'Butterfly Spread', 'Iron Butterfly', 'Short Straddle', 'Short Strangle']:
+                            score *= 1.7  # 70% boost for other neutral strategies
+                    
+                    # Additional boost for straddle/strangle in low confidence markets
+                    if confidence < 0.4 and strategy_name in ['Long Straddle', 'Long Strangle']:
+                        score *= 1.5  # 50% additional boost for low confidence
                         
                     strategy_scores[strategy_name] = score
             
@@ -505,6 +512,14 @@ class OptionsAnalyzer:
                 if income_strat in self.strategy_classes and income_strat not in selected_strategies:
                     if len(selected_strategies) < 30:
                         selected_strategies.append(income_strat)
+            
+            # Ensure volatility strategies are included for neutral markets
+            if 'neutral' in direction.lower() or confidence < 0.4:
+                vol_strategies = ['Long Straddle', 'Long Strangle']
+                for vol_strat in vol_strategies:
+                    if vol_strat in self.strategy_classes and vol_strat not in selected_strategies:
+                        # Insert near the top to ensure they get constructed
+                        selected_strategies.insert(2, vol_strat)
             
             self.logger.info(f"Selected {len(selected_strategies)} strategies based on metadata scoring")
             self.logger.debug(f"Strategy selection details - Direction: {direction}, "

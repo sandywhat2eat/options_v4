@@ -122,6 +122,16 @@ class IronCondor(BaseStrategy):
             total_max_profit = net_credit * self.lot_size
             total_max_loss = max_loss * self.lot_size
             
+            # Calculate probability of profit for Iron Condor
+            # Profits when price stays between short strikes
+            call_prob_itm = abs(call_short_data.get('delta', 0.25))
+            put_prob_itm = abs(put_short_data.get('delta', 0.25))
+            
+            # Probability of staying between short strikes
+            probability_profit = 1.0 - (call_prob_itm + put_prob_itm)
+            # Conservative adjustment for early assignment risk
+            probability_profit *= 0.9
+            
             return {
                 'success': True,
                 'strategy_name': f"{self.get_strategy_name()} ({wing_width.title()} Wings)",
@@ -129,6 +139,7 @@ class IronCondor(BaseStrategy):
                 'max_profit': total_max_profit,
                 'max_loss': total_max_loss,
                 'breakeven_points': [lower_breakeven, upper_breakeven],
+                'probability_profit': probability_profit,  # ADDED THIS FIELD
                 'profit_zone': (lower_breakeven, upper_breakeven),
                 'delta_exposure': greeks['delta'],
                 'theta_decay': greeks['theta'],
@@ -229,12 +240,23 @@ class IronCondor(BaseStrategy):
             total_max_profit = net_credit * self.lot_size
             total_max_loss = max_loss_per_lot * self.lot_size
             
+            # Calculate probability of profit for simple condor
+            # Use conservative estimate based on strikes
+            call_prob_itm = abs(call_short_data.get('delta', 0.3))
+            put_prob_itm = abs(put_short_data.get('delta', 0.3))
+            
+            # Probability of staying between short strikes
+            probability_profit = 1.0 - (call_prob_itm + put_prob_itm)
+            # Conservative adjustment
+            probability_profit *= 0.85
+            
             return {
                 'success': True,
                 'strategy_name': f"{self.get_strategy_name()} (Simple)",
                 'legs': self.legs,
                 'max_profit': total_max_profit,
                 'max_loss': total_max_loss,
+                'probability_profit': probability_profit,  # ADDED THIS FIELD
                 'delta_exposure': greeks['delta'],
                 'theta_decay': greeks['theta'],
                 'optimal_outcome': f"Stock stays between {put_short_strike} and {call_short_strike}",

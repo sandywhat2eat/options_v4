@@ -204,6 +204,17 @@ class ShortStraddle(BaseStrategy):
             # Apply lot size multiplier for real position sizing
             total_credit_received = total_credit * self.lot_size
             
+            # Calculate probability of profit for short straddle
+            # Profits when price stays between breakevens
+            # Use IV to estimate movement probability
+            iv_avg = (call_data.get('implied_volatility', 30) + put_data.get('implied_volatility', 30)) / 2
+            days_to_expiry = 30  # Default
+            expected_move_pct = (iv_avg / 100) * np.sqrt(days_to_expiry / 365)
+            
+            # Probability of staying within profit zone
+            # Higher than long straddle but still conservative
+            probability_profit = max(0.35, 0.65 - expected_move_pct * 2.0)
+            
             return {
                 'success': True,
                 'strategy_name': self.get_strategy_name(),
@@ -211,6 +222,7 @@ class ShortStraddle(BaseStrategy):
                 'max_profit': total_credit_received,
                 'max_loss': float('inf'),  # Unlimited risk - requires margin
                 'breakeven_points': [lower_breakeven, upper_breakeven],
+                'probability_profit': probability_profit,  # ADDED THIS FIELD
                 'profit_zone': (lower_breakeven, upper_breakeven),
                 'profit_zone_pct': profit_zone_pct,
                 'delta_exposure': greeks['delta'],  # Should be near zero
