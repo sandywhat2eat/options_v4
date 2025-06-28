@@ -93,11 +93,19 @@ class LongStrangle(BaseStrategy):
             # Use historical volatility and current IV to estimate
             iv_avg = (call_data.get('implied_volatility', 30) + put_data.get('implied_volatility', 30)) / 2
             days_to_expiry = 30  # Default, should get from actual expiry
-            expected_move_pct = (iv_avg / 100) * np.sqrt(days_to_expiry / 365)
+            expected_move_pct = (iv_avg / 100) * np.sqrt(days_to_expiry / 365) * 100  # Convert to percentage
             
             # Probability of moving beyond required move
-            # Conservative estimate: 30-40% for OTM strangle (lower than straddle)
-            probability_profit = min(0.40, 0.30 + (expected_move_pct - move_required_pct) * 1.5)
+            # More realistic: Base 35% with adjustments for IV environment
+            # Strangles are cheaper than straddles but need larger moves
+            if iv_avg < 25:  # Low IV - cheap strangles
+                probability_profit = 0.38 + max(0, (expected_move_pct - move_required_pct) * 0.018)
+            elif iv_avg < 35:  # Normal IV
+                probability_profit = 0.35 + max(0, (expected_move_pct - move_required_pct) * 0.012)
+            else:  # High IV
+                probability_profit = 0.33 + max(0, (expected_move_pct - move_required_pct) * 0.008)
+            
+            probability_profit = min(0.50, max(0.25, probability_profit))  # Cap between 25-50%
             
             return {
                 'success': True,

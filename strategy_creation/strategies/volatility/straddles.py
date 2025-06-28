@@ -86,11 +86,19 @@ class LongStraddle(BaseStrategy):
             # Use historical volatility and current IV to estimate
             iv_avg = (call_data.get('implied_volatility', 30) + put_data.get('implied_volatility', 30)) / 2
             days_to_expiry = 30  # Default, should get from actual expiry
-            expected_move_pct = (iv_avg / 100) * np.sqrt(days_to_expiry / 365)
+            expected_move_pct = (iv_avg / 100) * np.sqrt(days_to_expiry / 365) * 100  # Convert to percentage
             
             # Probability of moving beyond required move
-            # Conservative estimate: 35-45% for ATM straddle
-            probability_profit = min(0.45, 0.35 + (expected_move_pct - move_required_pct) * 2)
+            # More realistic: Base 40% with adjustments for IV environment
+            # Low IV environments actually can be good for straddles if premium is cheap
+            if iv_avg < 25:  # Low IV - cheap straddles
+                probability_profit = 0.42 + max(0, (expected_move_pct - move_required_pct) * 0.02)
+            elif iv_avg < 35:  # Normal IV
+                probability_profit = 0.40 + max(0, (expected_move_pct - move_required_pct) * 0.015)
+            else:  # High IV - expensive straddles
+                probability_profit = 0.38 + max(0, (expected_move_pct - move_required_pct) * 0.01)
+            
+            probability_profit = min(0.55, max(0.25, probability_profit))  # Cap between 25-55%
             
             return {
                 'success': True,
