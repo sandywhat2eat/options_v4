@@ -450,6 +450,14 @@ class OptionsAnalyzer:
                     # Boost score if strategy is preferred for this volatility profile
                     if strategy_name in preferred_strategies:
                         score *= 1.5  # 50% boost for preferred strategies
+                    
+                    # Boost volatility strategies in high IV environments
+                    if iv_env in ['ELEVATED', 'EXTREME'] and strategy_name in ['Long Straddle', 'Long Strangle', 'Short Straddle', 'Short Strangle']:
+                        score *= 1.8  # 80% boost for vol strategies in high IV
+                    
+                    # Boost neutral strategies for neutral markets
+                    if 'neutral' in direction.lower() and strategy_name in ['Iron Condor', 'Butterfly Spread', 'Iron Butterfly', 'Long Straddle', 'Long Strangle']:
+                        score *= 1.7  # 70% boost for neutral strategies in neutral markets
                         
                     strategy_scores[strategy_name] = score
             
@@ -463,8 +471,25 @@ class OptionsAnalyzer:
             # Select top 25-30 strategies to try
             selected_strategies = [name for name, score in sorted_strategies[:30]]
             
-            # Apply minimal exclusions only for extreme confidence
-            if confidence > 0.85:  # Very high confidence
+            # Apply confidence-based strategy preferences
+            # MODERATE confidence (0.4-0.7): Prefer spreads over single legs
+            # HIGH confidence (>0.7): Allow single legs
+            if 0.4 <= confidence <= 0.7:  # Moderate confidence
+                # Boost spread strategies for moderate moves
+                spread_boost = 2.0
+                for i, (name, score) in enumerate(sorted_strategies):
+                    if 'Spread' in name and name not in ['Calendar Spread', 'Diagonal Spread']:
+                        strategy_scores[name] = score * spread_boost
+                
+                # Re-sort with boosted scores
+                sorted_strategies = sorted(
+                    strategy_scores.items(),
+                    key=lambda x: x[1],
+                    reverse=True
+                )
+                selected_strategies = [name for name, score in sorted_strategies[:30]]
+                
+            elif confidence > 0.85:  # Very high confidence
                 if 'strong' in direction.lower() and 'bullish' in direction.lower():
                     # Remove purely bearish strategies
                     selected_strategies = [s for s in selected_strategies 
@@ -515,8 +540,25 @@ class OptionsAnalyzer:
                 return strategy_instance.construct_strategy(wing_width=wing_width)
             
             elif 'Spread' in strategy_name:
-                # Use default delta targets from config
-                return strategy_instance.construct_strategy()
+                # For spreads, adjust strike selection based on confidence
+                confidence = market_analysis.get('confidence', 0)
+                direction = market_analysis.get('direction', 'Neutral')
+                
+                # For Bull Call Spread / Bear Put Spread
+                if 'Bull Call Spread' in strategy_name:
+                    if confidence > 0.7:  # High confidence - OTM spread
+                        # Will be handled by strategy's intelligent strike selector
+                        return strategy_instance.construct_strategy(strike_preference='otm')
+                    else:  # Moderate confidence - ATM/ITM spread
+                        return strategy_instance.construct_strategy(strike_preference='atm')
+                elif 'Bear Put Spread' in strategy_name:
+                    if confidence > 0.7:  # High confidence - OTM spread
+                        return strategy_instance.construct_strategy(strike_preference='otm')
+                    else:  # Moderate confidence - ATM/ITM spread
+                        return strategy_instance.construct_strategy(strike_preference='atm')
+                else:
+                    # Other spreads use default
+                    return strategy_instance.construct_strategy()
             
             elif 'Long' in strategy_name:
                 # For long options, use higher delta for better probability of profit

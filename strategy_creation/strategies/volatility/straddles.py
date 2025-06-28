@@ -81,6 +81,17 @@ class LongStraddle(BaseStrategy):
             total_cost = total_premium * self.lot_size
             total_move_required = total_premium * self.lot_size
             
+            # Calculate probability of profit for straddle
+            # Needs to move beyond breakeven in either direction
+            # Use historical volatility and current IV to estimate
+            iv_avg = (call_data.get('implied_volatility', 30) + put_data.get('implied_volatility', 30)) / 2
+            days_to_expiry = 30  # Default, should get from actual expiry
+            expected_move_pct = (iv_avg / 100) * np.sqrt(days_to_expiry / 365)
+            
+            # Probability of moving beyond required move
+            # Conservative estimate: 35-45% for ATM straddle
+            probability_profit = min(0.45, 0.35 + (expected_move_pct - move_required_pct) * 2)
+            
             return {
                 'success': True,
                 'strategy_name': self.get_strategy_name(),
@@ -88,6 +99,7 @@ class LongStraddle(BaseStrategy):
                 'max_profit': float('inf'),  # Unlimited in both directions
                 'max_loss': total_cost,
                 'breakeven_points': [lower_breakeven, upper_breakeven],
+                'probability_profit': probability_profit,  # ADDED THIS FIELD
                 'move_required': total_premium,  # Per share breakeven
                 'move_required_pct': move_required_pct,
                 'delta_exposure': greeks['delta'],  # Should be near zero

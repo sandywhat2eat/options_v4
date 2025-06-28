@@ -85,6 +85,11 @@ class BullCallSpread(BaseStrategy):
             total_max_loss = net_debit * self.lot_size
             total_cost = total_max_loss  # Net debit = cost
             
+            # Calculate probability of profit
+            # Bull Call Spread profits when price > breakeven
+            # Use long call delta as approximation
+            probability_profit = 1 - long_call_data.get('delta', 0.5)
+            
             return {
                 'success': True,
                 'strategy_name': self.get_strategy_name(),
@@ -92,6 +97,7 @@ class BullCallSpread(BaseStrategy):
                 'max_profit': total_max_profit,
                 'max_loss': total_max_loss,
                 'breakeven': long_strike + net_debit,
+                'probability_profit': probability_profit,  # ADDED THIS FIELD
                 'delta_exposure': greeks['delta'],
                 'theta_decay': greeks['theta'],
                 'optimal_outcome': f"Stock closes above {short_strike} at expiry",
@@ -199,6 +205,11 @@ class BearCallSpread(BaseStrategy):
             total_max_profit = net_credit * self.lot_size
             total_max_loss = max_loss * self.lot_size
             
+            # Calculate probability of profit
+            # Bear Call Spread profits when price < short strike
+            # Use short call delta as approximation
+            probability_profit = 1 - short_call_data.get('delta', 0.3)
+            
             return {
                 'success': True,
                 'strategy_name': self.get_strategy_name(),
@@ -206,6 +217,7 @@ class BearCallSpread(BaseStrategy):
                 'max_profit': total_max_profit,
                 'max_loss': total_max_loss,
                 'breakeven': short_strike + net_credit,
+                'probability_profit': probability_profit,  # ADDED THIS FIELD
                 'delta_exposure': greeks['delta'],
                 'theta_decay': greeks['theta'],
                 'optimal_outcome': f"Stock closes below {short_strike} at expiry",
