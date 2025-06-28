@@ -83,6 +83,11 @@ class LongCall(BaseStrategy):
             total_cost = premium_per_contract * self.lot_size
             total_max_loss = total_cost
             
+            # Calculate probability of profit using delta approximation
+            # Long calls need to overcome premium paid
+            delta = abs(call_data.get('delta', 0.5))
+            probability_profit = max(0.0, delta - 0.06)  # Reduce by ~6% for premium
+            
             return {
                 'success': True,
                 'strategy_name': self.get_strategy_name(),
@@ -90,6 +95,7 @@ class LongCall(BaseStrategy):
                 'max_profit': float('inf'),  # Unlimited upside
                 'max_loss': total_max_loss,  # Total cost with lot size
                 'breakeven': strike + premium_per_contract,  # Breakeven per share
+                'probability_profit': probability_profit,  # ADDED THIS FIELD
                 'delta_exposure': greeks['delta'],
                 'theta_decay': greeks['theta'],
                 'iv_exposure': greeks['vega'],
@@ -186,6 +192,11 @@ class LongPut(BaseStrategy):
             max_profit_per_contract = strike - premium_per_contract
             total_max_profit = max_profit_per_contract * self.lot_size
             
+            # Calculate probability of profit using delta approximation
+            # Long puts need to overcome premium paid
+            delta = abs(put_data.get('delta', 0.5))
+            probability_profit = max(0.0, delta - 0.06)  # Reduce by ~6% for premium
+            
             return {
                 'success': True,
                 'strategy_name': self.get_strategy_name(),
@@ -193,6 +204,7 @@ class LongPut(BaseStrategy):
                 'max_profit': total_max_profit,  # Total profit with lot size
                 'max_loss': total_cost,  # Total cost with lot size
                 'breakeven': strike - premium_per_contract,  # Breakeven per share
+                'probability_profit': probability_profit,  # ADDED THIS FIELD
                 'delta_exposure': greeks['delta'],
                 'theta_decay': greeks['theta'],
                 'iv_exposure': greeks['vega'],

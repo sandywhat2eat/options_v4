@@ -381,9 +381,9 @@ class OptionsAnalyzer:
                         
                         if result.get('success', False):
                             strategies[strategy_name] = result
-                            self.logger.debug(f"✅ {strategy_name} constructed successfully")
+                            self.logger.info(f"✅ {strategy_name} constructed successfully - PoP: {result.get('probability_profit', 0):.3f}")
                         else:
-                            self.logger.debug(f"⚠️ {strategy_name} construction failed: {result.get('reason', 'Unknown')}")
+                            self.logger.info(f"⚠️ {strategy_name} construction failed: {result.get('reason', 'Unknown')}")
                 
                 except Exception as e:
                     self.logger.warning(f"Error constructing {strategy_name}: {e}")
@@ -575,8 +575,8 @@ class OptionsAnalyzer:
                     # Other spreads use default
                     return strategy_instance.construct_strategy()
             
-            elif 'Long' in strategy_name:
-                # For long options, use higher delta for better probability of profit
+            elif 'Long' in strategy_name and ('Call' in strategy_name or 'Put' in strategy_name) and 'Spread' not in strategy_name:
+                # For long single options only (not straddles/strangles/spreads)
                 confidence = market_analysis.get('confidence', 0)
                 if 'Call' in strategy_name:
                     # Long Call: use higher delta for better PoP
