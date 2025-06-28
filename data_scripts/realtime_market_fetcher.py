@@ -18,7 +18,7 @@ from dhanhq import dhanhq
 import sys
 sys.path.append('/Users/jaykrish/Documents/digitalocean/cronjobs/options_v4')
 from database.supabase_integration import SupabaseIntegration
-from core.websocket_manager import WebSocketManager
+from trade_monitoring.realtime.websocket_manager import WebSocketManager
 from data_scripts.market_quote_fetcher import MarketQuoteFetcher
 
 # Load environment variables

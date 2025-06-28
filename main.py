@@ -28,11 +28,10 @@ except ImportError:
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 # Import our modules
-from core import DataManager, IVAnalyzer, ProbabilityEngine, RiskManager
-from core.exit_manager import ExitManager
-from core.stock_profiler import StockProfiler
+from strategy_creation import DataManager, IVAnalyzer, ProbabilityEngine, RiskManager, StockProfiler
+from trade_execution import ExitManager
 from analysis import MarketAnalyzer, StrategyRanker, PriceLevelsAnalyzer
-from strategies import (
+from strategy_creation.strategies import (
     # Directional
     LongCall, LongPut, BullCallSpread, BearCallSpread, 
     BullPutSpreadStrategy, BearPutSpreadStrategy,
@@ -46,7 +45,7 @@ from strategies import (
     CalendarSpread, DiagonalSpread, CallRatioSpread, PutRatioSpread,
     JadeLizard, BrokenWingButterfly
 )
-from strategies.strategy_metadata import (
+from strategy_creation.strategies.strategy_metadata import (
     get_compatible_strategies, 
     get_strategy_metadata,
     calculate_strategy_score,
@@ -122,7 +121,7 @@ class OptionsAnalyzer:
         
         # Import and initialize strike selector for expiry logic
         try:
-            from core.strike_selector import IntelligentStrikeSelector
+            from strategy_creation.strike_selector import IntelligentStrikeSelector
             self.strike_selector = IntelligentStrikeSelector(self.stock_profiler)
         except ImportError:
             self.logger.warning("Strike selector not available")

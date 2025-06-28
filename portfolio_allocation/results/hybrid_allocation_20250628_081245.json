@@ -1,0 +1,527 @@
+{
+  "timestamp": "2025-06-28T08:12:46.570858",
+  "total_capital": 1500000.0,
+  "market_conditions": {
+    "direction": "neutral",
+    "long_percentage": 0.5,
+    "short_percentage": 0.5,
+    "market_cap_allocation": {
+      "Large Cap": 45,
+      "Mid Cap": 30,
+      "Small Cap": 20,
+      "Micro Cap": 5
+    },
+    "position_sizing": {
+      "Large Cap": {
+        "min": 50000,
+        "max": 200000
+      },
+      "Mid Cap": {
+        "min": 40000,
+        "max": 150000
+      },
+      "Small Cap": {
+        "min": 30000,
+        "max": 100000
+      },
+      "Micro Cap": {
+        "min": 25000,
+        "max": 50000
+      }
+    }
+  },
+  "portfolio_summary": {
+    "total_positions": 13,
+    "capital_deployed": 1499622.75,
+    "deployment_percentage": 99.97485,
+    "expected_monthly_income": 65816.755,
+    "monthly_return_percentage": 4.387783666666667,
+    "tier_breakdown": {
+      "INCOME": {
+        "positions": 8,
+        "capital": 975358.25,
+        "income": 39014.33
+      },
+      "MOMENTUM": {
+        "positions": 4,
+        "capital": 465344.5,
+        "income": 23267.225
+      },
+      "VOLATILITY": {
+        "positions": 1,
+        "capital": 58920.0,
+        "income": 3535.2
+      }
+    },
+    "industry_breakdown": {
+      "Other Transportation": {
+        "positions": 1,
+        "capital": 163637.5,
+        "income": 6545.5
+      },
+      "Steel": {
+        "positions": 2,
+        "capital": 271050.0,
+        "income": 12360.0
+      },
+      "Beverages: Alcoholic": {
+        "positions": 1,
+        "capital": 164119.99999999997,
+        "income": 6564.799999999999
+      },
+      "Electrical Products": {
+        "positions": 1,
+        "capital": 150393.75,
+        "income": 6015.75
+      },
+      "Chemicals: Agricultural": {
+        "positions": 1,
+        "capital": 100812.0,
+        "income": 4032.48
+      },
+      "Industrial Machinery": {
+        "positions": 1,
+        "capital": 135412.5,
+        "income": 5416.5
+      },
+      "Apparel/Footwear": {
+        "positions": 1,
+        "capital": 88035.75,
+        "income": 4401.7875
+      },
+      "Investment Banks/Brokers": {
+        "positions": 1,
+        "capital": 56812.5,
+        "income": 2272.5
+      },
+      "Air Freight/Couriers": {
+        "positions": 1,
+        "capital": 75633.75,
+        "income": 3781.6875
+      },
+      "Information Technology Services": {
+        "positions": 2,
+        "capital": 143840.0,
+        "income": 6932.0
+      },
+      "Miscellaneous Manufacturing": {
+        "positions": 1,
+        "capital": 149875.0,
+        "income": 7493.75
+      }
+    },
+    "market_cap_breakdown": {
+      "Large Cap": {
+        "positions": 4,
+        "capital": 629951.25,
+        "income": 26716.05
+      },
+      "Mid Cap": {
+        "positions": 5,
+        "capital": 593385.25,
+        "income": 26114.5175
+      },
+      "Small Cap": {
+        "positions": 4,
+        "capital": 276286.25,
+        "income": 12986.1875
+      }
+    },
+    "portfolio_greeks": {
+      "delta": 126.9885,
+      "gamma": 3.2574,
+      "theta": -4911.149200000001,
+      "vega": 892.9277999999999
+    },
+    "average_position_size": 115355.59615384616,
+    "positions_by_tier": {
+      "INCOME": 8,
+      "MOMENTUM": 4,
+      "VOLATILITY": 1
+    },
+    "market_conditions": {
+      "direction": "neutral",
+      "long_percentage": 0.5,
+      "short_percentage": 0.5,
+      "market_cap_allocation": {
+        "Large Cap": 45,
+        "Mid Cap": 30,
+        "Small Cap": 20,
+        "Micro Cap": 5
+      },
+      "position_sizing": {
+        "Large Cap": {
+          "min": 50000,
+          "max": 200000
+        },
+        "Mid Cap": {
+          "min": 40000,
+          "max": 150000
+        },
+        "Small Cap": {
+          "min": 30000,
+          "max": 100000
+        },
+        "Micro Cap": {
+          "min": 25000,
+          "max": 50000
+        }
+      }
+    },
+    "long_capital_allocated": 667945.75,
+    "short_capital_allocated": 831677.0
+  },
+  "positions": [
+    {
+      "stock_name": "ADANIPORTS",
+      "strategy_name": "Butterfly Spread",
+      "tier": "INCOME",
+      "industry": "Other Transportation",
+      "industry_weight": 0.021169808892606654,
+      "position_type": "LONG",
+      "market_cap_category": "Large Cap",
+      "allocated_capital": 173825.0,
+      "number_of_lots": 13,
+      "actual_capital_deployed": 163637.5,
+      "expected_monthly_income": 6545.5,
+      "net_premium": 26.5,
+      "lot_size": 475,
+      "premium_per_lot": 12587.5,
+      "probability_of_profit": 0.67,
+      "risk_reward_ratio": 3.3956,
+      "total_score": 0.8255,
+      "conviction_level": "MEDIUM",
+      "greeks": {
+        "delta": 1.9926,
+        "gamma": 0.0306,
+        "theta": -3.3236,
+        "vega": 1.7582
+      },
+      "position_risk_score": 0.28853
+    },
+    {
+      "stock_name": "TATASTEEL",
+      "strategy_name": "Long Call",
+      "tier": "MOMENTUM",
+      "industry": "Steel",
+      "industry_weight": 0.07155266713853677,
+      "position_type": "LONG",
+      "market_cap_category": "Large Cap",
+      "allocated_capital": 157145.0,
+      "number_of_lots": 12,
+      "actual_capital_deployed": 151799.99999999997,
+      "expected_monthly_income": 7589.999999999999,
+      "net_premium": 2.3,
+      "lot_size": 5500,
+      "premium_per_lot": 12649.999999999998,
+      "probability_of_profit": 0.29,
+      "risk_reward_ratio": 0.0,
+      "total_score": 0.7143,
+      "conviction_level": "VERY_HIGH",
+      "greeks": {
+        "delta": 0.3132,
+        "gamma": 0.0,
+        "theta": 0.0,
+        "vega": 0.0
+      },
+      "position_risk_score": 0.33294399999999996
+    },
+    {
+      "stock_name": "UNITDSPR",
+      "strategy_name": "Butterfly Spread",
+      "tier": "INCOME",
+      "industry": "Beverages: Alcoholic",
+      "industry_weight": 0.025738369474293803,
+      "position_type": "SHORT",
+      "market_cap_category": "Large Cap",
+      "allocated_capital": 169445.0,
+      "number_of_lots": 22,
+      "actual_capital_deployed": 164119.99999999997,
+      "expected_monthly_income": 6564.799999999999,
+      "net_premium": 18.65,
+      "lot_size": 400,
+      "premium_per_lot": 7459.999999999999,
+      "probability_of_profit": 0.64,
+      "risk_reward_ratio": 3.0816,
+      "total_score": 0.7963,
+      "conviction_level": "LOW",
+      "greeks": {
+        "delta": 1.4126,
+        "gamma": 0.0276,
+        "theta": -4.1286,
+        "vega": 2.1054
+      },
+      "position_risk_score": 0.29864466666666667
+    },
+    {
+      "stock_name": "SIEMENS",
+      "strategy_name": "Butterfly Spread",
+      "tier": "INCOME",
+      "industry": "Electrical Products",
+      "industry_weight": 0.009973618171288848,
+      "position_type": "SHORT",
+      "market_cap_category": "Large Cap",
+      "allocated_capital": 155270.0,
+      "number_of_lots": 13,
+      "actual_capital_deployed": 150393.75,
+      "expected_monthly_income": 6015.75,
+      "net_premium": 92.55,
+      "lot_size": 125,
+      "premium_per_lot": 11568.75,
+      "probability_of_profit": 0.67,
+      "risk_reward_ratio": 1.4096,
+      "total_score": 0.7018,
+      "conviction_level": "HIGH",
+      "greeks": {
+        "delta": 1.6789,
+        "gamma": 0.0081,
+        "theta": -10.4261,
+        "vega": 3.9922
+      },
+      "position_risk_score": 0.268611
+    },
+    {
+      "stock_name": "JINDALSTEL",
+      "strategy_name": "Butterfly Spread",
+      "tier": "INCOME",
+      "industry": "Steel",
+      "industry_weight": 0.07155266713853677,
+      "position_type": "LONG",
+      "market_cap_category": "Mid Cap",
+      "allocated_capital": 122093.0,
+      "number_of_lots": 12,
+      "actual_capital_deployed": 119250.0,
+      "expected_monthly_income": 4770.0,
+      "net_premium": 15.9,
+      "lot_size": 625,
+      "premium_per_lot": 9937.5,
+      "probability_of_profit": 0.65,
+      "risk_reward_ratio": 2.125,
+      "total_score": 0.7463,
+      "conviction_level": "MEDIUM",
+      "greeks": {
+        "delta": 1.4476,
+        "gamma": 0.038,
+        "theta": -2.5387,
+        "vega": 1.193
+      },
+      "position_risk_score": 0.34067866666666663
+    },
+    {
+      "stock_name": "UPL",
+      "strategy_name": "Butterfly Spread",
+      "tier": "INCOME",
+      "industry": "Chemicals: Agricultural",
+      "industry_weight": 0.041374428929927286,
+      "position_type": "LONG",
+      "market_cap_category": "Mid Cap",
+      "allocated_capital": 105750.0,
+      "number_of_lots": 6,
+      "actual_capital_deployed": 100812.0,
+      "expected_monthly_income": 4032.48,
+      "net_premium": 12.4,
+      "lot_size": 1355,
+      "premium_per_lot": 16802.0,
+      "probability_of_profit": 0.73,
+      "risk_reward_ratio": 0.6667,
+      "total_score": 0.6347,
+      "conviction_level": "LOW",
+      "greeks": {
+        "delta": 1.988,
+        "gamma": 0.0787,
+        "theta": -1.7081,
+        "vega": 0.7082
+      },
+      "position_risk_score": 0.48544800000000005
+    },
+    {
+      "stock_name": "VOLTAS",
+      "strategy_name": "Butterfly Spread",
+      "tier": "INCOME",
+      "industry": "Industrial Machinery",
+      "industry_weight": 0.009716234476545911,
+      "position_type": "SHORT",
+      "market_cap_category": "Mid Cap",
+      "allocated_capital": 135535.0,
+      "number_of_lots": 46,
+      "actual_capital_deployed": 135412.5,
+      "expected_monthly_income": 5416.5,
+      "net_premium": 7.85,
+      "lot_size": 375,
+      "premium_per_lot": 2943.75,
+      "probability_of_profit": 0.8,
+      "risk_reward_ratio": 10.1111,
+      "total_score": 0.8685,
+      "conviction_level": "LOW",
+      "greeks": {
+        "delta": 0.0,
+        "gamma": 0.0,
+        "theta": 0.0,
+        "vega": 0.0
+      },
+      "position_risk_score": 0.11049999999999997
+    },
+    {
+      "stock_name": "PAGEIND",
+      "strategy_name": "Bear Put Spread",
+      "tier": "MOMENTUM",
+      "industry": "Apparel/Footwear",
+      "industry_weight": 0.012804838813461167,
+      "position_type": "SHORT",
+      "market_cap_category": "Mid Cap",
+      "allocated_capital": 89587.5,
+      "number_of_lots": 33,
+      "actual_capital_deployed": 88035.75,
+      "expected_monthly_income": 4401.7875,
+      "net_premium": 177.85,
+      "lot_size": 15,
+      "premium_per_lot": 2667.75,
+      "probability_of_profit": 0.3,
+      "risk_reward_ratio": 4.6227,
+      "total_score": 0.6842,
+      "conviction_level": "MEDIUM",
+      "greeks": {
+        "delta": -0.5113,
+        "gamma": 0.0006,
+        "theta": -136.1922,
+        "vega": 21.5339
+      },
+      "position_risk_score": 0.4858636666666667
+    },
+    {
+      "stock_name": "IEX",
+      "strategy_name": "Butterfly Spread",
+      "tier": "INCOME",
+      "industry": "Investment Banks/Brokers",
+      "industry_weight": 0.073676082620166,
+      "position_type": "LONG",
+      "market_cap_category": "Small Cap",
+      "allocated_capital": 72658.0,
+      "number_of_lots": 3,
+      "actual_capital_deployed": 56812.5,
+      "expected_monthly_income": 2272.5,
+      "net_premium": 5.05,
+      "lot_size": 3750,
+      "premium_per_lot": 18937.5,
+      "probability_of_profit": 0.77,
+      "risk_reward_ratio": -0.0566,
+      "total_score": 0.6094,
+      "conviction_level": "HIGH",
+      "greeks": {
+        "delta": 1.9742,
+        "gamma": 0.2062,
+        "theta": -0.7872,
+        "vega": 0.2245
+      },
+      "position_risk_score": 0.5402
+    },
+    {
+      "stock_name": "DELHIVERY",
+      "strategy_name": "Long Call",
+      "tier": "MOMENTUM",
+      "industry": "Air Freight/Couriers",
+      "industry_weight": 0.021298500739978122,
+      "position_type": "LONG",
+      "market_cap_category": "Small Cap",
+      "allocated_capital": 83270.0,
+      "number_of_lots": 9,
+      "actual_capital_deployed": 75633.75,
+      "expected_monthly_income": 3781.6875,
+      "net_premium": 4.05,
+      "lot_size": 2075,
+      "premium_per_lot": 8403.75,
+      "probability_of_profit": 0.4,
+      "risk_reward_ratio": 0.0,
+      "total_score": 0.761,
+      "conviction_level": "VERY_HIGH",
+      "greeks": {
+        "delta": 0.4339,
+        "gamma": 0.0,
+        "theta": 0.0,
+        "vega": 0.0
+      },
+      "position_risk_score": 0.281113
+    },
+    {
+      "stock_name": "TATATECH",
+      "strategy_name": "Butterfly Spread",
+      "tier": "INCOME",
+      "industry": "Information Technology Services",
+      "industry_weight": 0.04748729168007207,
+      "position_type": "SHORT",
+      "market_cap_category": "Small Cap",
+      "allocated_capital": 85846.0,
+      "number_of_lots": 11,
+      "actual_capital_deployed": 84920.0,
+      "expected_monthly_income": 3396.8,
+      "net_premium": 9.65,
+      "lot_size": 800,
+      "premium_per_lot": 7720.0,
+      "probability_of_profit": 0.65,
+      "risk_reward_ratio": 5.0606,
+      "total_score": 0.7978,
+      "conviction_level": "LOW",
+      "greeks": {
+        "delta": 1.4266,
+        "gamma": 0.0495,
+        "theta": -2.3253,
+        "vega": 1.0372
+      },
+      "position_risk_score": 0.36073666666666665
+    },
+    {
+      "stock_name": "CAMS",
+      "strategy_name": "Diagonal Spread",
+      "tier": "VOLATILITY",
+      "industry": "Information Technology Services",
+      "industry_weight": 0.04748729168007207,
+      "position_type": "SHORT",
+      "market_cap_category": "Small Cap",
+      "allocated_capital": 65080.0,
+      "number_of_lots": 8,
+      "actual_capital_deployed": 58920.0,
+      "expected_monthly_income": 3535.2,
+      "net_premium": 49.1,
+      "lot_size": 150,
+      "premium_per_lot": 7365.0,
+      "probability_of_profit": 0.6,
+      "risk_reward_ratio": 2.055,
+      "total_score": 0.6928,
+      "conviction_level": "VERY_HIGH",
+      "greeks": {
+        "delta": 0.8096,
+        "gamma": 0.0045,
+        "theta": -9.8223,
+        "vega": 3.8234
+      },
+      "position_risk_score": 0.27892133333333335
+    },
+    {
+      "stock_name": "ASTRAL",
+      "strategy_name": "Long Call",
+      "tier": "MOMENTUM",
+      "industry": "Miscellaneous Manufacturing",
+      "industry_weight": 0.018789009716234477,
+      "position_type": "SHORT",
+      "market_cap_category": "Mid Cap",
+      "allocated_capital": 150000,
+      "number_of_lots": 55,
+      "actual_capital_deployed": 149875.0,
+      "expected_monthly_income": 7493.75,
+      "net_premium": 54.5,
+      "lot_size": 50,
+      "premium_per_lot": 2725.0,
+      "probability_of_profit": 0.92,
+      "risk_reward_ratio": 0.0,
+      "total_score": 0.9186,
+      "conviction_level": "MEDIUM",
+      "greeks": {
+        "delta": 0.0,
+        "gamma": 0.0,
+        "theta": 0.0,
+        "vega": 0.0
+      },
+      "position_risk_score": 0.053799999999999994
+    }
+  ]
+}

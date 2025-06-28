@@ -1,0 +1,41 @@
+# Manual Market Direction Override
+# Set this to override automatic market direction calculation
+manual_market_direction:
+  enabled: true  # Set to false to use automatic calculation
+  direction: "neutral"  # Options: strong_bullish, moderate_bullish, weak_bullish, neutral, weak_bearish, moderate_bearish, strong_bearish
+  score: 0.0  # Direction score between -1.0 and 1.0
+
+# Long/Short Ratio Configuration
+# Defines allocation between long and short positions based on market conditions
+long_short_ratio:
+  strong_bullish: [80, 20]   # [long%, short%]
+  moderate_bullish: [70, 30]
+  weak_bullish: [60, 40]
+  neutral: [50, 50]
+  weak_bearish: [40, 60]
+  moderate_bearish: [30, 70]
+  strong_bearish: [20, 80]
+
+# Market Cap Allocation Configuration
+# Defines capital allocation across market cap categories
+market_cap_allocation:
+  "Large Cap": 45    # 45% - Most liquid, safest options
+  "Mid Cap": 30      # 30% - Good balance of risk/reward
+  "Small Cap": 20    # 20% - Higher returns potential
+  "Micro Cap": 5     # 5% - Speculative, limited allocation
+
+# Position Sizing by Market Cap
+# Min and max position sizes for each market cap category
+position_sizing:
+  "Large Cap":
+    min: 50000      # ₹50k minimum
+    max: 200000     # ₹2 lakh maximum
+  "Mid Cap":
+    min: 40000      # ₹40k minimum
+    max: 150000     # ₹1.5 lakh maximum
+  "Small Cap":
+    min: 30000      # ₹30k minimum
+    max: 100000     # ₹1 lakh maximum
+  "Micro Cap":
+    min: 25000      # ₹25k minimum
+    max: 50000      # ₹50k maximum

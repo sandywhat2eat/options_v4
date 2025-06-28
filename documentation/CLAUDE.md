@@ -3,52 +3,83 @@
 ## Quick Reference
 
 ### System Overview
-- **Purpose**: Automated options strategy analysis, storage, and execution
-- **Current System**: Advanced Allocator + Real-time Monitoring
-- **Allocation**: Enhanced market direction analysis with real VIX data
-- **Strategies**: Best strategy selection per symbol using total_score ranking
+- **Purpose**: Automated options strategy analysis, portfolio allocation, and trade execution
+- **Current System**: Modular 4-Operation Architecture
+- **Strategy Creation**: Advanced market analysis with IV profiling and strategy construction
+- **Portfolio Allocation**: Hybrid tier + industry allocation targeting 4% monthly returns
+- **Trade Execution**: Dhan API integration with automated order management
+- **Trade Monitoring**: Real-time WebSocket monitoring + Legacy polling system
 - **Database**: Supabase with real-time updates
-- **Execution**: Dhan API integration with real-time monitoring
 
 ### Key Commands
 
 ```bash
-# REAL-TIME MONITORING SYSTEM (NEW - LIVE & OPERATIONAL ✅)
+# ACTIVATE ENVIRONMENT (REQUIRED FOR ALL OPERATIONS)
 source /Users/jaykrish/agents/project_output/venv/bin/activate
-python realtime_automated_monitor.py              # Real-time monitoring (simulation mode)
-python realtime_automated_monitor.py --execute    # Live execution (⚠️ REAL MONEY)
-python realtime_automated_monitor.py --interval 10  # Custom monitoring interval
-python realtime_automated_monitor.py --once       # Single monitoring cycle
 
-# LEGACY MONITORING SYSTEM (OLD - 5-MINUTE POLLING)
-python automated_monitor.py --execute --interval 5   # Legacy 5-minute polling system
+# 1. STRATEGY CREATION (Market Analysis & Strategy Generation)
+python main.py                                    # Analyze portfolio symbols, generate strategies
+python main.py --symbol RELIANCE                  # Analyze specific symbol
+python main.py --risk aggressive                  # Adjust risk tolerance
+python main.py --no-database                      # Run without database storage
 
-# ADVANCED ALLOCATOR SYSTEM (STRATEGY GENERATION)
-cd advanced_allocator/
-python runner.py --capital 10000000               # Run with 1 crore capital
-python runner.py --capital 1000000                # Run with 10 lakh capital
+# 2. PORTFOLIO ALLOCATION (Capital Allocation Across Strategies)
+python run_allocator.py 1500000                   # Allocate ₹15L capital (recommended)
+python run_allocator.py 1000000                   # Allocate ₹10L capital
+python run_allocator.py 2000000                   # Allocate ₹20L capital
 
-# EXECUTION SYSTEM
-python options_v4_executor.py --execute           # Execute all marked strategies
-python options_v4_executor.py --strategy-id 3359  # Execute specific strategy
+# 3. TRADE EXECUTION (Order Placement & Management)
+python trade_execution/options_v4_executor.py --execute           # Execute all marked strategies
+python trade_execution/options_v4_executor.py --strategy-id 3359  # Execute specific strategy
+python trade_execution/mark_for_execution.py                      # Mark strategies for execution
 
-# TESTING & DEBUGGING
-python test_realtime_integration.py               # Test real-time system
-python demo_realtime_system.py --duration 5       # 5-minute real-time demo
-python test_live_monitor.py                       # Test with live trades
-python test_smart_expiry.py                       # Test expiry logic
+# 4A. REAL-TIME MONITORING (WebSocket - RECOMMENDED)
+# Method 1: Using launcher (works from anywhere)
+python run_monitoring.py realtime                      # Real-time monitoring (simulation)
+python run_monitoring.py realtime --execute            # Live execution (⚠️ REAL MONEY)
+python run_monitoring.py realtime --interval 10        # Custom interval
+python run_monitoring.py realtime --once               # Single cycle
 
-# Legacy system (archived)
-python main.py --risk moderate                    # Generate strategies (old system)
-python monitor_positions.py --continuous          # Old position monitoring
+# Method 2: Direct execution (from project root only)
+python trade_monitoring/realtime/realtime_automated_monitor.py              # Real-time monitoring (simulation)
+python trade_monitoring/realtime/realtime_automated_monitor.py --execute    # Live execution (⚠️ REAL MONEY)
 
-# Maintenance
-python import_scrip_master.py                     # Update security master
+# 4B. LEGACY MONITORING (Polling - Backward Compatibility)
+# Method 1: Using launcher (works from anywhere)
+python run_monitoring.py legacy --execute --interval 5  # Legacy 5-minute polling
+python run_monitoring.py interactive --continuous       # Interactive dashboard
+
+# Method 2: Direct execution (from project root only)
+python trade_monitoring/legacy/automated_monitor.py --execute --interval 5  # Legacy 5-minute polling
+python trade_monitoring/legacy/monitor.py --continuous                      # Interactive dashboard
+
+# DATA MAINTENANCE
+python data_scripts/import_scrip_master.py        # Update security master
+python data_scripts/update_trade_prices.py        # Fix zero-price trades
+python data_scripts/market_quote_fetcher.py       # Fetch current market data
 ```
 
 ### Recent Improvements
 
-1. **Real-Time Trading System Deployment** (June 26, 2025)
+1. **Complete System Reorganization** (June 28, 2025)
+   - **4-Operation Architecture**: Clean separation of strategy creation, allocation, execution, and monitoring
+   - **Modular Directory Structure**: Each operation has its own dedicated directory
+   - **Import Path Fixes**: All cross-module imports properly resolved
+   - **Trade Execution/Monitoring Split**: Execution logic separated from monitoring systems
+   - **Real-time vs Legacy Monitoring**: WebSocket monitoring separated from polling-based monitoring
+   - **Root Directory Cleanup**: Only essential entry points and documentation in root
+   - **Strategy Organization**: All strategy implementations moved to strategy_creation/strategies/
+   - **Professional Structure**: Clean, maintainable codebase with logical organization
+
+2. **Hybrid Portfolio Allocation Engine** (June 27-28, 2025)
+   - **Tier + Industry Hybrid Approach**: Combines 60/30/10 tier allocation with industry weights
+   - **LONG/SHORT Position Logic**: Proper integration of position_type from industry_allocations_current
+   - **Market Condition Integration**: Dynamic allocation based on market_conditions.yaml
+   - **High Capital Deployment**: Achieving 95%+ deployment vs previous 8-40%
+   - **Target Achievement**: Consistently achieving 109%+ of 4% monthly return target
+   - **Quality Strategy Selection**: Manageable 20-30 position portfolios with diverse strategies
+
+3. **Real-Time Trading System Deployment** (June 26, 2025)
    - **LIVE SYSTEM OPERATIONAL**: Real-time monitoring successfully deployed and tested
    - **Live Trade Verification**: Tested with ASTRAL Long Call (Security ID: 78165)
    - **Price Fetching Fixed**: Dhan API integration working with live market data
@@ -131,43 +162,68 @@ python import_scrip_master.py                     # Update security master
 ### Critical Files
 
 ```
-# CURRENT SYSTEM (Advanced Allocator)
-advanced_allocator/
-├── runner.py                            # Main entry point
+# CURRENT SYSTEM (4-Operation Architecture)
+
+# 1. STRATEGY CREATION
+strategy_creation/
+├── data_manager.py                      # Market data fetching
+├── iv_analyzer.py                       # Implied volatility analysis
+├── probability_engine.py               # Probability calculations
+├── stock_profiler.py                   # Stock profiling & volatility bucketing
+├── strike_selector.py                  # Intelligent strike selection
+├── market_conditions_analyzer.py       # Market direction analysis
+└── strategies/                         # All strategy implementations
+    ├── directional/                     # Long Call/Put, Spreads
+    ├── neutral/                         # Iron Condor, Butterfly
+    ├── volatility/                      # Straddles, Strangles
+    ├── income/                          # Covered Call, Cash-Secured Put
+    └── advanced/                        # Calendar, Diagonal, Ratio spreads
+
+# 2. PORTFOLIO ALLOCATION  
+portfolio_allocation/
 ├── core/
-│   ├── allocator.py                     # Main allocation engine
-│   ├── market_direction.py             # Enhanced market analysis
-│   ├── industry_allocator.py           # Industry-based allocation
-│   ├── market_cap_allocator.py         # Market cap distribution
-│   ├── stock_selector.py               # Best strategy selection
-│   └── position_sizer.py               # Kelly criterion sizing
-├── config/
-│   ├── market_conditions.yaml          # Market condition configs
-│   └── strategy_filters.yaml           # Strategy filtering rules
+│   ├── hybrid_portfolio_engine.py      # Main hybrid allocation engine
+│   └── hybrid_runner.py                # Command-line interface
+├── market_conditions.yaml              # Market condition configs
 └── results/                            # Allocation outputs
 
-# LEGACY SYSTEM (Archived)
-archive/old_allocators/
-├── sophisticated_portfolio_allocator_runner.py  # Old system
-├── sophisticated_portfolio_allocator.py         # Old allocation logic
-└── enhanced_allocator_improvements.py           # Old improvements
+# 3. TRADE EXECUTION
+trade_execution/
+├── options_v4_executor.py              # Main execution script
+├── exit_manager.py                     # Exit condition management
+├── exit_evaluator.py                   # Exit logic evaluation
+├── exit_executor.py                    # Order placement
+├── options_portfolio_manager.py        # Portfolio orchestration
+└── mark_for_execution.py               # Strategy marking utility
 
-# COMMON COMPONENTS (Still Used)
-├── main.py                              # Strategy generation (legacy)
-├── options_v4_executor.py               # Trade execution
-├── monitor_positions.py                 # Position monitoring
-└── automated_monitor.py                # Automated exits
+# 4. TRADE MONITORING
+trade_monitoring/
+├── realtime/                           # WebSocket monitoring (RECOMMENDED)
+│   ├── realtime_automated_monitor.py   # Real-time monitoring
+│   ├── websocket_manager.py            # WebSocket connections
+│   └── supabase_realtime.py            # Real-time database
+└── legacy/                             # Polling monitoring (Backward compatibility)
+    ├── automated_monitor.py            # Legacy 5-minute polling
+    ├── monitor.py                      # Interactive dashboard
+    └── position_monitor.py             # Position tracking utilities
 
-core/
-├── market_conditions_analyzer.py        # Shared market analysis
-├── strike_selector.py                  # Strike selection
-└── options_portfolio_manager.py        # Main orchestrator
+# SHARED COMPONENTS
+├── main.py                              # Strategy creation entry point
+├── run_allocator.py                     # Portfolio allocation entry point
+├── database/
+│   ├── supabase_integration.py         # Database interface
+│   ├── database_schema_updates.sql     # Schema updates
+│   └── trading_views.sql               # Database views
+├── data_scripts/
+│   ├── market_quote_fetcher.py         # Market data fetching
+│   ├── import_scrip_master.py          # Security master updates
+│   └── update_trade_prices.py          # Price fixing utilities
+├── analysis/                           # Market analysis utilities
+├── config/                             # Configuration files
+└── utils/                              # Common utilities
 
-database/
-└── supabase_integration.py             # DB interface
-
-# Archived Scripts
-archive/test_scripts/                    # All test and demo scripts
+# ARCHIVED COMPONENTS
+archived_legacy/                         # Old allocators and deprecated code
 ```
 
 ### Environment Variables
@@ -355,47 +411,85 @@ The system automatically monitors and executes exits based on:
    - Manual position closure via dashboard
    - Emergency position management
 
+### Detailed Operation Guides
+
+For comprehensive guidance on each operation, refer to the dedicated guides:
+
+📊 **[Strategy Creation Guide](STRATEGY_CREATION_GUIDE.md)** - Market analysis, strategy construction, and ranking
+💰 **[Portfolio Allocation Guide](PORTFOLIO_ALLOCATION_GUIDE.md)** - Capital distribution and hybrid allocation
+⚡ **[Trade Execution Guide](TRADE_EXECUTION_GUIDE.md)** - Order management and position setup
+👁️ **[Trade Monitoring Guide](TRADE_MONITORING_GUIDE.md)** - Real-time and legacy monitoring systems
+
 ### For Development
 
 When modifying the system:
 
 1. **Adding New Strategy**
-   - Inherit from `BaseStrategy`
-   - Add to strategy registry in `main.py`
-   - Update strike selector config if needed
+   - Inherit from `BaseStrategy` in `strategy_creation/strategies/base_strategy.py`
+   - Add to strategy registry in `strategy_creation/strategies/__init__.py`
+   - Update metadata in `strategy_creation/strategies/strategy_metadata.py`
+   - Test with single symbol first using `main.py --symbol SYMBOL`
 
 2. **Modifying Strike Selection**
-   - Update `IntelligentStrikeSelector` in `core/strike_selector.py`
+   - Update `IntelligentStrikeSelector` in `strategy_creation/strike_selector.py`
    - Add strategy config if needed
    - Test with single symbol first
 
 3. **Database Changes**
    - Update schema in Supabase dashboard
-   - Modify `database/supabase_integration.py`
+   - Modify SQL files in `database/` directory
+   - Update `database/supabase_integration.py`
    - Test with sample data first
 
 4. **Allocation Changes**
-   - Modify `config/options_portfolio_config.yaml`
-   - Update `core/sophisticated_portfolio_allocator.py`
-   - Test with `--no-database` flag first
+   - Modify `portfolio_allocation/market_conditions.yaml`
+   - Update `portfolio_allocation/core/hybrid_portfolio_engine.py`
+   - Test with `--dry-run` flag first
+
+5. **Execution Changes**
+   - Modify `trade_execution/` modules
+   - Test in simulation mode first
+   - Update safety controls as needed
+
+6. **Monitoring Changes**
+   - Real-time: Modify `trade_monitoring/realtime/` modules
+   - Legacy: Modify `trade_monitoring/legacy/` modules
+   - Test with `--once` flag for single cycles
 
 ### Current Directory Structure
 
 ```
 options_v4/
-├── core/                    # Core components
-├── strategies/              # Strategy implementations
-├── database/               # Database integration
-├── data_scripts/           # Market data fetchers (VIX, etc.)
-├── config/                 # Configuration files
-├── logs/                   # System logs
-├── results/                # Allocation reports
-├── documentation/          # Clean, focused docs
-└── archive/                # Old scripts and docs
-    ├── test_scripts/       # Archived test files
-    ├── old_deployment/     # Archived deployment scripts
-    ├── old_documentation/  # Archived docs
-    └── utility_scripts/    # Archived utilities
+├── main.py                         # Strategy creation entry point
+├── run_allocator.py               # Portfolio allocation entry point
+├── requirements.txt               # Project dependencies
+│
+├── strategy_creation/             # Market analysis & strategy generation
+│   ├── strategies/               # All strategy implementations
+│   └── [analysis modules]        # IV analysis, probability, etc.
+│
+├── portfolio_allocation/          # Capital allocation system
+│   ├── core/                    # Hybrid allocation engine
+│   ├── market_conditions.yaml   # Market condition configs
+│   └── results/                 # Allocation outputs
+│
+├── trade_execution/              # Order placement & management
+│   ├── options_v4_executor.py   # Main execution script
+│   └── [execution modules]      # Exit management, order handling
+│
+├── trade_monitoring/             # Position tracking systems
+│   ├── realtime/               # WebSocket monitoring (recommended)
+│   └── legacy/                 # Polling monitoring (compatibility)
+│
+├── database/                    # Database integration & schema
+├── data_scripts/               # Market data fetchers & utilities
+├── analysis/                   # Market analysis utilities
+├── config/                     # Configuration files
+├── logs/                       # System logs
+├── results/                    # Analysis results
+├── utils/                      # Common utilities
+├── documentation/              # Comprehensive documentation
+└── archived_legacy/            # Archived old allocators & code
 ```
 
 Remember: Always test changes with single symbol before full portfolio run!

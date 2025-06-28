@@ -1,0 +1,921 @@
+{
+  "success": true,
+  "analysis_timestamp": "2025-06-27T15:56:49.997432",
+  "symbol_results": {
+    "SAIL": {
+      "success": true,
+      "symbol": "SAIL",
+      "spot_price": 127.48,
+      "lot_size": 4700,
+      "market_analysis": {
+        "direction": "Bullish",
+        "sub_category": "Weak",
+        "confidence": 0.5057049192104613,
+        "final_score": 0.12975409934205112,
+        "components": {
+          "technical_score": 0.1279297116165602,
+          "options_score": 0.2577211220801988,
+          "price_action_score": -0.04648071213057014
+        },
+        "timeframe": {
+          "timeframe": "mid",
+          "duration": "10-30 days",
+          "confidence": 0.4045639353683691,
+          "description": "Moderate confidence or elevated volatility suggests medium-term view",
+          "factors": {
+            "market_confidence": 0.5057049192104613,
+            "volatility_width": 0.6218650873204923,
+            "iv_environment": "ELEVATED"
+          }
+        },
+        "strength": 0.12975409934205112,
+        "details": {
+          "technical": {
+            "trend": "Uptrend",
+            "ema_alignment": "Insufficient Data",
+            "rsi": 45.9765705388534,
+            "macd_signal": "Bearish",
+            "volume_ratio": 1.3710301665640845,
+            "volume_trend": "Increasing",
+            "bb_width": 0.6218650873204923,
+            "atr": 3.5457120622907365,
+            "price_position": "Near Resistance",
+            "pattern": "Uptrend Pattern"
+          },
+          "options": {
+            "volume_pcr": 0.545019487350419,
+            "oi_pcr": 1.04908516782281,
+            "pcr_interpretation": "Bullish",
+            "atm_call_volume": 68359180.0,
+            "atm_put_volume": 59555310.0,
+            "atm_bias": "Bullish",
+            "iv_skew": 7.202277714710034,
+            "iv_skew_type": "put_skew",
+            "oi_max_pain": 130.0,
+            "oi_support": 135.0,
+            "oi_resistance": 135.0,
+            "flow_intensity": "HIGH",
+            "unusual_activity": [
+              120.0,
+              122.5,
+              125.0,
+              130.0,
+              120.0
+            ],
+            "smart_money_direction": "Bullish",
+            "iv_environment": "ELEVATED"
+          },
+          "price_action": {
+            "spot_vs_max_pain": -1.9384615384615353,
+            "price_position": "At Max Pain",
+            "expected_move_1sd": 1.2748000000000002,
+            "expected_move_2sd": 2.5496000000000003,
+            "upper_expected": 128.75480000000002,
+            "lower_expected": 126.2052,
+            "market_breadth": "Neutral",
+            "options_momentum": "Bullish",
+            "key_levels": {
+              "resistance": [
+                140.0,
+                135.0,
+                135.0
+              ],
+              "support": [
+                125.0,
+                125.0,
+                135.0
+              ]
+            }
+          }
+        },
+        "stock_profile": {
+          "symbol": "SAIL",
+          "timestamp": "2025-06-27T15:56:49.075414",
+          "current_iv": 27.920533966472334,
+          "market_cap": 529533342473.0,
+          "sector": "Non-Energy Minerals",
+          "market_cap_category": "Mid Cap",
+          "hv_20": 27.15,
+          "hv_60": 37.65,
+          "atr": 3.87,
+          "atr_pct": 2.94,
+          "beta_nifty": 1.59,
+          "correlation_nifty": 0.57,
+          "relative_strength": 1.0,
+          "spot_price": 131.6999969482422,
+          "avg_volume": 20512676.848,
+          "price_change_1m": 1.95,
+          "price_change_3m": 16.25,
+          "iv_hv_ratio": 1.028380624916108,
+          "volatility_bucket": "high",
+          "volatility_details": {
+            "atr_pct_range": [
+              2.5,
+              4.0
+            ],
+            "typical_beta": [
+              1.2,
+              1.5
+            ],
+            "examples": [
+              "BAJFINANCE",
+              "TATAPOWER",
+              "ADANIGREEN",
+              "HAL"
+            ],
+            "daily_move_range": [
+              2,
+              4
+            ],
+            "weekly_move_range": [
+              5,
+              15
+            ],
+            "preferred_strategies": [
+              "Bull Call Spread",
+              "Bear Put Spread",
+              "Long Strangle",
+              "Diagonal Spread"
+            ],
+            "avoid_strategies": [
+              "Iron Butterfly",
+              "Short Straddle"
+            ],
+            "position_size_multiplier": 0.5,
+            "min_spread_width": 0.05,
+            "expected_move_multiplier": 1.2,
+            "min_probability_threshold": 0.2
+          },
+          "sector_volatility": {
+            "typical_vol": "medium",
+            "beta_range": [
+              0.8,
+              1.2
+            ]
+          }
+        },
+        "iv_analysis": {
+          "atm_iv": 28.098599999999998,
+          "iv_skew": {
+            "skew_type": "normal",
+            "skew_strength": 2.1035625000000024,
+            "put_iv": 30.414,
+            "call_iv": 28.3104375,
+            "risk_reversal": -2.1035625000000024,
+            "butterfly": 1.2636187500000027,
+            "market_sentiment": "Balanced",
+            "skew_steepness": "Moderate"
+          },
+          "term_structure": {
+            "structure": "Single expiry only",
+            "front_month_iv": 28.098599999999998,
+            "calendar_spread_opportunity": "Unknown",
+            "volatility_expectation": "Stable"
+          },
+          "iv_environment": "NORMAL",
+          "percentile_analysis": {
+            "percentile": 46,
+            "method": "sector_adjusted_estimation",
+            "lookback_days": 0,
+            "iv_range": [
+              20,
+              45
+            ],
+            "current_rank": "Normal",
+            "confidence": "Low - No historical data"
+          },
+          "iv_relativity": {
+            "sector_relative": "Normal",
+            "percentile_in_sector": 46.197199999999995,
+            "market_relative": "In-line with market",
+            "iv_vs_market_pct": 0.3521428571428485,
+            "sector_normal_range": [
+              25,
+              40
+            ],
+            "interpretation": "Fair value - focus on directional strategies"
+          },
+          "mean_reversion": {
+            "reversion_potential": "Low - IV near mean",
+            "direction": "Neutral",
+            "confidence": 0.3,
+            "expected_iv": 28.098599999999998,
+            "time_horizon": "10-30 days",
+            "strategy_implication": "Directional strategies preferred"
+          },
+          "call_put_iv_diff": -5.305891725768312,
+          "analysis_quality": "CURRENT_ONLY - Point-in-time analysis",
+          "recommendations": {
+            "preferred_strategies": [
+              "Bull/Bear Spreads",
+              "Iron Condor",
+              "Calendar Spreads"
+            ],
+            "avoid_strategies": [],
+            "reasoning": "Normal IV - Directional or neutral strategies",
+            "ranked_strategies": [
+              "Bull/Bear Spreads",
+              "Iron Condor",
+              "Calendar Spreads"
+            ]
+          }
+        },
+        "price_levels": {
+          "short_term": {
+            "support": 135.0,
+            "resistance": 130.0,
+            "strength": "strong/strong",
+            "timeframe": "1-5 days"
+          },
+          "mid_term": {
+            "support": 135.0,
+            "resistance": 130.0,
+            "strength": "strong/strong",
+            "timeframe": "10-30 days"
+          },
+          "expected_moves": {
+            "straddle_price": 6.064870160354499,
+            "one_sd_move": 5.139720474876695,
+            "one_sd_pct": 4.031785750609268,
+            "two_sd_move": 10.27944094975339,
+            "two_sd_pct": 8.063571501218536,
+            "daily_move": 1.9426317407015055,
+            "daily_pct": 1.523871776515144,
+            "upper_expected": 132.6197204748767,
+            "lower_expected": 122.34027952512331,
+            "upper_2sd": 137.75944094975338,
+            "lower_2sd": 117.20055905024661,
+            "method": "iv_based"
+          },
+          "max_pain": {
+            "max_pain": 130.0,
+            "spot_vs_max_pain": -1.9384615384615353,
+            "bias": "Neutral - Spot near max pain",
+            "pin_risk": "Low",
+            "convergence_expected": false
+          },
+          "value_area": {
+            "poc": 130.0,
+            "vah": 137.5,
+            "val": 125.0,
+            "va_type": "Wide",
+            "va_width_pct": 9.805459679949797,
+            "spot_in_va": true
+          },
+          "price_targets": {
+            "bullish": {
+              "expected_1sd": 132.6197204748767,
+              "expected_2sd": 137.75944094975338,
+              "resistance_1": 130.0,
+              "resistance_2": 130.0
+            },
+            "bearish": {
+              "expected_1sd": 122.34027952512331,
+              "expected_2sd": 117.20055905024661,
+              "support_1": 135.0,
+              "support_2": 135.0
+            },
+            "consensus": {
+              "bullish_target": 132.59479035615752,
+              "bearish_target": 119.77041928768496
+            }
+          },
+          "key_levels": [
+            {
+              "level": 125.0,
+              "type": "support",
+              "source": "VAL",
+              "strength": "moderate"
+            },
+            {
+              "level": 130.0,
+              "type": "support",
+              "source": "Volume",
+              "strength": "moderate"
+            },
+            {
+              "level": 130.0,
+              "type": "support",
+              "source": "MaxPain",
+              "strength": "moderate"
+            },
+            {
+              "level": 130.0,
+              "type": "resistance",
+              "source": "OI",
+              "strength": "strong"
+            },
+            {
+              "level": 130.0,
+              "type": "resistance",
+              "source": "Volume",
+              "strength": "moderate"
+            },
+            {
+              "level": 137.5,
+              "type": "resistance",
+              "source": "VAH",
+              "strength": "moderate"
+            }
+          ],
+          "spot_position": {
+            "description": "At/Near Support",
+            "bias": "Bullish",
+            "key_observations": [
+              "Testing support level"
+            ]
+          }
+        },
+        "spot_price": 127.48
+      },
+      "price_levels": {
+        "short_term": {
+          "support": 135.0,
+          "resistance": 130.0,
+          "strength": "strong/strong",
+          "timeframe": "1-5 days"
+        },
+        "mid_term": {
+          "support": 135.0,
+          "resistance": 130.0,
+          "strength": "strong/strong",
+          "timeframe": "10-30 days"
+        },
+        "expected_moves": {
+          "straddle_price": 6.064870160354499,
+          "one_sd_move": 5.139720474876695,
+          "one_sd_pct": 4.031785750609268,
+          "two_sd_move": 10.27944094975339,
+          "two_sd_pct": 8.063571501218536,
+          "daily_move": 1.9426317407015055,
+          "daily_pct": 1.523871776515144,
+          "upper_expected": 132.6197204748767,
+          "lower_expected": 122.34027952512331,
+          "upper_2sd": 137.75944094975338,
+          "lower_2sd": 117.20055905024661,
+          "method": "iv_based"
+        },
+        "max_pain": {
+          "max_pain": 130.0,
+          "spot_vs_max_pain": -1.9384615384615353,
+          "bias": "Neutral - Spot near max pain",
+          "pin_risk": "Low",
+          "convergence_expected": false
+        },
+        "value_area": {
+          "poc": 130.0,
+          "vah": 137.5,
+          "val": 125.0,
+          "va_type": "Wide",
+          "va_width_pct": 9.805459679949797,
+          "spot_in_va": true
+        },
+        "price_targets": {
+          "bullish": {
+            "expected_1sd": 132.6197204748767,
+            "expected_2sd": 137.75944094975338,
+            "resistance_1": 130.0,
+            "resistance_2": 130.0
+          },
+          "bearish": {
+            "expected_1sd": 122.34027952512331,
+            "expected_2sd": 117.20055905024661,
+            "support_1": 135.0,
+            "support_2": 135.0
+          },
+          "consensus": {
+            "bullish_target": 132.59479035615752,
+            "bearish_target": 119.77041928768496
+          }
+        },
+        "key_levels": [
+          {
+            "level": 125.0,
+            "type": "support",
+            "source": "VAL",
+            "strength": "moderate"
+          },
+          {
+            "level": 130.0,
+            "type": "support",
+            "source": "Volume",
+            "strength": "moderate"
+          },
+          {
+            "level": 130.0,
+            "type": "support",
+            "source": "MaxPain",
+            "strength": "moderate"
+          },
+          {
+            "level": 130.0,
+            "type": "resistance",
+            "source": "OI",
+            "strength": "strong"
+          },
+          {
+            "level": 130.0,
+            "type": "resistance",
+            "source": "Volume",
+            "strength": "moderate"
+          },
+          {
+            "level": 137.5,
+            "type": "resistance",
+            "source": "VAH",
+            "strength": "moderate"
+          }
+        ],
+        "spot_position": {
+          "description": "At/Near Support",
+          "bias": "Bullish",
+          "key_observations": [
+            "Testing support level"
+          ]
+        }
+      },
+      "total_strategies_generated": 5,
+      "strategies_after_filtering": 5,
+      "top_strategies": [
+        {
+          "rank": 1,
+          "name": "Long Call",
+          "total_score": 0.7403351031024826,
+          "probability_profit": 0.43865600000000005,
+          "max_profit": Infinity,
+          "max_loss": 19740.0,
+          "legs": [
+            {
+              "option_type": "CALL",
+              "position": "LONG",
+              "strike": 130.0,
+              "premium": 4.2,
+              "delta": 0.4768,
+              "rationale": "Bullish directional play"
+            }
+          ],
+          "optimal_outcome": "Stock moves above 134.20",
+          "component_scores": {
+            "probability": 0.43865600000000005,
+            "risk_reward": 1.0,
+            "direction": 0.7022819676841845,
+            "iv_fit": 0.7,
+            "liquidity": 0.8
+          },
+          "exit_conditions": {
+            "profit_targets": {
+              "primary": {
+                "target": -3713.656884039787,
+                "target_pct": 50.0,
+                "action": "Close 50%",
+                "reasoning": "Capture gains before time decay accelerates"
+              },
+              "scaling": {
+                "level_1": {
+                  "profit": -1856.8284420198936,
+                  "action": "Close 25%"
+                },
+                "level_2": {
+                  "profit": -3713.656884039787,
+                  "action": "Close 50%"
+                },
+                "level_3": {
+                  "profit": -5570.485326059681,
+                  "action": "Close 75%"
+                }
+              },
+              "trailing": {
+                "activate_at": -3713.656884039787,
+                "trail_by": -742.7313768079575
+              }
+            },
+            "stop_losses": {
+              "primary": {
+                "loss_amount": 9870.0,
+                "loss_pct": 50.0,
+                "action": "Close entire position",
+                "type": "Percentage-based stop"
+              },
+              "technical": {
+                "breakeven_breach": "Monitor if price exceeds breakeven",
+                "support_resistance": "Exit if key levels broken",
+                "trend_reversal": "Exit on confirmed reversal"
+              },
+              "time_stop": {
+                "trigger": "Loss > 4935.0 with < 7 DTE",
+                "action": "Close to avoid gamma risk"
+              }
+            },
+            "time_exits": {
+              "primary_dte": 7,
+              "theta_decay_threshold": {
+                "dte": 7,
+                "action": "Close if not profitable",
+                "reasoning": "Theta decay accelerates"
+              },
+              "time_decay_levels": {
+                "25%_time_passed": "Evaluate position performance",
+                "50%_time_passed": "Consider closing if at profit",
+                "75%_time_passed": "Exit unless strong conviction"
+              }
+            },
+            "greek_triggers": {},
+            "adjustment_triggers": {
+              "defensive": {},
+              "offensive": {
+                "momentum": {
+                  "trigger": "Strong directional momentum",
+                  "actions": [
+                    "Add to position on pullback",
+                    "Roll to higher/lower strike",
+                    "Convert to spread to lock profits"
+                  ]
+                }
+              },
+              "rolling": {},
+              "morphing": {
+                "general": {
+                  "long_to_spread": "Convert long option to spread to reduce cost",
+                  "spread_to_condor": "Add opposite spread to create condor",
+                  "straddle_to_butterfly": "Add wings to straddle for protection"
+                }
+              },
+              "direction_change": {
+                "trigger": "Market direction reversed",
+                "action": "Close directional strategies, adjust neutral strategies"
+              }
+            },
+            "monitoring": {
+              "frequency": "Daily with alerts",
+              "critical_times": [
+                "Major market moves"
+              ],
+              "monitor_metrics": {
+                "price": "Spot price vs strikes/breakevens",
+                "pnl": "Current P&L vs targets",
+                "greeks": "Delta, Gamma, Theta changes",
+                "iv": "Implied volatility changes",
+                "liquidity": "Bid-ask spreads",
+                "news": "Company/market news"
+              },
+              "alerts": {
+                "price_alerts": [
+                  "Within 2% of breakeven",
+                  "At short strike",
+                  "Major support/resistance"
+                ],
+                "pnl_alerts": [
+                  "At 50% of profit target",
+                  "At 50% of stop loss",
+                  "Unusual P&L swings"
+                ],
+                "greek_alerts": [
+                  "Delta exceeds threshold",
+                  "Gamma doubles",
+                  "Vega risk increases"
+                ]
+              }
+            },
+            "specific_conditions": {}
+          }
+        },
+        {
+          "rank": 2,
+          "name": "Iron Condor",
+          "total_score": 0.5999735254626896,
+          "probability_profit": 0.5717079374999999,
+          "max_profit": 12924.999999999996,
+          "max_loss": 10575.000000000004,
+          "legs": [
+            {
+              "option_type": "PUT",
+              "position": "SHORT",
+              "strike": 125.0,
+              "premium": 3.5,
+              "delta": -0.3605,
+              "rationale": "Short put for premium collection"
+            },
+            {
+              "option_type": "PUT",
+              "position": "LONG",
+              "strike": 120.0,
+              "premium": 1.1,
+              "delta": -0.155,
+              "rationale": "Long put for downside protection"
+            },
+            {
+              "option_type": "CALL",
+              "position": "SHORT",
+              "strike": 132.5,
+              "premium": 2.8,
+              "delta": 0.36565,
+              "rationale": "Short call for premium collection"
+            },
+            {
+              "option_type": "CALL",
+              "position": "LONG",
+              "strike": 137.5,
+              "premium": 2.45,
+              "delta": 0.33495,
+              "rationale": "Long call for upside protection"
+            }
+          ],
+          "optimal_outcome": "Stock stays between 122.25 and 135.25",
+          "component_scores": {
+            "probability": 0.5717079374999999,
+            "risk_reward": 0.40740740740740716,
+            "direction": 0.5505704919210461,
+            "iv_fit": 0.7,
+            "liquidity": 0.8
+          },
+          "exit_conditions": {
+            "profit_targets": {
+              "primary": {
+                "target": 3231.249999999999,
+                "target_pct": 25.0,
+                "action": "Close entire position",
+                "reasoning": "Theta strategies benefit from early profit taking"
+              },
+              "scaling": {
+                "level_1": {
+                  "profit": 3231.249999999999,
+                  "action": "Close 25%"
+                },
+                "level_2": {
+                  "profit": 6462.499999999998,
+                  "action": "Close 50%"
+                },
+                "level_3": {
+                  "profit": 9693.749999999996,
+                  "action": "Close 75%"
+                }
+              },
+              "trailing": {
+                "activate_at": 3231.249999999999,
+                "trail_by": 1292.4999999999998
+              }
+            },
+            "stop_losses": {
+              "primary": {
+                "loss_amount": 5287.500000000002,
+                "loss_pct": 50.0,
+                "action": "Close entire position",
+                "type": "Percentage-based stop"
+              },
+              "technical": {
+                "breakeven_breach": "Monitor if price exceeds breakeven",
+                "support_resistance": "Exit if key levels broken",
+                "trend_reversal": "Exit on confirmed reversal"
+              },
+              "time_stop": {
+                "trigger": "Loss > 2643.750000000001 with < 21 DTE",
+                "action": "Close to avoid gamma risk"
+              }
+            },
+            "time_exits": {
+              "primary_dte": 21,
+              "theta_decay_threshold": {
+                "dte": 21,
+                "action": "Close if not profitable",
+                "reasoning": "Theta decay accelerates"
+              },
+              "gamma_risk": {
+                "dte": 14,
+                "condition": "Price near short strikes",
+                "action": "Reduce position size"
+              },
+              "time_decay_levels": {
+                "25%_time_passed": "Evaluate position performance",
+                "50%_time_passed": "Consider closing if at profit",
+                "75%_time_passed": "Exit unless strong conviction"
+              }
+            },
+            "greek_triggers": {},
+            "adjustment_triggers": {
+              "defensive": {
+                "threatened_side": {
+                  "trigger": "Price approaches short strike",
+                  "actions": [
+                    "Roll untested side closer for credit",
+                    "Close threatened side",
+                    "Convert to Iron Butterfly"
+                  ]
+                }
+              },
+              "offensive": {},
+              "rolling": {},
+              "morphing": {
+                "general": {
+                  "long_to_spread": "Convert long option to spread to reduce cost",
+                  "spread_to_condor": "Add opposite spread to create condor",
+                  "straddle_to_butterfly": "Add wings to straddle for protection"
+                }
+              },
+              "direction_change": {
+                "trigger": "Market direction reversed",
+                "action": "Close directional strategies, adjust neutral strategies"
+              }
+            },
+            "monitoring": {
+              "frequency": "Daily",
+              "critical_times": [
+                "Market open",
+                "Market close"
+              ],
+              "monitor_metrics": {
+                "price": "Spot price vs strikes/breakevens",
+                "pnl": "Current P&L vs targets",
+                "greeks": "Delta, Gamma, Theta changes",
+                "iv": "Implied volatility changes",
+                "liquidity": "Bid-ask spreads",
+                "news": "Company/market news"
+              },
+              "alerts": {
+                "price_alerts": [
+                  "Within 2% of breakeven",
+                  "At short strike",
+                  "Major support/resistance"
+                ],
+                "pnl_alerts": [
+                  "At 50% of profit target",
+                  "At 50% of stop loss",
+                  "Unusual P&L swings"
+                ],
+                "greek_alerts": [
+                  "Delta exceeds threshold",
+                  "Gamma doubles",
+                  "Vega risk increases"
+                ]
+              }
+            },
+            "specific_conditions": {
+              "21_dte_rule": "Close if profitable at 21 DTE",
+              "loss_management": "Exit if loss > 2x credit",
+              "wing_test": "Adjust if price tests either wing"
+            }
+          }
+        },
+        {
+          "rank": 3,
+          "name": "Diagonal Spread",
+          "total_score": 0.563877470066753,
+          "probability_profit": 0.562583,
+          "max_profit": 11044.999999999998,
+          "max_loss": 12455.000000000002,
+          "legs": [
+            {
+              "option_type": "CALL",
+              "position": "LONG",
+              "strike": 127.5,
+              "premium": 5.45,
+              "delta": 0.57426,
+              "theta": -0.07363,
+              "gamma": 0.03386,
+              "vega": 0.16825,
+              "quantity": 1,
+              "rationale": "Long CALL at 127.5 (ATM)"
+            },
+            {
+              "option_type": "CALL",
+              "position": "SHORT",
+              "strike": 132.5,
+              "premium": 2.8,
+              "delta": 0.36565,
+              "theta": -0.06975,
+              "gamma": 0.03198,
+              "vega": 0.15391,
+              "quantity": 1,
+              "rationale": "Short CALL at 132.5 (OTM)"
+            }
+          ],
+          "optimal_outcome": "Moderate bullish move toward 132.5",
+          "component_scores": {
+            "probability": 0.562583,
+            "risk_reward": 0.29559748427672944,
+            "direction": 0.5505704919210461,
+            "iv_fit": 0.7,
+            "liquidity": 0.8
+          },
+          "exit_conditions": {
+            "profit_targets": {
+              "primary": {
+                "target": 2761.2499999999995,
+                "target_pct": 25.0,
+                "action": "Close entire position",
+                "reasoning": "Complex strategies need active management"
+              },
+              "scaling": {
+                "level_1": {
+                  "profit": 2761.2499999999995,
+                  "action": "Close 25%"
+                },
+                "level_2": {
+                  "profit": 5522.499999999999,
+                  "action": "Close 50%"
+                },
+                "level_3": {
+                  "profit": 8283.749999999998,
+                  "action": "Close 75%"
+                }
+              },
+              "trailing": {
+                "activate_at": 2761.2499999999995,
+                "trail_by": 1104.4999999999998
+              }
+            },
+            "stop_losses": {
+              "primary": {
+                "loss_amount": 6227.500000000001,
+                "loss_pct": 50.0,
+                "action": "Close entire position",
+                "type": "Percentage-based stop"
+              },
+              "technical": {
+                "breakeven_breach": "Monitor if price exceeds breakeven",
+                "support_resistance": "Exit if key levels broken",
+                "trend_reversal": "Exit on confirmed reversal"
+              },
+              "time_stop": {
+                "trigger": "Loss > 3113.7500000000005 with < 21 DTE",
+                "action": "Close to avoid gamma risk"
+              }
+            },
+            "time_exits": {
+              "primary_dte": 21,
+              "theta_decay_threshold": {
+                "dte": 21,
+                "action": "Close if not profitable",
+                "reasoning": "Theta decay accelerates"
+              },
+              "time_decay_levels": {
+                "25%_time_passed": "Evaluate position performance",
+                "50%_time_passed": "Consider closing if at profit",
+                "75%_time_passed": "Exit unless strong conviction"
+              }
+            },
+            "greek_triggers": {},
+            "adjustment_triggers": {
+              "defensive": {},
+              "offensive": {},
+              "rolling": {
+                "spread_roll": {
+                  "trigger": "Near expiry with profit",
+                  "actions": [
+                    "Roll entire spread to next expiry",
+                    "Roll winning side only",
+                    "Widen/narrow strikes on roll"
+                  ]
+                }
+              },
+              "morphing": {
+                "general": {
+                  "long_to_spread": "Convert long option to spread to reduce cost",
+                  "spread_to_condor": "Add opposite spread to create condor",
+                  "straddle_to_butterfly": "Add wings to straddle for protection"
+                }
+              },
+              "direction_change": {
+                "trigger": "Market direction reversed",
+                "action": "Close directional strategies, adjust neutral strategies"
+              }
+            },
+            "monitoring": {
+              "frequency": "Daily with alerts",
+              "critical_times": [
+                "Major market moves"
+              ],
+              "monitor_metrics": {
+                "price": "Spot price vs strikes/breakevens",
+                "pnl": "Current P&L vs targets",
+                "greeks": "Delta, Gamma, Theta changes",
+                "iv": "Implied volatility changes",
+                "liquidity": "Bid-ask spreads",
+                "news": "Company/market news"
+              },
+              "alerts": {
+                "price_alerts": [
+                  "Within 2% of breakeven",
+                  "At short strike",
+                  "Major support/resistance"
+                ],
+                "pnl_alerts": [
+                  "At 50% of profit target",
+                  "At 50% of stop loss",
+                  "Unusual P&L swings"
+                ],
+                "greek_alerts": [
+                  "Delta exceeds threshold",
+                  "Gamma doubles",
+                  "Vega risk increases"
+                ]
+              }
+            },
+            "specific_conditions": {}
+          }
+        }
+      ]
+    }
+  },
+  "total_symbols": 1,
+  "successful_analyses": 1
+}

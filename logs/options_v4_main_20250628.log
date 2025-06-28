@@ -1,0 +1,236 @@
+2025-06-28 08:08:53,786 - OptionsV4 - INFO - Supabase client initialized successfully
+2025-06-28 08:08:53,786 - OptionsV4 - INFO - Database integration enabled
+2025-06-28 08:08:53,790 - OptionsV4 - INFO - Options V4 Analyzer initialized successfully
+2025-06-28 08:08:53,790 - OptionsV4 - INFO - Starting portfolio analysis...
+2025-06-28 08:08:54,381 - OptionsV4 - INFO - Analyzing 235 symbols: ['DIXON', 'MARICO', 'PAYTM', 'PAGEIND', 'SUNPHARMA', 'GRANULES', 'CESC', 'HDFCAMC', 'HINDZINC', 'BERGEPAINT', 'TITAGARH', 'GRASIM', 'HINDUNILVR', 'IREDA', 'CROMPTON', 'NHPC', 'APOLLOHOSP', 'NMDC', 'PATANJALI', 'RECLTD', 'ADANIENSOL', 'BHARATFORG', 'SBICARD', 'TATAPOWER', 'ADANIGREEN', 'OBEROIRLTY', 'IRFC', 'TECHM', 'LAURUSLABS', 'PNBHOUSING', 'CDSL', 'TATATECH', 'NCC', 'HINDALCO', 'RBLBANK', 'ASHOKLEY', 'KOTAKBANK', 'PIIND', 'ADANIENT', 'VBL', 'TATASTEEL', 'NBCC', 'OIL', 'ETERNAL', 'TORNTPHARM', 'PERSISTENT', 'IGL', 'UPL', 'MANAPPURAM', 'TORNTPOWER', 'GUJGASLTD', 'MARUTI', 'ABBOTINDIA', 'MGL', 'HFCL', 'SUPREMEIND', 'APLAPOLLO', 'BANDHANBNK', 'ICICIPRULI', 'IEX', 'INDIAMART', 'RELIANCE', 'APOLLOTYRE', 'TITAN', 'ACC', 'ATUL', 'SBILIFE', 'PFC', 'KPITTECH', 'ZYDUSLIFE', 'CONCOR', 'DELHIVERY', 'INOXWIND', 'GMRAIRPORT', 'CGPOWER', 'LT', 'DALBHARAT', 'HUDCO', 'VOLTAS', 'COROMANDEL', 'MAXHEALTH', 'METROPOLIS', 'ABCAPITAL', 'IRCTC', 'BOSCHLTD', 'HAL', 'LICI', 'RAMCOCEM', 'SHRIRAMFIN', 'AUROPHARMA', 'CIPLA', 'IDEA', 'BANKINDIA', 'KALYANKJIL', 'PNB', 'HINDCOPPER', 'MOTHERSON', 'ICICIBANK', 'AMBUJACEM', 'SHREECEM', 'TRENT', 'COFORGE', 'NTPC', 'TATAMOTORS', 'LUPIN', 'M&M', 'TATACHEM', 'TATAELXSI', 'BIOCON', 'VEDL', 'SIEMENS', 'NYKAA', 'POLICYBZR', 'SUNTV', 'AXISBANK', 'BRITANNIA', 'CANFINHOME', 'ATGL', 'CYIENT', 'EICHERMOT', 'BATAINDIA', 'CHAMBLFERT', 'DLF', 'EXIDEIND', 'TVSMOTOR', 'IRB', 'BHEL', 'ASIANPAINT', 'PEL', 'ITC', 'LTF', 'BEL', 'BPCL', 'AUBANK', 'JINDALSTEL', 'DABUR', 'NATIONALUM', 'SBIN', 'ABFRL', 'BAJFINANCE', 'MCX', 'TIINDIA', 'ONGC', 'NAVINFLUOR', 'SONACOMS', 'BANKBARODA', 'SJVN', 'DRREDDY', 'KEI', 'INFY', 'TCS', 'ZOMATO', 'LALPATHLAB', 'IIFL', 'FEDERALBNK', 'TATACOMM', 'COLPAL', 'LICHSGFIN', 'CAMS', 'TATACONSUM', 'NESTLEIND', 'GNFC', 'BALKRISIND', 'AARTIIND', 'BSOFT', 'GLENMARK', 'CUB', 'JIOFIN', 'ICICIGI', 'JSL', 'WIPRO', 'YESBANK', 'IOC', 'SOLARINDS', 'SRF', 'OFSS', 'PETRONET', 'POLYCAB', 'M&MFIN', 'PIDILITIND', 'UNITDSPR', 'ASTRAL', 'ADANIPORTS', 'SAIL', 'UNIONBANK', 'GODREJCP', 'HDFCLIFE', 'INDUSINDBK', 'CHOLAFIN', 'UBL', 'BHARTIARTL', 'NAUKRI', 'JKCEMENT', 'ULTRACEMCO', 'JSWENERGY', 'JSWSTEEL', 'BSE', 'CANBK', 'LODHA', 'JUBLFOOD', 'GODREJPROP', 'SYNGENE', 'INDUSTOWER', 'IPCALAB', 'ABB', 'HEROMOTOCO', 'DIVISLAB', 'ANGELONE', 'HCLTECH', 'ALKEM', 'COALINDIA', 'MRF', 'GAIL', 'MPHASIS', 'BAJAJFINSV', 'CUMMINSIND', 'DMART', 'INDHOTEL', 'MFSL', 'POONAWALLA', 'POWERGRID', 'PRESTIGE', 'HDFCBANK', 'PHOENIXLTD', 'INDIANB', 'PVRINOX', 'LTIM', 'DEEPAKNTR', 'INDIGO', 'HINDPETRO', 'MUTHOOTFIN', 'HAVELLS', 'IDFCFIRSTB', 'LTTS', 'ESCORTS']
+2025-06-28 08:08:54,382 - OptionsV4 - INFO - 
+==================================================
+2025-06-28 08:08:54,382 - OptionsV4 - INFO - Analyzing DIXON
+2025-06-28 08:08:54,382 - OptionsV4 - INFO - ==================================================
+2025-06-28 08:08:54,640 - OptionsV4 - INFO - Found 238 liquid options for DIXON at spot $14047.00
+2025-06-28 08:08:56,210 - OptionsV4 - INFO - Stock Profile: high volatility, Beta: 1.49, ATR%: 3.45%
+2025-06-28 08:08:56,355 - OptionsV4 - INFO - Market Direction: Neutral  (Confidence: 57.8%)
+2025-06-28 08:08:56,355 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 34.2%)
+2025-06-28 08:08:56,355 - OptionsV4 - INFO - Stock volatility profile suggests: Preferred: ['Bull Call Spread', 'Bear Put Spread', 'Long Strangle', 'Diagonal Spread'], Avoid: ['Iron Butterfly', 'Short Straddle']
+2025-06-28 08:08:56,355 - OptionsV4 - INFO - Selected 10 strategies based on metadata scoring
+2025-06-28 08:08:56,355 - OptionsV4 - INFO - Constructing 10 strategies: ['Long Call', 'Long Put', 'Calendar Spread', 'Iron Condor', 'Bear Call Spread', 'Butterfly Spread', 'Broken Wing Butterfly', 'Bull Put Spread', 'Cash-Secured Put', 'Covered Call']
+2025-06-28 08:08:56,364 - OptionsV4 - INFO - Generated 4 strategies, 3 passed filters
+2025-06-28 08:08:56,365 - OptionsV4 - INFO - ✅ DIXON analysis completed successfully
+2025-06-28 08:08:56,365 - OptionsV4 - INFO - 
+==================================================
+2025-06-28 08:08:56,365 - OptionsV4 - INFO - Analyzing MARICO
+2025-06-28 08:08:56,365 - OptionsV4 - INFO - ==================================================
+2025-06-28 08:08:56,584 - OptionsV4 - INFO - Found 68 liquid options for MARICO at spot $693.30
+2025-06-28 08:08:56,946 - OptionsV4 - INFO - Stock Profile: medium volatility, Beta: 0.52, ATR%: 1.67%
+2025-06-28 08:08:57,107 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 90.2%)
+2025-06-28 08:08:57,107 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 20.1%)
+2025-06-28 08:08:57,107 - OptionsV4 - INFO - Stock volatility profile suggests: Preferred: ['Iron Condor', 'Calendar Spread', 'Bull Put Spread', 'Bear Call Spread'], Avoid: []
+2025-06-28 08:08:57,108 - OptionsV4 - INFO - Selected 7 strategies based on metadata scoring
+2025-06-28 08:08:57,108 - OptionsV4 - INFO - Constructing 7 strategies: ['Bull Put Spread', 'Long Call', 'Bull Call Spread', 'Cash-Secured Put', 'Covered Call', 'Long Strangle', 'Long Straddle']
+2025-06-28 08:08:57,112 - OptionsV4 - INFO - Generated 2 strategies, 2 passed filters
+2025-06-28 08:08:57,112 - OptionsV4 - INFO - ✅ MARICO analysis completed successfully
+2025-06-28 08:08:57,112 - OptionsV4 - INFO - 
+==================================================
+2025-06-28 08:08:57,112 - OptionsV4 - INFO - Analyzing PAYTM
+2025-06-28 08:08:57,112 - OptionsV4 - INFO - ==================================================
+2025-06-28 08:08:57,312 - OptionsV4 - INFO - Found 129 liquid options for PAYTM at spot $871.20
+2025-06-28 08:08:57,660 - OptionsV4 - INFO - Stock Profile: high volatility, Beta: 1.32, ATR%: 3.00%
+2025-06-28 08:08:57,796 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 41.1%)
+2025-06-28 08:08:57,796 - OptionsV4 - INFO - IV Environment: ELEVATED (ATM IV: 39.1%)
+2025-06-28 08:08:57,796 - OptionsV4 - INFO - Stock volatility profile suggests: Preferred: ['Bull Call Spread', 'Bear Put Spread', 'Long Strangle', 'Diagonal Spread'], Avoid: ['Iron Butterfly', 'Short Straddle']
+2025-06-28 08:08:57,796 - OptionsV4 - INFO - Selected 7 strategies based on metadata scoring
+2025-06-28 08:08:57,796 - OptionsV4 - INFO - Constructing 7 strategies: ['Bull Call Spread', 'Call Ratio Spread', 'Iron Condor', 'Jade Lizard', 'Bull Put Spread', 'Cash-Secured Put', 'Covered Call']
+2025-06-28 08:08:57,804 - OptionsV4 - INFO - Generated 4 strategies, 4 passed filters
+2025-06-28 08:08:57,804 - OptionsV4 - INFO - ✅ PAYTM analysis completed successfully
+2025-06-28 08:08:57,804 - OptionsV4 - INFO - 
+==================================================
+2025-06-28 08:08:57,804 - OptionsV4 - INFO - Analyzing PAGEIND
+2025-06-28 08:08:57,804 - OptionsV4 - INFO - ==================================================
+2025-06-28 08:08:58,026 - OptionsV4 - INFO - Found 4 liquid options for PAGEIND at spot $44925.00
+2025-06-28 08:08:58,417 - OptionsV4 - INFO - Stock Profile: high volatility, Beta: 0.72, ATR%: 3.04%
+2025-06-28 08:08:58,575 - OptionsV4 - INFO - Market Direction: Bearish Weak (Confidence: 48.7%)
+2025-06-28 08:08:58,575 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 26.5%)
+2025-06-28 08:08:58,575 - OptionsV4 - INFO - Stock volatility profile suggests: Preferred: ['Bull Call Spread', 'Bear Put Spread', 'Long Strangle', 'Diagonal Spread'], Avoid: ['Iron Butterfly', 'Short Straddle']
+2025-06-28 08:08:58,575 - OptionsV4 - INFO - Selected 9 strategies based on metadata scoring
+2025-06-28 08:08:58,575 - OptionsV4 - INFO - Constructing 9 strategies: ['Diagonal Spread', 'Bear Put Spread', 'Long Put', 'Calendar Spread', 'Iron Condor', 'Bear Call Spread', 'Broken Wing Butterfly', 'Cash-Secured Put', 'Covered Call']
+2025-06-28 08:08:58,580 - OptionsV4 - INFO - Generated 2 strategies, 2 passed filters
+2025-06-28 08:08:58,580 - OptionsV4 - INFO - ✅ PAGEIND analysis completed successfully
+2025-06-28 08:08:58,580 - OptionsV4 - INFO - 
+==================================================
+2025-06-28 08:08:58,580 - OptionsV4 - INFO - Analyzing SUNPHARMA
+2025-06-28 08:08:58,580 - OptionsV4 - INFO - ==================================================
+2025-06-28 08:08:58,831 - OptionsV4 - INFO - Found 196 liquid options for SUNPHARMA at spot $1665.10
+2025-06-28 08:08:59,242 - OptionsV4 - INFO - Stock Profile: medium volatility, Beta: 0.57, ATR%: 1.65%
+2025-06-28 08:08:59,425 - OptionsV4 - INFO - Market Direction: Neutral  (Confidence: 15.8%)
+2025-06-28 08:08:59,425 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 19.2%)
+2025-06-28 08:08:59,425 - OptionsV4 - INFO - Stock volatility profile suggests: Preferred: ['Iron Condor', 'Calendar Spread', 'Bull Put Spread', 'Bear Call Spread'], Avoid: []
+2025-06-28 08:08:59,425 - OptionsV4 - INFO - Selected 8 strategies based on metadata scoring
+2025-06-28 08:08:59,425 - OptionsV4 - INFO - Constructing 8 strategies: ['Bull Put Spread', 'Long Call', 'Long Put', 'Butterfly Spread', 'Long Strangle', 'Cash-Secured Put', 'Covered Call', 'Long Straddle']
+2025-06-28 08:08:59,431 - OptionsV4 - INFO - Generated 3 strategies, 3 passed filters
+2025-06-28 08:08:59,431 - OptionsV4 - INFO - ✅ SUNPHARMA analysis completed successfully
+2025-06-28 08:08:59,431 - OptionsV4 - INFO - 
+==================================================
+2025-06-28 08:08:59,431 - OptionsV4 - INFO - Analyzing GRANULES
+2025-06-28 08:08:59,431 - OptionsV4 - INFO - ==================================================
+2025-06-28 08:08:59,675 - OptionsV4 - INFO - Found 16 liquid options for GRANULES at spot $487.35
+2025-06-28 08:09:00,051 - OptionsV4 - INFO - Stock Profile: high volatility, Beta: 1.02, ATR%: 2.77%
+2025-06-28 08:09:00,229 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 51.6%)
+2025-06-28 08:09:00,229 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 29.4%)
+2025-06-28 08:09:00,229 - OptionsV4 - INFO - Stock volatility profile suggests: Preferred: ['Bull Call Spread', 'Bear Put Spread', 'Long Strangle', 'Diagonal Spread'], Avoid: ['Iron Butterfly', 'Short Straddle']
+2025-06-28 08:09:00,229 - OptionsV4 - INFO - Selected 9 strategies based on metadata scoring
+2025-06-28 08:09:00,229 - OptionsV4 - INFO - Constructing 9 strategies: ['Diagonal Spread', 'Bull Call Spread', 'Long Call', 'Calendar Spread', 'Iron Condor', 'Broken Wing Butterfly', 'Bull Put Spread', 'Cash-Secured Put', 'Covered Call']
+2025-06-28 08:09:00,237 - OptionsV4 - INFO - Generated 6 strategies, 5 passed filters
+2025-06-28 08:09:00,237 - OptionsV4 - INFO - ✅ GRANULES analysis completed successfully
+2025-06-28 08:09:00,237 - OptionsV4 - INFO - 
+==================================================
+2025-06-28 08:09:00,237 - OptionsV4 - INFO - Analyzing CESC
+2025-06-28 08:09:00,238 - OptionsV4 - INFO - ==================================================
+2025-06-28 08:09:00,497 - OptionsV4 - INFO - Found 41 liquid options for CESC at spot $163.39
+2025-06-28 08:09:00,881 - OptionsV4 - INFO - Stock Profile: medium volatility, Beta: 1.21, ATR%: 2.42%
+2025-06-28 08:09:01,046 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 94.9%)
+2025-06-28 08:09:01,046 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 30.2%)
+2025-06-28 08:09:01,046 - OptionsV4 - INFO - Stock volatility profile suggests: Preferred: ['Iron Condor', 'Calendar Spread', 'Bull Put Spread', 'Bear Call Spread'], Avoid: []
+2025-06-28 08:09:01,046 - OptionsV4 - INFO - Selected 9 strategies based on metadata scoring
+2025-06-28 08:09:01,047 - OptionsV4 - INFO - Constructing 9 strategies: ['Calendar Spread', 'Iron Condor', 'Bull Put Spread', 'Long Call', 'Broken Wing Butterfly', 'Diagonal Spread', 'Bull Call Spread', 'Cash-Secured Put', 'Covered Call']
+2025-06-28 08:09:01,054 - OptionsV4 - INFO - Generated 6 strategies, 5 passed filters
+2025-06-28 08:09:01,054 - OptionsV4 - INFO - ✅ CESC analysis completed successfully
+2025-06-28 08:09:01,054 - OptionsV4 - INFO - 
+==================================================
+2025-06-28 08:09:01,054 - OptionsV4 - INFO - Analyzing HDFCAMC
+2025-06-28 08:09:01,054 - OptionsV4 - INFO - ==================================================
+2025-06-28 08:09:01,375 - OptionsV4 - INFO - Found 67 liquid options for HDFCAMC at spot $4958.60
+2025-06-28 08:09:01,713 - OptionsV4 - INFO - Stock Profile: medium volatility, Beta: 1.32, ATR%: 2.39%
+2025-06-28 08:09:01,860 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 60.1%)
+2025-06-28 08:09:01,860 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 23.7%)
+2025-06-28 08:09:01,860 - OptionsV4 - INFO - Stock volatility profile suggests: Preferred: ['Iron Condor', 'Calendar Spread', 'Bull Put Spread', 'Bear Call Spread'], Avoid: []
+2025-06-28 08:09:01,860 - OptionsV4 - INFO - Selected 7 strategies based on metadata scoring
+2025-06-28 08:09:01,860 - OptionsV4 - INFO - Constructing 7 strategies: ['Bull Put Spread', 'Long Call', 'Bull Call Spread', 'Cash-Secured Put', 'Long Strangle', 'Covered Call', 'Long Straddle']
+2025-06-28 08:09:01,865 - OptionsV4 - INFO - Generated 2 strategies, 2 passed filters
+2025-06-28 08:09:01,865 - OptionsV4 - INFO - ✅ HDFCAMC analysis completed successfully
+2025-06-28 08:09:01,865 - OptionsV4 - INFO - 
+==================================================
+2025-06-28 08:09:01,865 - OptionsV4 - INFO - Analyzing HINDZINC
+2025-06-28 08:09:01,865 - OptionsV4 - INFO - ==================================================
+2025-06-28 08:09:02,083 - OptionsV4 - INFO - Found 199 liquid options for HINDZINC at spot $438.60
+2025-06-28 08:09:02,432 - OptionsV4 - INFO - Stock Profile: high volatility, Beta: 1.19, ATR%: 3.02%
+2025-06-28 08:09:02,582 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 51.9%)
+2025-06-28 08:09:02,582 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 29.5%)
+2025-06-28 08:09:02,582 - OptionsV4 - INFO - Stock volatility profile suggests: Preferred: ['Bull Call Spread', 'Bear Put Spread', 'Long Strangle', 'Diagonal Spread'], Avoid: ['Iron Butterfly', 'Short Straddle']
+2025-06-28 08:09:02,582 - OptionsV4 - INFO - Selected 9 strategies based on metadata scoring
+2025-06-28 08:09:02,582 - OptionsV4 - INFO - Constructing 9 strategies: ['Diagonal Spread', 'Bull Call Spread', 'Long Call', 'Calendar Spread', 'Iron Condor', 'Broken Wing Butterfly', 'Bull Put Spread', 'Cash-Secured Put', 'Covered Call']
+2025-06-28 08:09:02,589 - OptionsV4 - INFO - Generated 4 strategies, 3 passed filters
+2025-06-28 08:09:02,589 - OptionsV4 - INFO - ✅ HINDZINC analysis completed successfully
+2025-06-28 08:09:02,589 - OptionsV4 - INFO - 
+==================================================
+2025-06-28 08:09:02,589 - OptionsV4 - INFO - Analyzing BERGEPAINT
+2025-06-28 08:09:02,589 - OptionsV4 - INFO - ==================================================
+2025-06-28 08:09:02,656 - OptionsV4 - WARNING - ⚠️ BERGEPAINT analysis failed: No liquid options data
+2025-06-28 08:09:02,656 - OptionsV4 - INFO - 
+==================================================
+2025-06-28 08:09:02,656 - OptionsV4 - INFO - Analyzing TITAGARH
+2025-06-28 08:09:02,656 - OptionsV4 - INFO - ==================================================
+2025-06-28 08:09:02,845 - OptionsV4 - INFO - Found 19 liquid options for TITAGARH at spot $865.95
+2025-06-28 08:09:03,255 - OptionsV4 - INFO - Stock Profile: high volatility, Beta: 1.38, ATR%: 3.55%
+2025-06-28 08:09:03,396 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 63.3%)
+2025-06-28 08:09:03,396 - OptionsV4 - INFO - IV Environment: ELEVATED (ATM IV: 43.0%)
+2025-06-28 08:09:03,396 - OptionsV4 - INFO - Stock volatility profile suggests: Preferred: ['Bull Call Spread', 'Bear Put Spread', 'Long Strangle', 'Diagonal Spread'], Avoid: ['Iron Butterfly', 'Short Straddle']
+2025-06-28 08:09:03,396 - OptionsV4 - INFO - Selected 7 strategies based on metadata scoring
+2025-06-28 08:09:03,396 - OptionsV4 - INFO - Constructing 7 strategies: ['Bull Call Spread', 'Call Ratio Spread', 'Iron Condor', 'Jade Lizard', 'Bull Put Spread', 'Cash-Secured Put', 'Covered Call']
+2025-06-28 08:09:03,401 - OptionsV4 - INFO - Generated 2 strategies, 1 passed filters
+2025-06-28 08:09:03,401 - OptionsV4 - INFO - ✅ TITAGARH analysis completed successfully
+2025-06-28 08:09:03,401 - OptionsV4 - INFO - 
+==================================================
+2025-06-28 08:09:03,401 - OptionsV4 - INFO - Analyzing GRASIM
+2025-06-28 08:09:03,401 - OptionsV4 - INFO - ==================================================
+2025-06-28 08:09:03,623 - OptionsV4 - INFO - Found 49 liquid options for GRASIM at spot $2712.60
+2025-06-28 08:09:03,953 - OptionsV4 - INFO - Stock Profile: medium volatility, Beta: 1.09, ATR%: 1.99%
+2025-06-28 08:09:04,091 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 89.7%)
+2025-06-28 08:09:04,091 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 20.9%)
+2025-06-28 08:09:04,091 - OptionsV4 - INFO - Stock volatility profile suggests: Preferred: ['Iron Condor', 'Calendar Spread', 'Bull Put Spread', 'Bear Call Spread'], Avoid: []
+2025-06-28 08:09:04,091 - OptionsV4 - INFO - Selected 7 strategies based on metadata scoring
+2025-06-28 08:09:04,091 - OptionsV4 - INFO - Constructing 7 strategies: ['Bull Put Spread', 'Long Call', 'Bull Call Spread', 'Cash-Secured Put', 'Covered Call', 'Long Strangle', 'Long Straddle']
+2025-06-28 08:09:04,096 - OptionsV4 - INFO - Generated 2 strategies, 2 passed filters
+2025-06-28 08:09:04,096 - OptionsV4 - INFO - ✅ GRASIM analysis completed successfully
+2025-06-28 08:09:04,096 - OptionsV4 - INFO - 
+==================================================
+2025-06-28 08:09:04,096 - OptionsV4 - INFO - Analyzing HINDUNILVR
+2025-06-28 08:09:04,096 - OptionsV4 - INFO - ==================================================
+2025-06-28 08:09:04,346 - OptionsV4 - INFO - Found 291 liquid options for HINDUNILVR at spot $2306.20
+2025-06-28 08:09:04,703 - OptionsV4 - INFO - Stock Profile: low volatility, Beta: 0.48, ATR%: 1.27%
+2025-06-28 08:09:04,903 - OptionsV4 - INFO - Market Direction: Neutral  (Confidence: 55.2%)
+2025-06-28 08:09:04,903 - OptionsV4 - INFO - IV Environment: LOW (ATM IV: 17.6%)
+2025-06-28 08:09:04,903 - OptionsV4 - INFO - Stock volatility profile suggests: Preferred: ['Iron Condor', 'Short Strangle', 'Butterfly Spread', 'Credit Spreads'], Avoid: ['Long Straddle', 'Long Call', 'Long Put']
+2025-06-28 08:09:04,903 - OptionsV4 - INFO - Selected 6 strategies based on metadata scoring
+2025-06-28 08:09:04,903 - OptionsV4 - INFO - Constructing 6 strategies: ['Butterfly Spread', 'Calendar Spread', 'Bull Put Spread', 'Cash-Secured Put', 'Long Strangle', 'Covered Call']
+2025-06-28 08:09:04,907 - OptionsV4 - INFO - Generated 2 strategies, 2 passed filters
+2025-06-28 08:09:04,907 - OptionsV4 - INFO - ✅ HINDUNILVR analysis completed successfully
+2025-06-28 08:09:04,907 - OptionsV4 - INFO - 
+==================================================
+2025-06-28 08:09:04,907 - OptionsV4 - INFO - Analyzing IREDA
+2025-06-28 08:09:04,907 - OptionsV4 - INFO - ==================================================
+2025-06-28 08:09:05,118 - OptionsV4 - INFO - Found 185 liquid options for IREDA at spot $165.07
+2025-06-28 08:09:05,443 - OptionsV4 - INFO - Stock Profile: high volatility, Beta: 1.45, ATR%: 3.16%
+2025-06-28 08:09:05,563 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 49.2%)
+2025-06-28 08:09:05,564 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 31.7%)
+2025-06-28 08:09:05,564 - OptionsV4 - INFO - Stock volatility profile suggests: Preferred: ['Bull Call Spread', 'Bear Put Spread', 'Long Strangle', 'Diagonal Spread'], Avoid: ['Iron Butterfly', 'Short Straddle']
+2025-06-28 08:09:05,564 - OptionsV4 - INFO - Selected 9 strategies based on metadata scoring
+2025-06-28 08:09:05,564 - OptionsV4 - INFO - Constructing 9 strategies: ['Diagonal Spread', 'Bull Call Spread', 'Long Call', 'Calendar Spread', 'Iron Condor', 'Broken Wing Butterfly', 'Bull Put Spread', 'Cash-Secured Put', 'Covered Call']
+2025-06-28 08:09:05,571 - OptionsV4 - INFO - Generated 5 strategies, 5 passed filters
+2025-06-28 08:09:05,571 - OptionsV4 - INFO - ✅ IREDA analysis completed successfully
+2025-06-28 08:09:05,571 - OptionsV4 - INFO - 
+==================================================
+2025-06-28 08:09:05,571 - OptionsV4 - INFO - Analyzing CROMPTON
+2025-06-28 08:09:05,571 - OptionsV4 - INFO - ==================================================
+2025-06-28 08:09:05,786 - OptionsV4 - INFO - Found 73 liquid options for CROMPTON at spot $344.60
+2025-06-28 08:09:06,233 - OptionsV4 - INFO - Stock Profile: medium volatility, Beta: 0.72, ATR%: 2.10%
+2025-06-28 08:09:06,360 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 89.6%)
+2025-06-28 08:09:06,360 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 25.3%)
+2025-06-28 08:09:06,360 - OptionsV4 - INFO - Stock volatility profile suggests: Preferred: ['Iron Condor', 'Calendar Spread', 'Bull Put Spread', 'Bear Call Spread'], Avoid: []
+2025-06-28 08:09:06,360 - OptionsV4 - INFO - Selected 9 strategies based on metadata scoring
+2025-06-28 08:09:06,360 - OptionsV4 - INFO - Constructing 9 strategies: ['Calendar Spread', 'Iron Condor', 'Bull Put Spread', 'Long Call', 'Broken Wing Butterfly', 'Diagonal Spread', 'Bull Call Spread', 'Cash-Secured Put', 'Covered Call']
+2025-06-28 08:09:06,367 - OptionsV4 - INFO - Generated 5 strategies, 5 passed filters
+2025-06-28 08:09:06,367 - OptionsV4 - INFO - ✅ CROMPTON analysis completed successfully
+2025-06-28 08:09:06,367 - OptionsV4 - INFO - 
+==================================================
+2025-06-28 08:09:06,367 - OptionsV4 - INFO - Analyzing NHPC
+2025-06-28 08:09:06,367 - OptionsV4 - INFO - ==================================================
+2025-06-28 08:09:06,566 - OptionsV4 - INFO - Found 105 liquid options for NHPC at spot $82.31
+2025-06-28 08:09:06,909 - OptionsV4 - INFO - Stock Profile: high volatility, Beta: 1.13, ATR%: 2.50%
+2025-06-28 08:09:07,061 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 54.6%)
+2025-06-28 08:09:07,061 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 27.0%)
+2025-06-28 08:09:07,061 - OptionsV4 - INFO - Stock volatility profile suggests: Preferred: ['Bull Call Spread', 'Bear Put Spread', 'Long Strangle', 'Diagonal Spread'], Avoid: ['Iron Butterfly', 'Short Straddle']
+2025-06-28 08:09:07,061 - OptionsV4 - INFO - Selected 9 strategies based on metadata scoring
+2025-06-28 08:09:07,061 - OptionsV4 - INFO - Constructing 9 strategies: ['Diagonal Spread', 'Bull Call Spread', 'Long Call', 'Calendar Spread', 'Iron Condor', 'Broken Wing Butterfly', 'Bull Put Spread', 'Cash-Secured Put', 'Covered Call']
+2025-06-28 08:09:07,069 - OptionsV4 - INFO - Generated 5 strategies, 5 passed filters
+2025-06-28 08:09:07,069 - OptionsV4 - INFO - ✅ NHPC analysis completed successfully
+2025-06-28 08:09:07,069 - OptionsV4 - INFO - 
+==================================================
+2025-06-28 08:09:07,069 - OptionsV4 - INFO - Analyzing APOLLOHOSP
+2025-06-28 08:09:07,069 - OptionsV4 - INFO - ==================================================
+2025-06-28 08:09:07,309 - OptionsV4 - INFO - Found 61 liquid options for APOLLOHOSP at spot $7063.50
+2025-06-28 08:09:08,849 - OptionsV4 - INFO - Stock Profile: medium volatility, Beta: 1.00, ATR%: 2.00%
+2025-06-28 08:09:09,788 - OptionsV4 - INFO - Market Direction: Bullish Weak (Confidence: 21.6%)
+2025-06-28 08:09:09,788 - OptionsV4 - INFO - IV Environment: LOW (ATM IV: 15.5%)
+2025-06-28 08:09:09,788 - OptionsV4 - INFO - Stock volatility profile suggests: Preferred: ['Iron Condor', 'Calendar Spread', 'Bull Put Spread', 'Bear Call Spread'], Avoid: []
+2025-06-28 08:09:09,789 - OptionsV4 - INFO - Selected 9 strategies based on metadata scoring
+2025-06-28 08:09:09,789 - OptionsV4 - INFO - Constructing 9 strategies: ['Calendar Spread', 'Bull Put Spread', 'Long Call', 'Diagonal Spread', 'Bull Call Spread', 'Long Strangle', 'Cash-Secured Put', 'Covered Call', 'Long Straddle']
+2025-06-28 08:09:09,795 - OptionsV4 - INFO - Generated 2 strategies, 1 passed filters
+2025-06-28 08:09:09,795 - OptionsV4 - INFO - ✅ APOLLOHOSP analysis completed successfully
+2025-06-28 08:09:09,795 - OptionsV4 - INFO - 
+==================================================
+2025-06-28 08:09:09,795 - OptionsV4 - INFO - Analyzing NMDC
+2025-06-28 08:09:09,795 - OptionsV4 - INFO - ==================================================
+2025-06-28 08:09:10,033 - OptionsV4 - INFO - Found 143 liquid options for NMDC at spot $67.94
+2025-06-28 08:09:10,397 - OptionsV4 - INFO - Stock Profile: high volatility, Beta: 1.00, ATR%: 2.63%
+2025-06-28 08:09:10,560 - OptionsV4 - INFO - Market Direction: Neutral  (Confidence: 37.0%)
+2025-06-28 08:09:10,560 - OptionsV4 - INFO - IV Environment: NORMAL (ATM IV: 28.8%)
+2025-06-28 08:09:10,560 - OptionsV4 - INFO - Stock volatility profile suggests: Preferred: ['Bull Call Spread', 'Bear Put Spread', 'Long Strangle', 'Diagonal Spread'], Avoid: ['Iron Butterfly', 'Short Straddle']
+2025-06-28 08:09:10,560 - OptionsV4 - INFO - Selected 10 strategies based on metadata scoring
+2025-06-28 08:09:10,560 - OptionsV4 - INFO - Constructing 10 strategies: ['Long Call', 'Long Put', 'Calendar Spread', 'Iron Condor', 'Bear Call Spread', 'Butterfly Spread', 'Broken Wing Butterfly', 'Bull Put Spread', 'Cash-Secured Put', 'Covered Call']
+2025-06-28 08:09:10,568 - OptionsV4 - INFO - Generated 5 strategies, 4 passed filters
+2025-06-28 08:09:10,568 - OptionsV4 - INFO - ✅ NMDC analysis completed successfully
+2025-06-28 08:09:10,568 - OptionsV4 - INFO - 
+==================================================
+2025-06-28 08:09:10,568 - OptionsV4 - INFO - Analyzing PATANJALI
+2025-06-28 08:09:10,568 - OptionsV4 - INFO - ==================================================
+2025-06-28 08:09:10,769 - OptionsV4 - INFO - Found 42 liquid options for PATANJALI at spot $1649.60

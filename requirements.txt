@@ -21,5 +21,12 @@ asyncio-mqtt>=0.13.0
 # Performance enhancements for async operations
 uvloop>=0.17.0
 
+# Monitoring and display dependencies
+tabulate>=0.9.0
+colorama>=0.4.4
+
+# Trading/API dependencies
+dhanhq>=1.0.0
+
 # Note: The system is designed to work without optional dependencies
 # Missing dependencies will trigger graceful fallbacks
