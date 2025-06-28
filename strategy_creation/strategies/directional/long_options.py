@@ -135,13 +135,14 @@ class LongPut(BaseStrategy):
     def get_iv_preference(self) -> str:
         return "low"
     
-    def construct_strategy(self, strike: float = None, use_expected_moves: bool = True) -> Dict:
+    def construct_strategy(self, strike: float = None, use_expected_moves: bool = True, target_delta: float = 0.35) -> Dict:
         """
         Construct Long Put strategy
         
         Args:
             strike: Specific strike to use (optional)
             use_expected_moves: Use intelligent strike selection based on expected moves
+            target_delta: Target delta for option selection (default 0.35)
         """
         try:
             if strike is None:
@@ -155,8 +156,8 @@ class LongPut(BaseStrategy):
                     logger.info(f"Selected PUT strike: {strike} (Spot: {self.spot_price})")
                 else:
                     # Fallback to delta-based selection
-                    logger.info("Using delta-based strike selection")
-                    strike = self._find_optimal_strike(0.35, 'PUT')  # Target 0.35 delta instead of 0.5
+                    logger.info(f"Using delta-based strike selection with target delta {target_delta}")
+                    strike = self._find_optimal_strike(target_delta, 'PUT')
             
             if not self.validate_strikes([strike]):
                 return {'success': False, 'reason': 'Invalid strike selection'}

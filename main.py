@@ -30,7 +30,8 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 # Import our modules
 from strategy_creation import DataManager, IVAnalyzer, ProbabilityEngine, RiskManager, StockProfiler
 from trade_execution import ExitManager
-from analysis import MarketAnalyzer, StrategyRanker, PriceLevelsAnalyzer
+from strategy_creation import MarketAnalyzer
+from analysis import StrategyRanker, PriceLevelsAnalyzer
 from strategy_creation.strategies import (
     # Directional
     LongCall, LongPut, BullCallSpread, BearCallSpread, 
@@ -190,6 +191,25 @@ class OptionsAnalyzer:
                     if symbol_result.get('success', False):
                         successful_analyses += 1
                         self.logger.info(f"✅ {symbol} analysis completed successfully")
+                        
+                        # Store individual symbol result in database immediately
+                        if self.enable_database and self.db_integration:
+                            try:
+                                # Wrap single symbol result for database storage
+                                single_symbol_result = {
+                                    'success': True,
+                                    'analysis_timestamp': symbol_result.get('analysis_timestamp'),
+                                    'symbol_results': {symbol: symbol_result},
+                                    'total_symbols': 1,
+                                    'successful_analyses': 1
+                                }
+                                db_result = self.db_integration.store_analysis_results(single_symbol_result)
+                                if db_result['success']:
+                                    self.logger.info(f"💾 Stored {db_result['total_stored']} strategies for {symbol} in database")
+                                else:
+                                    self.logger.warning(f"💾 Database storage failed for {symbol}: {db_result.get('error', 'Unknown error')}")
+                            except Exception as e:
+                                self.logger.error(f"💾 Error storing {symbol} to database: {e}")
                     else:
                         self.logger.warning(f"⚠️ {symbol} analysis failed: {symbol_result.get('reason', 'Unknown')}")
                 

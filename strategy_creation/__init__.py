@@ -10,6 +10,7 @@ from .risk_manager import RiskManager
 from .stock_profiler import StockProfiler
 from .strike_selector import IntelligentStrikeSelector
 from .market_conditions_analyzer import MarketConditionsAnalyzer
+from .market_analyzer import MarketAnalyzer
 
 # Strategy implementations are available in the strategies/ subdirectory
 
@@ -20,5 +21,6 @@ __all__ = [
     'RiskManager',
     'StockProfiler',
     'IntelligentStrikeSelector', 
-    'MarketConditionsAnalyzer'
+    'MarketConditionsAnalyzer',
+    'MarketAnalyzer'
 ]
