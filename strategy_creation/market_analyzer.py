@@ -1074,21 +1074,24 @@ class MarketAnalyzer:
         try:
             abs_score = abs(score)
             
-            # Base direction and sub-category - RELAXED THRESHOLDS
-            if score >= 0.5:
+            # Base direction and sub-category - SYMMETRIC THRESHOLDS
+            if score > 0.5:
                 direction, sub_category = 'Bullish', 'Strong'
             elif score >= 0.2:
                 direction, sub_category = 'Bullish', 'Moderate'
-            elif score > 0.05:  # Small positive score is bullish
+            elif score > 0.1:  # Balanced threshold
                 direction, sub_category = 'Bullish', 'Weak'
-            elif score <= -0.5:
+            elif score < -0.5:
                 direction, sub_category = 'Bearish', 'Strong'
             elif score <= -0.2:
                 direction, sub_category = 'Bearish', 'Moderate'
-            elif score < -0.05:  # Small negative score is bearish
+            elif score < -0.1:  # Balanced threshold
                 direction, sub_category = 'Bearish', 'Weak'
             else:
-                direction, sub_category = 'Neutral', ''  # Only truly neutral in [-0.05, 0.05] range
+                direction, sub_category = 'Neutral', ''  # Neutral in [-0.1, 0.1] range (20%)
+            
+            # Log the threshold decision for monitoring
+            logger.debug(f"Direction score {score:.3f} -> {direction} {sub_category}")
             
             # Calculate confidence based on signal alignment
             confidence_factors = []
