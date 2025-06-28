@@ -154,9 +154,9 @@ class HybridPortfolioEngine:
             ]
         }
         
-        # Risk parameters
-        self.MIN_PROBABILITY_SCORE = 0.50
-        self.MIN_TOTAL_SCORE = 0.60
+        # Risk parameters - Relaxed for better strategy selection
+        self.MIN_PROBABILITY_SCORE = 0.40  # Reduced from 0.50
+        self.MIN_TOTAL_SCORE = 0.50        # Reduced from 0.60
         self.MIN_POSITION_SIZE = 25000  # Minimum ₹25k per position
         self.TARGET_DEPLOYMENT = 0.90  # Target 90% capital deployment
         

@@ -32,8 +32,12 @@ def main():
     
     # Run the hybrid allocator
     try:
+        # Use virtual environment Python if available
+        venv_python = "/Users/jaykrish/agents/project_output/venv/bin/python3"
+        python_exec = venv_python if Path(venv_python).exists() else sys.executable
+        
         result = subprocess.run([
-            sys.executable, 
+            python_exec, 
             "portfolio_allocation/core/hybrid_runner.py", 
             "--capital", 
             str(int(capital))
