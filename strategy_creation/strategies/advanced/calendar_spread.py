@@ -66,12 +66,12 @@ class CalendarSpread(BaseStrategy):
             far_options = self.options_df[self.options_df['expiry'] == far_expiry]
             
             if near_options.empty or far_options.empty:
-                return None
+                return {'success': False, 'reason': 'Options data not available for expiries'}
             
             # Find ATM strike available in both expiries
             strikes = set(near_options['strike'].unique()) & set(far_options['strike'].unique())
             if not strikes:
-                return None
+                return {'success': False, 'reason': 'No common strikes between expiries'}
             
             atm_strike = min(strikes, key=lambda x: abs(x - self.spot_price))
             
@@ -92,18 +92,18 @@ class CalendarSpread(BaseStrategy):
             ]
             
             if near_option.empty or far_option.empty:
-                return None
+                return {'success': False, 'reason': 'Selected options not available'}
             
             # Validate strikes
             if not self.validate_strikes([atm_strike]):
-                return None
+                return {'success': False, 'reason': 'Strike validation failed'}
             
             # Get option data
             near_data = self._get_option_data(atm_strike, option_type)
             far_data = self._get_option_data(atm_strike, option_type)
             
             if near_data is None or far_data is None:
-                return None
+                return {'success': False, 'reason': 'Option data not available'}
             
             # Create legs
             legs = [
@@ -134,7 +134,7 @@ class CalendarSpread(BaseStrategy):
             )
             
             if not metrics:
-                return None
+                return {'success': False, 'reason': 'Failed to calculate metrics'}
             
             # Add exit conditions
             metrics['exit_conditions'] = {
@@ -149,7 +149,7 @@ class CalendarSpread(BaseStrategy):
             
         except Exception as e:
             logger.error(f"Error constructing Calendar Spread: {e}")
-            return None
+            return {'success': False, 'reason': f'Construction error: {str(e)}'}
     
     def _calculate_metrics(self, legs: List[Dict], spot_price: float,
                          market_analysis: Dict, near_expiry: str,
@@ -204,6 +204,8 @@ class CalendarSpread(BaseStrategy):
             days_between = 30  # Placeholder - would calculate from actual dates
             
             return {
+                'success': True,
+                'strategy_name': 'Calendar Spread',
                 'legs': legs,
                 'max_profit': total_max_profit,
                 'max_loss': total_max_loss,

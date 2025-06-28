@@ -41,13 +41,38 @@ class DataManager:
             return []
     
     def get_options_data(self, symbol: str) -> Optional[pd.DataFrame]:
-        """Fetch options chain data for symbol"""
+        """Fetch options chain data for symbol - LATEST DAY ONLY"""
         try:
-            response = self.supabase.table('option_chain_data').select('*').eq('symbol', symbol).execute()
+            # First get the latest date for this symbol
+            latest_date_response = self.supabase.table('option_chain_data')\
+                .select('created_at')\
+                .eq('symbol', symbol)\
+                .order('created_at', desc=True)\
+                .limit(1)\
+                .execute()
+            
+            if not latest_date_response.data:
+                logger.warning(f"No options data found for {symbol}")
+                return None
+            
+            # Extract date part only (YYYY-MM-DD)
+            latest_date = latest_date_response.data[0]['created_at'].split('T')[0]
+            logger.info(f"Fetching options data for {symbol} from {latest_date} (filtering out older data)")
+            
+            # Now fetch only data from the latest date
+            response = self.supabase.table('option_chain_data')\
+                .select('*')\
+                .eq('symbol', symbol)\
+                .gte('created_at', f"{latest_date}T00:00:00")\
+                .lt('created_at', f"{latest_date}T23:59:59")\
+                .execute()
+            
             if not response.data:
+                logger.warning(f"No options data found for {symbol} on {latest_date}")
                 return None
             
             df = pd.DataFrame(response.data)
+            logger.info(f"Retrieved {len(df)} options records for {symbol} from {latest_date}")
             
             # Convert numeric columns (using actual database column names)
             numeric_cols = ['strike_price', 'open_interest', 'volume', 'ltp', 
@@ -62,7 +87,8 @@ class DataManager:
                 'strike_price': 'strike',
                 'ltp': 'last_price', 
                 'implied_volatility': 'iv',
-                'underlying_price': 'spot_price'
+                'underlying_price': 'spot_price',
+                'expiry_date': 'expiry'  # Add expiry mapping for Calendar Spread
             })
             
             return df

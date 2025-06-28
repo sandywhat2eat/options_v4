@@ -128,6 +128,9 @@ class OptionsAnalyzer:
             self.logger.warning("Strike selector not available")
             self.strike_selector = None
         
+        # Strategy rotation tracking
+        self.strategy_history = {}  # {symbol: [last 5 strategies used]}
+        
         # Strategy mapping
         self.strategy_classes = {
             'Long Call': LongCall,
@@ -309,6 +312,25 @@ class OptionsAnalyzer:
             # 6. Select top strategies
             top_strategies = ranked_strategies[:3]  # Top 3 strategies
             
+            # Update strategy history for rotation tracking
+            if top_strategies:
+                # Get names of selected strategies
+                selected_names = [strategy_name for strategy_name, _ in top_strategies]
+                
+                # Update history (keep last 5)
+                if symbol not in self.strategy_history:
+                    self.strategy_history[symbol] = []
+                
+                # Add new strategies to front of history
+                for name in selected_names:
+                    if name not in self.strategy_history[symbol]:
+                        self.strategy_history[symbol].insert(0, name)
+                
+                # Keep only last 5
+                self.strategy_history[symbol] = self.strategy_history[symbol][:5]
+                
+                self.logger.debug(f"Strategy history for {symbol}: {self.strategy_history[symbol]}")
+            
             self.logger.info(f"Generated {len(strategies)} strategies, {len(ranked_strategies)} passed filters")
             
             # 7. Generate exit conditions for top strategies
@@ -447,24 +469,9 @@ class OptionsAnalyzer:
                         portfolio_context
                     )
                     
-                    # Boost score if strategy is preferred for this volatility profile
+                    # Mild preference for volatility-profile-based strategies (reduced from 1.5x)
                     if strategy_name in preferred_strategies:
-                        score *= 1.5  # 50% boost for preferred strategies
-                    
-                    # Boost volatility strategies in high IV environments
-                    if iv_env in ['ELEVATED', 'EXTREME'] and strategy_name in ['Long Straddle', 'Long Strangle', 'Short Straddle', 'Short Strangle']:
-                        score *= 1.8  # 80% boost for vol strategies in high IV
-                    
-                    # Boost neutral strategies for neutral markets
-                    if 'neutral' in direction.lower():
-                        if strategy_name in ['Long Straddle', 'Long Strangle']:
-                            score *= 2.2  # 120% boost for long volatility in neutral markets
-                        elif strategy_name in ['Iron Condor', 'Butterfly Spread', 'Iron Butterfly', 'Short Straddle', 'Short Strangle']:
-                            score *= 1.7  # 70% boost for other neutral strategies
-                    
-                    # Additional boost for straddle/strangle in low confidence markets
-                    if confidence < 0.4 and strategy_name in ['Long Straddle', 'Long Strangle']:
-                        score *= 1.5  # 50% additional boost for low confidence
+                        score *= 1.15  # Only 15% boost for preferred strategies
                         
                     strategy_scores[strategy_name] = score
             
@@ -478,54 +485,15 @@ class OptionsAnalyzer:
             # Select top 25-30 strategies to try
             selected_strategies = [name for name, score in sorted_strategies[:30]]
             
-            # Apply confidence-based strategy preferences
-            # MODERATE confidence (0.4-0.7): Prefer spreads over single legs
-            # HIGH confidence (>0.7): Allow single legs
-            if 0.4 <= confidence <= 0.7:  # Moderate confidence
-                # Boost spread strategies for moderate moves
-                spread_boost = 2.0
-                for i, (name, score) in enumerate(sorted_strategies):
-                    if 'Spread' in name and name not in ['Calendar Spread', 'Diagonal Spread']:
-                        strategy_scores[name] = score * spread_boost
-                
-                # Re-sort with boosted scores
-                sorted_strategies = sorted(
-                    strategy_scores.items(),
-                    key=lambda x: x[1],
-                    reverse=True
-                )
-                selected_strategies = [name for name, score in sorted_strategies[:30]]
-                
-            elif confidence > 0.85:  # Very high confidence
-                if 'strong' in direction.lower() and 'bullish' in direction.lower():
-                    # Remove purely bearish strategies
-                    selected_strategies = [s for s in selected_strategies 
-                                         if s not in ['Long Put', 'Bear Put Spread', 'Bear Call Spread']]
-                elif 'strong' in direction.lower() and 'bearish' in direction.lower():
-                    # Remove purely bullish strategies  
-                    selected_strategies = [s for s in selected_strategies
-                                         if s not in ['Long Call', 'Bull Call Spread']]
+            # Let all strategies compete on equal merit - no confidence-based filtering
             
-            # Ensure we always include some income strategies for diversity
-            income_strategies = ['Cash-Secured Put', 'Covered Call']
-            for income_strat in income_strategies:
-                if income_strat in self.strategy_classes and income_strat not in selected_strategies:
-                    if len(selected_strategies) < 30:
-                        selected_strategies.append(income_strat)
-            
-            # Ensure volatility strategies are included for neutral markets
-            if 'neutral' in direction.lower() or confidence < 0.4:
-                vol_strategies = ['Long Straddle', 'Long Strangle']
-                for vol_strat in vol_strategies:
-                    if vol_strat in self.strategy_classes and vol_strat not in selected_strategies:
-                        # Insert near the top to ensure they get constructed
-                        selected_strategies.insert(2, vol_strat)
+            # No forced insertions - let strategies compete on merit alone
             
             self.logger.info(f"Selected {len(selected_strategies)} strategies based on metadata scoring")
             self.logger.debug(f"Strategy selection details - Direction: {direction}, "
                             f"Confidence: {confidence:.1%}, IV: {iv_env}")
             
-            return selected_strategies[:30]  # Ensure max 30 strategies
+            return selected_strategies[:15]  # Reduce to 15 strategies for better focus
             
         except Exception as e:
             self.logger.error(f"Error in metadata-based selection: {e}")
@@ -555,25 +523,8 @@ class OptionsAnalyzer:
                 return strategy_instance.construct_strategy(wing_width=wing_width)
             
             elif 'Spread' in strategy_name:
-                # For spreads, adjust strike selection based on confidence
-                confidence = market_analysis.get('confidence', 0)
-                direction = market_analysis.get('direction', 'Neutral')
-                
-                # For Bull Call Spread / Bear Put Spread
-                if 'Bull Call Spread' in strategy_name:
-                    if confidence > 0.7:  # High confidence - OTM spread
-                        # Will be handled by strategy's intelligent strike selector
-                        return strategy_instance.construct_strategy(strike_preference='otm')
-                    else:  # Moderate confidence - ATM/ITM spread
-                        return strategy_instance.construct_strategy(strike_preference='atm')
-                elif 'Bear Put Spread' in strategy_name:
-                    if confidence > 0.7:  # High confidence - OTM spread
-                        return strategy_instance.construct_strategy(strike_preference='otm')
-                    else:  # Moderate confidence - ATM/ITM spread
-                        return strategy_instance.construct_strategy(strike_preference='atm')
-                else:
-                    # Other spreads use default
-                    return strategy_instance.construct_strategy()
+                # For all spreads, use default construction
+                return strategy_instance.construct_strategy()
             
             elif 'Long' in strategy_name and ('Call' in strategy_name or 'Put' in strategy_name) and 'Spread' not in strategy_name:
                 # For long single options only (not straddles/strangles/spreads)

@@ -100,6 +100,8 @@ class LongStraddle(BaseStrategy):
             
             probability_profit = min(0.55, max(0.25, probability_profit))  # Cap between 25-55%
             
+            logger.info(f"Long Straddle calc: IV={iv_avg:.1f}%, move_req={move_required_pct:.2f}%, exp_move={expected_move_pct:.2f}%, prob={probability_profit:.3f}")
+            
             return {
                 'success': True,
                 'strategy_name': self.get_strategy_name(),

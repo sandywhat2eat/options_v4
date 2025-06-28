@@ -329,7 +329,7 @@ class SupabaseIntegration:
                 'total_score': self._clean_value(strategy_data.get('total_score', 0)),
                 'confidence_score': self._clean_value(confidence),
                 'market_direction_strength': self._clean_value(market_analysis.get('strength', 0)),
-                'iv_percentile': self._clean_value(market_analysis.get('iv_analysis', {}).get('percentile_in_sector', 50)),
+                'iv_percentile': self._clean_value(market_analysis.get('iv_analysis', {}).get('percentile_analysis', {}).get('percentile', 50)),
                 'iv_environment': market_analysis.get('iv_analysis', {}).get('iv_environment', 'NORMAL'),
                 'spot_price': self._clean_value(spot_price),
                 'analysis_timestamp': datetime.now().isoformat(),
@@ -402,8 +402,8 @@ class SupabaseIntegration:
                 'risk_reward_ratio': self._clean_value(max_profit / max_loss if max_loss > 0 else 0),
                 'probability_profit': self._clean_value(strategy_data.get('probability_profit', 0)),
                 'expected_value': 0,   # Should be calculated
-                'target_price': self._clean_value(strategy_data.get('exit_conditions', {}).get('profit_targets', {}).get('primary', {}).get('target', 0)),
-                'stop_loss': self._clean_value(strategy_data.get('exit_conditions', {}).get('stop_losses', {}).get('primary', {}).get('loss_amount', 0))
+                'target_price': self._clean_value(self._extract_numeric_from_exit_conditions(strategy_data.get('exit_conditions', {}), 'profit_target')),
+                'stop_loss': self._clean_value(self._extract_numeric_from_exit_conditions(strategy_data.get('exit_conditions', {}), 'stop_loss'))
             }
             
             self.client.table('strategy_parameters').insert(params_record).execute()
@@ -465,9 +465,18 @@ class SupabaseIntegration:
         """Insert risk management data"""
         try:
             exit_conditions = strategy_data.get('exit_conditions', {})
-            profit_targets = exit_conditions.get('profit_targets', {})
-            stop_losses = exit_conditions.get('stop_losses', {})
-            time_exits = exit_conditions.get('time_exits', {})
+            
+            # Handle both nested structure and simple string-based structure
+            if isinstance(exit_conditions.get('profit_targets'), dict):
+                # New nested structure
+                profit_targets = exit_conditions.get('profit_targets', {})
+                stop_losses = exit_conditions.get('stop_losses', {})
+                time_exits = exit_conditions.get('time_exits', {})
+            else:
+                # Legacy simple string structure - extract defaults
+                profit_targets = {}
+                stop_losses = {}
+                time_exits = {}
             
             risk_record = {
                 'strategy_id': strategy_id,
@@ -477,7 +486,7 @@ class SupabaseIntegration:
                 'strategy_level_stop': self._clean_value(stop_losses.get('primary', {}).get('loss_pct', 50)),
                 'trailing_stop': self._clean_value(profit_targets.get('trailing', {}).get('trail_by', 0)),
                 'time_based_stop': str(time_exits.get('primary_dte', 7)) + ' DTE',
-                'adjustment_criteria': json.dumps(self._clean_data(exit_conditions.get('adjustment_triggers', {}))),
+                'adjustment_criteria': json.dumps(self._clean_data(exit_conditions.get('adjustment_triggers', exit_conditions.get('adjustment', {})))),
                 'exit_conditions': json.dumps(self._clean_data(exit_conditions)),
                 'overall_risk': 'MEDIUM',  # Should be calculated
                 # New fields
@@ -645,9 +654,37 @@ class SupabaseIntegration:
         except Exception as e:
             self.logger.error(f"Error inserting expected moves: {e}")
     
+    def _extract_numeric_from_exit_conditions(self, exit_conditions: Dict, field: str) -> float:
+        """Extract numeric value from exit conditions which may be in string format"""
+        try:
+            # Handle nested structure
+            if isinstance(exit_conditions.get('profit_targets'), dict):
+                if field == 'profit_target':
+                    return exit_conditions.get('profit_targets', {}).get('primary', {}).get('target', 0)
+                elif field == 'stop_loss':
+                    return exit_conditions.get('stop_losses', {}).get('primary', {}).get('loss_amount', 0)
+            
+            # Handle simple string structure - try to extract percentage
+            value_str = exit_conditions.get(field, '')
+            if isinstance(value_str, str):
+                # Extract numeric value from strings like "50-100% of debit paid"
+                import re
+                numbers = re.findall(r'(\d+)', value_str)
+                if numbers:
+                    return float(numbers[0])  # Return first number found
+            
+            return 0
+        except Exception:
+            return 0
+    
     def _insert_exit_levels(self, strategy_id: int, exit_conditions: Dict) -> None:
         """Insert detailed exit condition levels"""
         try:
+            # Handle both nested and simple string structures
+            if not isinstance(exit_conditions.get('profit_targets'), dict):
+                # Simple string structure - skip detailed exit levels
+                return
+                
             exit_records = []
             
             # Profit targets

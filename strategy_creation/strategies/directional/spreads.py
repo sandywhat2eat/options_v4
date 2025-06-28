@@ -38,11 +38,14 @@ class BullCallSpread(BaseStrategy):
             else:
                 # Fallback to delta-based selection
                 logger.info("Using delta-based strike selection")
-                long_strike = self._find_strike_by_delta(0.15, 'CALL')
-                short_strike = self._find_strike_by_delta(0.3, 'CALL')
+                # For Bull Call Spread: Buy lower strike (higher delta), Sell higher strike (lower delta)
+                long_strike = self._find_strike_by_delta(0.3, 'CALL')   # Higher delta = lower strike
+                short_strike = self._find_strike_by_delta(0.15, 'CALL')  # Lower delta = higher strike
             
             if long_strike >= short_strike:
-                return {'success': False, 'reason': 'Invalid strike relationship'}
+                # If strikes are reversed, swap them for Bull Call Spread
+                logger.warning(f"Swapping strikes for Bull Call Spread: long={long_strike}, short={short_strike}")
+                long_strike, short_strike = short_strike, long_strike
             
             if not self.validate_strikes([long_strike, short_strike]):
                 return {'success': False, 'reason': 'Invalid strikes'}
@@ -159,11 +162,13 @@ class BearCallSpread(BaseStrategy):
             else:
                 # Fallback to delta-based selection
                 logger.info("Using delta-based strike selection")
-                short_strike = self._find_strike_by_delta(0.3, 'CALL')
-                long_strike = self._find_strike_by_delta(0.15, 'CALL')
+                # For Bear Call Spread: Sell lower strike (higher delta), Buy higher strike (lower delta)
+                short_strike = self._find_strike_by_delta(0.3, 'CALL')  # Higher delta = lower strike
+                long_strike = self._find_strike_by_delta(0.15, 'CALL')   # Lower delta = higher strike
             
             if short_strike >= long_strike:
-                return {'success': False, 'reason': 'Invalid strike relationship'}
+                # If strikes are reversed, swap them
+                short_strike, long_strike = long_strike, short_strike
             
             if not self.validate_strikes([short_strike, long_strike]):
                 return {'success': False, 'reason': 'Invalid strikes'}
@@ -266,10 +271,11 @@ class BullPutSpread(BaseStrategy):
     def get_iv_preference(self) -> str:
         return "neutral"
     
-    def construct_strategy(self, short_delta: float = -0.3, long_delta: float = -0.15) -> Dict:
+    def construct_strategy(self, short_delta: float = -0.35, long_delta: float = -0.10) -> Dict:
         """Construct Bull Put Spread (Sell higher strike, Buy lower strike)"""
         try:
             # Find optimal strikes (using absolute values for put deltas)
+            # Wider spread for better credit potential
             short_strike = self._find_strike_by_delta(abs(short_delta), 'PUT')
             long_strike = self._find_strike_by_delta(abs(long_delta), 'PUT')
             
@@ -308,6 +314,11 @@ class BullPutSpread(BaseStrategy):
             
             # Calculate metrics
             net_credit = short_put_data.get('last_price', 0) - long_put_data.get('last_price', 0)
+            
+            # Check if we have a net credit
+            if net_credit <= 0:
+                return {'success': False, 'reason': f'No net credit for spread (short premium: {short_put_data.get("last_price", 0):.2f}, long premium: {long_put_data.get("last_price", 0):.2f})'}
+            
             max_loss = (short_strike - long_strike) - net_credit
             
             greeks = self.get_greeks_summary()
@@ -316,6 +327,11 @@ class BullPutSpread(BaseStrategy):
             total_max_profit = net_credit * self.lot_size
             total_max_loss = max_loss * self.lot_size
             
+            # Calculate probability of profit
+            # Bull Put Spread profits when price stays above short strike
+            # Use short put delta (negative) as approximation
+            probability_profit = 1.0 + short_put_data.get('delta', -0.3)  # Delta is negative for puts
+            
             return {
                 'success': True,
                 'strategy_name': self.get_strategy_name(),
@@ -323,6 +339,7 @@ class BullPutSpread(BaseStrategy):
                 'max_profit': total_max_profit,
                 'max_loss': total_max_loss,
                 'breakeven': short_strike - net_credit,
+                'probability_profit': probability_profit,
                 'delta_exposure': greeks['delta'],
                 'theta_decay': greeks['theta'],
                 'optimal_outcome': f"Stock closes above {short_strike} at expiry",
@@ -431,10 +448,16 @@ class BearPutSpread(BaseStrategy):
             total_max_profit = max_profit * self.lot_size
             total_max_loss = net_debit * self.lot_size
             
+            # Calculate probability of profit
+            # Bear Put Spread profits when price < breakeven
+            # Use long put delta (negative) as approximation
+            probability_profit = abs(long_put_data.get('delta', -0.3))  # Convert negative delta to positive
+            
             return {
                 'success': True,
                 'strategy_name': self.get_strategy_name(),
                 'legs': self.legs,
+                'probability_profit': probability_profit,
                 'max_profit': total_max_profit,
                 'max_loss': total_max_loss,
                 'breakeven': long_strike - net_debit,

@@ -128,9 +128,13 @@ class IronCondor(BaseStrategy):
             put_prob_itm = abs(put_short_data.get('delta', 0.25))
             
             # Probability of staying between short strikes
-            probability_profit = 1.0 - (call_prob_itm + put_prob_itm)
+            # Use the product rule for independent probabilities
+            # P(stay between) = (1 - P(above call)) * (1 - P(below put))
+            probability_profit = (1.0 - call_prob_itm) * (1.0 - put_prob_itm)
             # Conservative adjustment for early assignment risk
             probability_profit *= 0.9
+            # Ensure non-negative
+            probability_profit = max(0.0, probability_profit)
             
             return {
                 'success': True,
@@ -246,9 +250,12 @@ class IronCondor(BaseStrategy):
             put_prob_itm = abs(put_short_data.get('delta', 0.3))
             
             # Probability of staying between short strikes
-            probability_profit = 1.0 - (call_prob_itm + put_prob_itm)
+            # Use the product rule for independent probabilities
+            probability_profit = (1.0 - call_prob_itm) * (1.0 - put_prob_itm)
             # Conservative adjustment
             probability_profit *= 0.85
+            # Ensure non-negative
+            probability_profit = max(0.0, probability_profit)
             
             return {
                 'success': True,

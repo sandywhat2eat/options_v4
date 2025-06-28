@@ -199,3 +199,46 @@ All 22 strategies now have proper probability_profit fields and should appear in
 - Spread strategies for moderate confidence moves
 - Volatility strategies for uncertain/neutral markets
 - Income strategies for stable conditions
+
+## Critical Data Filtering Fix (June 28, 2025 - Latest Update)
+
+### Issue: Mixed Historical Data Usage
+**Problem**: DataManager was fetching ALL historical options data without date filtering, causing:
+- Mixed pricing from different days (June 23-27 all combined)
+- Stale Greeks affecting strike selection
+- Inconsistent spot prices
+- Invalid spread relationships
+- Bull Put Spread failures due to inconsistent premium data
+- Calendar Spread comparing options from different data collection dates
+
+### Solution Implemented
+**Date Filtering in DataManager**: Modified `get_options_data()` to fetch only the most recent day's data:
+```python
+# First get the latest date for this symbol
+latest_date_response = self.supabase.table('option_chain_data')\
+    .select('created_at')\
+    .eq('symbol', symbol)\
+    .order('created_at', desc=True)\
+    .limit(1)\
+    .execute()
+
+# Then fetch only data from that date
+response = self.supabase.table('option_chain_data')\
+    .select('*')\
+    .eq('symbol', symbol)\
+    .gte('created_at', f"{latest_date}T00:00:00")\
+    .lt('created_at', f"{latest_date}T23:59:59")\
+    .execute()
+```
+
+### Impact
+- From ~500 mixed records to ~104 consistent records per symbol
+- All options data now from same EOD collection (2025-06-27)
+- Consistent pricing across all strategy legs
+- Accurate delta-based strike selection
+- Valid credit/debit calculations for spreads
+- Reliable probability calculations
+- Better Calendar Spread construction with proper expiry comparison
+
+### Files Modified
+- `strategy_creation/data_manager.py` - Added date filtering to `get_options_data()`

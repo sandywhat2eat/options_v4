@@ -129,7 +129,7 @@ class LongStrangle(BaseStrategy):
             # Calculate strategy metrics
             metrics = self._calculate_metrics(legs, self.spot_price, market_analysis)
             if not metrics:
-                return None
+                return {'success': False, 'reason': 'Failed to calculate metrics'}
             
             # Add exit conditions
             metrics['exit_conditions'] = {
@@ -144,7 +144,7 @@ class LongStrangle(BaseStrategy):
             
         except Exception as e:
             logger.error(f"Error constructing Long Strangle: {e}")
-            return None
+            return {'success': False, 'reason': f'Construction error: {str(e)}'}
     
     def _calculate_metrics(self, legs: List[Dict], spot_price: float,
                          market_analysis: Dict) -> Optional[Dict]:
@@ -192,6 +192,8 @@ class LongStrangle(BaseStrategy):
             move_probability = 'High' if expected_move > total_debit else 'Low'
             
             return {
+                'success': True,
+                'strategy_name': 'Long Strangle',
                 'legs': legs,
                 'max_profit': max_profit,
                 'max_loss': max_loss,

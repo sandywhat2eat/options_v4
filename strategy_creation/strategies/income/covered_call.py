@@ -128,6 +128,10 @@ class CoveredCall(BaseStrategy):
             # Probability of being called away
             call_away_prob = call_data.get('delta', 0.3)
             
+            # Probability of profit (keeps premium if not called away)
+            # For covered call, profit if stock stays below strike
+            probability_profit = 1.0 - call_away_prob
+            
             # Apply lot size multiplier for real position sizing
             total_max_profit = max_profit * self.lot_size
             total_max_loss = max_loss * self.lot_size
@@ -137,6 +141,7 @@ class CoveredCall(BaseStrategy):
             return {
                 'success': True,
                 'strategy_name': self.get_strategy_name(),
+                'probability_profit': round(probability_profit, 3),
                 'legs': self.legs,
                 'net_premium': total_premium,
                 'max_profit': total_max_profit,

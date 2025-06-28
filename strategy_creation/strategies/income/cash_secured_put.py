@@ -117,6 +117,10 @@ class CashSecuredPut(BaseStrategy):
             # Assignment probability (roughly inverse of delta)
             assignment_prob = abs(put_data.get('delta', 0.3))
             
+            # Probability of profit (keeps premium if not assigned)
+            # For CSP, profit if stock stays above strike
+            probability_profit = 1.0 - assignment_prob
+            
             # Apply lot size multiplier for real position sizing
             total_max_profit = max_profit * self.lot_size
             total_max_loss = max_loss * self.lot_size
@@ -131,6 +135,7 @@ class CashSecuredPut(BaseStrategy):
                 'max_profit': total_max_profit,
                 'max_loss': total_max_loss,
                 'breakeven': breakeven,
+                'probability_profit': round(probability_profit, 3),
                 'cash_required': total_cash_required,
                 'return_on_cash_annualized': round(return_on_cash, 2),
                 'assignment_probability': round(assignment_prob, 3),

@@ -43,6 +43,9 @@ class IVAnalyzer:
                           sector: str = None, historical_iv: Dict = None) -> Dict:
         """Analyze current IV environment with available data"""
         try:
+            # Store symbol for historical IV lookup
+            self.symbol = symbol
+            
             if options_df is None or options_df.empty:
                 return self._default_iv_analysis()
             
@@ -58,9 +61,9 @@ class IVAnalyzer:
             # Calculate IV relativity (vs sector/market)
             iv_relativity = self._calculate_iv_relativity(atm_iv, sector, options_df)
             
-            # Enhanced percentile calculation
-            percentile_analysis = self._calculate_iv_percentile_enhanced(
-                atm_iv, sector, historical_iv
+            # Enhanced percentile calculation - try historical IV system first
+            percentile_analysis = self._get_historical_iv_percentiles(
+                self.symbol, atm_iv, sector, historical_iv
             )
             
             # Categorize IV environment with context
@@ -625,3 +628,29 @@ class IVAnalyzer:
             'analysis_quality': 'DEFAULT',
             'recommendations': self._get_iv_strategy_recommendations(30.0, 'NORMAL')
         }
+    
+    def _get_historical_iv_percentiles(self, symbol: str, atm_iv: float, sector: str, 
+                                     historical_iv: Dict = None) -> Dict:
+        """Get IV percentiles from historical IV system, fallback to estimation"""
+        try:
+            # Try to use historical IV system
+            from iv_historical_builder.iv_integration import get_enhanced_iv_analysis
+            
+            enhanced_analysis = get_enhanced_iv_analysis(symbol, atm_iv)
+            
+            if enhanced_analysis and enhanced_analysis.get('data_source') == 'historical_iv_system':
+                percentile_data = enhanced_analysis['percentile_analysis']
+                return {
+                    'percentile': percentile_data['percentile'],
+                    'method': 'historical_iv_system',
+                    'lookback_days': percentile_data['lookback_days'],
+                    'iv_range': percentile_data.get('iv_range', (20, 45)),
+                    'current_rank': percentile_data['current_rank'],
+                    'confidence': percentile_data['confidence']
+                }
+            
+        except Exception as e:
+            logger.warning(f"Could not access historical IV system for {symbol}: {e}")
+        
+        # Fallback to original enhanced calculation
+        return self._calculate_iv_percentile_enhanced(atm_iv, sector, historical_iv)

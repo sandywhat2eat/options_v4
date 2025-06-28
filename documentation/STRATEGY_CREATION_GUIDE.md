@@ -87,7 +87,19 @@ volatility_buckets = {
 - **Direction**: Bullish/Bearish/Neutral with strength (Weak/Moderate/Strong)
 - **Confidence**: 0-100% confidence in direction
 - **Timeframe**: Short-term (1-5 days) vs Mid-term (10-30 days)
-- **IV Environment**: LOW/NORMAL/HIGH based on percentile ranking
+- **IV Environment**: LOW/SUBDUED/NORMAL/ELEVATED/HIGH based on real historical percentiles
+
+### IV Analysis System (Enhanced June 28, 2025)
+- **✅ Real Historical Data**: Actual IV percentiles from 7+ days of historical data (not estimates)
+- **✅ Accurate Rankings**: True percentile rankings from historical_iv_summary table
+- **✅ Environment Classification**: 
+  - LOW: < 20th percentile (buy volatility opportunities)
+  - SUBDUED: 20-40th percentile (moderate volatility buying)
+  - NORMAL: 40-60th percentile (directional strategies preferred)
+  - ELEVATED: 60-80th percentile (moderate volatility selling)
+  - HIGH: > 80th percentile (sell volatility opportunities)
+- **✅ Strategy Optimization**: Better strategy selection based on actual IV vs historical ranges
+- **✅ Growing Dataset**: Daily collection improves accuracy over time
 
 ### Strategy Metadata System
 ```python
@@ -212,10 +224,25 @@ All strategies automatically stored in Supabase with complete metadata for portf
 - **DTE Optimization**: Targets optimal days to expiration
 - **Holiday Handling**: Accounts for market holidays
 
-### IV Analysis
-- **Percentile Ranking**: Historical IV percentile calculation
-- **Skew Analysis**: Put/call skew identification
-- **Mean Reversion**: IV reversion probability
+### IV Analysis (Enhanced with Historical System)
+- **✅ Real Percentile Ranking**: Actual historical IV percentiles (not estimates)
+- **✅ Accurate Environment Detection**: LOW/SUBDUED/NORMAL/ELEVATED/HIGH classifications
+- **✅ Skew Analysis**: Put/call skew identification with sentiment analysis
+- **✅ Mean Reversion**: IV reversion probability based on real historical ranges
+- **✅ Daily Updates**: Percentiles refresh daily with new market data
+- **Database Integration**: Uses `iv_percentiles` table for real-time lookups
+
+### Daily IV Workflow Integration
+The system automatically integrates with the IV Historical Builder:
+
+```bash
+# Before running strategy creation, ensure IV data is current:
+python3 iv_historical_builder/iv_collector.py --latest    # Collect today's IV
+python3 iv_historical_builder/iv_analyzer.py              # Update percentiles
+python3 main.py                                           # Run strategy creation
+```
+
+**Result**: Strategies now selected based on actual IV environments rather than default assumptions
 
 ### Exit Condition Generation
 - **Profit Targets**: Multiple scaling levels (25%, 50%, 75%)

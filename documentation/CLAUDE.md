@@ -57,11 +57,25 @@ python trade_monitoring/legacy/monitor.py --continuous                      # In
 python data_scripts/import_scrip_master.py        # Update security master
 python data_scripts/update_trade_prices.py        # Fix zero-price trades
 python data_scripts/market_quote_fetcher.py       # Fetch current market data
+
+# IV HISTORICAL SYSTEM (DAILY WORKFLOW)
+python3 iv_historical_builder/iv_collector.py --latest    # Collect today's IV data
+python3 iv_historical_builder/iv_analyzer.py              # Update IV percentiles
 ```
 
 ### Recent Improvements
 
-1. **Complete System Reorganization** (June 28, 2025)
+1. **IV Historical System Implementation** (June 28, 2025)
+   - **✅ Real IV Percentiles**: Replaced default 50% fallbacks with actual historical data
+   - **✅ 212 Symbols Backfilled**: Complete historical IV data for 7+ days (June 20-28, 2025)
+   - **✅ Pagination Fixed**: IV collector now processes 20,000+ records per date (was limited to 1000)
+   - **✅ Accurate IV Environments**: Proper LOW/NORMAL/HIGH classifications based on real data
+   - **✅ Daily Workflow**: Automated IV collection and percentile calculation system
+   - **✅ Strategy Optimization**: Better volatility-based strategy selection and recommendations
+   - **Database Tables**: `historical_iv_summary` and `iv_percentiles` for comprehensive IV tracking
+   - **Integration**: Main system automatically uses updated percentiles for strategy selection
+
+2. **Complete System Reorganization** (June 28, 2025)
    - **4-Operation Architecture**: Clean separation of strategy creation, allocation, execution, and monitoring
    - **Modular Directory Structure**: Each operation has its own dedicated directory
    - **Import Path Fixes**: All cross-module imports properly resolved
@@ -210,6 +224,12 @@ trade_monitoring/
 # SHARED COMPONENTS
 ├── main.py                              # Strategy creation entry point
 ├── run_allocator.py                     # Portfolio allocation entry point
+├── iv_historical_builder/              # IV Historical System (NEW)
+│   ├── iv_collector.py                 # Daily IV data collection with pagination
+│   ├── iv_analyzer.py                  # IV percentile calculation
+│   ├── iv_integration.py               # Integration with main system
+│   ├── database_schema.sql             # IV tables schema
+│   └── README.md                       # IV system documentation
 ├── database/
 │   ├── supabase_integration.py         # Database interface
 │   ├── database_schema_updates.sql     # Schema updates
@@ -480,6 +500,13 @@ options_v4/
 ├── trade_monitoring/             # Position tracking systems
 │   ├── realtime/               # WebSocket monitoring (recommended)
 │   └── legacy/                 # Polling monitoring (compatibility)
+│
+├── iv_historical_builder/        # IV Historical System (NEW - June 28, 2025)
+│   ├── iv_collector.py          # Daily IV data collection with pagination
+│   ├── iv_analyzer.py           # IV percentile calculation & ranking
+│   ├── iv_integration.py        # Integration with main options system
+│   ├── database_schema.sql      # Database tables for IV data
+│   └── README.md                # Complete IV system documentation
 │
 ├── database/                    # Database integration & schema
 ├── data_scripts/               # Market data fetchers & utilities
