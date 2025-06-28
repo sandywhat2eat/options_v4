@@ -144,3 +144,58 @@ Bearish Strong: < -0.5
 - Better representation of bearish strategies
 - Improved risk management through natural hedging
 - Reduced portfolio concentration risk
+
+## Missing Strategy Fixes (June 28, 2025 - Final Update)
+
+### Issue: Missing Volatility Strategies (Straddles/Strangles)
+**Problem**: Long Straddle and Long Strangle were being selected during strategy scoring but not appearing in final results.
+
+**Root Cause**: Missing `probability_profit` field in strategy construction results, causing probability filter failures.
+
+### Fixes Implemented
+
+#### 1. Added probability_profit Fields
+- **Long Straddle**: Added field with 35-45% probability range
+- **Short Straddle**: Added field with IV-based calculation
+- **Long Strangle**: Added field with 30-40% probability range (lower than straddle)
+- **Short Strangle**: Added field with delta-based calculation
+- **Iron Condor**: Added field to both regular and simple construction methods
+
+#### 2. Enhanced Strategy Selection Logic
+```python
+# Neutral market boosts:
+Long Straddle/Strangle: 120% boost in neutral markets
+Other neutral strategies: 70% boost
+
+# Low confidence boost:
+Long Straddle/Strangle: Additional 50% boost when confidence < 40%
+```
+
+#### 3. Explicit Volatility Strategy Inclusion
+- For neutral markets or low confidence (<40%), Long Straddle and Long Strangle are explicitly inserted near the top of strategy selection list
+- Ensures these strategies get a chance to be constructed
+
+### Strategy Probability Calculations
+- **Long Straddle**: `min(0.45, 0.35 + (expected_move_pct - move_required_pct) * 2)`
+- **Long Strangle**: `min(0.40, 0.30 + (expected_move_pct - move_required_pct) * 1.5)`
+- **Short Straddle**: `max(0.35, 0.65 - expected_move_pct * 2.0)`
+- **Short Strangle**: `(1.0 - (call_delta + put_delta)) * 0.85`
+- **Iron Condor**: `(1.0 - (call_delta + put_delta)) * 0.9`
+
+### Confidence-Based Strategy Selection
+- **High confidence (>85%)**: Single legs preferred
+- **Moderate confidence (40-70%)**: Spreads get 2x boost
+- **Low confidence (<40%)**: Volatility strategies get extra boost
+
+### Files Modified
+- `strategy_creation/strategies/volatility/straddles.py`
+- `strategy_creation/strategies/volatility/strangles.py`
+- `strategy_creation/strategies/neutral/iron_condor.py`
+- `main.py` (enhanced selection logic)
+
+### Current Status
+All 22 strategies now have proper probability_profit fields and should appear in results based on market conditions. The system provides balanced strategy distribution across:
+- Directional strategies for trending markets
+- Spread strategies for moderate confidence moves
+- Volatility strategies for uncertain/neutral markets
+- Income strategies for stable conditions
