@@ -436,4 +436,20 @@ def calculate_strategy_score(metadata: StrategyMetadata, market_analysis: Dict,
     complexity_score = 1.0 - ((metadata.complexity - 1) / 4.0)
     score += complexity_score * 0.2
     
+    # Bonus adjustments based on market conditions
+    confidence = market_analysis.get('confidence', 0.5)
+    
+    # High confidence markets: boost simple directional strategies
+    if confidence > 0.7 and metadata.category == 'directional' and metadata.complexity <= 2:
+        score *= 1.2  # 20% boost for simple directional in trending markets
+    
+    # Low confidence markets: boost volatility strategies
+    elif confidence < 0.4 and metadata.category == 'volatility':
+        score *= 1.15  # 15% boost for volatility plays in uncertain markets
+    
+    # Neutral markets with high IV: boost premium selling
+    elif market_bias == MarketBias.NEUTRAL and iv_score > 0.8:
+        if metadata.time_decay_profile == TimeDecayProfile.POSITIVE:
+            score *= 1.1  # 10% boost for theta positive strategies
+    
     return min(1.0, max(0.0, score))

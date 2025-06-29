@@ -70,9 +70,10 @@ class MarketAnalyzer:
             price_action_score, price_action_details = self._analyze_price_action_enhanced(options_df, spot_price)
             
             # 4. Calculate weighted final score
+            # Increased technical weight, reduced options weight
             weights = {
-                'technical': 0.40,
-                'options': 0.35,
+                'technical': 0.60,
+                'options': 0.15,
                 'price_action': 0.25
             }
             
@@ -95,11 +96,8 @@ class MarketAnalyzer:
                     elif technical_details.get('macd_signal') == 'Bearish':
                         bearish_signals += 1
                     
-                    # Options signals
-                    if options_details.get('pcr_interpretation') in ['Bullish', 'Extremely Bullish']:
-                        bullish_signals += 1
-                    elif options_details.get('pcr_interpretation') in ['Bearish', 'Extremely Bearish']:
-                        bearish_signals += 1
+                    # Options signals - removed PCR, only use smart money flow
+                    # PCR removed due to unreliable data
                         
                     if options_details.get('smart_money_direction') == 'Bullish':
                         bullish_signals += 1
@@ -351,15 +349,14 @@ class MarketAnalyzer:
             smart_money_score = smart_money['smart_money_bias']
             logger.info(f"Smart Money Bias: {smart_money_score:.2f}")
             
-            # Combine components with weights
-            pcr_score = self._interpret_pcr(volume_pcr, oi_pcr)
+            # Combine components with weights (PCR removed)
+            # pcr_score = self._interpret_pcr(volume_pcr, oi_pcr)  # Removed unreliable PCR
             
             options_score = (
-                pcr_score * 0.25 +
-                atm_score * 0.20 +
-                skew_score * 0.20 +
-                oi_score * 0.15 +
-                smart_money_score * 0.20
+                atm_score * 0.30 +           # Increased from 0.20
+                skew_score * 0.25 +          # Increased from 0.20
+                oi_score * 0.20 +            # Increased from 0.15
+                smart_money_score * 0.25     # Increased from 0.20
             )
             
             logger.info(f"Final Options Score: {options_score:.2f}")
@@ -402,34 +399,35 @@ class MarketAnalyzer:
             if calls.empty or puts.empty:
                 return 0.0
             
-            # Volume-based PCR
+            # Volume-based PCR (Traditional calculation: puts/calls)
             call_volume = calls['volume'].sum()
             put_volume = puts['volume'].sum()
             
-            if call_volume + put_volume == 0:
-                volume_pcr = 1.0
+            if call_volume == 0:
+                volume_pcr = 2.0  # High PCR when no call volume (bearish)
             else:
-                volume_pcr = put_volume / (call_volume + put_volume)
+                volume_pcr = put_volume / call_volume
             
-            # OI-based PCR
+            # OI-based PCR (Traditional calculation: puts/calls)
             call_oi = calls['open_interest'].sum()
             put_oi = puts['open_interest'].sum()
             
-            if call_oi + put_oi == 0:
-                oi_pcr = 1.0
+            if call_oi == 0:
+                oi_pcr = 2.0  # High PCR when no call OI (bearish)
             else:
-                oi_pcr = put_oi / (call_oi + put_oi)
+                oi_pcr = put_oi / call_oi
             
             # 2. ATM Options Analysis
             atm_analysis = self._analyze_atm_options(options_df, spot_price)
+            atm_score = atm_analysis.get('activity_ratio', 0.0)  # Extract the ratio from dict
             
             # 3. Skew Analysis
             skew_score = self._analyze_options_skew(calls, puts, spot_price)
             
-            # Combine components
-            pcr_score = self._interpret_pcr(volume_pcr, oi_pcr)
+            # Combine components (PCR removed, focus on ATM and skew)
+            # pcr_score = self._interpret_pcr(volume_pcr, oi_pcr)  # Removed unreliable PCR
             
-            options_score = (pcr_score * 0.4 + atm_analysis * 0.35 + skew_score * 0.25)
+            options_score = (atm_score * 0.60 + skew_score * 0.40)
             
             return max(-1.0, min(1.0, options_score))
             

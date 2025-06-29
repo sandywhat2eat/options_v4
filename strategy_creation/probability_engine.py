@@ -236,3 +236,95 @@ class ProbabilityEngine:
         except Exception as e:
             logger.error(f"Error validating probability: {e}")
             return False
+    
+    def calculate_market_aware_probability(self, delta: float, option_type: str, 
+                                         position: str, iv: float = None, 
+                                         days_to_expiry: int = None,
+                                         premium_pct_of_strike: float = None,
+                                         iv_percentile: float = None) -> float:
+        """
+        Calculate probability with market context awareness
+        
+        Args:
+            delta: Option delta
+            option_type: 'CALL' or 'PUT'
+            position: 'LONG' or 'SHORT'
+            iv: Implied volatility (as percentage)
+            days_to_expiry: Days until expiration
+            premium_pct_of_strike: Premium as percentage of strike price
+            iv_percentile: Current IV percentile (0-100)
+        
+        Returns:
+            Market-aware probability of profit
+        """
+        try:
+            # Base probability from delta
+            base_prob = abs(delta)
+            
+            # Position adjustments
+            if position.upper() == 'LONG':
+                # Long options need to overcome premium
+                
+                # Premium adjustment (more sophisticated than fixed 0.06)
+                if premium_pct_of_strike is not None:
+                    # Higher premium = lower probability
+                    # Cap adjustment at 15%
+                    premium_adjustment = min(0.15, premium_pct_of_strike / 100 * 0.8)
+                else:
+                    # Default fallback
+                    premium_adjustment = 0.06
+                
+                # IV rank adjustment
+                iv_bonus = 0.0
+                if iv_percentile is not None:
+                    if iv_percentile < 30:  # Low IV - good for long options
+                        iv_bonus = 0.05
+                    elif iv_percentile > 70:  # High IV - bad for long options
+                        iv_bonus = -0.05
+                
+                # Time decay penalty
+                time_penalty = 0.02  # Default
+                if days_to_expiry is not None:
+                    if days_to_expiry < 7:
+                        time_penalty = 0.08
+                    elif days_to_expiry < 14:
+                        time_penalty = 0.04
+                    elif days_to_expiry > 45:
+                        time_penalty = 0.01
+                
+                # Calculate final probability
+                prob_profit = base_prob - premium_adjustment + iv_bonus - time_penalty
+                
+                logger.debug(f"Long option PoP: base={base_prob:.3f}, "
+                           f"prem_adj=-{premium_adjustment:.3f}, "
+                           f"iv_bonus={iv_bonus:.3f}, "
+                           f"time_pen=-{time_penalty:.3f}, "
+                           f"final={prob_profit:.3f}")
+                
+            else:  # SHORT position
+                # Short options profit from OTM expiration
+                
+                # Base probability is inverse of ITM probability
+                prob_profit = 1.0 - base_prob
+                
+                # IV rank adjustment (opposite of long)
+                if iv_percentile is not None:
+                    if iv_percentile > 70:  # High IV - good for short options
+                        prob_profit += 0.03
+                    elif iv_percentile < 30:  # Low IV - bad for short options
+                        prob_profit -= 0.03
+                
+                # Time bonus for short positions
+                if days_to_expiry is not None and days_to_expiry < 21:
+                    prob_profit += 0.02  # Theta acceleration helps
+            
+            # Ensure probability stays within bounds
+            return max(0.1, min(0.9, prob_profit))
+            
+        except Exception as e:
+            logger.error(f"Error in market-aware probability calculation: {e}")
+            # Fallback to simple delta-based calculation
+            if position.upper() == 'LONG':
+                return max(0.0, abs(delta) - 0.06)
+            else:
+                return 1.0 - abs(delta)

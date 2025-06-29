@@ -221,9 +221,34 @@ class ShortStraddle(BaseStrategy):
             days_to_expiry = 30  # Default
             expected_move_pct = (iv_avg / 100) * np.sqrt(days_to_expiry / 365)
             
-            # Probability of staying within profit zone
-            # Higher than long straddle but still conservative
-            probability_profit = max(0.35, 0.65 - expected_move_pct * 2.0)
+            # Calculate probability using delta-based approach
+            # Short straddle profits when BOTH options expire OTM
+            call_delta = abs(call_data.get('delta', 0.5))
+            put_delta = abs(put_data.get('delta', 0.5))
+            
+            # Probability of call expiring OTM = 1 - call_delta
+            # Probability of put expiring OTM = put_delta
+            # For profit, need BOTH to expire worthless (stay in range)
+            prob_call_otm = 1.0 - call_delta
+            prob_put_otm = put_delta
+            
+            # Rough approximation of joint probability
+            # Account for the fact that movements are mutually exclusive
+            probability_profit = prob_call_otm * prob_put_otm * 1.8  # Adjustment factor
+            
+            # Apply IV percentile adjustment
+            iv_percentile = None
+            if self.market_analysis and 'iv_analysis' in self.market_analysis:
+                iv_percentile = self.market_analysis['iv_analysis'].get('iv_percentile', None)
+                if iv_percentile and iv_percentile > 70:
+                    # High IV is good for short straddles
+                    probability_profit *= 1.1
+                elif iv_percentile and iv_percentile < 30:
+                    # Low IV is bad for short straddles
+                    probability_profit *= 0.9
+            
+            # Ensure reasonable bounds
+            probability_profit = max(0.25, min(0.75, probability_profit))
             
             return {
                 'success': True,

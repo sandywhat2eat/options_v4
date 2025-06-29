@@ -485,9 +485,25 @@ class OptionsAnalyzer:
             # Select top 25-30 strategies to try
             selected_strategies = [name for name, score in sorted_strategies[:30]]
             
-            # Let all strategies compete on equal merit - no confidence-based filtering
+            # Ensure balanced strategy selection
+            # Force inclusion of simple directional strategies if market has clear direction
+            if 'bullish' in direction.lower():
+                if 'Long Call' not in selected_strategies[:10]:
+                    selected_strategies.insert(0, 'Long Call')
+                if 'Bull Call Spread' not in selected_strategies[:10]:
+                    selected_strategies.insert(2, 'Bull Call Spread')
+            elif 'bearish' in direction.lower():
+                if 'Long Put' not in selected_strategies[:10]:
+                    selected_strategies.insert(0, 'Long Put')
+                if 'Bear Put Spread' not in selected_strategies[:10]:
+                    selected_strategies.insert(2, 'Bear Put Spread')
             
-            # No forced insertions - let strategies compete on merit alone
+            # For low confidence or neutral markets, ensure volatility strategies
+            if confidence < 0.4 or direction.lower() == 'neutral':
+                if 'Long Straddle' not in selected_strategies[:10]:
+                    selected_strategies.insert(0, 'Long Straddle')
+                if 'Long Strangle' not in selected_strategies[:10]:
+                    selected_strategies.insert(1, 'Long Strangle')
             
             self.logger.info(f"Selected {len(selected_strategies)} strategies based on metadata scoring")
             self.logger.debug(f"Strategy selection details - Direction: {direction}, "

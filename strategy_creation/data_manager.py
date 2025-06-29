@@ -41,7 +41,7 @@ class DataManager:
             return []
     
     def get_options_data(self, symbol: str) -> Optional[pd.DataFrame]:
-        """Fetch options chain data for symbol - LATEST DAY ONLY"""
+        """Fetch options chain data for symbol - MONTHLY EXPIRY ONLY WITH TOP 10 OI STRIKES"""
         try:
             # First get the latest date for this symbol
             latest_date_response = self.supabase.table('option_chain_data')\
@@ -57,12 +57,52 @@ class DataManager:
             
             # Extract date part only (YYYY-MM-DD)
             latest_date = latest_date_response.data[0]['created_at'].split('T')[0]
-            logger.info(f"Fetching options data for {symbol} from {latest_date} (filtering out older data)")
             
-            # Now fetch only data from the latest date
+            # Determine which monthly expiry to fetch based on current date
+            current_day = datetime.now().day
+            
+            # Get all available expiries for the latest date
+            expiry_response = self.supabase.table('option_chain_data')\
+                .select('expiry_date')\
+                .eq('symbol', symbol)\
+                .gte('created_at', f"{latest_date}T00:00:00")\
+                .lt('created_at', f"{latest_date}T23:59:59")\
+                .execute()
+            
+            if not expiry_response.data:
+                logger.warning(f"No expiries found for {symbol}")
+                return None
+            
+            # Get unique expiries and sort them
+            expiries = sorted(list(set([row['expiry_date'] for row in expiry_response.data])))
+            
+            # Select appropriate monthly expiry based on 20th rule
+            target_expiry = None
+            for expiry in expiries:
+                expiry_date = datetime.strptime(expiry, '%Y-%m-%d')
+                # Check if this is a monthly expiry (last Thursday of month logic can be added)
+                if current_day <= 20:
+                    # Use current month expiry
+                    if expiry_date.month == datetime.now().month:
+                        target_expiry = expiry
+                        break
+                else:
+                    # Use next month expiry
+                    if expiry_date.month > datetime.now().month or expiry_date.year > datetime.now().year:
+                        target_expiry = expiry
+                        break
+            
+            if not target_expiry:
+                # Fallback to nearest expiry
+                target_expiry = expiries[0]
+            
+            logger.info(f"Selected expiry: {target_expiry} for {symbol} (current day: {current_day})")
+            
+            # Fetch all data for the selected expiry
             response = self.supabase.table('option_chain_data')\
                 .select('*')\
                 .eq('symbol', symbol)\
+                .eq('expiry_date', target_expiry)\
                 .gte('created_at', f"{latest_date}T00:00:00")\
                 .lt('created_at', f"{latest_date}T23:59:59")\
                 .execute()
@@ -72,7 +112,6 @@ class DataManager:
                 return None
             
             df = pd.DataFrame(response.data)
-            logger.info(f"Retrieved {len(df)} options records for {symbol} from {latest_date}")
             
             # Convert numeric columns (using actual database column names)
             numeric_cols = ['strike_price', 'open_interest', 'volume', 'ltp', 
@@ -82,8 +121,24 @@ class DataManager:
                 if col in df.columns:
                     df[col] = pd.to_numeric(df[col], errors='coerce')
             
+            # Get top 10 OI strikes for CALLs and PUTs
+            calls_df = df[df['option_type'] == 'CALL'].copy()
+            puts_df = df[df['option_type'] == 'PUT'].copy()
+            
+            # Get top 10 OI strikes for each type
+            top_call_strikes = calls_df.nlargest(10, 'open_interest')['strike_price'].unique()
+            top_put_strikes = puts_df.nlargest(10, 'open_interest')['strike_price'].unique()
+            
+            # Combine unique strikes
+            top_strikes = set(top_call_strikes) | set(top_put_strikes)
+            
+            # Filter dataframe to only include top OI strikes
+            df_filtered = df[df['strike_price'].isin(top_strikes)].copy()
+            
+            logger.info(f"Filtered from {len(df)} to {len(df_filtered)} records (top 10 OI strikes each side)")
+            
             # Standardize column names for consistency with our code
-            df = df.rename(columns={
+            df_filtered = df_filtered.rename(columns={
                 'strike_price': 'strike',
                 'ltp': 'last_price', 
                 'implied_volatility': 'iv',
@@ -91,7 +146,7 @@ class DataManager:
                 'expiry_date': 'expiry'  # Add expiry mapping for Calendar Spread
             })
             
-            return df
+            return df_filtered
             
         except Exception as e:
             logger.error(f"Error fetching options data for {symbol}: {e}")

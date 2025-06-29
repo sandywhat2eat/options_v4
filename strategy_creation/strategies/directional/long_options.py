@@ -83,10 +83,32 @@ class LongCall(BaseStrategy):
             total_cost = premium_per_contract * self.lot_size
             total_max_loss = total_cost
             
-            # Calculate probability of profit using delta approximation
-            # Long calls need to overcome premium paid
+            # Calculate probability of profit using market-aware approach
             delta = abs(call_data.get('delta', 0.5))
-            probability_profit = max(0.0, delta - 0.06)  # Reduce by ~6% for premium
+            
+            # Calculate premium as percentage of strike
+            premium_pct = (premium_per_contract / strike) * 100 if strike > 0 else 2.0
+            
+            # Get IV percentile if available
+            iv_percentile = None
+            if self.market_analysis and 'iv_analysis' in self.market_analysis:
+                iv_percentile = self.market_analysis['iv_analysis'].get('iv_percentile', None)
+            
+            # Calculate days to expiry (simplified - would need expiry date)
+            days_to_expiry = 30  # Default assumption, should get from options data
+            
+            # Use enhanced probability calculation
+            from strategy_creation import ProbabilityEngine
+            prob_engine = ProbabilityEngine()
+            probability_profit = prob_engine.calculate_market_aware_probability(
+                delta=delta,
+                option_type='CALL',
+                position='LONG',
+                iv=call_data.get('iv', 30),
+                days_to_expiry=days_to_expiry,
+                premium_pct_of_strike=premium_pct,
+                iv_percentile=iv_percentile
+            )
             
             return {
                 'success': True,
@@ -192,10 +214,32 @@ class LongPut(BaseStrategy):
             max_profit_per_contract = strike - premium_per_contract
             total_max_profit = max_profit_per_contract * self.lot_size
             
-            # Calculate probability of profit using delta approximation
-            # Long puts need to overcome premium paid
+            # Calculate probability of profit using market-aware approach
             delta = abs(put_data.get('delta', 0.5))
-            probability_profit = max(0.0, delta - 0.06)  # Reduce by ~6% for premium
+            
+            # Calculate premium as percentage of strike
+            premium_pct = (premium_per_contract / strike) * 100 if strike > 0 else 2.0
+            
+            # Get IV percentile if available
+            iv_percentile = None
+            if self.market_analysis and 'iv_analysis' in self.market_analysis:
+                iv_percentile = self.market_analysis['iv_analysis'].get('iv_percentile', None)
+            
+            # Calculate days to expiry (simplified - would need expiry date)
+            days_to_expiry = 30  # Default assumption, should get from options data
+            
+            # Use enhanced probability calculation
+            from strategy_creation import ProbabilityEngine
+            prob_engine = ProbabilityEngine()
+            probability_profit = prob_engine.calculate_market_aware_probability(
+                delta=delta,
+                option_type='PUT',
+                position='LONG',
+                iv=put_data.get('iv', 30),
+                days_to_expiry=days_to_expiry,
+                premium_pct_of_strike=premium_pct,
+                iv_percentile=iv_percentile
+            )
             
             return {
                 'success': True,
