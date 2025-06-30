@@ -112,13 +112,14 @@ class StrategyRanker:
             
             # Also use metadata scoring if available
             try:
-                from strategies.strategy_metadata import get_strategy_metadata, calculate_strategy_score
+                from strategy_creation.strategies.strategy_metadata import get_strategy_metadata, calculate_strategy_score
                 metadata = get_strategy_metadata(strategy_name)
                 if metadata:
                     metadata_score = calculate_strategy_score(metadata, market_analysis)
                 else:
                     metadata_score = 0.5
-            except ImportError:
+            except (ImportError, Exception) as e:
+                logger.debug(f"Could not get metadata score for {strategy_name}: {e}")
                 metadata_score = 0.5
             
             # 2. Calculate Risk-Reward Ratio
@@ -405,7 +406,7 @@ class StrategyRanker:
                 return 0.1
             
         except Exception as e:
-            logger.error(f"Error calculating risk-reward score for {strategy_name}: {e}")
+            logger.error(f"Error calculating risk-reward score: {e}")
             return 0.0
     
     def _should_recommend_strategy(self, strategy_name: str, strategy_data: Dict, market_analysis: Dict) -> bool:
