@@ -1,0 +1,340 @@
+{
+  "timestamp": "2025-06-30T09:53:53.387060",
+  "total_capital": 1500000.0,
+  "market_conditions": {
+    "direction": "neutral",
+    "long_percentage": 0.5,
+    "short_percentage": 0.5,
+    "market_cap_allocation": {
+      "Large Cap": 45,
+      "Mid Cap": 30,
+      "Small Cap": 20,
+      "Micro Cap": 5
+    },
+    "position_sizing": {
+      "Large Cap": {
+        "min": 50000,
+        "max": 200000
+      },
+      "Mid Cap": {
+        "min": 40000,
+        "max": 150000
+      },
+      "Small Cap": {
+        "min": 30000,
+        "max": 100000
+      },
+      "Micro Cap": {
+        "min": 25000,
+        "max": 50000
+      }
+    }
+  },
+  "portfolio_summary": {
+    "total_positions": 7,
+    "capital_deployed": 47733937.5,
+    "deployment_percentage": 3182.2625,
+    "expected_monthly_income": 2243108.125,
+    "monthly_return_percentage": 149.54054166666666,
+    "tier_breakdown": {
+      "INCOME": {
+        "positions": 5,
+        "capital": 28746406.25,
+        "income": 1149856.25
+      },
+      "MOMENTUM": {
+        "positions": 1,
+        "capital": 4600000.0,
+        "income": 230000.0
+      },
+      "VOLATILITY": {
+        "positions": 1,
+        "capital": 14387531.25,
+        "income": 863251.875
+      }
+    },
+    "industry_breakdown": {
+      "Financial Conglomerates": {
+        "positions": 1,
+        "capital": 17672000.0,
+        "income": 706880.0
+      },
+      "Household/Personal Care": {
+        "positions": 1,
+        "capital": 1026000.0,
+        "income": 41040.0
+      },
+      "Investment Banks/Brokers": {
+        "positions": 2,
+        "capital": 5839843.75,
+        "income": 233593.75
+      },
+      "Pharmaceuticals: Other": {
+        "positions": 2,
+        "capital": 18596093.75,
+        "income": 1031594.375
+      },
+      "Packaged Software": {
+        "positions": 1,
+        "capital": 4600000.0,
+        "income": 230000.0
+      }
+    },
+    "market_cap_breakdown": {
+      "Large Cap": {
+        "positions": 2,
+        "capital": 18698000.0,
+        "income": 747920.0
+      },
+      "Mid Cap": {
+        "positions": 2,
+        "capital": 6054656.25,
+        "income": 242186.25
+      },
+      "Small Cap": {
+        "positions": 2,
+        "capital": 8593750.0,
+        "income": 389750.0
+      },
+      "Micro Cap": {
+        "positions": 1,
+        "capital": 14387531.25,
+        "income": 863251.875
+      }
+    },
+    "portfolio_greeks": {
+      "delta": 0.8374,
+      "gamma": 0.0456,
+      "theta": -13.3641,
+      "vega": 28.8895
+    },
+    "average_position_size": 6819133.928571428,
+    "positions_by_tier": {
+      "INCOME": 5,
+      "MOMENTUM": 1,
+      "VOLATILITY": 1
+    },
+    "market_conditions": {
+      "direction": "neutral",
+      "long_percentage": 0.5,
+      "short_percentage": 0.5,
+      "market_cap_allocation": {
+        "Large Cap": 45,
+        "Mid Cap": 30,
+        "Small Cap": 20,
+        "Micro Cap": 5
+      },
+      "position_sizing": {
+        "Large Cap": {
+          "min": 50000,
+          "max": 200000
+        },
+        "Mid Cap": {
+          "min": 40000,
+          "max": 150000
+        },
+        "Small Cap": {
+          "min": 30000,
+          "max": 100000
+        },
+        "Micro Cap": {
+          "min": 25000,
+          "max": 50000
+        }
+      }
+    },
+    "long_capital_allocated": 23511843.75,
+    "short_capital_allocated": 24222093.75
+  },
+  "positions": [
+    {
+      "stock_name": "JIOFIN",
+      "strategy_name": "Bull Put Spread",
+      "tier": "INCOME",
+      "industry": "Financial Conglomerates",
+      "industry_weight": 0.07412650408596615,
+      "position_type": "LONG",
+      "market_cap_category": "Large Cap",
+      "allocated_capital": 163925.0,
+      "number_of_lots": 1,
+      "actual_capital_deployed": 17672000.0,
+      "expected_monthly_income": 706880.0,
+      "net_premium": 7520.0,
+      "lot_size": 2350,
+      "premium_per_lot": 17672000.0,
+      "probability_of_profit": 0.75,
+      "risk_reward_ratio": 0.1905,
+      "total_score": 0.7595,
+      "conviction_level": "VERY_HIGH",
+      "greeks": {
+        "delta": -0.3488,
+        "gamma": 0.0164,
+        "theta": -0.1811,
+        "vega": 0.4863
+      },
+      "position_risk_score": 0.22257133333333334
+    },
+    {
+      "stock_name": "HINDUNILVR",
+      "strategy_name": "Bear Call Spread",
+      "tier": "INCOME",
+      "industry": "Household/Personal Care",
+      "industry_weight": 0.027089633871694226,
+      "position_type": "SHORT",
+      "market_cap_category": "Large Cap",
+      "allocated_capital": 161510.0,
+      "number_of_lots": 1,
+      "actual_capital_deployed": 1026000.0,
+      "expected_monthly_income": 41040.0,
+      "net_premium": 3420.0,
+      "lot_size": 300,
+      "premium_per_lot": 1026000.0,
+      "probability_of_profit": 0.74,
+      "risk_reward_ratio": 0.1287,
+      "total_score": 0.7434,
+      "conviction_level": "HIGH",
+      "greeks": {
+        "delta": 0.3317,
+        "gamma": 0.0045,
+        "theta": -0.9119,
+        "vega": 3.2844
+      },
+      "position_risk_score": 0.2102016666666667
+    },
+    {
+      "stock_name": "MCX",
+      "strategy_name": "Bull Put Spread",
+      "tier": "INCOME",
+      "industry": "Investment Banks/Brokers",
+      "industry_weight": 0.073676082620166,
+      "position_type": "LONG",
+      "market_cap_category": "Mid Cap",
+      "allocated_capital": 119662.0,
+      "number_of_lots": 1,
+      "actual_capital_deployed": 1846093.75,
+      "expected_monthly_income": 73843.75,
+      "net_premium": 14768.75,
+      "lot_size": 125,
+      "premium_per_lot": 1846093.75,
+      "probability_of_profit": 0.7,
+      "risk_reward_ratio": 0.3094,
+      "total_score": 0.7242,
+      "conviction_level": "VERY_HIGH",
+      "greeks": {
+        "delta": -0.4582,
+        "gamma": 0.0006,
+        "theta": -7.4867,
+        "vega": 15.9399
+      },
+      "position_risk_score": 0.3017266666666667
+    },
+    {
+      "stock_name": "LUPIN",
+      "strategy_name": "Bear Call Spread",
+      "tier": "INCOME",
+      "industry": "Pharmaceuticals: Other",
+      "industry_weight": 0.09162859532848594,
+      "position_type": "SHORT",
+      "market_cap_category": "Mid Cap",
+      "allocated_capital": 115680.0,
+      "number_of_lots": 1,
+      "actual_capital_deployed": 4208562.5,
+      "expected_monthly_income": 168342.5,
+      "net_premium": 9902.5,
+      "lot_size": 425,
+      "premium_per_lot": 4208562.5,
+      "probability_of_profit": 0.6,
+      "risk_reward_ratio": 0.3038,
+      "total_score": 0.688,
+      "conviction_level": "VERY_HIGH",
+      "greeks": {
+        "delta": 0.5653,
+        "gamma": 0.0049,
+        "theta": -1.4955,
+        "vega": 3.7891
+      },
+      "position_risk_score": 0.2808116666666667
+    },
+    {
+      "stock_name": "ANGELONE",
+      "strategy_name": "Covered Call",
+      "tier": "INCOME",
+      "industry": "Investment Banks/Brokers",
+      "industry_weight": 0.073676082620166,
+      "position_type": "LONG",
+      "market_cap_category": "Small Cap",
+      "allocated_capital": 76466.0,
+      "number_of_lots": 1,
+      "actual_capital_deployed": 3993750.0,
+      "expected_monthly_income": 159750.0,
+      "net_premium": 15975.0,
+      "lot_size": 250,
+      "premium_per_lot": 3993750.0,
+      "probability_of_profit": 0.71,
+      "risk_reward_ratio": 0.1239,
+      "total_score": 0.6638,
+      "conviction_level": "MEDIUM",
+      "greeks": {
+        "delta": 0.2865,
+        "gamma": 0.0009,
+        "theta": -2.1091,
+        "vega": 3.0436
+      },
+      "position_risk_score": 0.23297900000000005
+    },
+    {
+      "stock_name": "KPITTECH",
+      "strategy_name": "Cash-Secured Put",
+      "tier": "MOMENTUM",
+      "industry": "Packaged Software",
+      "industry_weight": 0.02213499774789267,
+      "position_type": "SHORT",
+      "market_cap_category": "Small Cap",
+      "allocated_capital": 76340.0,
+      "number_of_lots": 1,
+      "actual_capital_deployed": 4600000.0,
+      "expected_monthly_income": 230000.0,
+      "net_premium": 11500.0,
+      "lot_size": 400,
+      "premium_per_lot": 4600000.0,
+      "probability_of_profit": 0.72,
+      "risk_reward_ratio": 0.0245,
+      "total_score": 0.662,
+      "conviction_level": "LOW",
+      "greeks": {
+        "delta": -0.2797,
+        "gamma": 0.0022,
+        "theta": -0.6596,
+        "vega": 1.306
+      },
+      "position_risk_score": 0.22297233333333333
+    },
+    {
+      "stock_name": "GRANULES",
+      "strategy_name": "Diagonal Spread",
+      "tier": "VOLATILITY",
+      "industry": "Pharmaceuticals: Other",
+      "industry_weight": 0.09162859532848594,
+      "position_type": "SHORT",
+      "market_cap_category": "Micro Cap",
+      "allocated_capital": 37500.0,
+      "number_of_lots": 1,
+      "actual_capital_deployed": 14387531.25,
+      "expected_monthly_income": 863251.875,
+      "net_premium": 13383.75,
+      "lot_size": 1075,
+      "premium_per_lot": 14387531.25,
+      "probability_of_profit": 0.45,
+      "risk_reward_ratio": 2.2129,
+      "total_score": 0.6012,
+      "conviction_level": "HIGH",
+      "greeks": {
+        "delta": 0.7406,
+        "gamma": 0.0161,
+        "theta": -0.5202,
+        "vega": 1.0402
+      },
+      "position_risk_score": 0.37933666666666666
+    }
+  ]
+}

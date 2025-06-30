@@ -50,6 +50,7 @@ class LotSizeManager:
             5: 'may', 6: 'jun', 7: 'jul', 8: 'aug', 
             9: 'sep', 10: 'oct', 11: 'nov', 12: 'dec'
         }
+        
     
     def get_current_lot_size(self, symbol: str) -> int:
         """
@@ -75,7 +76,7 @@ class LotSizeManager:
             # Get current month column
             current_month = self._get_current_month_column()
             
-            # ONLY add BS suffix for lots table query
+            # Regular stock symbol - just add BS suffix
             lots_symbol = f'{symbol}BS'
             
             # Query lots table for this symbol
@@ -166,10 +167,6 @@ class LotSizeManager:
             'RELIANCE': 500,
             'CESC': 1000,
             'GRANULES': 800,
-            'BANKNIFTY': 35,  # Updated from database value
-            'NIFTY': 75,      # Updated from database value
-            'FINNIFTY': 65,
-            'MIDCPNIFTY': 140,
         }
         
         return known_lot_sizes.get(symbol, self.default_lot_size)
@@ -185,7 +182,8 @@ class LotSizeManager:
             True if symbol has a known lot size
         """
         if not self.db_available:
-            return symbol in ['DIXON', 'MARICO', 'SUNPHARMA', 'RELIANCE', 'CESC', 'GRANULES', 'BANKNIFTY', 'NIFTY']
+            fallback_symbols = ['DIXON', 'MARICO', 'SUNPHARMA', 'RELIANCE', 'CESC', 'GRANULES']
+            return symbol in fallback_symbols
         
         try:
             lots_symbol = f'{symbol}BS'

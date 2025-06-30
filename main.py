@@ -165,7 +165,7 @@ class OptionsAnalyzer:
         
         self.logger.info("Options V4 Analyzer initialized successfully")
     
-    def analyze_portfolio(self, risk_tolerance: str = 'moderate', max_workers: int = 8, holding_days: int = 14) -> Dict:
+    def analyze_portfolio(self, risk_tolerance: str = 'moderate', max_workers: int = 5, holding_days: int = 14) -> Dict:
         """
         Analyze entire portfolio and generate strategy recommendations
         

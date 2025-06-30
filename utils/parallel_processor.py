@@ -17,7 +17,7 @@ class ParallelProcessor:
     Handles parallel processing of symbols with progress tracking
     """
     
-    def __init__(self, max_workers: int = 8):
+    def __init__(self, max_workers: int = 5):
         """
         Initialize parallel processor
         

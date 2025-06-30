@@ -51,6 +51,19 @@
 - **Fix**: Added exponential backoff retry (3 attempts)
 - **Impact**: Better resilience to transient network errors
 
+### 10. ✅ Index Options Support (June 30, 2025)
+- **Issue**: System only created strategies for stocks, not indexes
+- **Root Cause**: DataManager only fetched FNO stocks from stock_data table
+- **Fix**: 
+  - Added `get_index_symbols()` method to fetch 5 main indexes
+  - Modified `get_portfolio_symbols()` to include both stocks and indexes
+  - Updated LotSizeManager with index name mapping (NIFTY 50 → NIFTYBS)
+  - Enhanced StockProfiler with `_get_index_profile()` for index-specific handling
+- **Impact**: 
+  - Now generates strategies for NIFTY 50, BANK NIFTY, etc.
+  - Portfolio analysis includes 5 indexes (total 239 symbols)
+  - Proper lot sizes: NIFTY=75, BANKNIFTY=35, FINNIFTY=65, MIDCPNIFTY=140
+
 ## 🔄 In Progress
 
 ### 1. 🔄 Strike Selection Improvements

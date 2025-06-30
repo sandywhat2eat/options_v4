@@ -18,10 +18,19 @@ class DataManager:
     """Handles all data fetching and processing operations"""
     
     def __init__(self):
-        self.supabase = create_client(
-            os.getenv('NEXT_PUBLIC_SUPABASE_URL'),
-            os.getenv('NEXT_PUBLIC_SUPABASE_ANON_KEY')
-        )
+        # Use connection pool for better connection management
+        try:
+            from ..utils.connection_pool import get_connection_pool
+            self.connection_pool = get_connection_pool()
+            self.supabase = self.connection_pool.get_client()
+        except ImportError:
+            # Fallback to direct connection if pool not available
+            self.supabase = create_client(
+                os.getenv('NEXT_PUBLIC_SUPABASE_URL'),
+                os.getenv('NEXT_PUBLIC_SUPABASE_ANON_KEY')
+            )
+            self.connection_pool = None
+            
         self.lot_manager = LotSizeManager()
         self.vol_surface = VolatilitySurface()
         
@@ -44,177 +53,190 @@ class DataManager:
     
     def get_options_data(self, symbol: str, multiple_expiries: bool = False) -> Optional[pd.DataFrame]:
         """Fetch options chain data for symbol - MONTHLY EXPIRY ONLY WITH TOP 10 OI STRIKES"""
-        try:
-            # First get the latest date for this symbol
-            latest_date_response = self.supabase.table('option_chain_data')\
-                .select('created_at')\
+        import time
+        max_retries = 3
+        
+        for attempt in range(max_retries):
+            try:
+                # First get the latest date for this symbol
+                latest_date_response = self.supabase.table('option_chain_data')\
+                    .select('created_at')\
                 .eq('symbol', symbol)\
                 .order('created_at', desc=True)\
                 .limit(1)\
                 .execute()
-            
-            if not latest_date_response.data:
-                logger.warning(f"No options data found for {symbol}")
-                return None
-            
-            # Extract date part only (YYYY-MM-DD)
-            latest_date = latest_date_response.data[0]['created_at'].split('T')[0]
-            
-            # Determine which monthly expiry to fetch based on current date
-            current_day = datetime.now().day
-            
-            # Get all available expiries for the latest date
-            expiry_response = self.supabase.table('option_chain_data')\
+                
+                if not latest_date_response.data:
+                    logger.warning(f"No options data found for {symbol}")
+                    return None
+                
+                # Extract date part only (YYYY-MM-DD)
+                latest_date = latest_date_response.data[0]['created_at'].split('T')[0]
+                
+                # Determine which monthly expiry to fetch based on current date
+                current_day = datetime.now().day
+                
+                # Get all available expiries for the latest date
+                expiry_response = self.supabase.table('option_chain_data')\
                 .select('expiry_date')\
                 .eq('symbol', symbol)\
                 .gte('created_at', f"{latest_date}T00:00:00")\
                 .lt('created_at', f"{latest_date}T23:59:59")\
                 .execute()
-            
-            if not expiry_response.data:
-                logger.warning(f"No expiries found for {symbol}")
-                return None
-            
-            # Get unique expiries and sort them
-            expiries = sorted(list(set([row['expiry_date'] for row in expiry_response.data])))
-            
-            if multiple_expiries and len(expiries) >= 2:
-                # For strategies like Calendar Spread, fetch first 2 expiries
-                target_expiries = expiries[:2]
-                logger.info(f"Fetching multiple expiries for {symbol}: {target_expiries}")
                 
-                # Fetch data for multiple expiries
-                response = self.supabase.table('option_chain_data')\
-                    .select('*')\
-                    .eq('symbol', symbol)\
-                    .in_('expiry_date', target_expiries)\
-                    .gte('created_at', f"{latest_date}T00:00:00")\
-                    .lt('created_at', f"{latest_date}T23:59:59")\
-                    .execute()
-            else:
-                # Select appropriate monthly expiry based on 20th rule
-                target_expiry = None
-                for expiry in expiries:
-                    expiry_date = datetime.strptime(expiry, '%Y-%m-%d')
-                    # Check if this is a monthly expiry (last Thursday of month logic can be added)
-                    if current_day <= 20:
-                        # Use current month expiry
-                        if expiry_date.month == datetime.now().month:
-                            target_expiry = expiry
-                            break
-                    else:
-                        # Use next month expiry
-                        if expiry_date.month > datetime.now().month or expiry_date.year > datetime.now().year:
-                            target_expiry = expiry
-                            break
+                if not expiry_response.data:
+                    logger.warning(f"No expiries found for {symbol}")
+                    return None
                 
-                if not target_expiry:
-                    # Fallback to nearest expiry
-                    target_expiry = expiries[0]
+                # Get unique expiries and sort them
+                expiries = sorted(list(set([row['expiry_date'] for row in expiry_response.data])))
                 
-                logger.info(f"Selected expiry: {target_expiry} for {symbol} (current day: {current_day})")
-                
-                # Fetch all data for the selected expiry
-                response = self.supabase.table('option_chain_data')\
-                    .select('*')\
-                    .eq('symbol', symbol)\
-                    .eq('expiry_date', target_expiry)\
-                    .gte('created_at', f"{latest_date}T00:00:00")\
-                    .lt('created_at', f"{latest_date}T23:59:59")\
-                    .execute()
-            
-            if not response.data:
-                logger.warning(f"No options data found for {symbol} on {latest_date}")
-                return None
-            
-            df = pd.DataFrame(response.data)
-            
-            # Convert numeric columns (using actual database column names)
-            numeric_cols = ['strike_price', 'open_interest', 'volume', 'ltp', 
-                          'bid', 'ask', 'delta', 'gamma', 'theta', 'vega', 'implied_volatility',
-                          'underlying_price', 'prev_oi', 'prev_close']
-            for col in numeric_cols:
-                if col in df.columns:
-                    df[col] = pd.to_numeric(df[col], errors='coerce')
-            
-            # Get top 10 OI strikes for CALLs and PUTs
-            calls_df = df[df['option_type'] == 'CALL'].copy()
-            puts_df = df[df['option_type'] == 'PUT'].copy()
-            
-            # Get top 10 OI strikes for each type
-            top_call_strikes = calls_df.nlargest(10, 'open_interest')['strike_price'].unique()
-            top_put_strikes = puts_df.nlargest(10, 'open_interest')['strike_price'].unique()
-            
-            # Combine unique strikes
-            top_strikes = set(top_call_strikes) | set(top_put_strikes)
-            
-            # Filter dataframe to only include top OI strikes
-            df_filtered = df[df['strike_price'].isin(top_strikes)].copy()
-            
-            logger.info(f"Filtered from {len(df)} to {len(df_filtered)} records (top 10 OI strikes each side)")
-            
-            # Standardize column names for consistency with our code
-            df_filtered = df_filtered.rename(columns={
-                'strike_price': 'strike',
-                'ltp': 'last_price', 
-                'implied_volatility': 'iv',
-                'underlying_price': 'spot_price',
-                'expiry_date': 'expiry'  # Add expiry mapping for Calendar Spread
-            })
-            
-            # NEW: Calculate and store volatility smile
-            try:
-                # Fit smile from market data
-                smile_params = self.vol_surface.fit_smile_from_options_chain(df_filtered)
-                
-                if smile_params:
-                    # Add adjusted IV column based on smile
-                    df_filtered['smile_adjusted_iv'] = df_filtered.apply(
-                        lambda row: self.vol_surface.calculate_smile_adjusted_iv(
-                            strike=row['strike'],
-                            spot=row['spot_price'],
-                            expiry=row.get('expiry', 'default'),
-                            option_type=row['option_type'],
-                            base_iv=row.get('iv', 25.0),
-                            use_market_calibration=True
-                        ), axis=1
-                    )
+                if multiple_expiries and len(expiries) >= 2:
+                    # For strategies like Calendar Spread, fetch first 2 expiries
+                    target_expiries = expiries[:2]
+                    logger.info(f"Fetching multiple expiries for {symbol}: {target_expiries}")
                     
-                    # Calculate smile risk metrics
-                    smile_metrics = self.vol_surface.calculate_smile_risk_metrics(df_filtered)
-                    
-                    # Add smile metrics to dataframe metadata
-                    df_filtered.attrs['smile_metrics'] = smile_metrics
-                    df_filtered.attrs['smile_params'] = smile_params
-                    
-                    logger.info(f"Volatility smile calibrated for {symbol}: "
-                               f"ATM IV={smile_params.get('atm_iv', 0):.1f}%, "
-                               f"Put skew={smile_params.get('put_skew_slope', 0):.3f}, "
-                               f"Call skew={smile_params.get('call_skew_slope', 0):.3f}")
+                    # Fetch data for multiple expiries
+                    response = self.supabase.table('option_chain_data')\
+                        .select('*')\
+                        .eq('symbol', symbol)\
+                        .in_('expiry_date', target_expiries)\
+                        .gte('created_at', f"{latest_date}T00:00:00")\
+                        .lt('created_at', f"{latest_date}T23:59:59")\
+                        .execute()
                 else:
-                    # Use default smile if calibration fails
-                    df_filtered['smile_adjusted_iv'] = df_filtered.apply(
-                        lambda row: self.vol_surface.calculate_smile_adjusted_iv(
-                            strike=row['strike'],
-                            spot=row['spot_price'],
-                            expiry=row.get('expiry', 'default'),
-                            option_type=row['option_type'],
-                            base_iv=row.get('iv', 25.0),
-                            use_market_calibration=False
-                        ), axis=1
-                    )
-                    logger.warning(f"Using default smile for {symbol}")
+                    # Select appropriate monthly expiry based on 20th rule
+                    target_expiry = None
+                    for expiry in expiries:
+                        expiry_date = datetime.strptime(expiry, '%Y-%m-%d')
+                        # Check if this is a monthly expiry (last Thursday of month logic can be added)
+                        if current_day <= 20:
+                            # Use current month expiry
+                            if expiry_date.month == datetime.now().month:
+                                target_expiry = expiry
+                                break
+                        else:
+                            # Use next month expiry
+                            if expiry_date.month > datetime.now().month or expiry_date.year > datetime.now().year:
+                                target_expiry = expiry
+                                break
                     
+                    if not target_expiry:
+                        # Fallback to nearest expiry
+                        target_expiry = expiries[0]
+                    
+                    logger.info(f"Selected expiry: {target_expiry} for {symbol} (current day: {current_day})")
+                    
+                    # Fetch all data for the selected expiry
+                    response = self.supabase.table('option_chain_data')\
+                        .select('*')\
+                        .eq('symbol', symbol)\
+                        .eq('expiry_date', target_expiry)\
+                        .gte('created_at', f"{latest_date}T00:00:00")\
+                        .lt('created_at', f"{latest_date}T23:59:59")\
+                        .execute()
+                
+                if not response.data:
+                    logger.warning(f"No options data found for {symbol} on {latest_date}")
+                    return None
+                
+                df = pd.DataFrame(response.data)
+                
+                # Convert numeric columns (using actual database column names)
+                numeric_cols = ['strike_price', 'open_interest', 'volume', 'ltp', 
+                              'bid', 'ask', 'delta', 'gamma', 'theta', 'vega', 'implied_volatility',
+                              'underlying_price', 'prev_oi', 'prev_close']
+                for col in numeric_cols:
+                    if col in df.columns:
+                        df[col] = pd.to_numeric(df[col], errors='coerce')
+                
+                # Get top 10 OI strikes for CALLs and PUTs
+                calls_df = df[df['option_type'] == 'CALL'].copy()
+                puts_df = df[df['option_type'] == 'PUT'].copy()
+                
+                # Get top 10 OI strikes for each type
+                top_call_strikes = calls_df.nlargest(10, 'open_interest')['strike_price'].unique()
+                top_put_strikes = puts_df.nlargest(10, 'open_interest')['strike_price'].unique()
+                
+                # Combine unique strikes
+                top_strikes = set(top_call_strikes) | set(top_put_strikes)
+                
+                # Filter dataframe to only include top OI strikes
+                df_filtered = df[df['strike_price'].isin(top_strikes)].copy()
+                
+                logger.info(f"Filtered from {len(df)} to {len(df_filtered)} records (top 10 OI strikes each side)")
+                
+                # Standardize column names for consistency with our code
+                df_filtered = df_filtered.rename(columns={
+                    'strike_price': 'strike',
+                    'ltp': 'last_price', 
+                    'implied_volatility': 'iv',
+                    'underlying_price': 'spot_price',
+                    'expiry_date': 'expiry'  # Add expiry mapping for Calendar Spread
+                })
+                
+                # NEW: Calculate and store volatility smile
+                try:
+                    # Fit smile from market data
+                    smile_params = self.vol_surface.fit_smile_from_options_chain(df_filtered)
+                    
+                    if smile_params:
+                        # Add adjusted IV column based on smile
+                        df_filtered['smile_adjusted_iv'] = df_filtered.apply(
+                            lambda row: self.vol_surface.calculate_smile_adjusted_iv(
+                                strike=row['strike'],
+                                spot=row['spot_price'],
+                                expiry=row.get('expiry', 'default'),
+                                option_type=row['option_type'],
+                                base_iv=row.get('iv', 25.0),
+                                use_market_calibration=True
+                            ), axis=1
+                        )
+                        
+                        # Calculate smile risk metrics
+                        smile_metrics = self.vol_surface.calculate_smile_risk_metrics(df_filtered)
+                        
+                        # Add smile metrics to dataframe metadata
+                        df_filtered.attrs['smile_metrics'] = smile_metrics
+                        df_filtered.attrs['smile_params'] = smile_params
+                        
+                        logger.info(f"Volatility smile calibrated for {symbol}: "
+                                   f"ATM IV={smile_params.get('atm_iv', 0):.1f}%, "
+                                   f"Put skew={smile_params.get('put_skew_slope', 0):.3f}, "
+                                   f"Call skew={smile_params.get('call_skew_slope', 0):.3f}")
+                    else:
+                        # Use default smile if calibration fails
+                        df_filtered['smile_adjusted_iv'] = df_filtered.apply(
+                            lambda row: self.vol_surface.calculate_smile_adjusted_iv(
+                                strike=row['strike'],
+                                spot=row['spot_price'],
+                                expiry=row.get('expiry', 'default'),
+                                option_type=row['option_type'],
+                                base_iv=row.get('iv', 25.0),
+                                use_market_calibration=False
+                            ), axis=1
+                        )
+                        logger.warning(f"Using default smile for {symbol}")
+                        
+                except Exception as e:
+                    logger.error(f"Error applying volatility smile for {symbol}: {e}")
+                    # Fallback: use original IV
+                    df_filtered['smile_adjusted_iv'] = df_filtered['iv']
+            
+                return df_filtered
+                
             except Exception as e:
-                logger.error(f"Error applying volatility smile for {symbol}: {e}")
-                # Fallback: use original IV
-                df_filtered['smile_adjusted_iv'] = df_filtered['iv']
-            
-            return df_filtered
-            
-        except Exception as e:
-            logger.error(f"Error fetching options data for {symbol}: {e}")
-            return None
+                if "Resource temporarily unavailable" in str(e) and attempt < max_retries - 1:
+                    logger.warning(f"Network error (attempt {attempt + 1}/{max_retries}) for {symbol}: {e}")
+                    time.sleep(2 ** attempt)  # Exponential backoff: 1s, 2s, 4s
+                    continue
+                else:
+                    logger.error(f"Error fetching options data for {symbol}: {e}")
+                    return None
+        
+        # If we exhausted all retries
+        logger.error(f"Failed to fetch options data for {symbol} after {max_retries} attempts")
+        return None
     
     def get_spot_price(self, symbol: str) -> Optional[float]:
         """Get current spot price for symbol"""

@@ -62,6 +62,10 @@ class BullCallSpread(BaseStrategy):
                         else:
                             short_strike = available_strikes[idx - 1] if idx > 0 else atm_strike * 1.05
             
+            # Check if strikes are None before comparison
+            if long_strike is None or short_strike is None:
+                return {'success': False, 'reason': 'Could not find suitable strikes'}
+            
             if long_strike >= short_strike:
                 # If strikes are reversed, swap them for Bull Call Spread
                 logger.warning(f"Swapping strikes for Bull Call Spread: long={long_strike}, short={short_strike}")
@@ -207,6 +211,10 @@ class BearCallSpread(BaseStrategy):
                 # For Bear Call Spread: Sell lower strike (higher delta), Buy higher strike (lower delta)
                 short_strike = self._find_optimal_strike(0.30, 'CALL')  # Higher delta = lower strike
                 long_strike = self._find_optimal_strike(0.15, 'CALL')   # Lower delta = higher strike
+            
+            # Check if strikes are None before comparison
+            if short_strike is None or long_strike is None:
+                return {'success': False, 'reason': 'Could not find suitable strikes'}
             
             if short_strike >= long_strike:
                 # If strikes are reversed, swap them

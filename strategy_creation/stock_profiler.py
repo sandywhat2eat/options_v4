@@ -25,6 +25,7 @@ class StockProfiler:
         self.supabase = supabase_client
         self._metadata_cache = {}  # Cache for sector/industry data
         
+        
         # Volatility profile definitions
         self.VOLATILITY_PROFILES = {
             'ultra_high': {
@@ -96,12 +97,13 @@ class StockProfiler:
             'Consumer Non-Durables': {'typical_vol': 'low', 'beta_range': [0.5, 0.8]}
         }
     
+    
     def get_complete_profile(self, symbol: str) -> Dict:
         """
         Get comprehensive stock profile including all volatility and market metrics
         
         Args:
-            symbol: Stock symbol
+            symbol: Stock symbol or index name
             
         Returns:
             Dictionary with complete stock profile
@@ -190,24 +192,25 @@ class StockProfiler:
             # Clear existing cache
             self._metadata_cache.clear()
             
-            # Fetch all metadata in one query
-            response = self.supabase.table('stock_data').select(
-                'symbol,sector,industry,market_capitalization,atm_iv'
-            ).in_('symbol', symbols).execute()
-            
-            if response.data:
-                # Cache the results
-                for record in response.data:
-                    symbol = record.get('symbol')
-                    if symbol:
-                        self._metadata_cache[symbol] = {
-                            'sector': record.get('sector'),
-                            'industry': record.get('industry'),
-                            'market_capitalization': record.get('market_capitalization'),
-                            'atm_iv': record.get('atm_iv')
-                        }
+            # Fetch stock metadata from stock_data table  
+            if symbols:
+                response = self.supabase.table('stock_data').select(
+                    'symbol,sector,industry,market_capitalization,atm_iv'
+                ).in_('symbol', symbols).execute()
                 
-                logger.info(f"Prefetched metadata for {len(self._metadata_cache)} symbols")
+                if response.data:
+                    # Cache the results
+                    for record in response.data:
+                        symbol = record.get('symbol')
+                        if symbol:
+                            self._metadata_cache[symbol] = {
+                                'sector': record.get('sector'),
+                                'industry': record.get('industry'),
+                                'market_capitalization': record.get('market_capitalization'),
+                                'atm_iv': record.get('atm_iv')
+                            }
+                
+            logger.info(f"Prefetched metadata for {len(self._metadata_cache)} symbols")
             
         except Exception as e:
             logger.error(f"Error prefetching metadata: {e}")
@@ -250,6 +253,7 @@ class StockProfiler:
         except Exception as e:
             logger.error(f"Error fetching price history for {symbol}: {e}")
             return None
+    
     
     def _calculate_historical_volatility(self, price_data: pd.DataFrame, period: int) -> float:
         """Calculate historical volatility (annualized)"""
@@ -452,6 +456,7 @@ class StockProfiler:
             sector, 
             {'typical_vol': 'medium', 'beta_range': [0.8, 1.2]}
         )
+    
     
     def _get_default_profile(self, symbol: str) -> Dict:
         """Return default profile when data is unavailable"""
