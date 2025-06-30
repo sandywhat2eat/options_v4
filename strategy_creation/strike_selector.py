@@ -120,9 +120,9 @@ class IntelligentStrikeSelector:
             ],
             'Bull Put Spread': [
                 StrikeRequest('short_strike', 'PUT', 'expected_move', -0.5,
-                             StrikeConstraint(min_moneyness=-0.08, max_moneyness=-0.02)),
+                             StrikeConstraint(min_moneyness=-0.12, max_moneyness=-0.01)),  # Relaxed from -0.08 to -0.12
                 StrikeRequest('long_strike', 'PUT', 'expected_move', -1.2,
-                             StrikeConstraint(min_moneyness=-0.15, max_moneyness=-0.08))
+                             StrikeConstraint(min_moneyness=-0.20, max_moneyness=-0.05))   # Relaxed from -0.15 to -0.20
             ],
             'Bear Call Spread': [
                 StrikeRequest('short_strike', 'CALL', 'expected_move', 0.5,
@@ -134,13 +134,13 @@ class IntelligentStrikeSelector:
             # Neutral Strategies
             'Iron Condor': [
                 StrikeRequest('put_short', 'PUT', 'expected_move', -1.0,
-                             StrikeConstraint(min_moneyness=-0.10, max_moneyness=-0.03)),
+                             StrikeConstraint(min_moneyness=-0.15, max_moneyness=-0.02)),  # Relaxed from -0.10
                 StrikeRequest('put_long', 'PUT', 'expected_move', -1.5,
-                             StrikeConstraint(min_moneyness=-0.20, max_moneyness=-0.10)),
+                             StrikeConstraint(min_moneyness=-0.25, max_moneyness=-0.08)),  # Relaxed from -0.20
                 StrikeRequest('call_short', 'CALL', 'expected_move', 1.0,
-                             StrikeConstraint(min_moneyness=0.03, max_moneyness=0.10)),
+                             StrikeConstraint(min_moneyness=0.02, max_moneyness=0.15)),    # Relaxed from 0.10
                 StrikeRequest('call_long', 'CALL', 'expected_move', 1.5,
-                             StrikeConstraint(min_moneyness=0.10, max_moneyness=0.20))
+                             StrikeConstraint(min_moneyness=0.08, max_moneyness=0.25))     # Relaxed from 0.20
             ],
             'Iron Butterfly': [
                 StrikeRequest('atm_strike', 'CALL', 'atm', None,
@@ -639,14 +639,16 @@ class IntelligentStrikeSelector:
                         selected_strikes[f"{request.name}_call"] = strike
                 else:
                     logger.error(f"Failed to find strike for {request.name} in {strategy_type}")
-                    # Try relaxed constraints
-                    relaxed_request = self._relax_constraints(request)
-                    strike = self._select_single_strike(
-                        relaxed_request, options_df, spot_price, market_analysis, available_strikes
-                    )
-                    if strike is not None:
-                        selected_strikes[request.name] = strike
-                        logger.warning(f"Used relaxed constraints for {request.name}")
+                    # Try progressive relaxation
+                    for relaxation_level in [1, 2, 3]:
+                        relaxed_request = self._relax_constraints(request, relaxation_level)
+                        strike = self._select_single_strike(
+                            relaxed_request, options_df, spot_price, market_analysis, available_strikes
+                        )
+                        if strike is not None:
+                            selected_strikes[request.name] = strike
+                            logger.warning(f"Used relaxation level {relaxation_level} for {request.name}")
+                            break
             
             # Validate strike relationships
             if not self._validate_strike_relationships(selected_strikes, strategy_type):
@@ -785,9 +787,22 @@ class IntelligentStrikeSelector:
             else:
                 constraint = request.constraint
             
-            # Liquidity filter
-            if constraint.min_liquidity > 0:
-                candidates = candidates[candidates['open_interest'] >= constraint.min_liquidity]
+            # Adaptive liquidity filter based on stock liquidity profile
+            min_liquidity = self._get_adaptive_liquidity_threshold(
+                options_df, constraint.min_liquidity, request.option_type
+            )
+            if min_liquidity > 0:
+                # First try with full liquidity requirement
+                liquid_candidates = candidates[candidates['open_interest'] >= min_liquidity]
+                if len(liquid_candidates) >= 2:  # Need at least 2 strikes for spreads
+                    candidates = liquid_candidates
+                else:
+                    # Relax liquidity by 50% if insufficient strikes
+                    relaxed_liquidity = min_liquidity * 0.5
+                    liquid_candidates = candidates[candidates['open_interest'] >= relaxed_liquidity]
+                    if len(liquid_candidates) >= 2:
+                        candidates = liquid_candidates
+                        logger.warning(f"Relaxed liquidity requirement to {relaxed_liquidity} for {request.name}")
             
             # Delta-based selection if target_type is 'delta'
             if request.target_type == 'delta' and request.target_value is not None:
@@ -833,7 +848,16 @@ class IntelligentStrikeSelector:
             # Calculate scores
             candidates = candidates.copy()
             
-            # Distance score (40% weight)
+            # Distance score (40% weight) - calculate if not present
+            if 'distance_pct' not in candidates.columns:
+                # Calculate distance_pct if not present (e.g., for delta-based selection)
+                if target_price > 0:
+                    candidates['distance_pct'] = abs(candidates['strike'] - target_price) / target_price
+                else:
+                    # If target_price is 0 or invalid, use absolute distance
+                    candidates['distance_pct'] = abs(candidates['strike'] - candidates['strike'].mean()) / candidates['strike'].mean()
+            
+            # Now calculate distance score
             max_distance = candidates['distance_pct'].max()
             if max_distance > 0:
                 candidates['distance_score'] = 1 - (candidates['distance_pct'] / max_distance)
@@ -891,9 +915,53 @@ class IntelligentStrikeSelector:
             available[opt_type] = strikes
         return available
     
-    def _relax_constraints(self, request: StrikeRequest) -> StrikeRequest:
+    def _get_adaptive_liquidity_threshold(self, options_df: pd.DataFrame, 
+                                        base_threshold: int, option_type: str) -> int:
         """
-        Relax constraints for better strike availability
+        Calculate adaptive liquidity threshold based on stock's liquidity profile
+        
+        Args:
+            options_df: Options chain data
+            base_threshold: Base liquidity requirement
+            option_type: CALL or PUT
+            
+        Returns:
+            Adjusted liquidity threshold
+        """
+        try:
+            # Filter by option type
+            type_df = options_df[options_df['option_type'] == option_type]
+            if type_df.empty:
+                return base_threshold
+            
+            # Calculate median OI for this stock
+            median_oi = type_df['open_interest'].median()
+            
+            # Categorize liquidity profile
+            if median_oi >= 1000:
+                # High liquidity stock - use full requirement
+                return base_threshold
+            elif median_oi >= 500:
+                # Medium liquidity - reduce by 30%
+                return int(base_threshold * 0.7)
+            elif median_oi >= 100:
+                # Low liquidity - reduce by 50%
+                return int(base_threshold * 0.5)
+            else:
+                # Very low liquidity - reduce by 80%
+                return max(10, int(base_threshold * 0.2))
+                
+        except Exception as e:
+            logger.error(f"Error calculating adaptive liquidity: {e}")
+            return base_threshold
+    
+    def _relax_constraints(self, request: StrikeRequest, relaxation_level: int = 1) -> StrikeRequest:
+        """
+        Progressively relax constraints for better strike availability
+        
+        Args:
+            request: Original strike request
+            relaxation_level: Level of relaxation (1=mild, 2=moderate, 3=aggressive)
         """
         relaxed = StrikeRequest(
             name=request.name,
@@ -903,14 +971,19 @@ class IntelligentStrikeSelector:
         )
         
         if request.constraint:
+            # Progressive relaxation factors
+            moneyness_factor = 1.0 + (0.5 * relaxation_level)  # 1.5x, 2.0x, 2.5x
+            liquidity_divisor = 2 ** relaxation_level  # /2, /4, /8
+            distance_factor = 1.0 + (0.5 * relaxation_level)  # 1.5x, 2.0x, 2.5x
+            
             relaxed_constraint = StrikeConstraint(
-                min_delta=None,  # Remove delta constraints
-                max_delta=None,
-                min_moneyness=request.constraint.min_moneyness * 1.5 if request.constraint.min_moneyness else None,
-                max_moneyness=request.constraint.max_moneyness * 1.5 if request.constraint.max_moneyness else None,
-                min_liquidity=max(0, request.constraint.min_liquidity // 2),  # Halve liquidity requirement
-                max_distance_pct=min(0.20, request.constraint.max_distance_pct * 2),  # Double distance tolerance
-                mode=StrikeSelectionMode.NEAREST
+                min_delta=None if relaxation_level >= 2 else request.constraint.min_delta,
+                max_delta=None if relaxation_level >= 2 else request.constraint.max_delta,
+                min_moneyness=request.constraint.min_moneyness * moneyness_factor if request.constraint.min_moneyness else None,
+                max_moneyness=request.constraint.max_moneyness * moneyness_factor if request.constraint.max_moneyness else None,
+                min_liquidity=max(0, request.constraint.min_liquidity // liquidity_divisor),
+                max_distance_pct=min(0.30, request.constraint.max_distance_pct * distance_factor),
+                mode=StrikeSelectionMode.NEAREST if relaxation_level >= 2 else request.constraint.mode
             )
             relaxed.constraint = relaxed_constraint
         
@@ -1016,3 +1089,41 @@ class IntelligentStrikeSelector:
         except Exception as e:
             logger.error(f"Emergency fallback failed: {e}")
             return {}
+    
+    def _find_atm_strike(self, options_df: pd.DataFrame, spot_price: float, 
+                        option_type: str) -> Optional[float]:
+        """Find ATM strike for given option type"""
+        try:
+            type_df = options_df[options_df['option_type'] == option_type]
+            if type_df.empty:
+                return None
+                
+            type_df['distance'] = abs(type_df['strike'] - spot_price)
+            atm_row = type_df.nsmallest(1, 'distance')
+            
+            if not atm_row.empty:
+                return float(atm_row.iloc[0]['strike'])
+            return None
+            
+        except Exception as e:
+            logger.error(f"Error finding ATM strike: {e}")
+            return None
+    
+    def _get_liquid_strikes(self, options_df: pd.DataFrame, option_type: str, 
+                          count: int = 2) -> List[float]:
+        """Get most liquid strikes for given option type"""
+        try:
+            type_df = options_df[options_df['option_type'] == option_type]
+            if type_df.empty:
+                return []
+                
+            # Sort by open interest descending
+            liquid_df = type_df.nlargest(count * 2, 'open_interest')
+            
+            # Get unique strikes
+            strikes = liquid_df['strike'].unique()[:count]
+            return sorted(strikes.tolist())
+            
+        except Exception as e:
+            logger.error(f"Error getting liquid strikes: {e}")
+            return []
