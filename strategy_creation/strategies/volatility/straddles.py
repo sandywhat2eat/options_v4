@@ -35,7 +35,19 @@ class LongStraddle(BaseStrategy):
         """
         try:
             if strike is None:
-                strike = self._find_atm_strike()
+                # Use centralized strike selection
+                if self.strike_selector:
+                    logger.info("Using intelligent strike selection for Long Straddle")
+                    strikes = self.select_strikes_for_strategy(use_expected_moves=True)
+                    
+                    if strikes and 'strike' in strikes:
+                        strike = strikes['strike']
+                        logger.info(f"Selected ATM strike via intelligent selector: {strike}")
+                    else:
+                        logger.warning("Intelligent strike selection failed, using fallback")
+                        strike = self._find_atm_strike()
+                else:
+                    strike = self._find_atm_strike()
             
             if not self.validate_strikes([strike]):
                 return {'success': False, 'reason': 'Strike not available or illiquid'}

@@ -190,6 +190,14 @@ class IntelligentStrikeSelector:
                 StrikeRequest('strike', 'CALL', 'expected_move', 0.3,
                              StrikeConstraint(min_moneyness=0.01, max_moneyness=0.08, min_liquidity=50))
             ],
+            'Short Call': [
+                StrikeRequest('strike', 'CALL', 'delta', -0.30,
+                             StrikeConstraint(min_moneyness=0.02, max_moneyness=0.10, min_liquidity=100))
+            ],
+            'Short Put': [
+                StrikeRequest('strike', 'PUT', 'delta', 0.30,
+                             StrikeConstraint(min_moneyness=-0.10, max_moneyness=-0.02, min_liquidity=100))
+            ],
             
             # Advanced Strategies
             'Calendar Spread': [
@@ -744,6 +752,11 @@ class IntelligentStrikeSelector:
             else:  # PUT
                 return spot_price * (1 + (request.target_value or 0.03))
                 
+        elif request.target_type == 'delta':
+            # For delta-based selection, return spot price as reference
+            # Actual delta filtering happens in _get_candidate_strikes
+            return spot_price
+            
         else:
             return spot_price
     
@@ -776,6 +789,19 @@ class IntelligentStrikeSelector:
             if constraint.min_liquidity > 0:
                 candidates = candidates[candidates['open_interest'] >= constraint.min_liquidity]
             
+            # Delta-based selection if target_type is 'delta'
+            if request.target_type == 'delta' and request.target_value is not None:
+                # For delta-based selection, find strikes closest to target delta
+                if 'delta' in candidates.columns:
+                    # Handle negative deltas for calls (they should be positive)
+                    if request.option_type == 'CALL':
+                        candidates['delta_diff'] = abs(abs(candidates['delta']) - abs(request.target_value))
+                    else:  # PUT
+                        candidates['delta_diff'] = abs(candidates['delta'] - request.target_value)
+                    
+                    # Sort by delta difference and take top candidates
+                    candidates = candidates.nsmallest(10, 'delta_diff')
+            
             # Moneyness filter
             candidates['moneyness'] = (candidates['strike'] - spot_price) / spot_price
             
@@ -784,9 +810,10 @@ class IntelligentStrikeSelector:
             if constraint.max_moneyness is not None:
                 candidates = candidates[candidates['moneyness'] <= constraint.max_moneyness]
             
-            # Distance from target filter
-            candidates['distance_pct'] = abs(candidates['strike'] - target_price) / target_price
-            candidates = candidates[candidates['distance_pct'] <= constraint.max_distance_pct]
+            # Distance from target filter (skip if using delta-based selection)
+            if request.target_type != 'delta' and target_price is not None:
+                candidates['distance_pct'] = abs(candidates['strike'] - target_price) / target_price
+                candidates = candidates[candidates['distance_pct'] <= constraint.max_distance_pct]
             
             return candidates
             

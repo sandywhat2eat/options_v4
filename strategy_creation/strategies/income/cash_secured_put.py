@@ -38,37 +38,51 @@ class CashSecuredPut(BaseStrategy):
             target_delta: Target delta for put selection (0.2-0.4 typical)
         """
         try:
-            # Filter PUT options
-            puts_df = self.options_df[self.options_df['option_type'] == 'PUT'].copy()
-            
-            if puts_df.empty:
-                return {
-                    'success': False,
-                    'reason': 'No PUT options available'
-                }
-            
-            # Find OTM puts for selling
-            otm_puts = puts_df[puts_df['strike'] < self.spot_price].sort_values('strike', ascending=False)
-            
-            if otm_puts.empty:
-                return {
-                    'success': False,
-                    'reason': 'No OTM PUT strikes available'
-                }
-            
-            # Select strike based on delta or fallback to nearest OTM
-            if 'delta' in otm_puts.columns and not otm_puts['delta'].isna().all():
-                # Find strike closest to target delta
-                otm_puts['delta_diff'] = abs(abs(otm_puts['delta']) - target_delta)
-                selected_idx = otm_puts['delta_diff'].idxmin()
-                selected_strike = otm_puts.loc[selected_idx, 'strike']
+            # Use centralized strike selection
+            if self.strike_selector:
+                logger.info("Using intelligent strike selection for Cash-Secured Put")
+                strikes = self.select_strikes_for_strategy(use_expected_moves=True)
+                
+                if strikes and 'strike' in strikes:
+                    selected_strike = strikes['strike']
+                    logger.info(f"Selected PUT strike via intelligent selector: {selected_strike}")
+                else:
+                    logger.warning("Intelligent strike selection failed, using fallback")
+                    # Use delta-based selection
+                    selected_strike = self._find_optimal_strike(target_delta, 'PUT')
+                    
+                    if selected_strike is None:
+                        # Last resort fallback
+                        puts_df = self.options_df[self.options_df['option_type'] == 'PUT'].copy()
+                        otm_puts = puts_df[puts_df['strike'] < self.spot_price].sort_values('open_interest', ascending=False)
+                        if not otm_puts.empty:
+                            selected_strike = otm_puts.iloc[0]['strike']
+                        else:
+                            return {'success': False, 'reason': 'No suitable PUT strikes available'}
             else:
-                # Fallback: Select strike ~2-5% below current price
-                target_strike = self.spot_price * 0.95
-                selected_strike = self._find_nearest_available_strike(target_strike, 'PUT')
+                # Fallback to delta-based selection
+                logger.info("Using delta-based strike selection")
+                selected_strike = self._find_optimal_strike(target_delta, 'PUT')
                 
                 if selected_strike is None:
-                    # Further fallback: just take the highest OTM put
+                    # Filter PUT options
+                    puts_df = self.options_df[self.options_df['option_type'] == 'PUT'].copy()
+                    
+                    if puts_df.empty:
+                        return {
+                            'success': False,
+                            'reason': 'No PUT options available'
+                        }
+                    
+                    # Find OTM puts with good liquidity
+                    otm_puts = puts_df[puts_df['strike'] < self.spot_price].sort_values('open_interest', ascending=False)
+                    
+                    if otm_puts.empty:
+                        return {
+                            'success': False,
+                            'reason': 'No OTM PUT strikes available'
+                        }
+                    
                     selected_strike = otm_puts.iloc[0]['strike']
             
             # Get option details

@@ -38,13 +38,17 @@ class LongCall(BaseStrategy):
             logger.info(f"Constructing Long Call for {self.symbol} at spot {self.spot_price}")
             
             if strike is None:
-                if use_expected_moves and self.market_analysis and hasattr(self, 'strike_selector') and self.strike_selector:
-                    # Use intelligent strike selection
-                    logger.info("Using intelligent strike selection")
-                    strike = self.strike_selector.select_optimal_strike(
-                        self.options_df, self.spot_price, self.market_analysis,
-                        'Long Call', 'CALL'
-                    )
+                if use_expected_moves and self.strike_selector:
+                    # Use centralized strike selection
+                    logger.info("Using intelligent strike selection for Long Call")
+                    strikes = self.select_strikes_for_strategy(use_expected_moves=True)
+                    
+                    if strikes and 'strike' in strikes:
+                        strike = strikes['strike']
+                        logger.info(f"Selected CALL strike via intelligent selector: {strike}")
+                    else:
+                        logger.warning("Intelligent strike selection failed, using fallback")
+                        strike = self._find_optimal_strike(target_delta, 'CALL')
                 else:
                     # Fallback to delta-based selection with higher delta for better probability
                     logger.info(f"Using delta-based selection with target delta {target_delta}")
@@ -172,14 +176,17 @@ class LongPut(BaseStrategy):
         """
         try:
             if strike is None:
-                if use_expected_moves and self.market_analysis and self.strike_selector:
-                    # Use intelligent strike selection
-                    logger.info(f"Using intelligent strike selection for Long Put")
-                    strike = self.strike_selector.select_optimal_strike(
-                        self.options_df, self.spot_price, self.market_analysis,
-                        'Long Put', 'PUT'
-                    )
-                    logger.info(f"Selected PUT strike: {strike} (Spot: {self.spot_price})")
+                if use_expected_moves and self.strike_selector:
+                    # Use centralized strike selection
+                    logger.info("Using intelligent strike selection for Long Put")
+                    strikes = self.select_strikes_for_strategy(use_expected_moves=True)
+                    
+                    if strikes and 'strike' in strikes:
+                        strike = strikes['strike']
+                        logger.info(f"Selected PUT strike via intelligent selector: {strike}")
+                    else:
+                        logger.warning("Intelligent strike selection failed, using fallback")
+                        strike = self._find_optimal_strike(target_delta, 'PUT')
                 else:
                     # Fallback to delta-based selection
                     logger.info(f"Using delta-based strike selection with target delta {target_delta}")

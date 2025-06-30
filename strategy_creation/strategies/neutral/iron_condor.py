@@ -36,20 +36,47 @@ class IronCondor(BaseStrategy):
             delta_distance: Distance between strikes (in delta terms)
         """
         try:
-            # Find ATM strike
-            atm_strike = self._find_atm_strike()
-            
-            # Use strike-based approach instead of delta-based for simplicity
-            if wing_width == "wide":
-                strike_distance = max(5, atm_strike * 0.02)  # 2% of ATM
+            # Use centralized strike selection
+            if self.strike_selector:
+                logger.info("Using intelligent strike selection for Iron Condor")
+                strikes = self.select_strikes_for_strategy(use_expected_moves=True)
+                
+                if strikes and all(k in strikes for k in ['put_short', 'put_long', 'call_short', 'call_long']):
+                    put_short_strike = strikes['put_short']
+                    put_long_strike = strikes['put_long']
+                    call_short_strike = strikes['call_short']
+                    call_long_strike = strikes['call_long']
+                    logger.info(f"Selected strikes via intelligent selector: PUT {put_long_strike}/{put_short_strike}, CALL {call_short_strike}/{call_long_strike}")
+                else:
+                    logger.warning("Intelligent strike selection failed, using fallback")
+                    # Fallback to ATM-based selection
+                    atm_strike = self._find_atm_strike()
+                    
+                    # Use strike-based approach with proper width
+                    if wing_width == "wide":
+                        strike_distance = max(5, atm_strike * 0.02)  # 2% of ATM
+                    else:
+                        strike_distance = max(2.5, atm_strike * 0.01)  # 1% of ATM
+                    
+                    put_short_strike = self._find_nearest_strike(atm_strike - strike_distance, 'PUT')
+                    put_long_strike = self._find_nearest_strike(put_short_strike - strike_distance, 'PUT')
+                    call_short_strike = self._find_nearest_strike(atm_strike + strike_distance, 'CALL')
+                    call_long_strike = self._find_nearest_strike(call_short_strike + strike_distance, 'CALL')
             else:
-                strike_distance = max(2.5, atm_strike * 0.01)  # 1% of ATM
-            
-            # Calculate strikes with proper ordering
-            put_short_strike = self._find_nearest_strike(atm_strike - strike_distance, 'PUT')
-            put_long_strike = self._find_nearest_strike(put_short_strike - strike_distance, 'PUT')
-            call_short_strike = self._find_nearest_strike(atm_strike + strike_distance, 'CALL')
-            call_long_strike = self._find_nearest_strike(call_short_strike + strike_distance, 'CALL')
+                # Fallback to ATM-based selection
+                atm_strike = self._find_atm_strike()
+                
+                # Use strike-based approach instead of delta-based for simplicity
+                if wing_width == "wide":
+                    strike_distance = max(5, atm_strike * 0.02)  # 2% of ATM
+                else:
+                    strike_distance = max(2.5, atm_strike * 0.01)  # 1% of ATM
+                
+                # Calculate strikes with proper ordering
+                put_short_strike = self._find_nearest_strike(atm_strike - strike_distance, 'PUT')
+                put_long_strike = self._find_nearest_strike(put_short_strike - strike_distance, 'PUT')
+                call_short_strike = self._find_nearest_strike(atm_strike + strike_distance, 'CALL')
+                call_long_strike = self._find_nearest_strike(call_short_strike + strike_distance, 'CALL')
             
             # Validate ordering
             if not (put_long_strike < put_short_strike < self.spot_price < call_short_strike < call_long_strike):

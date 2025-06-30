@@ -28,20 +28,27 @@ class BullCallSpread(BaseStrategy):
     def construct_strategy(self, use_expected_moves: bool = True) -> Dict:
         """Construct Bull Call Spread (Buy lower strike, Sell higher strike)"""
         try:
-            # Find optimal strikes using intelligent selection
-            if use_expected_moves and self.market_analysis and self.strike_selector:
+            # Use centralized strike selection
+            if use_expected_moves and self.strike_selector:
                 logger.info("Using intelligent strike selection for Bull Call Spread")
-                short_strike, long_strike = self.strike_selector.select_spread_strikes(
-                    self.options_df, self.spot_price, self.market_analysis, 'Bull Call Spread'
-                )
-                logger.info(f"Selected CALL strikes: Long {long_strike}, Short {short_strike}")
+                strikes = self.select_strikes_for_strategy(use_expected_moves=True)
+                
+                if strikes and 'long_strike' in strikes and 'short_strike' in strikes:
+                    long_strike = strikes['long_strike']
+                    short_strike = strikes['short_strike']
+                    logger.info(f"Selected CALL strikes via intelligent selector: Long {long_strike}, Short {short_strike}")
+                else:
+                    logger.warning("Intelligent strike selection failed, using fallback")
+                    available_strikes = sorted(self.options_df[self.options_df['option_type'] == 'CALL']['strike'].unique())
+                    long_strike = self._find_optimal_strike(0.40, 'CALL')   # Higher delta = lower strike
+                    short_strike = self._find_optimal_strike(0.20, 'CALL')  # Lower delta = higher strike
             else:
                 # Fallback to delta-based selection with wider spread
                 logger.info("Using delta-based strike selection")
                 # For Bull Call Spread: Buy lower strike (higher delta), Sell higher strike (lower delta)
                 available_strikes = sorted(self.options_df[self.options_df['option_type'] == 'CALL']['strike'].unique())
-                long_strike = self._find_strike_by_delta(0.4, 'CALL')   # Higher delta = lower strike
-                short_strike = self._find_strike_by_delta(0.2, 'CALL')  # Lower delta = higher strike
+                long_strike = self._find_optimal_strike(0.40, 'CALL')   # Higher delta = lower strike
+                short_strike = self._find_optimal_strike(0.20, 'CALL')  # Lower delta = higher strike
                 
                 # Ensure strikes are different and properly spaced
                 if long_strike == short_strike:
@@ -161,19 +168,25 @@ class BearCallSpread(BaseStrategy):
     def construct_strategy(self, use_expected_moves: bool = True) -> Dict:
         """Construct Bear Call Spread (Sell lower strike, Buy higher strike)"""
         try:
-            # Find optimal strikes using intelligent selection
-            if use_expected_moves and self.market_analysis and self.strike_selector:
+            # Use centralized strike selection
+            if use_expected_moves and self.strike_selector:
                 logger.info("Using intelligent strike selection for Bear Call Spread")
-                short_strike, long_strike = self.strike_selector.select_spread_strikes(
-                    self.options_df, self.spot_price, self.market_analysis, 'Bear Call Spread'
-                )
-                logger.info(f"Selected CALL strikes: Short {short_strike}, Long {long_strike}")
+                strikes = self.select_strikes_for_strategy(use_expected_moves=True)
+                
+                if strikes and 'short_strike' in strikes and 'long_strike' in strikes:
+                    short_strike = strikes['short_strike']
+                    long_strike = strikes['long_strike']
+                    logger.info(f"Selected CALL strikes via intelligent selector: Short {short_strike}, Long {long_strike}")
+                else:
+                    logger.warning("Intelligent strike selection failed, using fallback")
+                    short_strike = self._find_optimal_strike(0.30, 'CALL')  # Higher delta = lower strike
+                    long_strike = self._find_optimal_strike(0.15, 'CALL')   # Lower delta = higher strike
             else:
                 # Fallback to delta-based selection
                 logger.info("Using delta-based strike selection")
                 # For Bear Call Spread: Sell lower strike (higher delta), Buy higher strike (lower delta)
-                short_strike = self._find_strike_by_delta(0.3, 'CALL')  # Higher delta = lower strike
-                long_strike = self._find_strike_by_delta(0.15, 'CALL')   # Lower delta = higher strike
+                short_strike = self._find_optimal_strike(0.30, 'CALL')  # Higher delta = lower strike
+                long_strike = self._find_optimal_strike(0.15, 'CALL')   # Lower delta = higher strike
             
             if short_strike >= long_strike:
                 # If strikes are reversed, swap them
@@ -397,18 +410,24 @@ class BearPutSpread(BaseStrategy):
     def construct_strategy(self, use_expected_moves: bool = True, **kwargs) -> Dict:
         """Construct Bear Put Spread (Buy higher strike, Sell lower strike)"""
         try:
-            # Find optimal strikes using intelligent selection
-            if use_expected_moves and self.market_analysis and self.strike_selector:
+            # Use centralized strike selection
+            if use_expected_moves and self.strike_selector:
                 logger.info("Using intelligent strike selection for Bear Put Spread")
-                short_strike, long_strike = self.strike_selector.select_spread_strikes(
-                    self.options_df, self.spot_price, self.market_analysis, 'Bear Put Spread'
-                )
-                logger.info(f"Selected PUT strikes: Long {long_strike}, Short {short_strike}")
+                strikes = self.select_strikes_for_strategy(use_expected_moves=True)
+                
+                if strikes and 'long_strike' in strikes and 'short_strike' in strikes:
+                    long_strike = strikes['long_strike']
+                    short_strike = strikes['short_strike']
+                    logger.info(f"Selected PUT strikes via intelligent selector: Long {long_strike}, Short {short_strike}")
+                else:
+                    logger.warning("Intelligent strike selection failed, using fallback")
+                    long_strike = self._find_optimal_strike(0.30, 'PUT')
+                    short_strike = self._find_optimal_strike(0.15, 'PUT')
             else:
                 # Fallback to delta-based selection
                 logger.info("Using delta-based strike selection")
-                long_strike = self._find_strike_by_delta(0.3, 'PUT')
-                short_strike = self._find_strike_by_delta(0.15, 'PUT')
+                long_strike = self._find_optimal_strike(0.30, 'PUT')
+                short_strike = self._find_optimal_strike(0.15, 'PUT')
             
             if long_strike <= short_strike:
                 return {'success': False, 'reason': 'Invalid strike relationship'}

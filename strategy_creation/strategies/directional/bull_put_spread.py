@@ -33,38 +33,58 @@ class BullPutSpreadStrategy(BaseStrategy):
     def construct_strategy(self, use_expected_moves: bool = True, **kwargs) -> Dict:
         """Construct Bull Put Spread"""
         try:
-            # Find optimal strikes using intelligent selection
-            if use_expected_moves and self.market_analysis and self.strike_selector:
+            # Use centralized strike selection
+            if use_expected_moves and self.strike_selector:
                 logger.info("Using intelligent strike selection for Bull Put Spread")
-                short_strike, long_strike = self.strike_selector.select_spread_strikes(
-                    self.options_df, self.spot_price, self.market_analysis, 'Bull Put Spread'
-                )
-                logger.info(f"Selected PUT strikes: Short {short_strike}, Long {long_strike}")
+                strikes = self.select_strikes_for_strategy(use_expected_moves=True)
+                
+                if strikes and 'short_strike' in strikes and 'long_strike' in strikes:
+                    short_strike = strikes['short_strike']
+                    long_strike = strikes['long_strike']
+                    logger.info(f"Selected PUT strikes via intelligent selector: Short {short_strike}, Long {long_strike}")
+                else:
+                    logger.warning("Intelligent strike selection failed, using fallback")
+                    # Use delta-based selection for better results
+                    short_strike = self._find_optimal_strike(0.30, 'PUT')  # 30 delta short
+                    long_strike = self._find_optimal_strike(0.15, 'PUT')   # 15 delta long
+                    
+                    if short_strike is None or long_strike is None:
+                        # Last resort fallback
+                        puts_df = self.options_df[self.options_df['option_type'] == 'PUT'].copy()
+                        if len(puts_df) < 2:
+                            return {
+                                'success': False,
+                                'reason': 'Insufficient PUT options for spread'
+                            }
+                        
+                        # Use liquidity-based selection instead of arbitrary position
+                        otm_puts = puts_df[puts_df['strike'] < self.spot_price].sort_values('open_interest', ascending=False)
+                        if len(otm_puts) < 2:
+                            return {
+                                'success': False,
+                                'reason': 'Insufficient liquid OTM PUT strikes'
+                            }
+                        
+                        # Select most liquid strikes with proper spacing
+                        short_strike = otm_puts.iloc[0]['strike']
+                        # Find next strike at least 5% away
+                        min_spacing = short_strike * 0.95
+                        spaced_puts = otm_puts[otm_puts['strike'] < min_spacing]
+                        if len(spaced_puts) > 0:
+                            long_strike = spaced_puts.iloc[0]['strike']
+                        else:
+                            long_strike = otm_puts.iloc[1]['strike']
             else:
-                # Fallback to traditional method
-                logger.info("Using traditional strike selection")
-                # Filter PUT options
-                puts_df = self.options_df[self.options_df['option_type'] == 'PUT'].copy()
+                # Fallback to delta-based selection
+                logger.info("Using delta-based strike selection")
+                short_strike = self._find_optimal_strike(0.30, 'PUT')  # 30 delta short
+                long_strike = self._find_optimal_strike(0.15, 'PUT')   # 15 delta long
                 
-                if len(puts_df) < 2:
+                if short_strike is None or long_strike is None:
                     return {
                         'success': False,
-                        'reason': 'Insufficient PUT options for spread'
+                        'reason': 'Unable to find suitable strikes'
                     }
-                
-                # Find strikes for bull put spread
-                # Sell OTM put, buy further OTM put
-                otm_puts = puts_df[puts_df['strike'] < self.spot_price].sort_values('strike', ascending=False)
-                
-                if len(otm_puts) < 2:
-                    return {
-                        'success': False,
-                        'reason': 'Insufficient OTM PUT strikes'
-                    }
-                
-                # Select strikes
-                short_strike = otm_puts.iloc[0]['strike']  # Closer to ATM
-                long_strike = otm_puts.iloc[1]['strike']   # Further OTM
             
             # Get option details
             short_put = self._get_option_data(short_strike, 'PUT')
