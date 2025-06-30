@@ -74,6 +74,32 @@ STRATEGY_REGISTRY = {
         description="Simple bearish bet with limited risk"
     ),
     
+    "Short Call": StrategyMetadata(
+        name="Short Call",
+        category="directional",
+        market_bias=[MarketBias.BEARISH, MarketBias.NEUTRAL],
+        iv_preference=[IVEnvironment.HIGH, IVEnvironment.ELEVATED],
+        complexity=2,
+        capital_efficiency=0.3,  # Ties up margin
+        time_decay_profile=TimeDecayProfile.POSITIVE,
+        liquidity_requirements="low",
+        risk_profile="unlimited",
+        description="Premium collection with unlimited upside risk"
+    ),
+    
+    "Short Put": StrategyMetadata(
+        name="Short Put",
+        category="directional", 
+        market_bias=[MarketBias.BULLISH, MarketBias.NEUTRAL],
+        iv_preference=[IVEnvironment.HIGH, IVEnvironment.ELEVATED],
+        complexity=2,
+        capital_efficiency=0.3,  # Ties up margin
+        time_decay_profile=TimeDecayProfile.POSITIVE,
+        liquidity_requirements="low",
+        risk_profile="limited",  # Limited to strike price
+        description="Premium collection with downside risk to strike"
+    ),
+    
     "Bull Call Spread": StrategyMetadata(
         name="Bull Call Spread",
         category="directional",

@@ -101,32 +101,20 @@ class DiagonalSpread(BaseStrategy):
             if long_option_data is None or short_option_data is None:
                 return {'success': False, 'reason': 'Option data not available'}
             
-            # Create legs
+            # Create legs using base class method for complete data extraction
             legs = [
-                {
-                    'option_type': option_type,
-                    'position': 'LONG',
-                    'strike': long_strike,
-                    'premium': long_option_data.get('last_price', 0),
-                    'delta': long_option_data.get('delta', 0),
-                    'theta': long_option_data.get('theta', 0),
-                    'gamma': long_option_data.get('gamma', 0),
-                    'vega': long_option_data.get('vega', 0),
-                    'quantity': 1,
-                    'rationale': f'Long {option_type} at {long_strike} (ATM)'
-                },
-                {
-                    'option_type': option_type,
-                    'position': 'SHORT',
-                    'strike': short_strike,
-                    'premium': short_option_data.get('last_price', 0),
-                    'delta': short_option_data.get('delta', 0),
-                    'theta': short_option_data.get('theta', 0),
-                    'gamma': short_option_data.get('gamma', 0),
-                    'vega': short_option_data.get('vega', 0),
-                    'quantity': 1,
-                    'rationale': f'Short {option_type} at {short_strike} (OTM)'
-                }
+                self._create_leg(
+                    long_option_data, 
+                    'LONG', 
+                    quantity=1, 
+                    rationale=f'Long {option_type} at {long_strike} (ATM)'
+                ),
+                self._create_leg(
+                    short_option_data, 
+                    'SHORT', 
+                    quantity=1, 
+                    rationale=f'Short {option_type} at {short_strike} (OTM)'
+                )
             ]
             
             # Calculate strategy metrics

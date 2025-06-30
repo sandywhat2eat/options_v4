@@ -1,0 +1,13 @@
+🚀 Options V4 Trading System
+==================================================
+
+🔍 Analyzing SUNPHARMA...
+
+📊 Portfolio Analysis Summary:
+   • Symbols Analyzed: 0
+   • Successful Analyses: 0
+   • Success Rate: 0.0%
+   • Total Strategies: 0
+   • Results saved to: /Users/jaykrish/Documents/digitalocean/cronjobs/options_v4/results/options_v4_analysis_20250628_193055.json
+
+💾 Database Storage: Enabled

@@ -1,0 +1,1475 @@
+{
+  "timestamp": "2025-06-29T22:17:01.676439",
+  "table_analysis": [
+    {
+      "table": "strategies",
+      "status": "EXCELLENT",
+      "total_records": 100,
+      "avg_population_rate": 94.28571428571429,
+      "field_stats": {
+        "id": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "stock_name": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "strategy_name": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "spread_type": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "net_premium": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 19,
+          "empty_string_count": 0
+        },
+        "strategy_type": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "time_horizon": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "market_outlook": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "probability_of_profit": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "risk_reward_ratio": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 58,
+          "empty_string_count": 0
+        },
+        "created_at": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "market_view": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "technical_factors": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "volatility_outlook": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "key_risks": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "description": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 7
+        },
+        "conviction_level": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "generated_on": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "total_score": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "confidence_score": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "market_direction_strength": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "iv_percentile": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 42,
+          "empty_string_count": 0
+        },
+        "iv_environment": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "spot_price": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "analysis_timestamp": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "market_sub_category": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 11
+        },
+        "component_scores": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "optimal_outcome": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 7
+        },
+        "execution_status": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "marked_for_execution": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 100,
+          "empty_string_count": 0
+        },
+        "execution_priority": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 100,
+          "empty_string_count": 0
+        },
+        "execution_notes": {
+          "populated_rate": 0.0,
+          "null_count": 100,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "executed_at": {
+          "populated_rate": 0.0,
+          "null_count": 100,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "sector": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "industry": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        }
+      },
+      "issues": [
+        "marked_for_execution: 100/100 records are zero",
+        "execution_priority: 100/100 records are zero",
+        "execution_notes: Only 0.0% populated",
+        "executed_at: Only 0.0% populated"
+      ]
+    },
+    {
+      "table": "strategy_details",
+      "status": "GOOD",
+      "total_records": 100,
+      "avg_population_rate": 90.0,
+      "field_stats": {
+        "id": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "strategy_id": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "setup_type": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "instrument": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "lots": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "strike_price": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "option_type": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "expiry_date": {
+          "populated_rate": 0.0,
+          "null_count": 100,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "entry_price": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "delta": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 1,
+          "empty_string_count": 0
+        },
+        "gamma": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 52,
+          "empty_string_count": 0
+        },
+        "theta": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 52,
+          "empty_string_count": 0
+        },
+        "vega": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 52,
+          "empty_string_count": 0
+        },
+        "quantity": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "total_premium": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "entry_min_price": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "entry_max_price": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "implied_volatility": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 88,
+          "empty_string_count": 0
+        },
+        "rationale": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 12
+        },
+        "days_to_expiry": {
+          "populated_rate": 0.0,
+          "null_count": 100,
+          "zero_count": 0,
+          "empty_string_count": 0
+        }
+      },
+      "issues": [
+        "expiry_date: Only 0.0% populated",
+        "implied_volatility: 88/100 records are zero",
+        "days_to_expiry: Only 0.0% populated"
+      ]
+    },
+    {
+      "table": "strategy_parameters",
+      "status": "PARTIAL",
+      "total_records": 100,
+      "avg_population_rate": 64.70588235294117,
+      "field_stats": {
+        "id": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "strategy_id": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "entry_price": {
+          "populated_rate": 0.0,
+          "null_count": 100,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "stop_loss": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 16,
+          "empty_string_count": 0
+        },
+        "target_price": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 16,
+          "empty_string_count": 0
+        },
+        "max_profit": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 47,
+          "empty_string_count": 0
+        },
+        "max_loss": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 16,
+          "empty_string_count": 0
+        },
+        "breakeven_point": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 100,
+          "empty_string_count": 0
+        },
+        "margin_required": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 100,
+          "empty_string_count": 0
+        },
+        "expiry_date": {
+          "populated_rate": 0.0,
+          "null_count": 100,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "recommended_expiry": {
+          "populated_rate": 0.0,
+          "null_count": 100,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "risk_reward_ratio": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 47,
+          "empty_string_count": 0
+        },
+        "breakeven_upper": {
+          "populated_rate": 0.0,
+          "null_count": 100,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "breakeven_lower": {
+          "populated_rate": 0.0,
+          "null_count": 100,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "probability_profit": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "expected_value": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 100,
+          "empty_string_count": 0
+        },
+        "days_to_expiry": {
+          "populated_rate": 0.0,
+          "null_count": 100,
+          "zero_count": 0,
+          "empty_string_count": 0
+        }
+      },
+      "issues": [
+        "entry_price: Only 0.0% populated",
+        "breakeven_point: 100/100 records are zero",
+        "margin_required: 100/100 records are zero",
+        "expiry_date: Only 0.0% populated",
+        "recommended_expiry: Only 0.0% populated",
+        "breakeven_upper: Only 0.0% populated",
+        "breakeven_lower: Only 0.0% populated",
+        "expected_value: 100/100 records are zero",
+        "days_to_expiry: Only 0.0% populated"
+      ]
+    },
+    {
+      "table": "strategy_greek_exposures",
+      "status": "EXCELLENT",
+      "total_records": 100,
+      "avg_population_rate": 100.0,
+      "field_stats": {
+        "id": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "strategy_id": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "net_delta": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "net_gamma": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 58,
+          "empty_string_count": 0
+        },
+        "net_theta": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 58,
+          "empty_string_count": 0
+        },
+        "net_vega": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 58,
+          "empty_string_count": 0
+        }
+      },
+      "issues": []
+    },
+    {
+      "table": "strategy_monitoring",
+      "status": "EXCELLENT",
+      "total_records": 100,
+      "avg_population_rate": 100.0,
+      "field_stats": {
+        "id": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "strategy_id": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "support_level": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "resistance_level": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "iv_upper_limit": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "iv_lower_limit": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "max_pain": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "spot_vs_max_pain": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "poc_level": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "value_area_high": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "value_area_low": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "expected_move_1sd": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "expected_move_2sd": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        }
+      },
+      "issues": []
+    },
+    {
+      "table": "strategy_risk_management",
+      "status": "EXCELLENT",
+      "total_records": 100,
+      "avg_population_rate": 100.0,
+      "field_stats": {
+        "id": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "strategy_id": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "total_capital": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "capital_per_trade": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "max_capital_at_risk": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 23,
+          "empty_string_count": 0
+        },
+        "strategy_level_stop": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "trailing_stop": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 23,
+          "empty_string_count": 0
+        },
+        "time_based_stop": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "adjustment_criteria": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "exit_conditions": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "overall_risk": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "profit_target_primary": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 23,
+          "empty_string_count": 0
+        },
+        "profit_target_pct": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "scaling_exits": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "trailing_stop_activation": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 23,
+          "empty_string_count": 0
+        },
+        "technical_stops": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "time_stop_dte": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "greek_triggers": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "created_at": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        }
+      },
+      "issues": []
+    },
+    {
+      "table": "strategy_market_analysis",
+      "status": "EXCELLENT",
+      "total_records": 100,
+      "avg_population_rate": 100.0,
+      "field_stats": {
+        "id": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "strategy_id": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "market_direction": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "direction_confidence": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "direction_strength": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "final_market_score": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "timeframe": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "timeframe_duration": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "technical_score": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "trend": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "ema_alignment": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "rsi": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "macd_signal": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "volume_ratio": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "volume_trend": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "bb_width": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "atr": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "price_position": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "pattern": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "options_score": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 3,
+          "empty_string_count": 0
+        },
+        "volume_pcr": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 3,
+          "empty_string_count": 0
+        },
+        "oi_pcr": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 3,
+          "empty_string_count": 0
+        },
+        "pcr_interpretation": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 3
+        },
+        "atm_call_volume": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 3,
+          "empty_string_count": 0
+        },
+        "atm_put_volume": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 3,
+          "empty_string_count": 0
+        },
+        "atm_bias": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 3
+        },
+        "iv_skew": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 6,
+          "empty_string_count": 0
+        },
+        "iv_skew_type": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 3
+        },
+        "flow_intensity": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 3
+        },
+        "smart_money_direction": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 3
+        },
+        "unusual_activity": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "price_action_score": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "oi_max_pain": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 3,
+          "empty_string_count": 0
+        },
+        "oi_support": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 3,
+          "empty_string_count": 0
+        },
+        "oi_resistance": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 3,
+          "empty_string_count": 0
+        },
+        "created_at": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        }
+      },
+      "issues": []
+    },
+    {
+      "table": "strategy_iv_analysis",
+      "status": "EXCELLENT",
+      "total_records": 100,
+      "avg_population_rate": 100.0,
+      "field_stats": {
+        "id": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "strategy_id": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "atm_iv": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "iv_environment": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "atm_call_iv": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 100,
+          "empty_string_count": 0
+        },
+        "atm_put_iv": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 100,
+          "empty_string_count": 0
+        },
+        "call_put_iv_diff": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "sector_relative": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "percentile_in_sector": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "market_relative": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "iv_vs_market_pct": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "sector_normal_range_low": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "sector_normal_range_high": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "iv_interpretation": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "reversion_potential": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "reversion_direction": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "reversion_confidence": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "expected_iv": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "reversion_time_horizon": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "preferred_strategies": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "avoid_strategies": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "reasoning": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "created_at": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        }
+      },
+      "issues": [
+        "atm_call_iv: 100/100 records are zero",
+        "atm_put_iv: 100/100 records are zero"
+      ]
+    },
+    {
+      "table": "strategy_price_levels",
+      "status": "EXCELLENT",
+      "total_records": 100,
+      "avg_population_rate": 100.0,
+      "field_stats": {
+        "id": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "strategy_id": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "level": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "level_type": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "source": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "strength": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "timeframe": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "created_at": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        }
+      },
+      "issues": []
+    },
+    {
+      "table": "strategy_expected_moves",
+      "status": "EXCELLENT",
+      "total_records": 100,
+      "avg_population_rate": 100.0,
+      "field_stats": {
+        "id": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "strategy_id": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "straddle_price": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "one_sd_move": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "one_sd_pct": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "two_sd_move": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "two_sd_pct": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "daily_move": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "daily_pct": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "upper_expected_1sd": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "lower_expected_1sd": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "upper_expected_2sd": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "lower_expected_2sd": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "poc": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "value_area_high": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "value_area_low": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "va_width_pct": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "spot_in_va": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 15,
+          "empty_string_count": 0
+        },
+        "bullish_consensus_target": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "bearish_consensus_target": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "created_at": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        }
+      },
+      "issues": []
+    },
+    {
+      "table": "strategy_exit_levels",
+      "status": "EXCELLENT",
+      "total_records": 100,
+      "avg_population_rate": 100.0,
+      "field_stats": {
+        "id": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "strategy_id": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "exit_type": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "level_name": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "trigger_value": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 12,
+          "empty_string_count": 0
+        },
+        "trigger_type": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "action": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "reasoning": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "created_at": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        }
+      },
+      "issues": []
+    },
+    {
+      "table": "strategy_component_scores",
+      "status": "EXCELLENT",
+      "total_records": 100,
+      "avg_population_rate": 100.0,
+      "field_stats": {
+        "id": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "strategy_id": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "probability_score": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "risk_reward_score": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 19,
+          "empty_string_count": 0
+        },
+        "direction_score": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "iv_fit_score": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "liquidity_score": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "probability_weight": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "risk_reward_weight": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "direction_weight": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "iv_fit_weight": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "liquidity_weight": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        },
+        "created_at": {
+          "populated_rate": 100.0,
+          "null_count": 0,
+          "zero_count": 0,
+          "empty_string_count": 0
+        }
+      },
+      "issues": []
+    }
+  ],
+  "relationship_issues": [
+    "strategy_parameters: Missing 122/498 records",
+    "strategy_risk_management: Missing 122/498 records",
+    "strategy_exit_levels: Missing 330/498 records"
+  ],
+  "data_quality_issues": [
+    "strategy_details: 10 records with NULL expiry_date",
+    "strategy_greek_exposures: 10 records with all Greeks = 0",
+    "strategies: 10 records with empty description"
+  ],
+  "summary": {
+    "total_tables": 12,
+    "working_tables": 11,
+    "failing_tables": 0,
+    "status_distribution": {
+      "EXCELLENT": 10,
+      "GOOD": 1,
+      "PARTIAL": 1
+    }
+  }
+}

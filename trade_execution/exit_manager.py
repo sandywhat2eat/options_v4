@@ -136,9 +136,32 @@ class ExitManager:
     
     def _calculate_profit_targets(self, metrics: Dict, base_exits: Dict,
                                 category: str, market_analysis: Dict = None) -> Dict:
-        """Calculate profit target levels based on realistic expected moves"""
+        """Calculate profit target levels based on realistic expected moves and theta decay"""
         try:
             max_profit = metrics.get('max_profit', 0)
+            
+            # Get theta analysis if available
+            theta_analysis = metrics.get('theta_analysis', {})
+            theta_characteristic = theta_analysis.get('theta_characteristic', 'NEUTRAL')
+            decay_percentage = theta_analysis.get('decay_percentage', 0)
+            theta_cost = theta_analysis.get('theta_cost', 0)
+            
+            # Adjust base profit target based on theta
+            base_target_pct = base_exits['profit_target_pct']
+            if theta_characteristic == 'NEGATIVE':
+                # Need higher targets to overcome decay
+                theta_hurdle = decay_percentage / 100
+                base_target_pct = base_target_pct + theta_hurdle * 0.5
+                logger.debug(f"Theta negative: adjusting target from {base_exits['profit_target_pct']:.1%} to {base_target_pct:.1%}")
+            elif theta_characteristic == 'POSITIVE':
+                # Can accept lower targets as theta helps
+                theta_boost = min(decay_percentage / 100 * 0.3, 0.15)
+                base_target_pct = max(0.25, base_target_pct - theta_boost)
+                logger.debug(f"Theta positive: adjusting target from {base_exits['profit_target_pct']:.1%} to {base_target_pct:.1%}")
+            
+            # Update base_exits with adjusted values
+            base_exits = base_exits.copy()
+            base_exits['profit_target_pct'] = base_target_pct
             
             # Check if we should use realistic targets based on expected moves
             if market_analysis and category in ['directional']:
@@ -170,12 +193,21 @@ class ExitManager:
             scale_2 = max_profit * 0.50
             scale_3 = max_profit * 0.75
             
+            # Add theta-based recommendations
+            theta_recommendation = ""
+            if theta_characteristic == 'NEGATIVE' and decay_percentage > 20:
+                theta_recommendation = f"Consider early exit due to {decay_percentage:.0f}% theta decay"
+            elif theta_characteristic == 'POSITIVE':
+                theta_recommendation = "Time decay works in your favor - can hold longer"
+            
             return {
                 'primary': {
                     'target': primary_target,
                     'target_pct': base_exits['profit_target_pct'] * 100,
                     'action': 'Close entire position' if category != 'directional' else 'Close 50%',
-                    'reasoning': self._get_profit_reasoning(category)
+                    'reasoning': self._get_profit_reasoning(category),
+                    'theta_adjusted': True,
+                    'theta_recommendation': theta_recommendation
                 },
                 'scaling': {
                     'level_1': {'profit': scale_1, 'action': 'Close 25%'},
@@ -185,6 +217,12 @@ class ExitManager:
                 'trailing': {
                     'activate_at': primary_target,
                     'trail_by': max_profit * 0.1  # Trail by 10% of max profit
+                },
+                'theta_analysis': {
+                    'characteristic': theta_characteristic,
+                    'decay_percentage': decay_percentage,
+                    'theta_cost': theta_cost,
+                    'required_move_to_overcome': theta_analysis.get('required_move_percent', 0)
                 }
             }
             

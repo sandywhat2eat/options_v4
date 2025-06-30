@@ -179,6 +179,14 @@ class MarketAnalyzer:
                 options_details.get('iv_environment', 'NORMAL')
             )
             
+            # Extract IV analysis from options details
+            iv_analysis = {
+                'atm_iv': self._extract_atm_iv(options_df) if options_df is not None else 0.0,
+                'iv_environment': options_details.get('iv_environment', 'NORMAL'),
+                'iv_skew': options_details.get('iv_skew', 0),
+                'iv_skew_type': options_details.get('iv_skew_type', 'neutral')
+            }
+            
             return {
                 'direction': direction,
                 'sub_category': sub_category,
@@ -191,6 +199,7 @@ class MarketAnalyzer:
                 },
                 'timeframe': timeframe_analysis,
                 'strength': abs(final_score),
+                'iv_analysis': iv_analysis,  # Added missing IV analysis
                 'details': {
                     'technical': technical_details,
                     'options': options_details,
@@ -201,6 +210,40 @@ class MarketAnalyzer:
         except Exception as e:
             logger.error(f"Error analyzing market direction for {symbol}: {e}")
             return self._default_direction_analysis()
+    
+    def _extract_atm_iv(self, options_df: pd.DataFrame) -> float:
+        """Extract ATM implied volatility from options data"""
+        try:
+            if options_df is None or options_df.empty or 'iv' not in options_df.columns:
+                return 0.0
+            
+            # Separate calls and puts
+            calls = options_df[options_df['option_type'] == 'CALL']
+            puts = options_df[options_df['option_type'] == 'PUT']
+            
+            if calls.empty or puts.empty:
+                return 0.0
+            
+            # Get spot price (assume it's available in the data)
+            spot_price = options_df['spot_price'].iloc[0] if 'spot_price' in options_df.columns else None
+            if not spot_price:
+                return 0.0
+            
+            # Find ATM strikes (within 2% of spot)
+            atm_range = spot_price * 0.02
+            atm_calls = calls[abs(calls['strike'] - spot_price) <= atm_range]
+            atm_puts = puts[abs(puts['strike'] - spot_price) <= atm_range]
+            
+            if atm_calls.empty or atm_puts.empty:
+                return 0.0
+            
+            # Calculate average ATM IV
+            atm_iv = (atm_calls['iv'].mean() + atm_puts['iv'].mean()) / 2
+            return float(atm_iv) if not pd.isna(atm_iv) else 0.0
+            
+        except Exception as e:
+            logger.error(f"Error extracting ATM IV: {e}")
+            return 0.0
     
     def _analyze_technical_indicators_enhanced(self, symbol: str, spot_price: float) -> Tuple[float, Dict]:
         """Enhanced technical analysis with detailed metrics"""

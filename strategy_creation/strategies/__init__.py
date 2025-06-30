@@ -4,6 +4,7 @@ Strategy implementations for Options V4 system
 
 from .base_strategy import BaseStrategy
 from .directional.long_options import LongCall, LongPut
+from .directional.short_options import ShortCall, ShortPut
 from .directional.spreads import BullCallSpread, BearCallSpread
 from .directional.bull_put_spread import BullPutSpreadStrategy
 from .directional.bear_put_spread import BearPutSpreadStrategy
@@ -25,7 +26,7 @@ from .income.covered_call import CoveredCall
 
 __all__ = [
     'BaseStrategy',
-    'LongCall', 'LongPut',
+    'LongCall', 'LongPut', 'ShortCall', 'ShortPut',
     'BullCallSpread', 'BearCallSpread', 'BullPutSpreadStrategy', 'BearPutSpreadStrategy',
     'IronCondor', 'ButterflySpread', 'IronButterfly',
     'LongStraddle', 'ShortStraddle', 'LongStrangle', 'ShortStrangle',

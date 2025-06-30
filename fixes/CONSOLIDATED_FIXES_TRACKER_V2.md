@@ -12,8 +12,9 @@ This document consolidates all identified issues, completed fixes, and pending i
 ## 🎯 Executive Summary
 
 ### Phase 1 + Phase 2 Results
-- **Total Issues Identified**: 21
-- **Critical Issues Fixed**: 5/6 (83%)
+- **Total Issues Identified**: 22 (21 + Strike Selection)
+- **Critical Issues Fixed**: 5/7 (71%)
+- **NEW CRITICAL ISSUE**: Strike Selection rated 3/10 by expert analysis
 - **Strategy Distribution**: Improved from 3 to 10 types
 - **Bullish Bias**: Still present (66 Long Calls vs 1 Long Put)
 - **System Stability**: Significantly improved
@@ -25,6 +26,7 @@ This document consolidates all identified issues, completed fixes, and pending i
 4. ✅ Improved strategy selection diversity
 5. ✅ Implemented optimal data filtering (top 10 OI strikes)
 6. ⚠️ IV integration needs verification
+7. 🚨 Strike selection analysis complete - rated 3/10, critical fixes needed
 
 ---
 
@@ -236,11 +238,20 @@ This document consolidates all identified issues, completed fixes, and pending i
 
 ## 🚀 Phase 2 Action Plan
 
+### Critical Discovery - Strike Selection (Rated 3/10) 🚨
+**Expert Analysis Complete**: Strike selection methodology is fundamentally flawed
+- **90% of strategies ignore** the sophisticated IntelligentStrikeSelector
+- Using **primitive hard-coded rules** (e.g., "first OTM", "2% from ATM")
+- **Financial Impact**: 20-30% lower profits, 40% missed opportunities
+- **Example**: Bull Put Spread just picks first two OTM strikes without any optimization
+- **Documentation**: See `fixes/strike_selection_analysis.md` for full expert review
+
 ### Immediate Priorities (2-3 hours)
-1. **Verify IV Integration** - Check historical IV system
-2. **Fix Database Errors** - Standardize numeric formats
-3. **Test PCR Fix** - Run system to verify balanced detection
-4. **Add Logging** - Better diagnostics for debugging
+1. **Fix Strike Selection** - Mandate use of IntelligentStrikeSelector (CRITICAL)
+2. **Verify IV Integration** - Check historical IV system
+3. **Fix Database Errors** - Standardize numeric formats
+4. **Test PCR Fix** - Run system to verify balanced detection
+5. **Add Logging** - Better diagnostics for debugging
 
 ### Next Sprint (1-2 days)
 1. **Probability Engine V2** - Add market microstructure

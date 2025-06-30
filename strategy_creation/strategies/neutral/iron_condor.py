@@ -70,40 +70,32 @@ class IronCondor(BaseStrategy):
             if any(data is None for data in [put_short_data, put_long_data, call_short_data, call_long_data]):
                 return {'success': False, 'reason': 'Option data not available'}
             
-            # Construct legs
+            # Construct legs using base class method for complete data extraction
             self.legs = [
-                {
-                    'option_type': 'PUT',
-                    'position': 'SHORT',
-                    'strike': put_short_strike,
-                    'premium': put_short_data.get('last_price', 0),
-                    'delta': put_short_data.get('delta', 0),
-                    'rationale': 'Short put for premium collection'
-                },
-                {
-                    'option_type': 'PUT',
-                    'position': 'LONG',
-                    'strike': put_long_strike,
-                    'premium': put_long_data.get('last_price', 0),
-                    'delta': put_long_data.get('delta', 0),
-                    'rationale': 'Long put for downside protection'
-                },
-                {
-                    'option_type': 'CALL',
-                    'position': 'SHORT',
-                    'strike': call_short_strike,
-                    'premium': call_short_data.get('last_price', 0),
-                    'delta': call_short_data.get('delta', 0),
-                    'rationale': 'Short call for premium collection'
-                },
-                {
-                    'option_type': 'CALL',
-                    'position': 'LONG',
-                    'strike': call_long_strike,
-                    'premium': call_long_data.get('last_price', 0),
-                    'delta': call_long_data.get('delta', 0),
-                    'rationale': 'Long call for upside protection'
-                }
+                self._create_leg(
+                    put_short_data, 
+                    'SHORT', 
+                    quantity=1, 
+                    rationale='Short put for premium collection'
+                ),
+                self._create_leg(
+                    put_long_data, 
+                    'LONG', 
+                    quantity=1, 
+                    rationale='Long put for downside protection'
+                ),
+                self._create_leg(
+                    call_short_data, 
+                    'SHORT', 
+                    quantity=1, 
+                    rationale='Short call for premium collection'
+                ),
+                self._create_leg(
+                    call_long_data, 
+                    'LONG', 
+                    quantity=1, 
+                    rationale='Long call for upside protection'
+                )
             ]
             
             # Calculate metrics

@@ -32,9 +32,10 @@ from strategy_creation import DataManager, IVAnalyzer, ProbabilityEngine, RiskMa
 from trade_execution import ExitManager
 from strategy_creation import MarketAnalyzer
 from analysis import StrategyRanker, PriceLevelsAnalyzer
+from utils.parallel_processor import ParallelProcessor
 from strategy_creation.strategies import (
     # Directional
-    LongCall, LongPut, BullCallSpread, BearCallSpread, 
+    LongCall, LongPut, ShortCall, ShortPut, BullCallSpread, BearCallSpread, 
     BullPutSpreadStrategy, BearPutSpreadStrategy,
     # Neutral
     IronCondor, ButterflySpread, IronButterfly,
@@ -120,6 +121,10 @@ class OptionsAnalyzer:
         self.strategy_ranker = StrategyRanker()
         self.exit_manager = ExitManager()
         
+        # Initialize theta decay analyzer
+        from strategy_creation.theta_decay_analyzer import ThetaDecayAnalyzer
+        self.theta_analyzer = ThetaDecayAnalyzer()
+        
         # Import and initialize strike selector for expiry logic
         try:
             from strategy_creation.strike_selector import IntelligentStrikeSelector
@@ -135,6 +140,8 @@ class OptionsAnalyzer:
         self.strategy_classes = {
             'Long Call': LongCall,
             'Long Put': LongPut,
+            'Short Call': ShortCall,
+            'Short Put': ShortPut,
             'Bull Call Spread': BullCallSpread,
             'Bear Call Spread': BearCallSpread,
             'Bull Put Spread': BullPutSpreadStrategy,
@@ -158,12 +165,13 @@ class OptionsAnalyzer:
         
         self.logger.info("Options V4 Analyzer initialized successfully")
     
-    def analyze_portfolio(self, risk_tolerance: str = 'moderate') -> Dict:
+    def analyze_portfolio(self, risk_tolerance: str = 'moderate', max_workers: int = 8, holding_days: int = 14) -> Dict:
         """
         Analyze entire portfolio and generate strategy recommendations
         
         Args:
             risk_tolerance: Risk tolerance level (conservative/moderate/aggressive)
+            max_workers: Maximum number of parallel workers (default: 8)
         
         Returns:
             Dictionary with portfolio analysis and recommendations
@@ -177,51 +185,54 @@ class OptionsAnalyzer:
                 self.logger.error("No symbols found in portfolio")
                 return {'success': False, 'reason': 'No portfolio symbols'}
             
-            self.logger.info(f"Analyzing {len(symbols)} symbols: {symbols}")
+            self.logger.info(f"Analyzing {len(symbols)} symbols with {max_workers} parallel workers")
             
-            portfolio_results = {}
-            successful_analyses = 0
+            # Pre-fetch all sectors and industries in one query
+            if self.enable_database and self.db_integration:
+                self._prefetch_stock_metadata(symbols)
             
-            for symbol in symbols:
-                self.logger.info(f"\n{'='*50}")
-                self.logger.info(f"Analyzing {symbol}")
-                self.logger.info(f"{'='*50}")
-                
+            # Initialize parallel processor
+            processor = ParallelProcessor(max_workers=max_workers)
+            
+            # Define process function for each symbol
+            def process_symbol(symbol: str) -> Dict:
                 try:
-                    symbol_result = self.analyze_symbol(symbol, risk_tolerance)
-                    portfolio_results[symbol] = symbol_result
-                    
-                    if symbol_result.get('success', False):
-                        successful_analyses += 1
-                        self.logger.info(f"✅ {symbol} analysis completed successfully")
-                        
-                        # Store individual symbol result in database immediately
-                        if self.enable_database and self.db_integration:
-                            try:
-                                # Wrap single symbol result for database storage
-                                single_symbol_result = {
-                                    'success': True,
-                                    'analysis_timestamp': symbol_result.get('analysis_timestamp'),
-                                    'symbol_results': {symbol: symbol_result},
-                                    'total_symbols': 1,
-                                    'successful_analyses': 1
-                                }
-                                db_result = self.db_integration.store_analysis_results(single_symbol_result)
-                                if db_result['success']:
-                                    self.logger.info(f"💾 Stored {db_result['total_stored']} strategies for {symbol} in database")
-                                else:
-                                    self.logger.warning(f"💾 Database storage failed for {symbol}: {db_result.get('error', 'Unknown error')}")
-                            except Exception as e:
-                                self.logger.error(f"💾 Error storing {symbol} to database: {e}")
-                    else:
-                        self.logger.warning(f"⚠️ {symbol} analysis failed: {symbol_result.get('reason', 'Unknown')}")
-                
+                    return self.analyze_symbol(symbol, risk_tolerance)
                 except Exception as e:
-                    self.logger.error(f"❌ Error analyzing {symbol}: {e}")
-                    portfolio_results[symbol] = {
+                    self.logger.error(f"Error analyzing {symbol}: {e}")
+                    return {
                         'success': False,
                         'reason': f'Analysis error: {str(e)}'
                     }
+            
+            # Define callback for database storage
+            def store_symbol_result(symbol: str, result: Dict):
+                if result.get('success', False) and self.enable_database and self.db_integration:
+                    try:
+                        # Wrap single symbol result for database storage
+                        single_symbol_result = {
+                            'success': True,
+                            'analysis_timestamp': result.get('analysis_timestamp'),
+                            'symbol_results': {symbol: result},
+                            'total_symbols': 1,
+                            'successful_analyses': 1
+                        }
+                        db_result = self.db_integration.store_analysis_results(single_symbol_result)
+                        if not db_result['success']:
+                            self.logger.warning(f"Database storage failed for {symbol}: {db_result.get('error', 'Unknown error')}")
+                    except Exception as e:
+                        self.logger.error(f"Error storing {symbol} to database: {e}")
+            
+            # Process symbols in parallel
+            portfolio_results = processor.process_symbols_parallel(
+                symbols=symbols,
+                process_func=process_symbol,
+                callback_func=store_symbol_result
+            )
+            
+            # Count successful analyses
+            successful_analyses = sum(1 for result in portfolio_results.values() 
+                                    if result.get('success', False))
             
             # Generate portfolio summary
             portfolio_summary = self._generate_portfolio_summary(portfolio_results)
@@ -241,13 +252,23 @@ class OptionsAnalyzer:
             self.logger.error(f"Error in portfolio analysis: {e}")
             return {'success': False, 'reason': str(e)}
     
-    def analyze_symbol(self, symbol: str, risk_tolerance: str = 'moderate') -> Dict:
+    def _prefetch_stock_metadata(self, symbols: List[str]):
+        """Prefetch stock metadata for all symbols to reduce database queries"""
+        try:
+            if hasattr(self.stock_profiler, 'prefetch_metadata'):
+                self.stock_profiler.prefetch_metadata(symbols)
+                self.logger.info(f"Prefetched metadata for {len(symbols)} symbols")
+        except Exception as e:
+            self.logger.warning(f"Could not prefetch stock metadata: {e}")
+    
+    def analyze_symbol(self, symbol: str, risk_tolerance: str = 'moderate', holding_days: int = 14) -> Dict:
         """
         Analyze single symbol and generate strategy recommendations
         
         Args:
             symbol: Stock symbol to analyze
             risk_tolerance: Risk tolerance level
+            holding_days: Expected holding period in days
         
         Returns:
             Dictionary with symbol analysis and top strategies
@@ -296,7 +317,7 @@ class OptionsAnalyzer:
                            f"(ATM IV: {iv_analysis['atm_iv']:.1f}%)")
             
             # 4. Strategy Construction
-            strategies = self._construct_strategies(symbol, options_df, spot_price, market_analysis)
+            strategies = self._construct_strategies(symbol, options_df, spot_price, market_analysis, holding_days)
             
             if not strategies:
                 return {'success': False, 'reason': 'No strategies could be constructed'}
@@ -371,7 +392,7 @@ class OptionsAnalyzer:
             return {'success': False, 'reason': str(e)}
     
     def _construct_strategies(self, symbol: str, options_df, spot_price: float, 
-                            market_analysis: Dict) -> Dict:
+                            market_analysis: Dict, holding_days: int = 14) -> Dict:
         """Construct multiple strategies for evaluation"""
         try:
             strategies = {}
@@ -395,13 +416,36 @@ class OptionsAnalyzer:
                         # Get lot size for this symbol
                         lot_size = self.data_manager.get_lot_size(symbol)
                         
-                        # Pass market analysis to strategy for intelligent strike selection
-                        strategy_instance = strategy_class(symbol, spot_price, options_df, lot_size, market_analysis)
+                        # For Calendar Spread, get multi-expiry data
+                        if 'Calendar' in strategy_name:
+                            multi_expiry_df = self.data_manager.get_multi_expiry_options(symbol)
+                            if multi_expiry_df is not None:
+                                strategy_instance = strategy_class(symbol, spot_price, multi_expiry_df, lot_size, market_analysis)
+                            else:
+                                self.logger.info(f"⚠️ {strategy_name} skipped: Insufficient expiries")
+                                continue
+                        else:
+                            # Pass market analysis to strategy for intelligent strike selection
+                            strategy_instance = strategy_class(symbol, spot_price, options_df, lot_size, market_analysis)
                         
                         # Construct strategy with appropriate parameters
                         result = self._construct_single_strategy(strategy_instance, strategy_name, market_analysis)
                         
                         if result.get('success', False):
+                            # Add theta decay analysis if strategy has legs
+                            if 'legs' in result and result['legs']:
+                                theta_analysis = self.theta_analyzer.analyze_strategy_theta(
+                                    result['legs'],
+                                    holding_days,
+                                    spot_price
+                                )
+                                result['theta_analysis'] = theta_analysis
+                                
+                                # Log theta impact
+                                self.logger.info(f"  Theta: {theta_analysis['theta_characteristic']} "
+                                               f"({theta_analysis['net_theta_daily']:.2f}/day), "
+                                               f"Decay: {theta_analysis['decay_percentage']:.1f}%")
+                            
                             strategies[strategy_name] = result
                             self.logger.info(f"✅ {strategy_name} constructed successfully - PoP: {result.get('probability_profit', 0):.3f}")
                         else:
@@ -482,8 +526,8 @@ class OptionsAnalyzer:
                 reverse=True
             )
             
-            # Select top 25-30 strategies to try
-            selected_strategies = [name for name, score in sorted_strategies[:30]]
+            # Select top 5-8 strategies to try (OPTIMIZED from 30)
+            selected_strategies = [name for name, score in sorted_strategies[:8]]
             
             # Ensure balanced strategy selection
             # Force inclusion of simple directional strategies if market has clear direction
@@ -509,7 +553,7 @@ class OptionsAnalyzer:
             self.logger.debug(f"Strategy selection details - Direction: {direction}, "
                             f"Confidence: {confidence:.1%}, IV: {iv_env}")
             
-            return selected_strategies[:15]  # Reduce to 15 strategies for better focus
+            return selected_strategies[:8]  # Optimized to 8 strategies for faster execution
             
         except Exception as e:
             self.logger.error(f"Error in metadata-based selection: {e}")
@@ -763,6 +807,8 @@ def main():
     parser.add_argument('--symbol', type=str, help='Analyze specific symbol instead of portfolio')
     parser.add_argument('--risk', type=str, default='moderate', choices=['conservative', 'moderate', 'aggressive'],
                         help='Risk tolerance level')
+    parser.add_argument('--holding-days', type=int, default=14,
+                        help='Expected holding period in days (default: 14)')
     args = parser.parse_args()
     
     try:
@@ -785,7 +831,7 @@ def main():
                 }
         else:
             # Portfolio analysis
-            results = analyzer.analyze_portfolio(risk_tolerance=args.risk)
+            results = analyzer.analyze_portfolio(risk_tolerance=args.risk, max_workers=8)
         
         if results.get('success', False):
             # Save results

@@ -261,19 +261,38 @@ class BaseStrategy(ABC):
             if hasattr(option_data, 'to_dict'):
                 option_data = option_data.to_dict()
             
-            return {
+            # Extract Greeks with proper field name handling
+            delta_val = option_data.get('delta', 0)
+            gamma_val = option_data.get('gamma', 0)
+            theta_val = option_data.get('theta', 0)
+            vega_val = option_data.get('vega', 0)
+            
+            # Handle IV field name variations
+            iv_val = option_data.get('iv', option_data.get('implied_volatility', 0))
+            
+            # Handle expiry field if available
+            expiry_val = option_data.get('expiry', option_data.get('expiry_date', None))
+            
+            leg_dict = {
                 'option_type': option_data.get('option_type', 'CALL'),
                 'position': position,
                 'strike': option_data.get('strike', 0),
                 'quantity': quantity,
                 'premium': option_data.get('last_price', 0),
-                'delta': option_data.get('delta', 0),
-                'gamma': option_data.get('gamma', 0),
-                'theta': option_data.get('theta', 0),
-                'vega': option_data.get('vega', 0),
-                'iv': option_data.get('implied_volatility', 0),
+                'delta': float(delta_val) if delta_val is not None else 0.0,
+                'gamma': float(gamma_val) if gamma_val is not None else 0.0,
+                'theta': float(theta_val) if theta_val is not None else 0.0,
+                'vega': float(vega_val) if vega_val is not None else 0.0,
+                'iv': float(iv_val) if iv_val is not None else 0.0,
                 'rationale': rationale
             }
+            
+            # Add expiry if available (for Calendar spreads)
+            if expiry_val:
+                leg_dict['expiry'] = expiry_val
+                
+            return leg_dict
+            
         except Exception as e:
             logger.error(f"Error creating leg: {e}")
             return {
@@ -299,14 +318,26 @@ class BaseStrategy(ABC):
             # Try to extract from expiry date if available
             if 'expiry' in self.options_df.columns:
                 expiry_str = self.options_df['expiry'].iloc[0]
-                # Add logic to parse expiry date and calculate days
-                return 7  # Default weekly expiry
+                
+                # Parse expiry date and calculate days to expiry
+                try:
+                    from datetime import datetime
+                    expiry_date = datetime.strptime(expiry_str, '%Y-%m-%d')
+                    current_date = datetime.now()
+                    days_to_expiry = (expiry_date - current_date).days
+                    
+                    # Ensure we return at least 1 day
+                    return max(1, days_to_expiry)
+                    
+                except (ValueError, TypeError):
+                    logger.warning(f"Could not parse expiry date: {expiry_str}")
+                    return 30  # Default monthly expiry
             
-            return 7  # Default for weekly options
+            return 30  # Default for monthly options
             
         except Exception as e:
             logger.error(f"Error getting days to expiry: {e}")
-            return 7
+            return 30
     
     def to_dict(self) -> Dict:
         """Convert strategy to dictionary format"""

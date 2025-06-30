@@ -90,19 +90,13 @@ class CashSecuredPut(BaseStrategy):
                     'reason': 'Premium too low for cash-secured put'
                 }
             
-            # Build strategy
-            self.legs = [{
-                'option_type': 'PUT',
-                'strike': selected_strike,
-                'position': 'SHORT',
-                'quantity': 1,
-                'premium': premium,
-                'delta': put_data.get('delta', 0),
-                'theta': put_data.get('theta', 0),
-                'gamma': put_data.get('gamma', 0),
-                'vega': put_data.get('vega', 0),
-                'iv': put_data.get('iv', 0)
-            }]
+            # Build strategy using base class method for complete data extraction
+            self.legs = [self._create_leg(
+                put_data, 
+                'SHORT', 
+                quantity=1, 
+                rationale='Cash-secured short put for income generation'
+            )]
             
             # Calculate metrics
             max_profit = premium

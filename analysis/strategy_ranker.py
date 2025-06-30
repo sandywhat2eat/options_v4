@@ -24,12 +24,13 @@ class StrategyRanker:
         self.iv_analyzer = IVAnalyzer()
         self.risk_manager = RiskManager()
         
-        # Scoring weights for different factors
+        # Scoring weights for different factors (adjusted after risk-reward fix)
         self.scoring_weights = {
-            'probability_profit': 0.35,    # Highest weight to PoP
-            'risk_reward_ratio': 0.25,     # Risk-reward importance
-            'direction_alignment': 0.20,   # Market direction fit
-            'iv_compatibility': 0.15,      # IV environment fit
+            'probability_profit': 0.35,    # Increased - most important factor
+            'direction_alignment': 0.25,   # Increased - market confidence is key
+            'risk_reward_ratio': 0.15,     # Reduced until system validates fixed scoring
+            'iv_compatibility': 0.10,      # IV environment fit
+            'theta_score': 0.10,           # Theta decay impact
             'liquidity_score': 0.05        # Basic liquidity weight
         }
     
@@ -54,6 +55,11 @@ class StrategyRanker:
             for strategy_name, strategy_data in strategies.items():
                 if not strategy_data.get('success', False):
                     logger.debug(f"Skipping failed strategy: {strategy_name}")
+                    continue
+                
+                # Apply confidence filter for long options
+                if not self._should_recommend_strategy(strategy_name, strategy_data, market_analysis):
+                    logger.debug(f"Confidence filter rejected strategy: {strategy_name}")
                     continue
                 
                 # Calculate comprehensive score
@@ -123,7 +129,10 @@ class StrategyRanker:
                 strategy_data, market_analysis
             )
             
-            # 5. Basic liquidity score (placeholder - can be enhanced)
+            # 5. Calculate Theta Score
+            theta_score = self._calculate_theta_score(strategy_data)
+            
+            # 6. Basic liquidity score (placeholder - can be enhanced)
             liquidity_score = 0.8  # Default good liquidity
             
             # Calculate weighted total score
@@ -132,6 +141,7 @@ class StrategyRanker:
                 risk_reward_ratio * self.scoring_weights['risk_reward_ratio'] +
                 direction_alignment * self.scoring_weights['direction_alignment'] +
                 iv_compatibility * self.scoring_weights['iv_compatibility'] +
+                theta_score * self.scoring_weights['theta_score'] +
                 liquidity_score * self.scoring_weights['liquidity_score']
             )
             
@@ -143,6 +153,7 @@ class StrategyRanker:
                 'risk_reward_ratio': risk_reward_ratio,
                 'direction_alignment': direction_alignment,
                 'iv_compatibility': iv_compatibility,
+                'theta_score': theta_score,
                 'liquidity_score': liquidity_score,
                 'total_score': total_score,
                 'component_scores': {
@@ -150,6 +161,7 @@ class StrategyRanker:
                     'risk_reward': risk_reward_ratio,
                     'direction': direction_alignment,
                     'iv_fit': iv_compatibility,
+                    'theta': theta_score,
                     'liquidity': liquidity_score
                 }
             }
@@ -161,11 +173,19 @@ class StrategyRanker:
     def _calculate_probability_of_profit(self, strategy_name: str, strategy_data: Dict) -> float:
         """Calculate probability of profit based on strategy type and Greeks"""
         try:
+            # First check if strategy already provides its own probability_profit
+            # This prevents double calculation and respects strategy-specific logic
+            if 'probability_profit' in strategy_data:
+                existing_prob = strategy_data.get('probability_profit', 0.0)
+                if existing_prob > 0:
+                    logger.debug(f"Using strategy-provided PoP for {strategy_name}: {existing_prob:.3f}")
+                    return existing_prob
+            
             legs = strategy_data.get('legs', [])
             if not legs:
                 return 0.0
             
-            # Strategy-specific probability calculations
+            # Strategy-specific probability calculations (fallback if not provided by strategy)
             if 'Long Call' in strategy_name:
                 return self._calculate_long_option_probability(legs[0], 'CALL')
             
@@ -233,16 +253,23 @@ class StrategyRanker:
     def _calculate_debit_spread_probability(self, legs: List[Dict]) -> float:
         """Calculate PoP for debit spreads"""
         try:
-            # Find long leg (premium paid)
+            # Find long leg (premium paid) and short leg
             long_leg = next((leg for leg in legs if leg['position'] == 'LONG'), None)
-            if long_leg is None:
+            short_leg = next((leg for leg in legs if leg['position'] == 'SHORT'), None)
+            
+            if long_leg is None or short_leg is None:
                 return 0.5
             
-            delta = abs(long_leg.get('delta', 0))
-            
-            # Debit spreads need favorable price movement
-            # Conservative estimate with premium consideration
-            return min(0.7, delta * 0.8)
+            # Strategy-specific probability calculation
+            if long_leg['option_type'] == 'CALL':
+                # Bull Call Spread - profits when price above short strike
+                short_delta = abs(short_leg.get('delta', 0))
+                return min(0.7, short_delta * 0.8)
+            else:  # PUT
+                # Bear Put Spread - profits when price below short strike
+                short_delta = abs(short_leg.get('delta', 0))
+                # For Bear Put: probability = 1 - short_put_delta (inverse relationship)
+                return min(0.7, (1.0 - short_delta) * 0.8)
             
         except Exception as e:
             logger.error(f"Error calculating debit spread PoP: {e}")
@@ -308,26 +335,115 @@ class StrategyRanker:
             return 0.4
     
     def _calculate_risk_reward_score(self, strategy_data: Dict) -> float:
-        """Calculate risk-reward score"""
+        """
+        Calculate realistic risk-reward score based on actual trading metrics
+        
+        Fixed Issues:
+        - Long options no longer get perfect scores
+        - Spreads get proper scoring based on actual ratios
+        - Realistic profit targets used for unlimited profit strategies
+        """
         try:
             max_profit = strategy_data.get('max_profit', 0)
-            max_loss = strategy_data.get('max_loss', 1)
+            max_loss = abs(strategy_data.get('max_loss', 1))
+            strategy_name = strategy_data.get('strategy_name', '')
             
             if max_loss <= 0:
                 return 0.0
             
-            if max_profit == float('inf'):
-                # Unlimited profit potential gets high score
-                return 1.0
+            if max_profit == float('inf') or max_profit == 'Unlimited':
+                # For unlimited profit strategies (long options), use realistic targets
+                probability_profit = strategy_data.get('probability_profit', 0.5)
+                
+                # Realistic profit target based on probability and risk
+                # Most long options aim for 50% profit or 2x probability-based target
+                realistic_profit = max_loss * max(0.3, min(0.6, probability_profit * 1.2))
+                risk_reward_ratio = realistic_profit / max_loss
+                
+                # Cap long options at 0.5 score (they're inherently risky due to time decay)
+                base_score = min(0.5, risk_reward_ratio * 0.8)
+                
+                # Apply confidence bonus for high-probability setups
+                confidence_bonus = 0
+                if probability_profit > 0.7:
+                    confidence_bonus = 0.1
+                elif probability_profit > 0.6:
+                    confidence_bonus = 0.05
+                
+                return min(0.6, base_score + confidence_bonus)
             
+            # For defined profit strategies (spreads, butterflies, etc.)
+            if max_profit <= 0:
+                return 0.0
+                
             risk_reward_ratio = max_profit / max_loss
             
-            # Convert to 0-1 score (cap at 3:1 ratio)
-            return min(1.0, risk_reward_ratio / 3.0)
+            # Improved scoring scale for spreads:
+            # 1:1 ratio = 0.50 score
+            # 1.5:1 ratio = 0.65 score  
+            # 2:1 ratio = 0.80 score
+            # 3:1 ratio = 1.0 score
+            if risk_reward_ratio >= 3.0:
+                return 1.0
+            elif risk_reward_ratio >= 2.0:
+                return 0.80
+            elif risk_reward_ratio >= 1.5:
+                return 0.65
+            elif risk_reward_ratio >= 1.0:
+                return 0.50
+            elif risk_reward_ratio >= 0.8:
+                return 0.40
+            elif risk_reward_ratio >= 0.5:
+                return 0.25
+            else:
+                return 0.1
             
         except Exception as e:
-            logger.error(f"Error calculating risk-reward score: {e}")
+            logger.error(f"Error calculating risk-reward score for {strategy_name}: {e}")
             return 0.0
+    
+    def _should_recommend_strategy(self, strategy_name: str, strategy_data: Dict, market_analysis: Dict) -> bool:
+        """
+        Apply confidence-based filtering to prevent recommending high-risk strategies
+        in low-confidence scenarios
+        """
+        try:
+            # Extract market confidence and direction strength
+            confidence = market_analysis.get('confidence', 0.5)
+            direction_strength = abs(market_analysis.get('final_score', 0))
+            
+            # Define high-risk single-leg strategies that need high confidence
+            high_risk_strategies = [
+                'Long Call', 'Long Put', 'Long Straddle', 'Long Strangle'
+            ]
+            
+            # If it's a high-risk strategy, apply stricter criteria
+            if any(risky in strategy_name for risky in high_risk_strategies):
+                # Require high confidence for single-leg strategies
+                min_confidence = 0.70  # Slightly reduced from 0.75
+                min_direction_strength = 0.5  # Reduced from 0.6
+                
+                if confidence < min_confidence:
+                    logger.info(f"Rejecting {strategy_name}: Low confidence {confidence:.2f} < {min_confidence}")
+                    return False
+                    
+                if direction_strength < min_direction_strength:
+                    logger.info(f"Rejecting {strategy_name}: Weak direction {direction_strength:.2f} < {min_direction_strength}")
+                    return False
+                    
+                # Additional check: long options should have reasonable probability
+                prob = strategy_data.get('probability_profit', 0)
+                if prob < 0.5:  # Reduced from 0.6 to 0.5 for more realistic threshold
+                    logger.info(f"Rejecting {strategy_name}: Low PoP {prob:.2f} < 0.5")
+                    return False
+            
+            # For spreads and other defined-risk strategies, be more lenient
+            # They're generally safer and should be recommended more often
+            return True
+            
+        except Exception as e:
+            logger.error(f"Error in strategy recommendation filter: {e}")
+            return True  # Default to allowing strategy if filter fails
     
     def _calculate_direction_alignment(self, strategy_data: Dict, market_analysis: Dict) -> float:
         """Calculate how well strategy aligns with market direction"""
@@ -431,3 +547,43 @@ class StrategyRanker:
         except Exception as e:
             logger.error(f"Error applying risk filters: {e}")
             return strategies
+    
+    def _calculate_theta_score(self, strategy_data: Dict) -> float:
+        """
+        Calculate theta score based on theta analysis
+        Higher score = better for the holding period
+        """
+        try:
+            # Check if theta analysis is available
+            theta_analysis = strategy_data.get('theta_analysis')
+            if not theta_analysis:
+                # No theta analysis available, return neutral score
+                return 0.5
+            
+            # Get theta score from the analysis
+            theta_score = theta_analysis.get('theta_score', 0.5)
+            
+            # Additional adjustments based on theta characteristics
+            theta_characteristic = theta_analysis.get('theta_characteristic', 'NEUTRAL')
+            decay_percentage = theta_analysis.get('decay_percentage', 0)
+            
+            # For theta positive strategies, boost score
+            if theta_characteristic == 'POSITIVE':
+                # Higher decay percentage means more theta income
+                theta_score = min(1.0, theta_score + decay_percentage / 100 * 0.2)
+            
+            # For theta negative strategies, penalize based on decay
+            elif theta_characteristic == 'NEGATIVE':
+                # Higher decay percentage means more cost
+                if decay_percentage > 30:
+                    theta_score *= 0.5  # Heavy penalty for high decay
+                elif decay_percentage > 15:
+                    theta_score *= 0.7  # Moderate penalty
+                elif decay_percentage > 5:
+                    theta_score *= 0.9  # Light penalty
+            
+            return max(0, min(1.0, theta_score))
+            
+        except Exception as e:
+            logger.error(f"Error calculating theta score: {e}")
+            return 0.5

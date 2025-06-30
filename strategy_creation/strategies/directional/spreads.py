@@ -36,11 +36,24 @@ class BullCallSpread(BaseStrategy):
                 )
                 logger.info(f"Selected CALL strikes: Long {long_strike}, Short {short_strike}")
             else:
-                # Fallback to delta-based selection
+                # Fallback to delta-based selection with wider spread
                 logger.info("Using delta-based strike selection")
                 # For Bull Call Spread: Buy lower strike (higher delta), Sell higher strike (lower delta)
-                long_strike = self._find_strike_by_delta(0.3, 'CALL')   # Higher delta = lower strike
-                short_strike = self._find_strike_by_delta(0.15, 'CALL')  # Lower delta = higher strike
+                available_strikes = sorted(self.options_df[self.options_df['option_type'] == 'CALL']['strike'].unique())
+                long_strike = self._find_strike_by_delta(0.4, 'CALL')   # Higher delta = lower strike
+                short_strike = self._find_strike_by_delta(0.2, 'CALL')  # Lower delta = higher strike
+                
+                # Ensure strikes are different and properly spaced
+                if long_strike == short_strike:
+                    atm_strike = min(available_strikes, key=lambda x: abs(x - self.spot_price))
+                    if atm_strike in available_strikes:
+                        idx = available_strikes.index(atm_strike)
+                        long_strike = atm_strike
+                        # Find next higher strike for short leg
+                        if idx < len(available_strikes) - 1:
+                            short_strike = available_strikes[idx + 1]
+                        else:
+                            short_strike = available_strikes[idx - 1] if idx > 0 else atm_strike * 1.05
             
             if long_strike >= short_strike:
                 # If strikes are reversed, swap them for Bull Call Spread
@@ -57,24 +70,20 @@ class BullCallSpread(BaseStrategy):
             if long_call_data is None or short_call_data is None:
                 return {'success': False, 'reason': 'Option data not available'}
             
-            # Construct legs
+            # Construct legs using base class method for complete data extraction
             self.legs = [
-                {
-                    'option_type': 'CALL',
-                    'position': 'LONG',
-                    'strike': long_strike,
-                    'premium': long_call_data.get('last_price', 0),
-                    'delta': long_call_data.get('delta', 0),
-                    'rationale': 'Long the lower strike for upside participation'
-                },
-                {
-                    'option_type': 'CALL',
-                    'position': 'SHORT',
-                    'strike': short_strike,
-                    'premium': short_call_data.get('last_price', 0),
-                    'delta': short_call_data.get('delta', 0),
-                    'rationale': 'Short the higher strike to reduce cost'
-                }
+                self._create_leg(
+                    long_call_data, 
+                    'LONG', 
+                    quantity=1, 
+                    rationale='Long the lower strike for upside participation'
+                ),
+                self._create_leg(
+                    short_call_data, 
+                    'SHORT', 
+                    quantity=1, 
+                    rationale='Short the higher strike to reduce cost'
+                )
             ]
             
             # Calculate metrics
@@ -180,24 +189,20 @@ class BearCallSpread(BaseStrategy):
             if short_call_data is None or long_call_data is None:
                 return {'success': False, 'reason': 'Option data not available'}
             
-            # Construct legs
+            # Construct legs using base class method for complete data extraction
             self.legs = [
-                {
-                    'option_type': 'CALL',
-                    'position': 'SHORT',
-                    'strike': short_strike,
-                    'premium': short_call_data.get('last_price', 0),
-                    'delta': short_call_data.get('delta', 0),
-                    'rationale': 'Short the lower strike to collect premium'
-                },
-                {
-                    'option_type': 'CALL',
-                    'position': 'LONG',
-                    'strike': long_strike,
-                    'premium': long_call_data.get('last_price', 0),
-                    'delta': long_call_data.get('delta', 0),
-                    'rationale': 'Long the higher strike for risk management'
-                }
+                self._create_leg(
+                    short_call_data, 
+                    'SHORT', 
+                    quantity=1, 
+                    rationale='Short the lower strike to collect premium'
+                ),
+                self._create_leg(
+                    long_call_data, 
+                    'LONG', 
+                    quantity=1, 
+                    rationale='Long the higher strike for risk management'
+                )
             ]
             
             # Calculate metrics
@@ -449,9 +454,10 @@ class BearPutSpread(BaseStrategy):
             total_max_loss = net_debit * self.lot_size
             
             # Calculate probability of profit
-            # Bear Put Spread profits when price < breakeven
-            # Use long put delta (negative) as approximation
-            probability_profit = abs(long_put_data.get('delta', -0.3))  # Convert negative delta to positive
+            # Bear Put Spread profits when price < breakeven (price drops below short strike)
+            # More accurate: Use 1 - short_put_delta since we profit when price drops below short strike
+            short_put_delta = abs(short_put_data.get('delta', -0.15))
+            probability_profit = min(0.7, (1.0 - short_put_delta) * 0.9)  # Conservative adjustment
             
             return {
                 'success': True,

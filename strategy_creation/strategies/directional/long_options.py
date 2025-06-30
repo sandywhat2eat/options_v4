@@ -64,15 +64,13 @@ class LongCall(BaseStrategy):
             
             logger.info(f"Found option data: Delta={call_data.get('delta', 0):.3f}, Premium={call_data.get('last_price', 0)}")
             
-            # Construct leg
-            self.legs = [{
-                'option_type': 'CALL',
-                'position': 'LONG',
-                'strike': strike,
-                'premium': call_data.get('last_price', 0),
-                'delta': call_data.get('delta', 0),
-                'rationale': 'Bullish directional play'
-            }]
+            # Construct leg using base class method for complete data extraction
+            self.legs = [self._create_leg(
+                call_data, 
+                'LONG', 
+                quantity=1, 
+                rationale='Bullish directional play'
+            )]
             
             # Calculate metrics
             risk_metrics = self.get_risk_metrics()
@@ -195,15 +193,13 @@ class LongPut(BaseStrategy):
             if put_data is None:
                 return {'success': False, 'reason': 'Option data not available'}
             
-            # Construct leg
-            self.legs = [{
-                'option_type': 'PUT',
-                'position': 'LONG',
-                'strike': strike,
-                'premium': put_data.get('last_price', 0),
-                'delta': put_data.get('delta', 0),
-                'rationale': 'Bearish directional play'
-            }]
+            # Construct leg using base class method for complete data extraction
+            self.legs = [self._create_leg(
+                put_data, 
+                'LONG', 
+                quantity=1, 
+                rationale='Bearish directional play'
+            )]
             
             # Calculate metrics
             greeks = self.get_greeks_summary()

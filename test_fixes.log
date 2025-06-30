@@ -1,0 +1,54 @@
+2025-06-28 19:36:54,034 - OptionsV4 - WARNING - YAML not available, using default config
+2025-06-28 19:36:54,049 - OptionsV4 - INFO - Supabase client initialized successfully
+2025-06-28 19:36:54,049 - OptionsV4 - INFO - Database integration enabled
+2025-06-28 19:36:54,053 - OptionsV4 - INFO - Options V4 Analyzer initialized successfully
+2025-06-28 19:36:54,760 - OptionsV4 - INFO - Found 196 liquid options for SUNPHARMA at spot $1665.10
+2025-06-28 19:36:57,060 - OptionsV4 - INFO - Stock Profile: medium volatility, Beta: 0.57, ATR%: 1.65%
+/Users/jaykrish/Documents/digitalocean/cronjobs/options_v4/strategy_creation/iv_analyzer.py:107: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  options_df['strike_diff'] = abs(options_df['strike'] - spot_price)
+/Users/jaykrish/Documents/digitalocean/cronjobs/options_v4/strategy_creation/iv_analyzer.py:107: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  options_df['strike_diff'] = abs(options_df['strike'] - spot_price)
+2025-06-28 19:36:57,375 - OptionsV4 - INFO - Market Direction: Neutral  (Confidence: 15.8%)
+2025-06-28 19:36:57,375 - OptionsV4 - INFO - IV Environment: SUBDUED (ATM IV: 19.2%)
+2025-06-28 19:36:57,375 - OptionsV4 - INFO - Stock volatility profile suggests: Preferred: ['Iron Condor', 'Calendar Spread', 'Bull Put Spread', 'Bear Call Spread'], Avoid: []
+2025-06-28 19:36:57,375 - OptionsV4 - INFO - Selected 3 strategies based on metadata scoring
+2025-06-28 19:36:57,375 - OptionsV4 - INFO - Constructing 3 strategies: ['Long Straddle', 'Long Strangle', 'Butterfly Spread']
+2025-06-28 19:36:57,377 - OptionsV4 - INFO - ✅ Long Straddle constructed successfully - PoP: 0.472
+2025-06-28 19:36:57,378 - OptionsV4 - INFO - ✅ Long Strangle constructed successfully - PoP: 0.466
+2025-06-28 19:36:57,379 - OptionsV4 - INFO - ✅ Butterfly Spread constructed successfully - PoP: 0.490
+2025-06-28 19:36:57,380 - OptionsV4 - INFO - Generated 3 strategies, 3 passed filters
+2025-06-28 19:36:57,381 - OptionsV4 - INFO - Results saved to: /Users/jaykrish/Documents/digitalocean/cronjobs/options_v4/results/options_v4_analysis_20250628_193657.json
+2025-06-28 19:36:57,465 - OptionsV4 - INFO - Strategy Long Strangle for SUNPHARMA already exists for today, skipping insert
+2025-06-28 19:36:57,633 - OptionsV4 - ERROR - Error inserting strategy parameters: {'code': '22P02', 'details': None, 'hint': None, 'message': 'invalid input syntax for type numeric: "50-100% of debit paid"'}
+2025-06-28 19:36:57,962 - OptionsV4 - ERROR - Error inserting risk management: {'code': '22P02', 'details': None, 'hint': None, 'message': 'invalid input syntax for type numeric: "50-100% of debit paid"'}
+2025-06-28 19:36:58,258 - OptionsV4 - ERROR - Error inserting exit levels: 'str' object has no attribute 'get'
+2025-06-28 19:36:58,334 - OptionsV4 - INFO - Successfully stored strategy 7331: Long Strangle for SUNPHARMA
+2025-06-28 19:36:58,411 - OptionsV4 - INFO - Strategy Long Straddle for SUNPHARMA already exists for today, skipping insert
+2025-06-28 19:36:58,551 - OptionsV4 - ERROR - Error inserting strategy parameters: {'code': '22P02', 'details': None, 'hint': None, 'message': 'invalid input syntax for type numeric: "50-100% of debit paid"'}
+2025-06-28 19:36:58,753 - OptionsV4 - ERROR - Error inserting risk management: {'code': '22P02', 'details': None, 'hint': None, 'message': 'invalid input syntax for type numeric: "50-100% of debit paid"'}
+2025-06-28 19:36:59,036 - OptionsV4 - ERROR - Error inserting exit levels: 'str' object has no attribute 'get'
+2025-06-28 19:36:59,109 - OptionsV4 - INFO - Successfully stored strategy 7332: Long Straddle for SUNPHARMA
+2025-06-28 19:36:59,194 - OptionsV4 - INFO - Strategy Butterfly Spread for SUNPHARMA already exists for today, skipping insert
+2025-06-28 19:37:00,031 - OptionsV4 - INFO - Successfully stored strategy 7333: Butterfly Spread for SUNPHARMA
+2025-06-28 19:37:00,031 - OptionsV4 - INFO - Stored 3 strategies in database
+🚀 Options V4 Trading System
+==================================================
+
+🔍 Analyzing SUNPHARMA...
+
+📊 Portfolio Analysis Summary:
+   • Symbols Analyzed: 0
+   • Successful Analyses: 0
+   • Success Rate: 0.0%
+   • Total Strategies: 0
+   • Results saved to: /Users/jaykrish/Documents/digitalocean/cronjobs/options_v4/results/options_v4_analysis_20250628_193657.json
+
+💾 Database Storage: Enabled

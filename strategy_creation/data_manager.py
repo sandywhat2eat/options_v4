@@ -40,7 +40,7 @@ class DataManager:
             logger.error(f"Error fetching FNO stocks: {e}")
             return []
     
-    def get_options_data(self, symbol: str) -> Optional[pd.DataFrame]:
+    def get_options_data(self, symbol: str, multiple_expiries: bool = False) -> Optional[pd.DataFrame]:
         """Fetch options chain data for symbol - MONTHLY EXPIRY ONLY WITH TOP 10 OI STRIKES"""
         try:
             # First get the latest date for this symbol
@@ -76,36 +76,50 @@ class DataManager:
             # Get unique expiries and sort them
             expiries = sorted(list(set([row['expiry_date'] for row in expiry_response.data])))
             
-            # Select appropriate monthly expiry based on 20th rule
-            target_expiry = None
-            for expiry in expiries:
-                expiry_date = datetime.strptime(expiry, '%Y-%m-%d')
-                # Check if this is a monthly expiry (last Thursday of month logic can be added)
-                if current_day <= 20:
-                    # Use current month expiry
-                    if expiry_date.month == datetime.now().month:
-                        target_expiry = expiry
-                        break
-                else:
-                    # Use next month expiry
-                    if expiry_date.month > datetime.now().month or expiry_date.year > datetime.now().year:
-                        target_expiry = expiry
-                        break
-            
-            if not target_expiry:
-                # Fallback to nearest expiry
-                target_expiry = expiries[0]
-            
-            logger.info(f"Selected expiry: {target_expiry} for {symbol} (current day: {current_day})")
-            
-            # Fetch all data for the selected expiry
-            response = self.supabase.table('option_chain_data')\
-                .select('*')\
-                .eq('symbol', symbol)\
-                .eq('expiry_date', target_expiry)\
-                .gte('created_at', f"{latest_date}T00:00:00")\
-                .lt('created_at', f"{latest_date}T23:59:59")\
-                .execute()
+            if multiple_expiries and len(expiries) >= 2:
+                # For strategies like Calendar Spread, fetch first 2 expiries
+                target_expiries = expiries[:2]
+                logger.info(f"Fetching multiple expiries for {symbol}: {target_expiries}")
+                
+                # Fetch data for multiple expiries
+                response = self.supabase.table('option_chain_data')\
+                    .select('*')\
+                    .eq('symbol', symbol)\
+                    .in_('expiry_date', target_expiries)\
+                    .gte('created_at', f"{latest_date}T00:00:00")\
+                    .lt('created_at', f"{latest_date}T23:59:59")\
+                    .execute()
+            else:
+                # Select appropriate monthly expiry based on 20th rule
+                target_expiry = None
+                for expiry in expiries:
+                    expiry_date = datetime.strptime(expiry, '%Y-%m-%d')
+                    # Check if this is a monthly expiry (last Thursday of month logic can be added)
+                    if current_day <= 20:
+                        # Use current month expiry
+                        if expiry_date.month == datetime.now().month:
+                            target_expiry = expiry
+                            break
+                    else:
+                        # Use next month expiry
+                        if expiry_date.month > datetime.now().month or expiry_date.year > datetime.now().year:
+                            target_expiry = expiry
+                            break
+                
+                if not target_expiry:
+                    # Fallback to nearest expiry
+                    target_expiry = expiries[0]
+                
+                logger.info(f"Selected expiry: {target_expiry} for {symbol} (current day: {current_day})")
+                
+                # Fetch all data for the selected expiry
+                response = self.supabase.table('option_chain_data')\
+                    .select('*')\
+                    .eq('symbol', symbol)\
+                    .eq('expiry_date', target_expiry)\
+                    .gte('created_at', f"{latest_date}T00:00:00")\
+                    .lt('created_at', f"{latest_date}T23:59:59")\
+                    .execute()
             
             if not response.data:
                 logger.warning(f"No options data found for {symbol} on {latest_date}")
@@ -265,3 +279,15 @@ class DataManager:
             Position multiplier (lot size)
         """
         return self.get_lot_size(symbol)
+    
+    def get_multi_expiry_options(self, symbol: str) -> Optional[pd.DataFrame]:
+        """
+        Get options data for multiple expiries (for Calendar Spreads)
+        
+        Args:
+            symbol: Stock symbol
+            
+        Returns:
+            DataFrame with options from multiple expiries, or None if insufficient expiries
+        """
+        return self.get_options_data(symbol, multiple_expiries=True)

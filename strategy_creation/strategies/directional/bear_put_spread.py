@@ -87,32 +87,20 @@ class BearPutSpreadStrategy(BaseStrategy):
                     'reason': 'Invalid premium calculation for bear put spread'
                 }
             
-            # Build strategy
+            # Build strategy using base class method for complete data extraction
             legs = [
-                {
-                    'option_type': 'PUT',
-                    'strike': long_strike,
-                    'position': 'LONG',
-                    'quantity': 1,
-                    'premium': long_put['last_price'],
-                    'delta': long_put.get('delta', 0),
-                    'theta': long_put.get('theta', 0),
-                    'gamma': long_put.get('gamma', 0),
-                    'vega': long_put.get('vega', 0),
-                    'iv': long_put.get('iv', 0)
-                },
-                {
-                    'option_type': 'PUT',
-                    'strike': short_strike,
-                    'position': 'SHORT',
-                    'quantity': 1,
-                    'premium': short_put['last_price'],
-                    'delta': short_put.get('delta', 0),
-                    'theta': short_put.get('theta', 0),
-                    'gamma': short_put.get('gamma', 0),
-                    'vega': short_put.get('vega', 0),
-                    'iv': short_put.get('iv', 0)
-                }
+                self._create_leg(
+                    long_put, 
+                    'LONG', 
+                    quantity=1, 
+                    rationale='Long higher strike put for directional profit'
+                ),
+                self._create_leg(
+                    short_put, 
+                    'SHORT', 
+                    quantity=1, 
+                    rationale='Short lower strike put for limited risk'
+                )
             ]
             
             # Calculate max profit/loss
@@ -134,6 +122,11 @@ class BearPutSpreadStrategy(BaseStrategy):
             total_max_loss = max_loss * self.lot_size
             total_net_premium = net_premium * self.lot_size
             
+            # Calculate probability of profit
+            # Bear Put Spread profits when price falls below short strike
+            short_delta = abs(short_put.get('delta', 0))
+            probability_profit = min(0.7, (1.0 - short_delta) * 0.8)
+            
             return {
                 'success': True,
                 'strategy_name': self.get_strategy_name(),
@@ -142,6 +135,7 @@ class BearPutSpreadStrategy(BaseStrategy):
                 'max_profit': total_max_profit,
                 'max_loss': total_max_loss,
                 'breakeven': breakeven,
+                'probability_profit': probability_profit,
                 'net_greeks': {
                     'delta': net_delta,
                     'theta': net_theta,

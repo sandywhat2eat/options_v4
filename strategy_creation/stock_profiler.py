@@ -23,6 +23,7 @@ class StockProfiler:
     
     def __init__(self, supabase_client=None):
         self.supabase = supabase_client
+        self._metadata_cache = {}  # Cache for sector/industry data
         
         # Volatility profile definitions
         self.VOLATILITY_PROFILES = {
@@ -175,14 +176,57 @@ class StockProfiler:
             logger.error(f"Error generating profile for {symbol}: {e}")
             return self._get_default_profile(symbol)
     
-    def _get_database_data(self, symbol: str) -> Dict:
-        """Get stock data from database"""
+    def prefetch_metadata(self, symbols: List[str]) -> None:
+        """
+        Prefetch sector and industry data for all symbols in bulk
+        
+        Args:
+            symbols: List of symbols to fetch metadata for
+        """
+        if not self.supabase or not symbols:
+            return
+            
         try:
+            # Clear existing cache
+            self._metadata_cache.clear()
+            
+            # Fetch all metadata in one query
+            response = self.supabase.table('stock_data').select(
+                'symbol,sector,industry,market_capitalization,atm_iv'
+            ).in_('symbol', symbols).execute()
+            
+            if response.data:
+                # Cache the results
+                for record in response.data:
+                    symbol = record.get('symbol')
+                    if symbol:
+                        self._metadata_cache[symbol] = {
+                            'sector': record.get('sector'),
+                            'industry': record.get('industry'),
+                            'market_capitalization': record.get('market_capitalization'),
+                            'atm_iv': record.get('atm_iv')
+                        }
+                
+                logger.info(f"Prefetched metadata for {len(self._metadata_cache)} symbols")
+            
+        except Exception as e:
+            logger.error(f"Error prefetching metadata: {e}")
+            # Continue without cache
+    
+    def _get_database_data(self, symbol: str) -> Dict:
+        """Get stock data from database or cache"""
+        try:
+            # Check cache first
+            if symbol in self._metadata_cache:
+                return self._metadata_cache[symbol]
+                
             if not self.supabase:
                 return {}
                 
             response = self.supabase.table('stock_data').select('*').eq('symbol', symbol).execute()
             if response.data and len(response.data) > 0:
+                # Cache the result
+                self._metadata_cache[symbol] = response.data[0]
                 return response.data[0]
             return {}
             
