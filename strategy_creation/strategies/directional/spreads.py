@@ -77,6 +77,26 @@ class BullCallSpread(BaseStrategy):
             if long_call_data is None or short_call_data is None:
                 return {'success': False, 'reason': 'Option data not available'}
             
+            # NEW: Get smile-adjusted IVs for accurate spread pricing
+            if hasattr(self.options_df, 'attrs') and 'smile_params' in self.options_df.attrs:
+                # Get smile-adjusted IVs
+                long_call_iv = self.options_df[
+                    (self.options_df['strike'] == long_strike) & 
+                    (self.options_df['option_type'] == 'CALL')
+                ]['smile_adjusted_iv'].iloc[0] if 'smile_adjusted_iv' in self.options_df.columns else long_call_data.get('iv', 25)
+                
+                short_call_iv = self.options_df[
+                    (self.options_df['strike'] == short_strike) & 
+                    (self.options_df['option_type'] == 'CALL')
+                ]['smile_adjusted_iv'].iloc[0] if 'smile_adjusted_iv' in self.options_df.columns else short_call_data.get('iv', 25)
+                
+                logger.info(f"Bull Call Spread IVs - Long {long_strike}: {long_call_iv:.1f}%, Short {short_strike}: {short_call_iv:.1f}%")
+                
+                # Check if IV differential makes sense for a debit spread
+                iv_differential = long_call_iv - short_call_iv
+                if iv_differential > 2:  # Long strike has significantly higher IV than short
+                    logger.warning(f"Unfavorable IV skew for Bull Call Spread (debit): {iv_differential:.1f}%")
+            
             # Construct legs using base class method for complete data extraction
             self.legs = [
                 self._create_leg(
@@ -201,6 +221,26 @@ class BearCallSpread(BaseStrategy):
             
             if short_call_data is None or long_call_data is None:
                 return {'success': False, 'reason': 'Option data not available'}
+            
+            # NEW: Get smile-adjusted IVs for accurate spread pricing
+            if hasattr(self.options_df, 'attrs') and 'smile_params' in self.options_df.attrs:
+                # Get smile-adjusted IVs
+                short_call_iv = self.options_df[
+                    (self.options_df['strike'] == short_strike) & 
+                    (self.options_df['option_type'] == 'CALL')
+                ]['smile_adjusted_iv'].iloc[0] if 'smile_adjusted_iv' in self.options_df.columns else short_call_data.get('iv', 25)
+                
+                long_call_iv = self.options_df[
+                    (self.options_df['strike'] == long_strike) & 
+                    (self.options_df['option_type'] == 'CALL')
+                ]['smile_adjusted_iv'].iloc[0] if 'smile_adjusted_iv' in self.options_df.columns else long_call_data.get('iv', 25)
+                
+                logger.info(f"Bear Call Spread IVs - Short {short_strike}: {short_call_iv:.1f}%, Long {long_strike}: {long_call_iv:.1f}%")
+                
+                # Check if IV differential makes sense for a credit spread
+                iv_differential = short_call_iv - long_call_iv
+                if iv_differential < -2:  # Short strike has significantly lower IV than long
+                    logger.warning(f"Unfavorable IV skew for Bear Call Spread: {iv_differential:.1f}%")
             
             # Construct legs using base class method for complete data extraction
             self.legs = [

@@ -10,6 +10,7 @@ from datetime import datetime
 from typing import Dict, Optional, List
 
 from .lot_size_manager import LotSizeManager
+from .volatility_surface import VolatilitySurface
 
 logger = logging.getLogger(__name__)
 
@@ -22,6 +23,7 @@ class DataManager:
             os.getenv('NEXT_PUBLIC_SUPABASE_ANON_KEY')
         )
         self.lot_manager = LotSizeManager()
+        self.vol_surface = VolatilitySurface()
         
     def get_portfolio_symbols(self) -> List[str]:
         """Fetch FNO-enabled stocks from stock_data table"""
@@ -159,6 +161,54 @@ class DataManager:
                 'underlying_price': 'spot_price',
                 'expiry_date': 'expiry'  # Add expiry mapping for Calendar Spread
             })
+            
+            # NEW: Calculate and store volatility smile
+            try:
+                # Fit smile from market data
+                smile_params = self.vol_surface.fit_smile_from_options_chain(df_filtered)
+                
+                if smile_params:
+                    # Add adjusted IV column based on smile
+                    df_filtered['smile_adjusted_iv'] = df_filtered.apply(
+                        lambda row: self.vol_surface.calculate_smile_adjusted_iv(
+                            strike=row['strike'],
+                            spot=row['spot_price'],
+                            expiry=row.get('expiry', 'default'),
+                            option_type=row['option_type'],
+                            base_iv=row.get('iv', 25.0),
+                            use_market_calibration=True
+                        ), axis=1
+                    )
+                    
+                    # Calculate smile risk metrics
+                    smile_metrics = self.vol_surface.calculate_smile_risk_metrics(df_filtered)
+                    
+                    # Add smile metrics to dataframe metadata
+                    df_filtered.attrs['smile_metrics'] = smile_metrics
+                    df_filtered.attrs['smile_params'] = smile_params
+                    
+                    logger.info(f"Volatility smile calibrated for {symbol}: "
+                               f"ATM IV={smile_params.get('atm_iv', 0):.1f}%, "
+                               f"Put skew={smile_params.get('put_skew_slope', 0):.3f}, "
+                               f"Call skew={smile_params.get('call_skew_slope', 0):.3f}")
+                else:
+                    # Use default smile if calibration fails
+                    df_filtered['smile_adjusted_iv'] = df_filtered.apply(
+                        lambda row: self.vol_surface.calculate_smile_adjusted_iv(
+                            strike=row['strike'],
+                            spot=row['spot_price'],
+                            expiry=row.get('expiry', 'default'),
+                            option_type=row['option_type'],
+                            base_iv=row.get('iv', 25.0),
+                            use_market_calibration=False
+                        ), axis=1
+                    )
+                    logger.warning(f"Using default smile for {symbol}")
+                    
+            except Exception as e:
+                logger.error(f"Error applying volatility smile for {symbol}: {e}")
+                # Fallback: use original IV
+                df_filtered['smile_adjusted_iv'] = df_filtered['iv']
             
             return df_filtered
             

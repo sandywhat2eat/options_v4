@@ -78,6 +78,26 @@ class BearPutSpreadStrategy(BaseStrategy):
                     'reason': 'Unable to fetch option data for selected strikes'
                 }
             
+            # NEW: Get smile-adjusted IVs for accurate spread pricing
+            if hasattr(self.options_df, 'attrs') and 'smile_params' in self.options_df.attrs:
+                # Get smile-adjusted IVs
+                long_put_iv = self.options_df[
+                    (self.options_df['strike'] == long_strike) & 
+                    (self.options_df['option_type'] == 'PUT')
+                ]['smile_adjusted_iv'].iloc[0] if 'smile_adjusted_iv' in self.options_df.columns else long_put.get('iv', 25)
+                
+                short_put_iv = self.options_df[
+                    (self.options_df['strike'] == short_strike) & 
+                    (self.options_df['option_type'] == 'PUT')
+                ]['smile_adjusted_iv'].iloc[0] if 'smile_adjusted_iv' in self.options_df.columns else short_put.get('iv', 25)
+                
+                logger.info(f"Bear Put Spread IVs - Long {long_strike}: {long_put_iv:.1f}%, Short {short_strike}: {short_put_iv:.1f}%")
+                
+                # Check if IV differential makes sense for a debit spread
+                iv_differential = long_put_iv - short_put_iv
+                if iv_differential > 2:  # Long strike has significantly higher IV than short
+                    logger.warning(f"Unfavorable IV skew for Bear Put Spread (debit): {iv_differential:.1f}%")
+            
             # Calculate net premium (debit)
             net_premium = long_put['last_price'] - short_put['last_price']
             

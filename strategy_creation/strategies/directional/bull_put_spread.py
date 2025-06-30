@@ -96,6 +96,26 @@ class BullPutSpreadStrategy(BaseStrategy):
                     'reason': 'Unable to fetch option data for selected strikes'
                 }
             
+            # NEW: Get smile-adjusted IVs for accurate spread pricing
+            if hasattr(self.options_df, 'attrs') and 'smile_params' in self.options_df.attrs:
+                # Get smile-adjusted IVs
+                short_put_iv = self.options_df[
+                    (self.options_df['strike'] == short_strike) & 
+                    (self.options_df['option_type'] == 'PUT')
+                ]['smile_adjusted_iv'].iloc[0] if 'smile_adjusted_iv' in self.options_df.columns else short_put.get('iv', 25)
+                
+                long_put_iv = self.options_df[
+                    (self.options_df['strike'] == long_strike) & 
+                    (self.options_df['option_type'] == 'PUT')
+                ]['smile_adjusted_iv'].iloc[0] if 'smile_adjusted_iv' in self.options_df.columns else long_put.get('iv', 25)
+                
+                logger.info(f"Bull Put Spread IVs - Short {short_strike}: {short_put_iv:.1f}%, Long {long_strike}: {long_put_iv:.1f}%")
+                
+                # Check if IV differential makes sense for a credit spread
+                iv_differential = short_put_iv - long_put_iv
+                if iv_differential < -2:  # Short strike has significantly lower IV than long
+                    logger.warning(f"Unfavorable IV skew for Bull Put Spread: {iv_differential:.1f}%")
+            
             # Calculate net premium (credit)
             net_premium = short_put['last_price'] - long_put['last_price']
             
@@ -152,6 +172,11 @@ class BullPutSpreadStrategy(BaseStrategy):
             total_max_loss = max_loss * self.lot_size
             total_net_premium = net_premium * self.lot_size
             
+            # Calculate probability of profit for Bull Put Spread
+            # Credit spread: profits when price stays above short strike
+            short_delta = abs(short_put.get('delta', 0))
+            probability_profit = 1.0 - short_delta  # Probability of staying above short strike
+            
             return {
                 'success': True,
                 'strategy_name': self.get_strategy_name(),
@@ -160,6 +185,7 @@ class BullPutSpreadStrategy(BaseStrategy):
                 'max_profit': total_max_profit,
                 'max_loss': total_max_loss,
                 'breakeven': breakeven,
+                'probability_profit': probability_profit,  # ADDED THIS FIELD
                 'net_greeks': {
                     'delta': net_delta,
                     'theta': net_theta,

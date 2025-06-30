@@ -78,8 +78,13 @@ class StrategyRanker:
                 scored_strategies, risk_tolerance
             )
             
+            # Apply smile-based filtering if smile metrics available
+            smile_filtered = self._apply_smile_filters(
+                filtered_strategies, market_analysis.get('smile_metrics', {})
+            )
+            
             # Apply risk management filters
-            risk_filtered_strategies = self._apply_risk_filters(filtered_strategies)
+            risk_filtered_strategies = self._apply_risk_filters(smile_filtered)
             
             # Sort by total score
             ranked_strategies = sorted(
@@ -167,7 +172,8 @@ class StrategyRanker:
             }
             
         except Exception as e:
-            logger.error(f"Error calculating strategy score for {strategy_name}: {e}")
+            # strategy_name should be in scope from the method parameter
+            logger.error(f"Error calculating strategy score: {e}")
             return {'total_score': 0.0, 'probability_profit': 0.0}
     
     def _calculate_probability_of_profit(self, strategy_name: str, strategy_data: Dict) -> float:
@@ -587,3 +593,49 @@ class StrategyRanker:
         except Exception as e:
             logger.error(f"Error calculating theta score: {e}")
             return 0.5
+    
+    def _apply_smile_filters(self, strategies: Dict, smile_metrics: Dict) -> Dict:
+        """
+        Apply volatility smile-based filtering to strategies
+        
+        Args:
+            strategies: Dictionary of strategies to filter
+            smile_metrics: Smile risk metrics from DataManager
+            
+        Returns:
+            Filtered strategies based on smile conditions
+        """
+        try:
+            if not smile_metrics:
+                # No smile metrics available, pass through all strategies
+                return strategies
+            
+            from strategy_creation.volatility_surface import VolatilitySurface
+            vol_surface = VolatilitySurface()
+            
+            filtered_strategies = {}
+            
+            for strategy_name, strategy_data in strategies.items():
+                # Check if strategy should trade based on smile
+                should_trade, reason = vol_surface.should_trade_based_on_smile(
+                    strategy_name, smile_metrics
+                )
+                
+                if should_trade:
+                    filtered_strategies[strategy_name] = strategy_data
+                else:
+                    logger.info(f"Smile filter rejected {strategy_name}: {reason}")
+                    
+                    # Adjust score for strategies that failed smile filter
+                    if 'total_score' in strategy_data:
+                        strategy_data['total_score'] *= 0.5
+                        strategy_data['smile_filter_reason'] = reason
+                    
+                    # Still include but with reduced score
+                    filtered_strategies[strategy_name] = strategy_data
+            
+            return filtered_strategies
+            
+        except Exception as e:
+            logger.error(f"Error applying smile filters: {e}")
+            return strategies

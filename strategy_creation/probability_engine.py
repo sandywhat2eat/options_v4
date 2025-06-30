@@ -58,7 +58,10 @@ class ProbabilityEngine:
             return 0.5  # Default 50% if calculation fails
     
     def calculate_spread_probability(self, short_delta: float, long_delta: float,
-                                   option_type: str, spread_type: str) -> float:
+                                   option_type: str, spread_type: str,
+                                   short_iv: float = None, long_iv: float = None,
+                                   smile_adjusted_short_iv: float = None,
+                                   smile_adjusted_long_iv: float = None) -> float:
         """
         Calculate probability of profit for spread strategies
         
@@ -67,8 +70,28 @@ class ProbabilityEngine:
             long_delta: Delta of long option  
             option_type: 'CALL' or 'PUT'
             spread_type: 'CREDIT' or 'DEBIT'
+            short_iv: Short strike IV (optional)
+            long_iv: Long strike IV (optional)
+            smile_adjusted_short_iv: Smile-adjusted short strike IV (optional)
+            smile_adjusted_long_iv: Smile-adjusted long strike IV (optional)
         """
         try:
+            # Use smile-adjusted IVs if available
+            effective_short_iv = smile_adjusted_short_iv if smile_adjusted_short_iv else short_iv
+            effective_long_iv = smile_adjusted_long_iv if smile_adjusted_long_iv else long_iv
+            
+            # Calculate IV differential impact on probability
+            iv_adjustment = 0.0
+            if effective_short_iv and effective_long_iv:
+                iv_diff = effective_short_iv - effective_long_iv
+                # Favorable IV differential improves probability
+                if spread_type.upper() == 'CREDIT':
+                    # Credit spreads benefit from higher short IV
+                    iv_adjustment = min(0.05, max(-0.05, iv_diff / 100))
+                else:
+                    # Debit spreads benefit from lower short IV  
+                    iv_adjustment = min(0.05, max(-0.05, -iv_diff / 100))
+            
             if spread_type.upper() == 'CREDIT':
                 # Credit spreads profit when short option expires OTM
                 if option_type.upper() == 'CALL':
@@ -85,6 +108,9 @@ class ProbabilityEngine:
                 else:  # PUT
                     # Bear put spread - need price below short strike
                     prob_profit = 1.0 - abs(short_delta)
+            
+            # Apply IV adjustment
+            prob_profit += iv_adjustment
             
             return min(1.0, max(0.0, prob_profit))
             
@@ -241,7 +267,8 @@ class ProbabilityEngine:
                                          position: str, iv: float = None, 
                                          days_to_expiry: int = None,
                                          premium_pct_of_strike: float = None,
-                                         iv_percentile: float = None) -> float:
+                                         iv_percentile: float = None,
+                                         smile_adjusted_iv: float = None) -> float:
         """
         Calculate probability with market context awareness
         
@@ -253,11 +280,15 @@ class ProbabilityEngine:
             days_to_expiry: Days until expiration
             premium_pct_of_strike: Premium as percentage of strike price
             iv_percentile: Current IV percentile (0-100)
+            smile_adjusted_iv: Volatility smile-adjusted IV (NEW)
         
         Returns:
             Market-aware probability of profit
         """
         try:
+            # Use smile-adjusted IV if available, otherwise fall back to regular IV
+            effective_iv = smile_adjusted_iv if smile_adjusted_iv is not None else iv
+            
             # Base probability from delta
             base_prob = abs(delta)
             
